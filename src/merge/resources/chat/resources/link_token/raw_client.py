@@ -44,6 +44,9 @@ class RawLinkTokenClient:
         are_syncs_disabled: typing.Optional[bool] = OMIT,
         integration_specific_config: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         completed_account_initial_screen: typing.Optional[EndUserDetailsRequestCompletedAccountInitialScreen] = OMIT,
+        linked_destination_id: typing.Optional[str] = OMIT,
+        credential_id: typing.Optional[str] = OMIT,
+        ekm_enabled: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[LinkToken]:
         """
@@ -84,9 +87,6 @@ class RawLinkTokenClient:
         language : typing.Optional[EndUserDetailsRequestLanguage]
             The following subset of IETF language tags can be used to configure localization.
 
-            * `en` - en
-            * `de` - de
-
         are_syncs_disabled : typing.Optional[bool]
             The boolean that indicates whether initial, periodic, and force syncs will be disabled.
 
@@ -96,7 +96,14 @@ class RawLinkTokenClient:
         completed_account_initial_screen : typing.Optional[EndUserDetailsRequestCompletedAccountInitialScreen]
             When creating a Link token, you can specifiy the initial screen of Linking Flow for a completed Linked Account.
 
-            * `SELECTIVE_SYNC` - SELECTIVE_SYNC
+        linked_destination_id : typing.Optional[str]
+            The UUID of the linked destination that you want this Linked Account to be tied to.
+
+        credential_id : typing.Optional[str]
+            The id of the credential that you want this Linked Account to be tied to.
+
+        ekm_enabled : typing.Optional[bool]
+            Whether to enable EKM (External Key Management) for this Linked Account.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -124,6 +131,9 @@ class RawLinkTokenClient:
                 "are_syncs_disabled": are_syncs_disabled,
                 "integration_specific_config": integration_specific_config,
                 "completed_account_initial_screen": completed_account_initial_screen,
+                "linked_destination_id": linked_destination_id,
+                "credential_id": credential_id,
+                "ekm_enabled": ekm_enabled,
             },
             headers={
                 "content-type": "application/json",
@@ -170,6 +180,9 @@ class AsyncRawLinkTokenClient:
         are_syncs_disabled: typing.Optional[bool] = OMIT,
         integration_specific_config: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         completed_account_initial_screen: typing.Optional[EndUserDetailsRequestCompletedAccountInitialScreen] = OMIT,
+        linked_destination_id: typing.Optional[str] = OMIT,
+        credential_id: typing.Optional[str] = OMIT,
+        ekm_enabled: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[LinkToken]:
         """
@@ -210,9 +223,6 @@ class AsyncRawLinkTokenClient:
         language : typing.Optional[EndUserDetailsRequestLanguage]
             The following subset of IETF language tags can be used to configure localization.
 
-            * `en` - en
-            * `de` - de
-
         are_syncs_disabled : typing.Optional[bool]
             The boolean that indicates whether initial, periodic, and force syncs will be disabled.
 
@@ -222,7 +232,14 @@ class AsyncRawLinkTokenClient:
         completed_account_initial_screen : typing.Optional[EndUserDetailsRequestCompletedAccountInitialScreen]
             When creating a Link token, you can specifiy the initial screen of Linking Flow for a completed Linked Account.
 
-            * `SELECTIVE_SYNC` - SELECTIVE_SYNC
+        linked_destination_id : typing.Optional[str]
+            The UUID of the linked destination that you want this Linked Account to be tied to.
+
+        credential_id : typing.Optional[str]
+            The id of the credential that you want this Linked Account to be tied to.
+
+        ekm_enabled : typing.Optional[bool]
+            Whether to enable EKM (External Key Management) for this Linked Account.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -250,6 +267,9 @@ class AsyncRawLinkTokenClient:
                 "are_syncs_disabled": are_syncs_disabled,
                 "integration_specific_config": integration_specific_config,
                 "completed_account_initial_screen": completed_account_initial_screen,
+                "linked_destination_id": linked_destination_id,
+                "credential_id": credential_id,
+                "ekm_enabled": ekm_enabled,
             },
             headers={
                 "content-type": "application/json",

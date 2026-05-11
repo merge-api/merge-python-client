@@ -13,6 +13,8 @@ from .....core.request_options import RequestOptions
 from .....core.unchecked_base_model import construct_type
 from ...types.group import Group
 from ...types.paginated_group_list import PaginatedGroupList
+from .types.groups_list_request_expand_item import GroupsListRequestExpandItem
+from .types.groups_retrieve_request_expand_item import GroupsRetrieveRequestExpandItem
 
 
 class RawGroupsClient:
@@ -25,7 +27,9 @@ class RawGroupsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["child_groups"]] = None,
+        expand: typing.Optional[
+            typing.Union[GroupsListRequestExpandItem, typing.Sequence[GroupsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -49,7 +53,7 @@ class RawGroupsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["child_groups"]]
+        expand : typing.Optional[typing.Union[GroupsListRequestExpandItem, typing.Sequence[GroupsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -68,7 +72,7 @@ class RawGroupsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -118,7 +122,9 @@ class RawGroupsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["child_groups"]] = None,
+        expand: typing.Optional[
+            typing.Union[GroupsRetrieveRequestExpandItem, typing.Sequence[GroupsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -130,7 +136,7 @@ class RawGroupsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["child_groups"]]
+        expand : typing.Optional[typing.Union[GroupsRetrieveRequestExpandItem, typing.Sequence[GroupsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -183,7 +189,9 @@ class AsyncRawGroupsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["child_groups"]] = None,
+        expand: typing.Optional[
+            typing.Union[GroupsListRequestExpandItem, typing.Sequence[GroupsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -207,7 +215,7 @@ class AsyncRawGroupsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["child_groups"]]
+        expand : typing.Optional[typing.Union[GroupsListRequestExpandItem, typing.Sequence[GroupsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -226,7 +234,7 @@ class AsyncRawGroupsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -276,7 +284,9 @@ class AsyncRawGroupsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["child_groups"]] = None,
+        expand: typing.Optional[
+            typing.Union[GroupsRetrieveRequestExpandItem, typing.Sequence[GroupsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -288,7 +298,7 @@ class AsyncRawGroupsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["child_groups"]]
+        expand : typing.Optional[typing.Union[GroupsRetrieveRequestExpandItem, typing.Sequence[GroupsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

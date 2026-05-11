@@ -7,13 +7,6 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class Status3C6Enum(str, enum.Enum):
-    """
-    * `DRAFT` - DRAFT
-    * `PUBLISHED` - PUBLISHED
-    * `ARCHIVED` - ARCHIVED
-    * `TRASH` - TRASH
-    """
-
     DRAFT = "DRAFT"
     PUBLISHED = "PUBLISHED"
     ARCHIVED = "ARCHIVED"

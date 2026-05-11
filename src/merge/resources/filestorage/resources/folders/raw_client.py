@@ -16,8 +16,8 @@ from ...types.folder import Folder
 from ...types.folder_request import FolderRequest
 from ...types.meta_response import MetaResponse
 from ...types.paginated_folder_list import PaginatedFolderList
-from .types.folders_list_request_expand import FoldersListRequestExpand
-from .types.folders_retrieve_request_expand import FoldersRetrieveRequestExpand
+from .types.folders_list_request_expand_item import FoldersListRequestExpandItem
+from .types.folders_retrieve_request_expand_item import FoldersRetrieveRequestExpandItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -34,7 +34,9 @@ class RawFoldersClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         drive_id: typing.Optional[str] = None,
-        expand: typing.Optional[FoldersListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[FoldersListRequestExpandItem, typing.Sequence[FoldersListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -63,7 +65,7 @@ class RawFoldersClient:
         drive_id : typing.Optional[str]
             If provided, will only return folders in this drive.
 
-        expand : typing.Optional[FoldersListRequestExpand]
+        expand : typing.Optional[typing.Union[FoldersListRequestExpandItem, typing.Sequence[FoldersListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -85,7 +87,7 @@ class RawFoldersClient:
             If provided, will only return folders with this name. This performs an exact match.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         parent_folder_id : typing.Optional[str]
             If provided, will only return folders in this parent folder. If null, will return folders in root directory.
@@ -201,7 +203,9 @@ class RawFoldersClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[FoldersRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[FoldersRetrieveRequestExpandItem, typing.Sequence[FoldersRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -213,7 +217,7 @@ class RawFoldersClient:
         ----------
         id : str
 
-        expand : typing.Optional[FoldersRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[FoldersRetrieveRequestExpandItem, typing.Sequence[FoldersRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -303,7 +307,9 @@ class AsyncRawFoldersClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         drive_id: typing.Optional[str] = None,
-        expand: typing.Optional[FoldersListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[FoldersListRequestExpandItem, typing.Sequence[FoldersListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -332,7 +338,7 @@ class AsyncRawFoldersClient:
         drive_id : typing.Optional[str]
             If provided, will only return folders in this drive.
 
-        expand : typing.Optional[FoldersListRequestExpand]
+        expand : typing.Optional[typing.Union[FoldersListRequestExpandItem, typing.Sequence[FoldersListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -354,7 +360,7 @@ class AsyncRawFoldersClient:
             If provided, will only return folders with this name. This performs an exact match.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         parent_folder_id : typing.Optional[str]
             If provided, will only return folders in this parent folder. If null, will return folders in root directory.
@@ -470,7 +476,9 @@ class AsyncRawFoldersClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[FoldersRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[FoldersRetrieveRequestExpandItem, typing.Sequence[FoldersRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -482,7 +490,7 @@ class AsyncRawFoldersClient:
         ----------
         id : str
 
-        expand : typing.Optional[FoldersRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[FoldersRetrieveRequestExpandItem, typing.Sequence[FoldersRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

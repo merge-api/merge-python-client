@@ -11,10 +11,10 @@ from ...types.credit_note_response import CreditNoteResponse
 from ...types.meta_response import MetaResponse
 from ...types.paginated_credit_note_list import PaginatedCreditNoteList
 from .raw_client import AsyncRawCreditNotesClient, RawCreditNotesClient
-from .types.credit_notes_list_request_expand import CreditNotesListRequestExpand
+from .types.credit_notes_list_request_expand_item import CreditNotesListRequestExpandItem
 from .types.credit_notes_list_request_remote_fields import CreditNotesListRequestRemoteFields
 from .types.credit_notes_list_request_show_enum_origins import CreditNotesListRequestShowEnumOrigins
-from .types.credit_notes_retrieve_request_expand import CreditNotesRetrieveRequestExpand
+from .types.credit_notes_retrieve_request_expand_item import CreditNotesRetrieveRequestExpandItem
 from .types.credit_notes_retrieve_request_remote_fields import CreditNotesRetrieveRequestRemoteFields
 from .types.credit_notes_retrieve_request_show_enum_origins import CreditNotesRetrieveRequestShowEnumOrigins
 
@@ -44,7 +44,9 @@ class CreditNotesClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[CreditNotesListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[CreditNotesListRequestExpandItem, typing.Sequence[CreditNotesListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -75,7 +77,7 @@ class CreditNotesClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[CreditNotesListRequestExpand]
+        expand : typing.Optional[typing.Union[CreditNotesListRequestExpandItem, typing.Sequence[CreditNotesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -94,7 +96,7 @@ class CreditNotesClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_fields : typing.Optional[CreditNotesListRequestRemoteFields]
             Deprecated. Use show_enum_origins.
@@ -125,7 +127,6 @@ class CreditNotesClient:
 
         from merge import Merge
         from merge.resources.accounting.resources.credit_notes import (
-            CreditNotesListRequestExpand,
             CreditNotesListRequestRemoteFields,
             CreditNotesListRequestShowEnumOrigins,
         )
@@ -143,7 +144,6 @@ class CreditNotesClient:
                 "2024-01-15 09:30:00+00:00",
             ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            expand=CreditNotesListRequestExpand.ACCOUNTING_PERIOD,
             include_deleted_data=True,
             include_remote_data=True,
             include_shell_data=True,
@@ -239,7 +239,9 @@ class CreditNotesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[CreditNotesRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[CreditNotesRetrieveRequestExpandItem, typing.Sequence[CreditNotesRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[CreditNotesRetrieveRequestRemoteFields] = None,
@@ -253,7 +255,7 @@ class CreditNotesClient:
         ----------
         id : str
 
-        expand : typing.Optional[CreditNotesRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[CreditNotesRetrieveRequestExpandItem, typing.Sequence[CreditNotesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -280,7 +282,6 @@ class CreditNotesClient:
         --------
         from merge import Merge
         from merge.resources.accounting.resources.credit_notes import (
-            CreditNotesRetrieveRequestExpand,
             CreditNotesRetrieveRequestRemoteFields,
             CreditNotesRetrieveRequestShowEnumOrigins,
         )
@@ -291,7 +292,6 @@ class CreditNotesClient:
         )
         client.accounting.credit_notes.retrieve(
             id="id",
-            expand=CreditNotesRetrieveRequestExpand.ACCOUNTING_PERIOD,
             include_remote_data=True,
             include_shell_data=True,
             remote_fields=CreditNotesRetrieveRequestRemoteFields.STATUS,
@@ -307,6 +307,162 @@ class CreditNotesClient:
             show_enum_origins=show_enum_origins,
             request_options=request_options,
         )
+        return _response.data
+
+    def partial_update(
+        self,
+        id: str,
+        *,
+        model: CreditNoteRequest,
+        is_debug_mode: typing.Optional[bool] = None,
+        run_async: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> CreditNoteResponse:
+        """
+        Updates a `CreditNote` object with the given `id`.
+
+        Parameters
+        ----------
+        id : str
+
+        model : CreditNoteRequest
+
+        is_debug_mode : typing.Optional[bool]
+            Whether to include debug fields (such as log file links) in the response.
+
+        run_async : typing.Optional[bool]
+            Whether or not third-party updates should be run asynchronously.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        CreditNoteResponse
+
+
+        Examples
+        --------
+        from merge import Merge
+        from merge.resources.accounting import CreditNoteRequest
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.accounting.credit_notes.partial_update(
+            id="id",
+            is_debug_mode=True,
+            run_async=True,
+            model=CreditNoteRequest(),
+        )
+        """
+        _response = self._raw_client.partial_update(
+            id, model=model, is_debug_mode=is_debug_mode, run_async=run_async, request_options=request_options
+        )
+        return _response.data
+
+    def application_create(
+        self,
+        id: str,
+        *,
+        applied_date: dt.datetime,
+        applied_amount: str,
+        is_debug_mode: typing.Optional[bool] = None,
+        run_async: typing.Optional[bool] = None,
+        invoice: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> CreditNoteResponse:
+        """
+        Creates a new CreditNoteApplyLine to apply a credit note to an invoice
+
+        Parameters
+        ----------
+        id : str
+
+        applied_date : dt.datetime
+            Date that the credit note is applied to the invoice.
+
+        applied_amount : str
+            The amount of credit applied to the invoice.
+
+        is_debug_mode : typing.Optional[bool]
+            Whether to include debug fields (such as log file links) in the response.
+
+        run_async : typing.Optional[bool]
+            Whether or not third-party updates should be run asynchronously.
+
+        invoice : typing.Optional[str]
+            The invoice to apply the credit note to.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        CreditNoteResponse
+
+
+        Examples
+        --------
+        import datetime
+
+        from merge import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.accounting.credit_notes.application_create(
+            id="id",
+            is_debug_mode=True,
+            run_async=True,
+            applied_date=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            applied_amount="applied_amount",
+        )
+        """
+        _response = self._raw_client.application_create(
+            id,
+            applied_date=applied_date,
+            applied_amount=applied_amount,
+            is_debug_mode=is_debug_mode,
+            run_async=run_async,
+            invoice=invoice,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def meta_patch_retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
+        """
+        Returns metadata for `CreditNote` PATCHs.
+
+        Parameters
+        ----------
+        id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        MetaResponse
+
+
+        Examples
+        --------
+        from merge import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.accounting.credit_notes.meta_patch_retrieve(
+            id="id",
+        )
+        """
+        _response = self._raw_client.meta_patch_retrieve(id, request_options=request_options)
         return _response.data
 
     def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
@@ -359,7 +515,9 @@ class AsyncCreditNotesClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[CreditNotesListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[CreditNotesListRequestExpandItem, typing.Sequence[CreditNotesListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -390,7 +548,7 @@ class AsyncCreditNotesClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[CreditNotesListRequestExpand]
+        expand : typing.Optional[typing.Union[CreditNotesListRequestExpandItem, typing.Sequence[CreditNotesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -409,7 +567,7 @@ class AsyncCreditNotesClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_fields : typing.Optional[CreditNotesListRequestRemoteFields]
             Deprecated. Use show_enum_origins.
@@ -441,7 +599,6 @@ class AsyncCreditNotesClient:
 
         from merge import AsyncMerge
         from merge.resources.accounting.resources.credit_notes import (
-            CreditNotesListRequestExpand,
             CreditNotesListRequestRemoteFields,
             CreditNotesListRequestShowEnumOrigins,
         )
@@ -462,7 +619,6 @@ class AsyncCreditNotesClient:
                     "2024-01-15 09:30:00+00:00",
                 ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                expand=CreditNotesListRequestExpand.ACCOUNTING_PERIOD,
                 include_deleted_data=True,
                 include_remote_data=True,
                 include_shell_data=True,
@@ -569,7 +725,9 @@ class AsyncCreditNotesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[CreditNotesRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[CreditNotesRetrieveRequestExpandItem, typing.Sequence[CreditNotesRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[CreditNotesRetrieveRequestRemoteFields] = None,
@@ -583,7 +741,7 @@ class AsyncCreditNotesClient:
         ----------
         id : str
 
-        expand : typing.Optional[CreditNotesRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[CreditNotesRetrieveRequestExpandItem, typing.Sequence[CreditNotesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -612,7 +770,6 @@ class AsyncCreditNotesClient:
 
         from merge import AsyncMerge
         from merge.resources.accounting.resources.credit_notes import (
-            CreditNotesRetrieveRequestExpand,
             CreditNotesRetrieveRequestRemoteFields,
             CreditNotesRetrieveRequestShowEnumOrigins,
         )
@@ -626,7 +783,6 @@ class AsyncCreditNotesClient:
         async def main() -> None:
             await client.accounting.credit_notes.retrieve(
                 id="id",
-                expand=CreditNotesRetrieveRequestExpand.ACCOUNTING_PERIOD,
                 include_remote_data=True,
                 include_shell_data=True,
                 remote_fields=CreditNotesRetrieveRequestRemoteFields.STATUS,
@@ -645,6 +801,187 @@ class AsyncCreditNotesClient:
             show_enum_origins=show_enum_origins,
             request_options=request_options,
         )
+        return _response.data
+
+    async def partial_update(
+        self,
+        id: str,
+        *,
+        model: CreditNoteRequest,
+        is_debug_mode: typing.Optional[bool] = None,
+        run_async: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> CreditNoteResponse:
+        """
+        Updates a `CreditNote` object with the given `id`.
+
+        Parameters
+        ----------
+        id : str
+
+        model : CreditNoteRequest
+
+        is_debug_mode : typing.Optional[bool]
+            Whether to include debug fields (such as log file links) in the response.
+
+        run_async : typing.Optional[bool]
+            Whether or not third-party updates should be run asynchronously.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        CreditNoteResponse
+
+
+        Examples
+        --------
+        import asyncio
+
+        from merge import AsyncMerge
+        from merge.resources.accounting import CreditNoteRequest
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.accounting.credit_notes.partial_update(
+                id="id",
+                is_debug_mode=True,
+                run_async=True,
+                model=CreditNoteRequest(),
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.partial_update(
+            id, model=model, is_debug_mode=is_debug_mode, run_async=run_async, request_options=request_options
+        )
+        return _response.data
+
+    async def application_create(
+        self,
+        id: str,
+        *,
+        applied_date: dt.datetime,
+        applied_amount: str,
+        is_debug_mode: typing.Optional[bool] = None,
+        run_async: typing.Optional[bool] = None,
+        invoice: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> CreditNoteResponse:
+        """
+        Creates a new CreditNoteApplyLine to apply a credit note to an invoice
+
+        Parameters
+        ----------
+        id : str
+
+        applied_date : dt.datetime
+            Date that the credit note is applied to the invoice.
+
+        applied_amount : str
+            The amount of credit applied to the invoice.
+
+        is_debug_mode : typing.Optional[bool]
+            Whether to include debug fields (such as log file links) in the response.
+
+        run_async : typing.Optional[bool]
+            Whether or not third-party updates should be run asynchronously.
+
+        invoice : typing.Optional[str]
+            The invoice to apply the credit note to.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        CreditNoteResponse
+
+
+        Examples
+        --------
+        import asyncio
+        import datetime
+
+        from merge import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.accounting.credit_notes.application_create(
+                id="id",
+                is_debug_mode=True,
+                run_async=True,
+                applied_date=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                applied_amount="applied_amount",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.application_create(
+            id,
+            applied_date=applied_date,
+            applied_amount=applied_amount,
+            is_debug_mode=is_debug_mode,
+            run_async=run_async,
+            invoice=invoice,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def meta_patch_retrieve(
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> MetaResponse:
+        """
+        Returns metadata for `CreditNote` PATCHs.
+
+        Parameters
+        ----------
+        id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        MetaResponse
+
+
+        Examples
+        --------
+        import asyncio
+
+        from merge import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.accounting.credit_notes.meta_patch_retrieve(
+                id="id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.meta_patch_retrieve(id, request_options=request_options)
         return _response.data
 
     async def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:

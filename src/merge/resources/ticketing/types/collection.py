@@ -10,6 +10,7 @@ from ....core.pydantic_utilities import IS_PYDANTIC_V2, update_forward_refs
 from ....core.unchecked_base_model import UncheckedBaseModel
 from .collection_access_level import CollectionAccessLevel
 from .collection_collection_type import CollectionCollectionType
+from .collection_permissions_item import CollectionPermissionsItem
 from .remote_data import RemoteData
 
 
@@ -72,6 +73,7 @@ class Collection(UncheckedBaseModel):
     The parent collection for this collection.
     """
 
+    permissions: typing.Optional[typing.List[CollectionPermissionsItem]] = None
     collection_url: typing.Optional[str] = pydantic.Field(default=None)
     """
     The 3rd party url of the Collection.

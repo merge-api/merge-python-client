@@ -7,9 +7,9 @@ import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2
 from ....core.unchecked_base_model import UncheckedBaseModel
 from .remote_data import RemoteData
+from .tax_component import TaxComponent
 from .tax_rate_company import TaxRateCompany
 from .tax_rate_status import TaxRateStatus
-from .tax_rate_tax_components_item import TaxRateTaxComponentsItem
 
 
 class TaxRate(UncheckedBaseModel):
@@ -81,7 +81,7 @@ class TaxRate(UncheckedBaseModel):
     The tax rate’s effective tax rate - total amount of tax with compounding.
     """
 
-    tax_components: typing.Optional[typing.List[TaxRateTaxComponentsItem]] = pydantic.Field(default=None)
+    tax_components: typing.Optional[typing.List[TaxComponent]] = pydantic.Field(default=None)
     """
     The related tax components of the tax rate.
     """

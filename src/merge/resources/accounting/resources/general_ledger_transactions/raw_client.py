@@ -13,8 +13,10 @@ from .....core.request_options import RequestOptions
 from .....core.unchecked_base_model import construct_type
 from ...types.general_ledger_transaction import GeneralLedgerTransaction
 from ...types.paginated_general_ledger_transaction_list import PaginatedGeneralLedgerTransactionList
-from .types.general_ledger_transactions_list_request_expand import GeneralLedgerTransactionsListRequestExpand
-from .types.general_ledger_transactions_retrieve_request_expand import GeneralLedgerTransactionsRetrieveRequestExpand
+from .types.general_ledger_transactions_list_request_expand_item import GeneralLedgerTransactionsListRequestExpandItem
+from .types.general_ledger_transactions_retrieve_request_expand_item import (
+    GeneralLedgerTransactionsRetrieveRequestExpandItem,
+)
 
 
 class RawGeneralLedgerTransactionsClient:
@@ -28,7 +30,12 @@ class RawGeneralLedgerTransactionsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[GeneralLedgerTransactionsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                GeneralLedgerTransactionsListRequestExpandItem,
+                typing.Sequence[GeneralLedgerTransactionsListRequestExpandItem],
+            ]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -57,7 +64,7 @@ class RawGeneralLedgerTransactionsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[GeneralLedgerTransactionsListRequestExpand]
+        expand : typing.Optional[typing.Union[GeneralLedgerTransactionsListRequestExpandItem, typing.Sequence[GeneralLedgerTransactionsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -76,7 +83,7 @@ class RawGeneralLedgerTransactionsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         posted_date_after : typing.Optional[dt.datetime]
             If provided, will only return objects posted after this datetime.
@@ -137,7 +144,12 @@ class RawGeneralLedgerTransactionsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[GeneralLedgerTransactionsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                GeneralLedgerTransactionsRetrieveRequestExpandItem,
+                typing.Sequence[GeneralLedgerTransactionsRetrieveRequestExpandItem],
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -149,7 +161,7 @@ class RawGeneralLedgerTransactionsClient:
         ----------
         id : str
 
-        expand : typing.Optional[GeneralLedgerTransactionsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[GeneralLedgerTransactionsRetrieveRequestExpandItem, typing.Sequence[GeneralLedgerTransactionsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -203,7 +215,12 @@ class AsyncRawGeneralLedgerTransactionsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[GeneralLedgerTransactionsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                GeneralLedgerTransactionsListRequestExpandItem,
+                typing.Sequence[GeneralLedgerTransactionsListRequestExpandItem],
+            ]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -232,7 +249,7 @@ class AsyncRawGeneralLedgerTransactionsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[GeneralLedgerTransactionsListRequestExpand]
+        expand : typing.Optional[typing.Union[GeneralLedgerTransactionsListRequestExpandItem, typing.Sequence[GeneralLedgerTransactionsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -251,7 +268,7 @@ class AsyncRawGeneralLedgerTransactionsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         posted_date_after : typing.Optional[dt.datetime]
             If provided, will only return objects posted after this datetime.
@@ -312,7 +329,12 @@ class AsyncRawGeneralLedgerTransactionsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[GeneralLedgerTransactionsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                GeneralLedgerTransactionsRetrieveRequestExpandItem,
+                typing.Sequence[GeneralLedgerTransactionsRetrieveRequestExpandItem],
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -324,7 +346,7 @@ class AsyncRawGeneralLedgerTransactionsClient:
         ----------
         id : str
 
-        expand : typing.Optional[GeneralLedgerTransactionsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[GeneralLedgerTransactionsRetrieveRequestExpandItem, typing.Sequence[GeneralLedgerTransactionsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

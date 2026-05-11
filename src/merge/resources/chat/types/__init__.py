@@ -27,6 +27,8 @@ if typing.TYPE_CHECKING:
     from .common_model_scopes_body_request import CommonModelScopesBodyRequest
     from .completed_account_initial_screen_enum import CompletedAccountInitialScreenEnum
     from .conversation import Conversation
+    from .conversation_field_mappings import ConversationFieldMappings
+    from .conversation_members_item import ConversationMembersItem
     from .conversation_type import ConversationType
     from .data_passthrough_request import DataPassthroughRequest
     from .data_passthrough_request_method import DataPassthroughRequestMethod
@@ -50,6 +52,8 @@ if typing.TYPE_CHECKING:
     from .field_permission_deserializer import FieldPermissionDeserializer
     from .field_permission_deserializer_request import FieldPermissionDeserializerRequest
     from .group import Group
+    from .group_field_mappings import GroupFieldMappings
+    from .group_users_item import GroupUsersItem
     from .individual_common_model_scope_deserializer import IndividualCommonModelScopeDeserializer
     from .individual_common_model_scope_deserializer_request import IndividualCommonModelScopeDeserializerRequest
     from .issue import Issue
@@ -59,6 +63,9 @@ if typing.TYPE_CHECKING:
     from .last_sync_result_enum import LastSyncResultEnum
     from .link_token import LinkToken
     from .member import Member
+    from .member_field_mappings import MemberFieldMappings
+    from .member_group import MemberGroup
+    from .member_user import MemberUser
     from .message import Message
     from .method_enum import MethodEnum
     from .model_operation import ModelOperation
@@ -75,6 +82,7 @@ if typing.TYPE_CHECKING:
     from .paginated_message_list import PaginatedMessageList
     from .paginated_sync_status_list import PaginatedSyncStatusList
     from .paginated_user_list import PaginatedUserList
+    from .regenerate_account_token import RegenerateAccountToken
     from .remote_data import RemoteData
     from .remote_endpoint_info import RemoteEndpointInfo
     from .remote_field_api import RemoteFieldApi
@@ -94,6 +102,8 @@ if typing.TYPE_CHECKING:
     from .sync_status_status import SyncStatusStatus
     from .type_enum import TypeEnum
     from .user import User
+    from .user_field_mappings import UserFieldMappings
+    from .user_groups_item import UserGroupsItem
     from .validation_problem_source import ValidationProblemSource
     from .warning_validation_problem import WarningValidationProblem
     from .webhook_receiver import WebhookReceiver
@@ -119,6 +129,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CommonModelScopesBodyRequest": ".common_model_scopes_body_request",
     "CompletedAccountInitialScreenEnum": ".completed_account_initial_screen_enum",
     "Conversation": ".conversation",
+    "ConversationFieldMappings": ".conversation_field_mappings",
+    "ConversationMembersItem": ".conversation_members_item",
     "ConversationType": ".conversation_type",
     "DataPassthroughRequest": ".data_passthrough_request",
     "DataPassthroughRequestMethod": ".data_passthrough_request_method",
@@ -140,6 +152,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "FieldPermissionDeserializer": ".field_permission_deserializer",
     "FieldPermissionDeserializerRequest": ".field_permission_deserializer_request",
     "Group": ".group",
+    "GroupFieldMappings": ".group_field_mappings",
+    "GroupUsersItem": ".group_users_item",
     "IndividualCommonModelScopeDeserializer": ".individual_common_model_scope_deserializer",
     "IndividualCommonModelScopeDeserializerRequest": ".individual_common_model_scope_deserializer_request",
     "Issue": ".issue",
@@ -149,6 +163,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "LastSyncResultEnum": ".last_sync_result_enum",
     "LinkToken": ".link_token",
     "Member": ".member",
+    "MemberFieldMappings": ".member_field_mappings",
+    "MemberGroup": ".member_group",
+    "MemberUser": ".member_user",
     "Message": ".message",
     "MethodEnum": ".method_enum",
     "ModelOperation": ".model_operation",
@@ -165,6 +182,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PaginatedMessageList": ".paginated_message_list",
     "PaginatedSyncStatusList": ".paginated_sync_status_list",
     "PaginatedUserList": ".paginated_user_list",
+    "RegenerateAccountToken": ".regenerate_account_token",
     "RemoteData": ".remote_data",
     "RemoteEndpointInfo": ".remote_endpoint_info",
     "RemoteFieldApi": ".remote_field_api",
@@ -184,6 +202,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "SyncStatusStatus": ".sync_status_status",
     "TypeEnum": ".type_enum",
     "User": ".user",
+    "UserFieldMappings": ".user_field_mappings",
+    "UserGroupsItem": ".user_groups_item",
     "ValidationProblemSource": ".validation_problem_source",
     "WarningValidationProblem": ".warning_validation_problem",
     "WebhookReceiver": ".webhook_receiver",
@@ -231,6 +251,8 @@ __all__ = [
     "CommonModelScopesBodyRequest",
     "CompletedAccountInitialScreenEnum",
     "Conversation",
+    "ConversationFieldMappings",
+    "ConversationMembersItem",
     "ConversationType",
     "DataPassthroughRequest",
     "DataPassthroughRequestMethod",
@@ -252,6 +274,8 @@ __all__ = [
     "FieldPermissionDeserializer",
     "FieldPermissionDeserializerRequest",
     "Group",
+    "GroupFieldMappings",
+    "GroupUsersItem",
     "IndividualCommonModelScopeDeserializer",
     "IndividualCommonModelScopeDeserializerRequest",
     "Issue",
@@ -261,6 +285,9 @@ __all__ = [
     "LastSyncResultEnum",
     "LinkToken",
     "Member",
+    "MemberFieldMappings",
+    "MemberGroup",
+    "MemberUser",
     "Message",
     "MethodEnum",
     "ModelOperation",
@@ -277,6 +304,7 @@ __all__ = [
     "PaginatedMessageList",
     "PaginatedSyncStatusList",
     "PaginatedUserList",
+    "RegenerateAccountToken",
     "RemoteData",
     "RemoteEndpointInfo",
     "RemoteFieldApi",
@@ -296,6 +324,8 @@ __all__ = [
     "SyncStatusStatus",
     "TypeEnum",
     "User",
+    "UserFieldMappings",
+    "UserGroupsItem",
     "ValidationProblemSource",
     "WarningValidationProblem",
     "WebhookReceiver",

@@ -7,16 +7,16 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .types import (
-        JobsListRequestExpand,
+        JobsListRequestExpandItem,
         JobsListRequestStatus,
-        JobsRetrieveRequestExpand,
-        JobsScreeningQuestionsListRequestExpand,
+        JobsRetrieveRequestExpandItem,
+        JobsScreeningQuestionsListRequestExpandItem,
     )
 _dynamic_imports: typing.Dict[str, str] = {
-    "JobsListRequestExpand": ".types",
+    "JobsListRequestExpandItem": ".types",
     "JobsListRequestStatus": ".types",
-    "JobsRetrieveRequestExpand": ".types",
-    "JobsScreeningQuestionsListRequestExpand": ".types",
+    "JobsRetrieveRequestExpandItem": ".types",
+    "JobsScreeningQuestionsListRequestExpandItem": ".types",
 }
 
 
@@ -40,8 +40,8 @@ def __dir__():
 
 
 __all__ = [
-    "JobsListRequestExpand",
+    "JobsListRequestExpandItem",
     "JobsListRequestStatus",
-    "JobsRetrieveRequestExpand",
-    "JobsScreeningQuestionsListRequestExpand",
+    "JobsRetrieveRequestExpandItem",
+    "JobsScreeningQuestionsListRequestExpandItem",
 ]

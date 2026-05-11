@@ -99,6 +99,8 @@ if typing.TYPE_CHECKING:
     from .field_permission_deserializer import FieldPermissionDeserializer
     from .field_permission_deserializer_request import FieldPermissionDeserializerRequest
     from .gender_enum import GenderEnum
+    from .ignore_common_model_request import IgnoreCommonModelRequest
+    from .ignore_common_model_request_reason import IgnoreCommonModelRequestReason
     from .individual_common_model_scope_deserializer import IndividualCommonModelScopeDeserializer
     from .individual_common_model_scope_deserializer_request import IndividualCommonModelScopeDeserializerRequest
     from .issue import Issue
@@ -167,6 +169,7 @@ if typing.TYPE_CHECKING:
     from .phone_number_type_enum import PhoneNumberTypeEnum
     from .race_enum import RaceEnum
     from .reason_enum import ReasonEnum
+    from .regenerate_account_token import RegenerateAccountToken
     from .reject_reason import RejectReason
     from .remote_data import RemoteData
     from .remote_endpoint_info import RemoteEndpointInfo
@@ -207,6 +210,7 @@ if typing.TYPE_CHECKING:
     from .screening_question_answer_request_question import ScreeningQuestionAnswerRequestQuestion
     from .screening_question_job import ScreeningQuestionJob
     from .screening_question_option import ScreeningQuestionOption
+    from .screening_question_options_item import ScreeningQuestionOptionsItem
     from .screening_question_type import ScreeningQuestionType
     from .screening_question_type_enum import ScreeningQuestionTypeEnum
     from .selective_sync_configurations_usage_enum import SelectiveSyncConfigurationsUsageEnum
@@ -317,6 +321,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "FieldPermissionDeserializer": ".field_permission_deserializer",
     "FieldPermissionDeserializerRequest": ".field_permission_deserializer_request",
     "GenderEnum": ".gender_enum",
+    "IgnoreCommonModelRequest": ".ignore_common_model_request",
+    "IgnoreCommonModelRequestReason": ".ignore_common_model_request_reason",
     "IndividualCommonModelScopeDeserializer": ".individual_common_model_scope_deserializer",
     "IndividualCommonModelScopeDeserializerRequest": ".individual_common_model_scope_deserializer_request",
     "Issue": ".issue",
@@ -385,6 +391,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PhoneNumberTypeEnum": ".phone_number_type_enum",
     "RaceEnum": ".race_enum",
     "ReasonEnum": ".reason_enum",
+    "RegenerateAccountToken": ".regenerate_account_token",
     "RejectReason": ".reject_reason",
     "RemoteData": ".remote_data",
     "RemoteEndpointInfo": ".remote_endpoint_info",
@@ -425,6 +432,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ScreeningQuestionAnswerRequestQuestion": ".screening_question_answer_request_question",
     "ScreeningQuestionJob": ".screening_question_job",
     "ScreeningQuestionOption": ".screening_question_option",
+    "ScreeningQuestionOptionsItem": ".screening_question_options_item",
     "ScreeningQuestionType": ".screening_question_type",
     "ScreeningQuestionTypeEnum": ".screening_question_type_enum",
     "SelectiveSyncConfigurationsUsageEnum": ".selective_sync_configurations_usage_enum",
@@ -557,6 +565,8 @@ __all__ = [
     "FieldPermissionDeserializer",
     "FieldPermissionDeserializerRequest",
     "GenderEnum",
+    "IgnoreCommonModelRequest",
+    "IgnoreCommonModelRequestReason",
     "IndividualCommonModelScopeDeserializer",
     "IndividualCommonModelScopeDeserializerRequest",
     "Issue",
@@ -625,6 +635,7 @@ __all__ = [
     "PhoneNumberTypeEnum",
     "RaceEnum",
     "ReasonEnum",
+    "RegenerateAccountToken",
     "RejectReason",
     "RemoteData",
     "RemoteEndpointInfo",
@@ -665,6 +676,7 @@ __all__ = [
     "ScreeningQuestionAnswerRequestQuestion",
     "ScreeningQuestionJob",
     "ScreeningQuestionOption",
+    "ScreeningQuestionOptionsItem",
     "ScreeningQuestionType",
     "ScreeningQuestionTypeEnum",
     "SelectiveSyncConfigurationsUsageEnum",

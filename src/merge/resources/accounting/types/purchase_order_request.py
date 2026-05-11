@@ -6,10 +6,10 @@ import typing
 import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2
 from ....core.unchecked_base_model import UncheckedBaseModel
-from .purchase_order_line_item_request import PurchaseOrderLineItemRequest
 from .purchase_order_request_company import PurchaseOrderRequestCompany
 from .purchase_order_request_currency import PurchaseOrderRequestCurrency
 from .purchase_order_request_delivery_address import PurchaseOrderRequestDeliveryAddress
+from .purchase_order_request_line_items_item import PurchaseOrderRequestLineItemsItem
 from .purchase_order_request_payment_term import PurchaseOrderRequestPaymentTerm
 from .purchase_order_request_status import PurchaseOrderRequestStatus
 from .purchase_order_request_tracking_categories_item import PurchaseOrderRequestTrackingCategoriesItem
@@ -408,7 +408,7 @@ class PurchaseOrderRequest(UncheckedBaseModel):
     tracking_categories: typing.Optional[typing.List[typing.Optional[PurchaseOrderRequestTrackingCategoriesItem]]] = (
         None
     )
-    line_items: typing.Optional[typing.List[PurchaseOrderLineItemRequest]] = None
+    line_items: typing.Optional[typing.List[PurchaseOrderRequestLineItemsItem]] = None
     integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
     linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
     remote_fields: typing.Optional[typing.List[RemoteFieldRequest]] = None

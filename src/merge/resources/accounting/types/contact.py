@@ -6,8 +6,9 @@ import typing
 import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2
 from ....core.unchecked_base_model import UncheckedBaseModel
-from .accounting_phone_number import AccountingPhoneNumber
 from .contact_addresses_item import ContactAddressesItem
+from .contact_company import ContactCompany
+from .contact_phone_numbers_item import ContactPhoneNumbersItem
 from .contact_status import ContactStatus
 from .remote_data import RemoteData
 from .remote_field import RemoteField
@@ -84,17 +85,17 @@ class Contact(UncheckedBaseModel):
     When the third party's contact was updated.
     """
 
-    company: typing.Optional[str] = pydantic.Field(default=None)
+    company: typing.Optional[ContactCompany] = pydantic.Field(default=None)
     """
     The company the contact belongs to.
     """
 
-    addresses: typing.Optional[typing.List[typing.Optional[ContactAddressesItem]]] = pydantic.Field(default=None)
+    addresses: typing.Optional[typing.List[ContactAddressesItem]] = pydantic.Field(default=None)
     """
     `Address` object IDs for the given `Contacts` object.
     """
 
-    phone_numbers: typing.Optional[typing.List[AccountingPhoneNumber]] = pydantic.Field(default=None)
+    phone_numbers: typing.Optional[typing.List[ContactPhoneNumbersItem]] = pydantic.Field(default=None)
     """
     `AccountingPhoneNumber` object for the given `Contacts` object.
     """

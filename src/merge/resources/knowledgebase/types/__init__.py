@@ -19,6 +19,7 @@ if typing.TYPE_CHECKING:
     from .article import Article
     from .article_attachments_item import ArticleAttachmentsItem
     from .article_author import ArticleAuthor
+    from .article_field_mappings import ArticleFieldMappings
     from .article_last_edited_by import ArticleLastEditedBy
     from .article_parent_article import ArticleParentArticle
     from .article_parent_container import ArticleParentContainer
@@ -30,6 +31,7 @@ if typing.TYPE_CHECKING:
     from .article_visibility import ArticleVisibility
     from .async_passthrough_reciept import AsyncPassthroughReciept
     from .attachment import Attachment
+    from .attachment_field_mappings import AttachmentFieldMappings
     from .audit_log_event import AuditLogEvent
     from .audit_log_event_event_type import AuditLogEventEventType
     from .audit_log_event_role import AuditLogEventRole
@@ -40,6 +42,7 @@ if typing.TYPE_CHECKING:
     from .common_model_scopes_body_request import CommonModelScopesBodyRequest
     from .completed_account_initial_screen_enum import CompletedAccountInitialScreenEnum
     from .container import Container
+    from .container_field_mappings import ContainerFieldMappings
     from .container_permissions_item import ContainerPermissionsItem
     from .container_status import ContainerStatus
     from .container_type import ContainerType
@@ -67,6 +70,7 @@ if typing.TYPE_CHECKING:
     from .field_permission_deserializer import FieldPermissionDeserializer
     from .field_permission_deserializer_request import FieldPermissionDeserializerRequest
     from .group import Group
+    from .group_field_mappings import GroupFieldMappings
     from .group_parent_group import GroupParentGroup
     from .group_users_item import GroupUsersItem
     from .individual_common_model_scope_deserializer import IndividualCommonModelScopeDeserializer
@@ -93,10 +97,12 @@ if typing.TYPE_CHECKING:
     from .paginated_sync_status_list import PaginatedSyncStatusList
     from .paginated_user_list import PaginatedUserList
     from .permission import Permission
+    from .permission_field_mappings import PermissionFieldMappings
     from .permission_group import PermissionGroup
     from .permission_type import PermissionType
     from .permission_type_enum import PermissionTypeEnum
     from .permission_user import PermissionUser
+    from .regenerate_account_token import RegenerateAccountToken
     from .remote_data import RemoteData
     from .remote_endpoint_info import RemoteEndpointInfo
     from .remote_field_api import RemoteFieldApi
@@ -117,6 +123,7 @@ if typing.TYPE_CHECKING:
     from .sync_status_last_sync_result import SyncStatusLastSyncResult
     from .sync_status_status import SyncStatusStatus
     from .user import User
+    from .user_field_mappings import UserFieldMappings
     from .validation_problem_source import ValidationProblemSource
     from .visibility_enum import VisibilityEnum
     from .warning_validation_problem import WarningValidationProblem
@@ -135,6 +142,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Article": ".article",
     "ArticleAttachmentsItem": ".article_attachments_item",
     "ArticleAuthor": ".article_author",
+    "ArticleFieldMappings": ".article_field_mappings",
     "ArticleLastEditedBy": ".article_last_edited_by",
     "ArticleParentArticle": ".article_parent_article",
     "ArticleParentContainer": ".article_parent_container",
@@ -146,6 +154,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ArticleVisibility": ".article_visibility",
     "AsyncPassthroughReciept": ".async_passthrough_reciept",
     "Attachment": ".attachment",
+    "AttachmentFieldMappings": ".attachment_field_mappings",
     "AuditLogEvent": ".audit_log_event",
     "AuditLogEventEventType": ".audit_log_event_event_type",
     "AuditLogEventRole": ".audit_log_event_role",
@@ -156,6 +165,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CommonModelScopesBodyRequest": ".common_model_scopes_body_request",
     "CompletedAccountInitialScreenEnum": ".completed_account_initial_screen_enum",
     "Container": ".container",
+    "ContainerFieldMappings": ".container_field_mappings",
     "ContainerPermissionsItem": ".container_permissions_item",
     "ContainerStatus": ".container_status",
     "ContainerType": ".container_type",
@@ -181,6 +191,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "FieldPermissionDeserializer": ".field_permission_deserializer",
     "FieldPermissionDeserializerRequest": ".field_permission_deserializer_request",
     "Group": ".group",
+    "GroupFieldMappings": ".group_field_mappings",
     "GroupParentGroup": ".group_parent_group",
     "GroupUsersItem": ".group_users_item",
     "IndividualCommonModelScopeDeserializer": ".individual_common_model_scope_deserializer",
@@ -207,10 +218,12 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PaginatedSyncStatusList": ".paginated_sync_status_list",
     "PaginatedUserList": ".paginated_user_list",
     "Permission": ".permission",
+    "PermissionFieldMappings": ".permission_field_mappings",
     "PermissionGroup": ".permission_group",
     "PermissionType": ".permission_type",
     "PermissionTypeEnum": ".permission_type_enum",
     "PermissionUser": ".permission_user",
+    "RegenerateAccountToken": ".regenerate_account_token",
     "RemoteData": ".remote_data",
     "RemoteEndpointInfo": ".remote_endpoint_info",
     "RemoteFieldApi": ".remote_field_api",
@@ -231,6 +244,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "SyncStatusLastSyncResult": ".sync_status_last_sync_result",
     "SyncStatusStatus": ".sync_status_status",
     "User": ".user",
+    "UserFieldMappings": ".user_field_mappings",
     "ValidationProblemSource": ".validation_problem_source",
     "VisibilityEnum": ".visibility_enum",
     "WarningValidationProblem": ".warning_validation_problem",
@@ -271,6 +285,7 @@ __all__ = [
     "Article",
     "ArticleAttachmentsItem",
     "ArticleAuthor",
+    "ArticleFieldMappings",
     "ArticleLastEditedBy",
     "ArticleParentArticle",
     "ArticleParentContainer",
@@ -282,6 +297,7 @@ __all__ = [
     "ArticleVisibility",
     "AsyncPassthroughReciept",
     "Attachment",
+    "AttachmentFieldMappings",
     "AuditLogEvent",
     "AuditLogEventEventType",
     "AuditLogEventRole",
@@ -292,6 +308,7 @@ __all__ = [
     "CommonModelScopesBodyRequest",
     "CompletedAccountInitialScreenEnum",
     "Container",
+    "ContainerFieldMappings",
     "ContainerPermissionsItem",
     "ContainerStatus",
     "ContainerType",
@@ -317,6 +334,7 @@ __all__ = [
     "FieldPermissionDeserializer",
     "FieldPermissionDeserializerRequest",
     "Group",
+    "GroupFieldMappings",
     "GroupParentGroup",
     "GroupUsersItem",
     "IndividualCommonModelScopeDeserializer",
@@ -343,10 +361,12 @@ __all__ = [
     "PaginatedSyncStatusList",
     "PaginatedUserList",
     "Permission",
+    "PermissionFieldMappings",
     "PermissionGroup",
     "PermissionType",
     "PermissionTypeEnum",
     "PermissionUser",
+    "RegenerateAccountToken",
     "RemoteData",
     "RemoteEndpointInfo",
     "RemoteFieldApi",
@@ -367,6 +387,7 @@ __all__ = [
     "SyncStatusLastSyncResult",
     "SyncStatusStatus",
     "User",
+    "UserFieldMappings",
     "ValidationProblemSource",
     "VisibilityEnum",
     "WarningValidationProblem",

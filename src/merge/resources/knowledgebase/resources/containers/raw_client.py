@@ -13,9 +13,9 @@ from .....core.request_options import RequestOptions
 from .....core.unchecked_base_model import construct_type
 from ...types.container import Container
 from ...types.paginated_container_list import PaginatedContainerList
-from .types.containers_list_request_expand import ContainersListRequestExpand
+from .types.containers_list_request_expand_item import ContainersListRequestExpandItem
 from .types.containers_list_request_type import ContainersListRequestType
-from .types.containers_retrieve_request_expand import ContainersRetrieveRequestExpand
+from .types.containers_retrieve_request_expand_item import ContainersRetrieveRequestExpandItem
 
 
 class RawContainersClient:
@@ -28,7 +28,9 @@ class RawContainersClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[ContainersListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ContainersListRequestExpandItem, typing.Sequence[ContainersListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -55,7 +57,7 @@ class RawContainersClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[ContainersListRequestExpand]
+        expand : typing.Optional[typing.Union[ContainersListRequestExpandItem, typing.Sequence[ContainersListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -136,7 +138,9 @@ class RawContainersClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[ContainersRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ContainersRetrieveRequestExpandItem, typing.Sequence[ContainersRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -148,7 +152,7 @@ class RawContainersClient:
         ----------
         id : str
 
-        expand : typing.Optional[ContainersRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[ContainersRetrieveRequestExpandItem, typing.Sequence[ContainersRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -201,7 +205,9 @@ class AsyncRawContainersClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[ContainersListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ContainersListRequestExpandItem, typing.Sequence[ContainersListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -228,7 +234,7 @@ class AsyncRawContainersClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[ContainersListRequestExpand]
+        expand : typing.Optional[typing.Union[ContainersListRequestExpandItem, typing.Sequence[ContainersListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -309,7 +315,9 @@ class AsyncRawContainersClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[ContainersRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ContainersRetrieveRequestExpandItem, typing.Sequence[ContainersRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -321,7 +329,7 @@ class AsyncRawContainersClient:
         ----------
         id : str
 
-        expand : typing.Optional[ContainersRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[ContainersRetrieveRequestExpandItem, typing.Sequence[ContainersRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

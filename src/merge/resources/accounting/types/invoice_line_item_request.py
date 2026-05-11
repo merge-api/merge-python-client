@@ -8,7 +8,6 @@ from ....core.unchecked_base_model import UncheckedBaseModel
 from .invoice_line_item_request_account import InvoiceLineItemRequestAccount
 from .invoice_line_item_request_contact import InvoiceLineItemRequestContact
 from .invoice_line_item_request_currency import InvoiceLineItemRequestCurrency
-from .invoice_line_item_request_employee import InvoiceLineItemRequestEmployee
 from .invoice_line_item_request_item import InvoiceLineItemRequestItem
 from .invoice_line_item_request_project import InvoiceLineItemRequestProject
 from .invoice_line_item_request_tracking_categories_item import InvoiceLineItemRequestTrackingCategoriesItem
@@ -51,7 +50,7 @@ class InvoiceLineItemRequest(UncheckedBaseModel):
     The line item's total amount.
     """
 
-    employee: typing.Optional[InvoiceLineItemRequestEmployee] = pydantic.Field(default=None)
+    employee: typing.Optional[str] = pydantic.Field(default=None)
     """
     The employee this overall transaction relates to.
     """
@@ -397,6 +396,11 @@ class InvoiceLineItemRequest(UncheckedBaseModel):
     company: typing.Optional[str] = pydantic.Field(default=None)
     """
     The company the invoice belongs to.
+    """
+
+    is_billable: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Indicates if the line item can be charged to the client/customer.
     """
 
     integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None

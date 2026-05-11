@@ -9,6 +9,7 @@ from ....core.unchecked_base_model import UncheckedBaseModel
 from .remote_data import RemoteData
 from .remote_field import RemoteField
 from .task_account import TaskAccount
+from .task_contact import TaskContact
 from .task_opportunity import TaskOpportunity
 from .task_owner import TaskOwner
 from .task_status import TaskStatus
@@ -62,6 +63,11 @@ class Task(UncheckedBaseModel):
     opportunity: typing.Optional[TaskOpportunity] = pydantic.Field(default=None)
     """
     The task's opportunity.
+    """
+
+    contact: typing.Optional[TaskContact] = pydantic.Field(default=None)
+    """
+    The task's contact.
     """
 
     completed_date: typing.Optional[dt.datetime] = pydantic.Field(default=None)

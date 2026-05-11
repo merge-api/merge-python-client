@@ -15,7 +15,9 @@ from ...types.collection import Collection
 from ...types.paginated_collection_list import PaginatedCollectionList
 from ...types.paginated_viewer_list import PaginatedViewerList
 from .types.collections_list_request_collection_type import CollectionsListRequestCollectionType
-from .types.collections_viewers_list_request_expand import CollectionsViewersListRequestExpand
+from .types.collections_list_request_expand_item import CollectionsListRequestExpandItem
+from .types.collections_retrieve_request_expand_item import CollectionsRetrieveRequestExpandItem
+from .types.collections_viewers_list_request_expand_item import CollectionsViewersListRequestExpandItem
 
 
 class RawCollectionsClient:
@@ -29,7 +31,9 @@ class RawCollectionsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["parent_collection"]] = None,
+        expand: typing.Optional[
+            typing.Union[CollectionsListRequestExpandItem, typing.Sequence[CollectionsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -60,7 +64,7 @@ class RawCollectionsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["parent_collection"]]
+        expand : typing.Optional[typing.Union[CollectionsListRequestExpandItem, typing.Sequence[CollectionsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -147,7 +151,11 @@ class RawCollectionsClient:
         collection_id: str,
         *,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[CollectionsViewersListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                CollectionsViewersListRequestExpandItem, typing.Sequence[CollectionsViewersListRequestExpandItem]
+            ]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -164,7 +172,7 @@ class RawCollectionsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[CollectionsViewersListRequestExpand]
+        expand : typing.Optional[typing.Union[CollectionsViewersListRequestExpandItem, typing.Sequence[CollectionsViewersListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -177,7 +185,7 @@ class RawCollectionsClient:
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -219,7 +227,9 @@ class RawCollectionsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["parent_collection"]] = None,
+        expand: typing.Optional[
+            typing.Union[CollectionsRetrieveRequestExpandItem, typing.Sequence[CollectionsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["collection_type"]] = None,
@@ -233,7 +243,7 @@ class RawCollectionsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["parent_collection"]]
+        expand : typing.Optional[typing.Union[CollectionsRetrieveRequestExpandItem, typing.Sequence[CollectionsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -295,7 +305,9 @@ class AsyncRawCollectionsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["parent_collection"]] = None,
+        expand: typing.Optional[
+            typing.Union[CollectionsListRequestExpandItem, typing.Sequence[CollectionsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -326,7 +338,7 @@ class AsyncRawCollectionsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["parent_collection"]]
+        expand : typing.Optional[typing.Union[CollectionsListRequestExpandItem, typing.Sequence[CollectionsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -413,7 +425,11 @@ class AsyncRawCollectionsClient:
         collection_id: str,
         *,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[CollectionsViewersListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                CollectionsViewersListRequestExpandItem, typing.Sequence[CollectionsViewersListRequestExpandItem]
+            ]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -430,7 +446,7 @@ class AsyncRawCollectionsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[CollectionsViewersListRequestExpand]
+        expand : typing.Optional[typing.Union[CollectionsViewersListRequestExpandItem, typing.Sequence[CollectionsViewersListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -443,7 +459,7 @@ class AsyncRawCollectionsClient:
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -485,7 +501,9 @@ class AsyncRawCollectionsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["parent_collection"]] = None,
+        expand: typing.Optional[
+            typing.Union[CollectionsRetrieveRequestExpandItem, typing.Sequence[CollectionsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["collection_type"]] = None,
@@ -499,7 +517,7 @@ class AsyncRawCollectionsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["parent_collection"]]
+        expand : typing.Optional[typing.Union[CollectionsRetrieveRequestExpandItem, typing.Sequence[CollectionsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

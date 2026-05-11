@@ -11,8 +11,8 @@ from ...types.application_response import ApplicationResponse
 from ...types.meta_response import MetaResponse
 from ...types.paginated_application_list import PaginatedApplicationList
 from .raw_client import AsyncRawApplicationsClient, RawApplicationsClient
-from .types.applications_list_request_expand import ApplicationsListRequestExpand
-from .types.applications_retrieve_request_expand import ApplicationsRetrieveRequestExpand
+from .types.applications_list_request_expand_item import ApplicationsListRequestExpandItem
+from .types.applications_retrieve_request_expand_item import ApplicationsRetrieveRequestExpandItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -42,7 +42,9 @@ class ApplicationsClient:
         credited_to_id: typing.Optional[str] = None,
         current_stage_id: typing.Optional[str] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[ApplicationsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ApplicationsListRequestExpandItem, typing.Sequence[ApplicationsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -78,7 +80,7 @@ class ApplicationsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[ApplicationsListRequestExpand]
+        expand : typing.Optional[typing.Union[ApplicationsListRequestExpandItem, typing.Sequence[ApplicationsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -124,9 +126,6 @@ class ApplicationsClient:
         import datetime
 
         from merge import Merge
-        from merge.resources.ats.resources.applications import (
-            ApplicationsListRequestExpand,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -143,7 +142,6 @@ class ApplicationsClient:
             credited_to_id="credited_to_id",
             current_stage_id="current_stage_id",
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            expand=ApplicationsListRequestExpand.CANDIDATE,
             include_deleted_data=True,
             include_remote_data=True,
             include_shell_data=True,
@@ -246,7 +244,9 @@ class ApplicationsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[ApplicationsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ApplicationsRetrieveRequestExpandItem, typing.Sequence[ApplicationsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -258,7 +258,7 @@ class ApplicationsClient:
         ----------
         id : str
 
-        expand : typing.Optional[ApplicationsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[ApplicationsRetrieveRequestExpandItem, typing.Sequence[ApplicationsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -278,9 +278,6 @@ class ApplicationsClient:
         Examples
         --------
         from merge import Merge
-        from merge.resources.ats.resources.applications import (
-            ApplicationsRetrieveRequestExpand,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -288,7 +285,6 @@ class ApplicationsClient:
         )
         client.ats.applications.retrieve(
             id="id",
-            expand=ApplicationsRetrieveRequestExpand.CANDIDATE,
             include_remote_data=True,
             include_shell_data=True,
         )
@@ -426,7 +422,9 @@ class AsyncApplicationsClient:
         credited_to_id: typing.Optional[str] = None,
         current_stage_id: typing.Optional[str] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[ApplicationsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ApplicationsListRequestExpandItem, typing.Sequence[ApplicationsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -462,7 +460,7 @@ class AsyncApplicationsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[ApplicationsListRequestExpand]
+        expand : typing.Optional[typing.Union[ApplicationsListRequestExpandItem, typing.Sequence[ApplicationsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -509,9 +507,6 @@ class AsyncApplicationsClient:
         import datetime
 
         from merge import AsyncMerge
-        from merge.resources.ats.resources.applications import (
-            ApplicationsListRequestExpand,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -531,7 +526,6 @@ class AsyncApplicationsClient:
                 credited_to_id="credited_to_id",
                 current_stage_id="current_stage_id",
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                expand=ApplicationsListRequestExpand.CANDIDATE,
                 include_deleted_data=True,
                 include_remote_data=True,
                 include_shell_data=True,
@@ -645,7 +639,9 @@ class AsyncApplicationsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[ApplicationsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ApplicationsRetrieveRequestExpandItem, typing.Sequence[ApplicationsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -657,7 +653,7 @@ class AsyncApplicationsClient:
         ----------
         id : str
 
-        expand : typing.Optional[ApplicationsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[ApplicationsRetrieveRequestExpandItem, typing.Sequence[ApplicationsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -679,9 +675,6 @@ class AsyncApplicationsClient:
         import asyncio
 
         from merge import AsyncMerge
-        from merge.resources.ats.resources.applications import (
-            ApplicationsRetrieveRequestExpand,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -692,7 +685,6 @@ class AsyncApplicationsClient:
         async def main() -> None:
             await client.ats.applications.retrieve(
                 id="id",
-                expand=ApplicationsRetrieveRequestExpand.CANDIDATE,
                 include_remote_data=True,
                 include_shell_data=True,
             )
