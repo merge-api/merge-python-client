@@ -13,9 +13,9 @@ from .....core.request_options import RequestOptions
 from .....core.unchecked_base_model import construct_type
 from ...types.article import Article
 from ...types.paginated_article_list import PaginatedArticleList
-from .types.articles_list_request_expand import ArticlesListRequestExpand
+from .types.articles_list_request_expand_item import ArticlesListRequestExpandItem
 from .types.articles_list_request_type import ArticlesListRequestType
-from .types.articles_retrieve_request_expand import ArticlesRetrieveRequestExpand
+from .types.articles_retrieve_request_expand_item import ArticlesRetrieveRequestExpandItem
 
 
 class RawArticlesClient:
@@ -28,7 +28,9 @@ class RawArticlesClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[ArticlesListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ArticlesListRequestExpandItem, typing.Sequence[ArticlesListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -57,7 +59,7 @@ class RawArticlesClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[ArticlesListRequestExpand]
+        expand : typing.Optional[typing.Union[ArticlesListRequestExpandItem, typing.Sequence[ArticlesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -146,7 +148,9 @@ class RawArticlesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[ArticlesRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ArticlesRetrieveRequestExpandItem, typing.Sequence[ArticlesRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -158,7 +162,7 @@ class RawArticlesClient:
         ----------
         id : str
 
-        expand : typing.Optional[ArticlesRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[ArticlesRetrieveRequestExpandItem, typing.Sequence[ArticlesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -211,7 +215,9 @@ class AsyncRawArticlesClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[ArticlesListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ArticlesListRequestExpandItem, typing.Sequence[ArticlesListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -240,7 +246,7 @@ class AsyncRawArticlesClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[ArticlesListRequestExpand]
+        expand : typing.Optional[typing.Union[ArticlesListRequestExpandItem, typing.Sequence[ArticlesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -329,7 +335,9 @@ class AsyncRawArticlesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[ArticlesRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ArticlesRetrieveRequestExpandItem, typing.Sequence[ArticlesRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -341,7 +349,7 @@ class AsyncRawArticlesClient:
         ----------
         id : str
 
-        expand : typing.Optional[ArticlesRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[ArticlesRetrieveRequestExpandItem, typing.Sequence[ArticlesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

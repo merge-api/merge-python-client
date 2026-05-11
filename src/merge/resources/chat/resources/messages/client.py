@@ -126,7 +126,7 @@ class MessagesClient:
             modified_before=datetime.datetime.fromisoformat(
                 "2024-01-15 09:30:00+00:00",
             ),
-            order_by=MessagesListRequestOrderBy.REMOTE_CREATED_AT_DESCENDING,
+            order_by=MessagesListRequestOrderBy.REMOTE_CREATED_AT,
             page_size=1,
             remote_id="remote_id",
             root_message="root_message",
@@ -263,7 +263,7 @@ class MessagesClient:
             include_deleted_data=True,
             include_remote_data=True,
             include_shell_data=True,
-            order_by=MessagesRepliesListRequestOrderBy.REMOTE_CREATED_AT_DESCENDING,
+            order_by=MessagesRepliesListRequestOrderBy.REMOTE_CREATED_AT,
             page_size=1,
         )
         """
@@ -398,7 +398,7 @@ class AsyncMessagesClient:
                 modified_before=datetime.datetime.fromisoformat(
                     "2024-01-15 09:30:00+00:00",
                 ),
-                order_by=MessagesListRequestOrderBy.REMOTE_CREATED_AT_DESCENDING,
+                order_by=MessagesListRequestOrderBy.REMOTE_CREATED_AT,
                 page_size=1,
                 remote_id="remote_id",
                 root_message="root_message",
@@ -551,7 +551,7 @@ class AsyncMessagesClient:
                 include_deleted_data=True,
                 include_remote_data=True,
                 include_shell_data=True,
-                order_by=MessagesRepliesListRequestOrderBy.REMOTE_CREATED_AT_DESCENDING,
+                order_by=MessagesRepliesListRequestOrderBy.REMOTE_CREATED_AT,
                 page_size=1,
             )
 

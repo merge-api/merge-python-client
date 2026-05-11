@@ -18,9 +18,9 @@ from ...types.opportunity_response import OpportunityResponse
 from ...types.paginated_opportunity_list import PaginatedOpportunityList
 from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClassList
 from ...types.patched_opportunity_request import PatchedOpportunityRequest
-from .types.opportunities_list_request_expand import OpportunitiesListRequestExpand
+from .types.opportunities_list_request_expand_item import OpportunitiesListRequestExpandItem
 from .types.opportunities_list_request_status import OpportunitiesListRequestStatus
-from .types.opportunities_retrieve_request_expand import OpportunitiesRetrieveRequestExpand
+from .types.opportunities_retrieve_request_expand_item import OpportunitiesRetrieveRequestExpandItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -37,7 +37,9 @@ class RawOpportunitiesClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[OpportunitiesListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[OpportunitiesListRequestExpandItem, typing.Sequence[OpportunitiesListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -71,7 +73,7 @@ class RawOpportunitiesClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[OpportunitiesListRequestExpand]
+        expand : typing.Optional[typing.Union[OpportunitiesListRequestExpandItem, typing.Sequence[OpportunitiesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -96,7 +98,7 @@ class RawOpportunitiesClient:
             If provided, will only return opportunities with this owner.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_created_after : typing.Optional[dt.datetime]
             If provided, will only return opportunities created in the third party platform after this datetime.
@@ -235,7 +237,11 @@ class RawOpportunitiesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[OpportunitiesRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                OpportunitiesRetrieveRequestExpandItem, typing.Sequence[OpportunitiesRetrieveRequestExpandItem]
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -250,7 +256,7 @@ class RawOpportunitiesClient:
         ----------
         id : str
 
-        expand : typing.Optional[OpportunitiesRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[OpportunitiesRetrieveRequestExpandItem, typing.Sequence[OpportunitiesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -481,7 +487,7 @@ class RawOpportunitiesClient:
             If provided, will only return remote fields classes with this is_custom value
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -533,7 +539,9 @@ class AsyncRawOpportunitiesClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[OpportunitiesListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[OpportunitiesListRequestExpandItem, typing.Sequence[OpportunitiesListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -567,7 +575,7 @@ class AsyncRawOpportunitiesClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[OpportunitiesListRequestExpand]
+        expand : typing.Optional[typing.Union[OpportunitiesListRequestExpandItem, typing.Sequence[OpportunitiesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -592,7 +600,7 @@ class AsyncRawOpportunitiesClient:
             If provided, will only return opportunities with this owner.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_created_after : typing.Optional[dt.datetime]
             If provided, will only return opportunities created in the third party platform after this datetime.
@@ -731,7 +739,11 @@ class AsyncRawOpportunitiesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[OpportunitiesRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                OpportunitiesRetrieveRequestExpandItem, typing.Sequence[OpportunitiesRetrieveRequestExpandItem]
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -746,7 +758,7 @@ class AsyncRawOpportunitiesClient:
         ----------
         id : str
 
-        expand : typing.Optional[OpportunitiesRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[OpportunitiesRetrieveRequestExpandItem, typing.Sequence[OpportunitiesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -977,7 +989,7 @@ class AsyncRawOpportunitiesClient:
             If provided, will only return remote fields classes with this is_custom value
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

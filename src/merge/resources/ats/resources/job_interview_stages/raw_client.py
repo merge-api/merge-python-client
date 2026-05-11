@@ -25,7 +25,7 @@ class RawJobInterviewStagesClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["job"]] = None,
+        expand: typing.Optional[typing.Union[typing.Literal["job"], typing.Sequence[typing.Literal["job"]]]] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -50,7 +50,7 @@ class RawJobInterviewStagesClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["job"]]
+        expand : typing.Optional[typing.Union[typing.Literal["job"], typing.Sequence[typing.Literal["job"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -72,7 +72,7 @@ class RawJobInterviewStagesClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -123,7 +123,7 @@ class RawJobInterviewStagesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["job"]] = None,
+        expand: typing.Optional[typing.Union[typing.Literal["job"], typing.Sequence[typing.Literal["job"]]]] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -135,7 +135,7 @@ class RawJobInterviewStagesClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["job"]]
+        expand : typing.Optional[typing.Union[typing.Literal["job"], typing.Sequence[typing.Literal["job"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -188,7 +188,7 @@ class AsyncRawJobInterviewStagesClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["job"]] = None,
+        expand: typing.Optional[typing.Union[typing.Literal["job"], typing.Sequence[typing.Literal["job"]]]] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -213,7 +213,7 @@ class AsyncRawJobInterviewStagesClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["job"]]
+        expand : typing.Optional[typing.Union[typing.Literal["job"], typing.Sequence[typing.Literal["job"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -235,7 +235,7 @@ class AsyncRawJobInterviewStagesClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -286,7 +286,7 @@ class AsyncRawJobInterviewStagesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["job"]] = None,
+        expand: typing.Optional[typing.Union[typing.Literal["job"], typing.Sequence[typing.Literal["job"]]]] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -298,7 +298,7 @@ class AsyncRawJobInterviewStagesClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["job"]]
+        expand : typing.Optional[typing.Union[typing.Literal["job"], typing.Sequence[typing.Literal["job"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

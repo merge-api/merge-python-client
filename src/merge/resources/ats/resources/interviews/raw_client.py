@@ -16,8 +16,8 @@ from ...types.paginated_scheduled_interview_list import PaginatedScheduledInterv
 from ...types.scheduled_interview import ScheduledInterview
 from ...types.scheduled_interview_request import ScheduledInterviewRequest
 from ...types.scheduled_interview_response import ScheduledInterviewResponse
-from .types.interviews_list_request_expand import InterviewsListRequestExpand
-from .types.interviews_retrieve_request_expand import InterviewsRetrieveRequestExpand
+from .types.interviews_list_request_expand_item import InterviewsListRequestExpandItem
+from .types.interviews_retrieve_request_expand_item import InterviewsRetrieveRequestExpandItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -34,7 +34,9 @@ class RawInterviewsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[InterviewsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[InterviewsListRequestExpandItem, typing.Sequence[InterviewsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -66,7 +68,7 @@ class RawInterviewsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[InterviewsListRequestExpand]
+        expand : typing.Optional[typing.Union[InterviewsListRequestExpandItem, typing.Sequence[InterviewsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -94,7 +96,7 @@ class RawInterviewsClient:
             If provided, will only return interviews organized by this user.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_fields : typing.Optional[typing.Literal["status"]]
             Deprecated. Use show_enum_origins.
@@ -220,7 +222,9 @@ class RawInterviewsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[InterviewsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[InterviewsRetrieveRequestExpandItem, typing.Sequence[InterviewsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["status"]] = None,
@@ -234,7 +238,7 @@ class RawInterviewsClient:
         ----------
         id : str
 
-        expand : typing.Optional[InterviewsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[InterviewsRetrieveRequestExpandItem, typing.Sequence[InterviewsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -332,7 +336,9 @@ class AsyncRawInterviewsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[InterviewsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[InterviewsListRequestExpandItem, typing.Sequence[InterviewsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -364,7 +370,7 @@ class AsyncRawInterviewsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[InterviewsListRequestExpand]
+        expand : typing.Optional[typing.Union[InterviewsListRequestExpandItem, typing.Sequence[InterviewsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -392,7 +398,7 @@ class AsyncRawInterviewsClient:
             If provided, will only return interviews organized by this user.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_fields : typing.Optional[typing.Literal["status"]]
             Deprecated. Use show_enum_origins.
@@ -518,7 +524,9 @@ class AsyncRawInterviewsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[InterviewsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[InterviewsRetrieveRequestExpandItem, typing.Sequence[InterviewsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["status"]] = None,
@@ -532,7 +540,7 @@ class AsyncRawInterviewsClient:
         ----------
         id : str
 
-        expand : typing.Optional[InterviewsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[InterviewsRetrieveRequestExpandItem, typing.Sequence[InterviewsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

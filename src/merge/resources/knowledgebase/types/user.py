@@ -6,6 +6,7 @@ import typing
 import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2
 from ....core.unchecked_base_model import UncheckedBaseModel
+from .user_field_mappings import UserFieldMappings
 
 
 class User(UncheckedBaseModel):
@@ -14,7 +15,7 @@ class User(UncheckedBaseModel):
     ### Description
     The `User` object is used to represent a user within the Knowledge Base account.
     ### Usage Example
-    Fetch from the `GET /api/knowledgebase/v1/users` endpoint and view their users.
+     Fetch from the `GET /api/knowledgebase/v1/users` endpoint and view their users.
     """
 
     id: typing.Optional[str] = None
@@ -48,7 +49,7 @@ class User(UncheckedBaseModel):
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
     """
 
-    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    field_mappings: typing.Optional[UserFieldMappings] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

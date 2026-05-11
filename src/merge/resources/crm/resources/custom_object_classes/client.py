@@ -31,7 +31,9 @@ class CustomObjectClassesClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["fields"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["fields"], typing.Sequence[typing.Literal["fields"]]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -55,7 +57,7 @@ class CustomObjectClassesClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["fields"]]
+        expand : typing.Optional[typing.Union[typing.Literal["fields"], typing.Sequence[typing.Literal["fields"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -74,7 +76,7 @@ class CustomObjectClassesClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -138,7 +140,9 @@ class CustomObjectClassesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["fields"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["fields"], typing.Sequence[typing.Literal["fields"]]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -150,7 +154,7 @@ class CustomObjectClassesClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["fields"]]
+        expand : typing.Optional[typing.Union[typing.Literal["fields"], typing.Sequence[typing.Literal["fields"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -212,7 +216,9 @@ class AsyncCustomObjectClassesClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["fields"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["fields"], typing.Sequence[typing.Literal["fields"]]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -236,7 +242,7 @@ class AsyncCustomObjectClassesClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["fields"]]
+        expand : typing.Optional[typing.Union[typing.Literal["fields"], typing.Sequence[typing.Literal["fields"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -255,7 +261,7 @@ class AsyncCustomObjectClassesClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -326,7 +332,9 @@ class AsyncCustomObjectClassesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["fields"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["fields"], typing.Sequence[typing.Literal["fields"]]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -338,7 +346,7 @@ class AsyncCustomObjectClassesClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["fields"]]
+        expand : typing.Optional[typing.Union[typing.Literal["fields"], typing.Sequence[typing.Literal["fields"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

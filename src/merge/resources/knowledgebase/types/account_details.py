@@ -30,6 +30,9 @@ class AccountDetails(UncheckedBaseModel):
     The time at which account completes the linking flow.
     """
 
+    instance_id: typing.Optional[str] = None
+    instance_display_value: typing.Optional[str] = None
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:

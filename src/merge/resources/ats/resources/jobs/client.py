@@ -9,10 +9,10 @@ from ...types.job import Job
 from ...types.paginated_job_list import PaginatedJobList
 from ...types.paginated_screening_question_list import PaginatedScreeningQuestionList
 from .raw_client import AsyncRawJobsClient, RawJobsClient
-from .types.jobs_list_request_expand import JobsListRequestExpand
+from .types.jobs_list_request_expand_item import JobsListRequestExpandItem
 from .types.jobs_list_request_status import JobsListRequestStatus
-from .types.jobs_retrieve_request_expand import JobsRetrieveRequestExpand
-from .types.jobs_screening_questions_list_request_expand import JobsScreeningQuestionsListRequestExpand
+from .types.jobs_retrieve_request_expand_item import JobsRetrieveRequestExpandItem
+from .types.jobs_screening_questions_list_request_expand_item import JobsScreeningQuestionsListRequestExpandItem
 
 
 class JobsClient:
@@ -37,7 +37,9 @@ class JobsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[JobsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[JobsListRequestExpandItem, typing.Sequence[JobsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -68,7 +70,7 @@ class JobsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[JobsListRequestExpand]
+        expand : typing.Optional[typing.Union[JobsListRequestExpandItem, typing.Sequence[JobsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -90,7 +92,7 @@ class JobsClient:
             If provided, will only return jobs for this office; multiple offices can be separated by commas.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_fields : typing.Optional[typing.Literal["status"]]
             Deprecated. Use show_enum_origins.
@@ -123,10 +125,7 @@ class JobsClient:
         import datetime
 
         from merge import Merge
-        from merge.resources.ats.resources.jobs import (
-            JobsListRequestExpand,
-            JobsListRequestStatus,
-        )
+        from merge.resources.ats.resources.jobs import JobsListRequestStatus
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -141,7 +140,6 @@ class JobsClient:
                 "2024-01-15 09:30:00+00:00",
             ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            expand=JobsListRequestExpand.DEPARTMENTS,
             include_deleted_data=True,
             include_remote_data=True,
             include_shell_data=True,
@@ -182,7 +180,9 @@ class JobsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[JobsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[JobsRetrieveRequestExpandItem, typing.Sequence[JobsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["status"]] = None,
@@ -196,7 +196,7 @@ class JobsClient:
         ----------
         id : str
 
-        expand : typing.Optional[JobsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[JobsRetrieveRequestExpandItem, typing.Sequence[JobsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -222,7 +222,6 @@ class JobsClient:
         Examples
         --------
         from merge import Merge
-        from merge.resources.ats.resources.jobs import JobsRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -230,7 +229,6 @@ class JobsClient:
         )
         client.ats.jobs.retrieve(
             id="id",
-            expand=JobsRetrieveRequestExpand.DEPARTMENTS,
             include_remote_data=True,
             include_shell_data=True,
         )
@@ -251,7 +249,12 @@ class JobsClient:
         job_id: str,
         *,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[JobsScreeningQuestionsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                JobsScreeningQuestionsListRequestExpandItem,
+                typing.Sequence[JobsScreeningQuestionsListRequestExpandItem],
+            ]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -268,7 +271,7 @@ class JobsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[JobsScreeningQuestionsListRequestExpand]
+        expand : typing.Optional[typing.Union[JobsScreeningQuestionsListRequestExpandItem, typing.Sequence[JobsScreeningQuestionsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -281,7 +284,7 @@ class JobsClient:
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -294,9 +297,6 @@ class JobsClient:
         Examples
         --------
         from merge import Merge
-        from merge.resources.ats.resources.jobs import (
-            JobsScreeningQuestionsListRequestExpand,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -305,7 +305,6 @@ class JobsClient:
         client.ats.jobs.screening_questions_list(
             job_id="job_id",
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            expand=JobsScreeningQuestionsListRequestExpand.JOB,
             include_deleted_data=True,
             include_remote_data=True,
             include_shell_data=True,
@@ -347,7 +346,9 @@ class AsyncJobsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[JobsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[JobsListRequestExpandItem, typing.Sequence[JobsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -378,7 +379,7 @@ class AsyncJobsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[JobsListRequestExpand]
+        expand : typing.Optional[typing.Union[JobsListRequestExpandItem, typing.Sequence[JobsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -400,7 +401,7 @@ class AsyncJobsClient:
             If provided, will only return jobs for this office; multiple offices can be separated by commas.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_fields : typing.Optional[typing.Literal["status"]]
             Deprecated. Use show_enum_origins.
@@ -434,10 +435,7 @@ class AsyncJobsClient:
         import datetime
 
         from merge import AsyncMerge
-        from merge.resources.ats.resources.jobs import (
-            JobsListRequestExpand,
-            JobsListRequestStatus,
-        )
+        from merge.resources.ats.resources.jobs import JobsListRequestStatus
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -455,7 +453,6 @@ class AsyncJobsClient:
                     "2024-01-15 09:30:00+00:00",
                 ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                expand=JobsListRequestExpand.DEPARTMENTS,
                 include_deleted_data=True,
                 include_remote_data=True,
                 include_shell_data=True,
@@ -499,7 +496,9 @@ class AsyncJobsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[JobsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[JobsRetrieveRequestExpandItem, typing.Sequence[JobsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["status"]] = None,
@@ -513,7 +512,7 @@ class AsyncJobsClient:
         ----------
         id : str
 
-        expand : typing.Optional[JobsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[JobsRetrieveRequestExpandItem, typing.Sequence[JobsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -541,7 +540,6 @@ class AsyncJobsClient:
         import asyncio
 
         from merge import AsyncMerge
-        from merge.resources.ats.resources.jobs import JobsRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -552,7 +550,6 @@ class AsyncJobsClient:
         async def main() -> None:
             await client.ats.jobs.retrieve(
                 id="id",
-                expand=JobsRetrieveRequestExpand.DEPARTMENTS,
                 include_remote_data=True,
                 include_shell_data=True,
             )
@@ -576,7 +573,12 @@ class AsyncJobsClient:
         job_id: str,
         *,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[JobsScreeningQuestionsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                JobsScreeningQuestionsListRequestExpandItem,
+                typing.Sequence[JobsScreeningQuestionsListRequestExpandItem],
+            ]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -593,7 +595,7 @@ class AsyncJobsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[JobsScreeningQuestionsListRequestExpand]
+        expand : typing.Optional[typing.Union[JobsScreeningQuestionsListRequestExpandItem, typing.Sequence[JobsScreeningQuestionsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -606,7 +608,7 @@ class AsyncJobsClient:
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -621,9 +623,6 @@ class AsyncJobsClient:
         import asyncio
 
         from merge import AsyncMerge
-        from merge.resources.ats.resources.jobs import (
-            JobsScreeningQuestionsListRequestExpand,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -635,7 +634,6 @@ class AsyncJobsClient:
             await client.ats.jobs.screening_questions_list(
                 job_id="job_id",
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                expand=JobsScreeningQuestionsListRequestExpand.JOB,
                 include_deleted_data=True,
                 include_remote_data=True,
                 include_shell_data=True,

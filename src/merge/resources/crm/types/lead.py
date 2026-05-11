@@ -11,6 +11,7 @@ from .email_address import EmailAddress
 from .lead_converted_account import LeadConvertedAccount
 from .lead_converted_contact import LeadConvertedContact
 from .lead_owner import LeadOwner
+from .lead_status import LeadStatus
 from .phone_number import PhoneNumber
 from .remote_data import RemoteData
 from .remote_field import RemoteField
@@ -97,6 +98,16 @@ class Lead(UncheckedBaseModel):
     converted_account: typing.Optional[LeadConvertedAccount] = pydantic.Field(default=None)
     """
     The account of the converted lead.
+    """
+
+    status: typing.Optional[LeadStatus] = pydantic.Field(default=None)
+    """
+    The lead's status.
+    
+    * `OPEN` - OPEN
+    * `CLOSED` - CLOSED
+    * `UNQUALIFIED` - UNQUALIFIED
+    * `QUALIFIED` - QUALIFIED
     """
 
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(default=None)

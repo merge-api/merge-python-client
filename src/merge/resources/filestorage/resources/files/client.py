@@ -14,9 +14,9 @@ from ...types.paginated_download_request_meta_list import PaginatedDownloadReque
 from ...types.paginated_file_list import PaginatedFileList
 from .raw_client import AsyncRawFilesClient, RawFilesClient
 from .types.files_download_request_meta_list_request_order_by import FilesDownloadRequestMetaListRequestOrderBy
-from .types.files_list_request_expand import FilesListRequestExpand
+from .types.files_list_request_expand_item import FilesListRequestExpandItem
 from .types.files_list_request_order_by import FilesListRequestOrderBy
-from .types.files_retrieve_request_expand import FilesRetrieveRequestExpand
+from .types.files_retrieve_request_expand_item import FilesRetrieveRequestExpandItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -44,7 +44,9 @@ class FilesClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         drive_id: typing.Optional[str] = None,
-        expand: typing.Optional[FilesListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[FilesListRequestExpandItem, typing.Sequence[FilesListRequestExpandItem]]
+        ] = None,
         folder_id: typing.Optional[str] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
@@ -77,7 +79,7 @@ class FilesClient:
         drive_id : typing.Optional[str]
             Specifying a drive id returns only the files in that drive. Specifying null returns only the files outside the top-level drive.
 
-        expand : typing.Optional[FilesListRequestExpand]
+        expand : typing.Optional[typing.Union[FilesListRequestExpandItem, typing.Sequence[FilesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         folder_id : typing.Optional[str]
@@ -108,7 +110,7 @@ class FilesClient:
             Overrides the default ordering for this endpoint. Possible values include: created_at, -created_at, modified_at, -modified_at.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_created_after : typing.Optional[dt.datetime]
             If provided, will only return files created in the third party platform after this datetime.
@@ -132,10 +134,7 @@ class FilesClient:
         import datetime
 
         from merge import Merge
-        from merge.resources.filestorage.resources.files import (
-            FilesListRequestExpand,
-            FilesListRequestOrderBy,
-        )
+        from merge.resources.filestorage.resources.files import FilesListRequestOrderBy
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -150,7 +149,6 @@ class FilesClient:
             ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
             drive_id="drive_id",
-            expand=FilesListRequestExpand.DRIVE,
             folder_id="folder_id",
             include_deleted_data=True,
             include_remote_data=True,
@@ -250,7 +248,9 @@ class FilesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[FilesRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[FilesRetrieveRequestExpandItem, typing.Sequence[FilesRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -262,7 +262,7 @@ class FilesClient:
         ----------
         id : str
 
-        expand : typing.Optional[FilesRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[FilesRetrieveRequestExpandItem, typing.Sequence[FilesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -282,9 +282,6 @@ class FilesClient:
         Examples
         --------
         from merge import Merge
-        from merge.resources.filestorage.resources.files import (
-            FilesRetrieveRequestExpand,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -292,7 +289,6 @@ class FilesClient:
         )
         client.filestorage.files.retrieve(
             id="id",
-            expand=FilesRetrieveRequestExpand.DRIVE,
             include_remote_data=True,
             include_shell_data=True,
         )
@@ -348,14 +344,14 @@ class FilesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> DownloadRequestMeta:
         """
-        Returns metadata to construct an authenticated file download request for a singular file, allowing you to download file directly from the third-party.
+        Returns metadata to construct an authenticated file download request for a singular file, allowing you to download file directly from the third-party. For information on our download process please refer to our <a href='https://help.merge.dev/articles/10644317' target='_blank'>direct file download help center article</a>.
 
         Parameters
         ----------
         id : str
 
         mime_type : typing.Optional[str]
-            If provided, specifies the export format of the file to be downloaded. For information on supported export formats, please refer to our <a href='https://help.merge.dev/en/articles/8615316-file-export-and-download-specification' target='_blank'>export format help center article</a>.
+            If provided, specifies the export format of the file to be downloaded.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -529,7 +525,9 @@ class AsyncFilesClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         drive_id: typing.Optional[str] = None,
-        expand: typing.Optional[FilesListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[FilesListRequestExpandItem, typing.Sequence[FilesListRequestExpandItem]]
+        ] = None,
         folder_id: typing.Optional[str] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
@@ -562,7 +560,7 @@ class AsyncFilesClient:
         drive_id : typing.Optional[str]
             Specifying a drive id returns only the files in that drive. Specifying null returns only the files outside the top-level drive.
 
-        expand : typing.Optional[FilesListRequestExpand]
+        expand : typing.Optional[typing.Union[FilesListRequestExpandItem, typing.Sequence[FilesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         folder_id : typing.Optional[str]
@@ -593,7 +591,7 @@ class AsyncFilesClient:
             Overrides the default ordering for this endpoint. Possible values include: created_at, -created_at, modified_at, -modified_at.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_created_after : typing.Optional[dt.datetime]
             If provided, will only return files created in the third party platform after this datetime.
@@ -618,10 +616,7 @@ class AsyncFilesClient:
         import datetime
 
         from merge import AsyncMerge
-        from merge.resources.filestorage.resources.files import (
-            FilesListRequestExpand,
-            FilesListRequestOrderBy,
-        )
+        from merge.resources.filestorage.resources.files import FilesListRequestOrderBy
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -639,7 +634,6 @@ class AsyncFilesClient:
                 ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
                 drive_id="drive_id",
-                expand=FilesListRequestExpand.DRIVE,
                 folder_id="folder_id",
                 include_deleted_data=True,
                 include_remote_data=True,
@@ -750,7 +744,9 @@ class AsyncFilesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[FilesRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[FilesRetrieveRequestExpandItem, typing.Sequence[FilesRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -762,7 +758,7 @@ class AsyncFilesClient:
         ----------
         id : str
 
-        expand : typing.Optional[FilesRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[FilesRetrieveRequestExpandItem, typing.Sequence[FilesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -784,9 +780,6 @@ class AsyncFilesClient:
         import asyncio
 
         from merge import AsyncMerge
-        from merge.resources.filestorage.resources.files import (
-            FilesRetrieveRequestExpand,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -797,7 +790,6 @@ class AsyncFilesClient:
         async def main() -> None:
             await client.filestorage.files.retrieve(
                 id="id",
-                expand=FilesRetrieveRequestExpand.DRIVE,
                 include_remote_data=True,
                 include_shell_data=True,
             )
@@ -857,14 +849,14 @@ class AsyncFilesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> DownloadRequestMeta:
         """
-        Returns metadata to construct an authenticated file download request for a singular file, allowing you to download file directly from the third-party.
+        Returns metadata to construct an authenticated file download request for a singular file, allowing you to download file directly from the third-party. For information on our download process please refer to our <a href='https://help.merge.dev/articles/10644317' target='_blank'>direct file download help center article</a>.
 
         Parameters
         ----------
         id : str
 
         mime_type : typing.Optional[str]
-            If provided, specifies the export format of the file to be downloaded. For information on supported export formats, please refer to our <a href='https://help.merge.dev/en/articles/8615316-file-export-and-download-specification' target='_blank'>export format help center article</a>.
+            If provided, specifies the export format of the file to be downloaded.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

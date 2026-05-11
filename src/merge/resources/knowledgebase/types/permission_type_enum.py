@@ -7,13 +7,6 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class PermissionTypeEnum(str, enum.Enum):
-    """
-    * `USER` - USER
-    * `GROUP` - GROUP
-    * `COMPANY` - COMPANY
-    * `ANYONE` - ANYONE
-    """
-
     USER = "USER"
     GROUP = "GROUP"
     COMPANY = "COMPANY"

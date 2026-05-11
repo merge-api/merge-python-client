@@ -7,15 +7,11 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class MessagesRepliesListRequestOrderBy(str, enum.Enum):
-    REMOTE_CREATED_AT_DESCENDING = "-remote_created_at"
-    REMOTE_CREATED_AT_ASCENDING = "remote_created_at"
+    REMOTE_CREATED_AT = "-remote_created_at"
+    REMOTE_CREATED_AT = "remote_created_at"
 
-    def visit(
-        self,
-        remote_created_at_descending: typing.Callable[[], T_Result],
-        remote_created_at_ascending: typing.Callable[[], T_Result],
-    ) -> T_Result:
-        if self is MessagesRepliesListRequestOrderBy.REMOTE_CREATED_AT_DESCENDING:
-            return remote_created_at_descending()
-        if self is MessagesRepliesListRequestOrderBy.REMOTE_CREATED_AT_ASCENDING:
-            return remote_created_at_ascending()
+    def visit(self, remote_created_at: typing.Callable[[], T_Result]) -> T_Result:
+        if self is MessagesRepliesListRequestOrderBy.REMOTE_CREATED_AT:
+            return remote_created_at()
+        if self is MessagesRepliesListRequestOrderBy.REMOTE_CREATED_AT:
+            return remote_created_at()

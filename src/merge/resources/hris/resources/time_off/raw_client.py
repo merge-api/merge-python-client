@@ -16,12 +16,12 @@ from ...types.paginated_time_off_list import PaginatedTimeOffList
 from ...types.time_off import TimeOff
 from ...types.time_off_request import TimeOffRequest
 from ...types.time_off_response import TimeOffResponse
-from .types.time_off_list_request_expand import TimeOffListRequestExpand
+from .types.time_off_list_request_expand_item import TimeOffListRequestExpandItem
 from .types.time_off_list_request_remote_fields import TimeOffListRequestRemoteFields
 from .types.time_off_list_request_request_type import TimeOffListRequestRequestType
 from .types.time_off_list_request_show_enum_origins import TimeOffListRequestShowEnumOrigins
 from .types.time_off_list_request_status import TimeOffListRequestStatus
-from .types.time_off_retrieve_request_expand import TimeOffRetrieveRequestExpand
+from .types.time_off_retrieve_request_expand_item import TimeOffRetrieveRequestExpandItem
 from .types.time_off_retrieve_request_remote_fields import TimeOffRetrieveRequestRemoteFields
 from .types.time_off_retrieve_request_show_enum_origins import TimeOffRetrieveRequestShowEnumOrigins
 
@@ -43,7 +43,9 @@ class RawTimeOffClient:
         employee_id: typing.Optional[str] = None,
         ended_after: typing.Optional[dt.datetime] = None,
         ended_before: typing.Optional[dt.datetime] = None,
-        expand: typing.Optional[TimeOffListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[TimeOffListRequestExpandItem, typing.Sequence[TimeOffListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -85,7 +87,7 @@ class RawTimeOffClient:
         ended_before : typing.Optional[dt.datetime]
             If provided, will only return time-offs that ended before this datetime.
 
-        expand : typing.Optional[TimeOffListRequestExpand]
+        expand : typing.Optional[typing.Union[TimeOffListRequestExpandItem, typing.Sequence[TimeOffListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -104,7 +106,7 @@ class RawTimeOffClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         remote_fields : typing.Optional[TimeOffListRequestRemoteFields]
             Deprecated. Use show_enum_origins.
@@ -255,7 +257,9 @@ class RawTimeOffClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[TimeOffRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[TimeOffRetrieveRequestExpandItem, typing.Sequence[TimeOffRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[TimeOffRetrieveRequestRemoteFields] = None,
@@ -269,7 +273,7 @@ class RawTimeOffClient:
         ----------
         id : str
 
-        expand : typing.Optional[TimeOffRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[TimeOffRetrieveRequestExpandItem, typing.Sequence[TimeOffRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -370,7 +374,9 @@ class AsyncRawTimeOffClient:
         employee_id: typing.Optional[str] = None,
         ended_after: typing.Optional[dt.datetime] = None,
         ended_before: typing.Optional[dt.datetime] = None,
-        expand: typing.Optional[TimeOffListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[TimeOffListRequestExpandItem, typing.Sequence[TimeOffListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -412,7 +418,7 @@ class AsyncRawTimeOffClient:
         ended_before : typing.Optional[dt.datetime]
             If provided, will only return time-offs that ended before this datetime.
 
-        expand : typing.Optional[TimeOffListRequestExpand]
+        expand : typing.Optional[typing.Union[TimeOffListRequestExpandItem, typing.Sequence[TimeOffListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -431,7 +437,7 @@ class AsyncRawTimeOffClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         remote_fields : typing.Optional[TimeOffListRequestRemoteFields]
             Deprecated. Use show_enum_origins.
@@ -582,7 +588,9 @@ class AsyncRawTimeOffClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[TimeOffRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[TimeOffRetrieveRequestExpandItem, typing.Sequence[TimeOffRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[TimeOffRetrieveRequestRemoteFields] = None,
@@ -596,7 +604,7 @@ class AsyncRawTimeOffClient:
         ----------
         id : str
 
-        expand : typing.Optional[TimeOffRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[TimeOffRetrieveRequestExpandItem, typing.Sequence[TimeOffRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

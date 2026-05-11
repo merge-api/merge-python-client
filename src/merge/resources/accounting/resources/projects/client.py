@@ -8,8 +8,8 @@ from .....core.request_options import RequestOptions
 from ...types.paginated_project_list import PaginatedProjectList
 from ...types.project import Project
 from .raw_client import AsyncRawProjectsClient, RawProjectsClient
-from .types.projects_list_request_expand import ProjectsListRequestExpand
-from .types.projects_retrieve_request_expand import ProjectsRetrieveRequestExpand
+from .types.projects_list_request_expand_item import ProjectsListRequestExpandItem
+from .types.projects_retrieve_request_expand_item import ProjectsRetrieveRequestExpandItem
 
 
 class ProjectsClient:
@@ -34,10 +34,13 @@ class ProjectsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[ProjectsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ProjectsListRequestExpandItem, typing.Sequence[ProjectsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
+        is_active: typing.Optional[str] = None,
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
         page_size: typing.Optional[int] = None,
@@ -61,7 +64,7 @@ class ProjectsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[ProjectsListRequestExpand]
+        expand : typing.Optional[typing.Union[ProjectsListRequestExpandItem, typing.Sequence[ProjectsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -73,6 +76,9 @@ class ProjectsClient:
         include_shell_data : typing.Optional[bool]
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
+        is_active : typing.Optional[str]
+            If provided, will only return projects with this value for is_active.
+
         modified_after : typing.Optional[dt.datetime]
             If provided, only objects synced by Merge after this date time will be returned.
 
@@ -80,7 +86,7 @@ class ProjectsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -98,9 +104,6 @@ class ProjectsClient:
         import datetime
 
         from merge import Merge
-        from merge.resources.accounting.resources.projects import (
-            ProjectsListRequestExpand,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -115,10 +118,10 @@ class ProjectsClient:
                 "2024-01-15 09:30:00+00:00",
             ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            expand=ProjectsListRequestExpand.COMPANY,
             include_deleted_data=True,
             include_remote_data=True,
             include_shell_data=True,
+            is_active="is_active",
             modified_after=datetime.datetime.fromisoformat(
                 "2024-01-15 09:30:00+00:00",
             ),
@@ -138,6 +141,7 @@ class ProjectsClient:
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
             include_shell_data=include_shell_data,
+            is_active=is_active,
             modified_after=modified_after,
             modified_before=modified_before,
             page_size=page_size,
@@ -150,7 +154,9 @@ class ProjectsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[ProjectsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ProjectsRetrieveRequestExpandItem, typing.Sequence[ProjectsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -162,7 +168,7 @@ class ProjectsClient:
         ----------
         id : str
 
-        expand : typing.Optional[ProjectsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[ProjectsRetrieveRequestExpandItem, typing.Sequence[ProjectsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -182,9 +188,6 @@ class ProjectsClient:
         Examples
         --------
         from merge import Merge
-        from merge.resources.accounting.resources.projects import (
-            ProjectsRetrieveRequestExpand,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -192,7 +195,6 @@ class ProjectsClient:
         )
         client.accounting.projects.retrieve(
             id="id",
-            expand=ProjectsRetrieveRequestExpand.COMPANY,
             include_remote_data=True,
             include_shell_data=True,
         )
@@ -229,10 +231,13 @@ class AsyncProjectsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[ProjectsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ProjectsListRequestExpandItem, typing.Sequence[ProjectsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
+        is_active: typing.Optional[str] = None,
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
         page_size: typing.Optional[int] = None,
@@ -256,7 +261,7 @@ class AsyncProjectsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[ProjectsListRequestExpand]
+        expand : typing.Optional[typing.Union[ProjectsListRequestExpandItem, typing.Sequence[ProjectsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -268,6 +273,9 @@ class AsyncProjectsClient:
         include_shell_data : typing.Optional[bool]
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
+        is_active : typing.Optional[str]
+            If provided, will only return projects with this value for is_active.
+
         modified_after : typing.Optional[dt.datetime]
             If provided, only objects synced by Merge after this date time will be returned.
 
@@ -275,7 +283,7 @@ class AsyncProjectsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -294,9 +302,6 @@ class AsyncProjectsClient:
         import datetime
 
         from merge import AsyncMerge
-        from merge.resources.accounting.resources.projects import (
-            ProjectsListRequestExpand,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -314,10 +319,10 @@ class AsyncProjectsClient:
                     "2024-01-15 09:30:00+00:00",
                 ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                expand=ProjectsListRequestExpand.COMPANY,
                 include_deleted_data=True,
                 include_remote_data=True,
                 include_shell_data=True,
+                is_active="is_active",
                 modified_after=datetime.datetime.fromisoformat(
                     "2024-01-15 09:30:00+00:00",
                 ),
@@ -340,6 +345,7 @@ class AsyncProjectsClient:
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
             include_shell_data=include_shell_data,
+            is_active=is_active,
             modified_after=modified_after,
             modified_before=modified_before,
             page_size=page_size,
@@ -352,7 +358,9 @@ class AsyncProjectsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[ProjectsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ProjectsRetrieveRequestExpandItem, typing.Sequence[ProjectsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -364,7 +372,7 @@ class AsyncProjectsClient:
         ----------
         id : str
 
-        expand : typing.Optional[ProjectsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[ProjectsRetrieveRequestExpandItem, typing.Sequence[ProjectsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -386,9 +394,6 @@ class AsyncProjectsClient:
         import asyncio
 
         from merge import AsyncMerge
-        from merge.resources.accounting.resources.projects import (
-            ProjectsRetrieveRequestExpand,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -399,7 +404,6 @@ class AsyncProjectsClient:
         async def main() -> None:
             await client.accounting.projects.retrieve(
                 id="id",
-                expand=ProjectsRetrieveRequestExpand.COMPANY,
                 include_remote_data=True,
                 include_shell_data=True,
             )
