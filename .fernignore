@@ -16,3 +16,5 @@ tests/custom/test_environment_routing.py
 tests/custom/test_datetime_filters.py
 tests/custom/test_error_response_handling.py
 tests/custom/test_query_encoder_edges.py
+tests/custom/test_enum_forward_compat_response.py
+tests/custom/test_enum_forward_compat_query.py
