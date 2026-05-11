@@ -13,8 +13,8 @@ from ...types.payment import Payment
 from ...types.payment_request import PaymentRequest
 from ...types.payment_response import PaymentResponse
 from .raw_client import AsyncRawPaymentsClient, RawPaymentsClient
-from .types.payments_list_request_expand import PaymentsListRequestExpand
-from .types.payments_retrieve_request_expand import PaymentsRetrieveRequestExpand
+from .types.payments_list_request_expand_item import PaymentsListRequestExpandItem
+from .types.payments_retrieve_request_expand_item import PaymentsRetrieveRequestExpandItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -44,7 +44,9 @@ class PaymentsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[PaymentsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[PaymentsListRequestExpandItem, typing.Sequence[PaymentsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -80,7 +82,7 @@ class PaymentsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[PaymentsListRequestExpand]
+        expand : typing.Optional[typing.Union[PaymentsListRequestExpandItem, typing.Sequence[PaymentsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -102,7 +104,7 @@ class PaymentsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -126,9 +128,6 @@ class PaymentsClient:
         import datetime
 
         from merge import Merge
-        from merge.resources.accounting.resources.payments import (
-            PaymentsListRequestExpand,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -145,7 +144,6 @@ class PaymentsClient:
                 "2024-01-15 09:30:00+00:00",
             ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            expand=PaymentsListRequestExpand.ACCOUNT,
             include_deleted_data=True,
             include_remote_data=True,
             include_remote_fields=True,
@@ -241,7 +239,9 @@ class PaymentsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[PaymentsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[PaymentsRetrieveRequestExpandItem, typing.Sequence[PaymentsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -254,7 +254,7 @@ class PaymentsClient:
         ----------
         id : str
 
-        expand : typing.Optional[PaymentsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[PaymentsRetrieveRequestExpandItem, typing.Sequence[PaymentsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -277,9 +277,6 @@ class PaymentsClient:
         Examples
         --------
         from merge import Merge
-        from merge.resources.accounting.resources.payments import (
-            PaymentsRetrieveRequestExpand,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -287,7 +284,6 @@ class PaymentsClient:
         )
         client.accounting.payments.retrieve(
             id="id",
-            expand=PaymentsRetrieveRequestExpand.ACCOUNT,
             include_remote_data=True,
             include_remote_fields=True,
             include_shell_data=True,
@@ -392,7 +388,7 @@ class PaymentsClient:
             If provided, will only return remote fields classes with this is_custom value
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -526,7 +522,7 @@ class PaymentsClient:
             If provided, will only return remote fields classes with this is_custom value
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -591,7 +587,9 @@ class AsyncPaymentsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[PaymentsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[PaymentsListRequestExpandItem, typing.Sequence[PaymentsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -627,7 +625,7 @@ class AsyncPaymentsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[PaymentsListRequestExpand]
+        expand : typing.Optional[typing.Union[PaymentsListRequestExpandItem, typing.Sequence[PaymentsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -649,7 +647,7 @@ class AsyncPaymentsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -674,9 +672,6 @@ class AsyncPaymentsClient:
         import datetime
 
         from merge import AsyncMerge
-        from merge.resources.accounting.resources.payments import (
-            PaymentsListRequestExpand,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -696,7 +691,6 @@ class AsyncPaymentsClient:
                     "2024-01-15 09:30:00+00:00",
                 ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                expand=PaymentsListRequestExpand.ACCOUNT,
                 include_deleted_data=True,
                 include_remote_data=True,
                 include_remote_fields=True,
@@ -803,7 +797,9 @@ class AsyncPaymentsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[PaymentsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[PaymentsRetrieveRequestExpandItem, typing.Sequence[PaymentsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -816,7 +812,7 @@ class AsyncPaymentsClient:
         ----------
         id : str
 
-        expand : typing.Optional[PaymentsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[PaymentsRetrieveRequestExpandItem, typing.Sequence[PaymentsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -841,9 +837,6 @@ class AsyncPaymentsClient:
         import asyncio
 
         from merge import AsyncMerge
-        from merge.resources.accounting.resources.payments import (
-            PaymentsRetrieveRequestExpand,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -854,7 +847,6 @@ class AsyncPaymentsClient:
         async def main() -> None:
             await client.accounting.payments.retrieve(
                 id="id",
-                expand=PaymentsRetrieveRequestExpand.ACCOUNT,
                 include_remote_data=True,
                 include_remote_fields=True,
                 include_shell_data=True,
@@ -970,7 +962,7 @@ class AsyncPaymentsClient:
             If provided, will only return remote fields classes with this is_custom value
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1130,7 +1122,7 @@ class AsyncPaymentsClient:
             If provided, will only return remote fields classes with this is_custom value
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

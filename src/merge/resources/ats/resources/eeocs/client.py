@@ -36,7 +36,9 @@ class EeocsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["candidate"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["candidate"], typing.Sequence[typing.Literal["candidate"]]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -65,7 +67,7 @@ class EeocsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["candidate"]]
+        expand : typing.Optional[typing.Union[typing.Literal["candidate"], typing.Sequence[typing.Literal["candidate"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -84,7 +86,7 @@ class EeocsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_fields : typing.Optional[EeocsListRequestRemoteFields]
             Deprecated. Use show_enum_origins.
@@ -164,7 +166,9 @@ class EeocsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["candidate"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["candidate"], typing.Sequence[typing.Literal["candidate"]]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[EeocsRetrieveRequestRemoteFields] = None,
@@ -178,7 +182,7 @@ class EeocsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["candidate"]]
+        expand : typing.Optional[typing.Union[typing.Literal["candidate"], typing.Sequence[typing.Literal["candidate"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -255,7 +259,9 @@ class AsyncEeocsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["candidate"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["candidate"], typing.Sequence[typing.Literal["candidate"]]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -284,7 +290,7 @@ class AsyncEeocsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["candidate"]]
+        expand : typing.Optional[typing.Union[typing.Literal["candidate"], typing.Sequence[typing.Literal["candidate"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -303,7 +309,7 @@ class AsyncEeocsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_fields : typing.Optional[EeocsListRequestRemoteFields]
             Deprecated. Use show_enum_origins.
@@ -390,7 +396,9 @@ class AsyncEeocsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["candidate"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["candidate"], typing.Sequence[typing.Literal["candidate"]]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[EeocsRetrieveRequestRemoteFields] = None,
@@ -404,7 +412,7 @@ class AsyncEeocsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["candidate"]]
+        expand : typing.Optional[typing.Union[typing.Literal["candidate"], typing.Sequence[typing.Literal["candidate"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

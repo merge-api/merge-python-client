@@ -80,7 +80,7 @@ class RawLinkedAccountsClient:
             If included, will only include test linked accounts. If not included, will only include non-test linked accounts.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         status : typing.Optional[str]
             Filter by status. Options: `COMPLETE`, `IDLE`, `INCOMPLETE`, `RELINK_NEEDED`
@@ -197,7 +197,7 @@ class AsyncRawLinkedAccountsClient:
             If included, will only include test linked accounts. If not included, will only include non-test linked accounts.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         status : typing.Optional[str]
             Filter by status. Options: `COMPLETE`, `IDLE`, `INCOMPLETE`, `RELINK_NEEDED`

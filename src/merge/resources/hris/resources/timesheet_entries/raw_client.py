@@ -35,7 +35,9 @@ class RawTimesheetEntriesClient:
         employee_id: typing.Optional[str] = None,
         ended_after: typing.Optional[dt.datetime] = None,
         ended_before: typing.Optional[dt.datetime] = None,
-        expand: typing.Optional[typing.Literal["employee"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["employee"], typing.Sequence[typing.Literal["employee"]]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -71,7 +73,7 @@ class RawTimesheetEntriesClient:
         ended_before : typing.Optional[dt.datetime]
             If provided, will only return timesheet entries ended before this datetime.
 
-        expand : typing.Optional[typing.Literal["employee"]]
+        expand : typing.Optional[typing.Union[typing.Literal["employee"], typing.Sequence[typing.Literal["employee"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -215,7 +217,9 @@ class RawTimesheetEntriesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["employee"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["employee"], typing.Sequence[typing.Literal["employee"]]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -227,7 +231,7 @@ class RawTimesheetEntriesClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["employee"]]
+        expand : typing.Optional[typing.Union[typing.Literal["employee"], typing.Sequence[typing.Literal["employee"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -319,7 +323,9 @@ class AsyncRawTimesheetEntriesClient:
         employee_id: typing.Optional[str] = None,
         ended_after: typing.Optional[dt.datetime] = None,
         ended_before: typing.Optional[dt.datetime] = None,
-        expand: typing.Optional[typing.Literal["employee"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["employee"], typing.Sequence[typing.Literal["employee"]]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -355,7 +361,7 @@ class AsyncRawTimesheetEntriesClient:
         ended_before : typing.Optional[dt.datetime]
             If provided, will only return timesheet entries ended before this datetime.
 
-        expand : typing.Optional[typing.Literal["employee"]]
+        expand : typing.Optional[typing.Union[typing.Literal["employee"], typing.Sequence[typing.Literal["employee"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -499,7 +505,9 @@ class AsyncRawTimesheetEntriesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["employee"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["employee"], typing.Sequence[typing.Literal["employee"]]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -511,7 +519,7 @@ class AsyncRawTimesheetEntriesClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["employee"]]
+        expand : typing.Optional[typing.Union[typing.Literal["employee"], typing.Sequence[typing.Literal["employee"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

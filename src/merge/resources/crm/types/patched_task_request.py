@@ -44,6 +44,11 @@ class PatchedTaskRequest(UncheckedBaseModel):
     The task's opportunity.
     """
 
+    contact: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The task's contact.
+    """
+
     completed_date: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     When the task is completed.

@@ -7,12 +7,6 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class RequestFormatEnum(str, enum.Enum):
-    """
-    * `JSON` - JSON
-    * `XML` - XML
-    * `MULTIPART` - MULTIPART
-    """
-
     JSON = "JSON"
     XML = "XML"
     MULTIPART = "MULTIPART"

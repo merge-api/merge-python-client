@@ -9,7 +9,7 @@ from ...types.paginated_project_list import PaginatedProjectList
 from ...types.paginated_user_list import PaginatedUserList
 from ...types.project import Project
 from .raw_client import AsyncRawProjectsClient, RawProjectsClient
-from .types.projects_users_list_request_expand import ProjectsUsersListRequestExpand
+from .types.projects_users_list_request_expand_item import ProjectsUsersListRequestExpandItem
 
 
 class ProjectsClient:
@@ -72,7 +72,7 @@ class ProjectsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -187,7 +187,9 @@ class ProjectsClient:
         parent_id: str,
         *,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[ProjectsUsersListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ProjectsUsersListRequestExpandItem, typing.Sequence[ProjectsUsersListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -204,7 +206,7 @@ class ProjectsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[ProjectsUsersListRequestExpand]
+        expand : typing.Optional[typing.Union[ProjectsUsersListRequestExpandItem, typing.Sequence[ProjectsUsersListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -230,9 +232,6 @@ class ProjectsClient:
         Examples
         --------
         from merge import Merge
-        from merge.resources.ticketing.resources.projects import (
-            ProjectsUsersListRequestExpand,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -241,7 +240,6 @@ class ProjectsClient:
         client.ticketing.projects.users_list(
             parent_id="parent_id",
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            expand=ProjectsUsersListRequestExpand.ROLES,
             include_deleted_data=True,
             include_remote_data=True,
             include_shell_data=True,
@@ -321,7 +319,7 @@ class AsyncProjectsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -451,7 +449,9 @@ class AsyncProjectsClient:
         parent_id: str,
         *,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[ProjectsUsersListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ProjectsUsersListRequestExpandItem, typing.Sequence[ProjectsUsersListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -468,7 +468,7 @@ class AsyncProjectsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[ProjectsUsersListRequestExpand]
+        expand : typing.Optional[typing.Union[ProjectsUsersListRequestExpandItem, typing.Sequence[ProjectsUsersListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -496,9 +496,6 @@ class AsyncProjectsClient:
         import asyncio
 
         from merge import AsyncMerge
-        from merge.resources.ticketing.resources.projects import (
-            ProjectsUsersListRequestExpand,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -510,7 +507,6 @@ class AsyncProjectsClient:
             await client.ticketing.projects.users_list(
                 parent_id="parent_id",
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                expand=ProjectsUsersListRequestExpand.ROLES,
                 include_deleted_data=True,
                 include_remote_data=True,
                 include_shell_data=True,

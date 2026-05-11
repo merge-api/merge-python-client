@@ -14,7 +14,7 @@ from .....core.unchecked_base_model import construct_type
 from ...types.conversation import Conversation
 from ...types.paginated_conversation_list import PaginatedConversationList
 from ...types.paginated_member_list import PaginatedMemberList
-from .types.conversations_members_list_request_expand import ConversationsMembersListRequestExpand
+from .types.conversations_members_list_request_expand_item import ConversationsMembersListRequestExpandItem
 
 
 class RawConversationsClient:
@@ -27,7 +27,9 @@ class RawConversationsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["members"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["members"], typing.Sequence[typing.Literal["members"]]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -51,7 +53,7 @@ class RawConversationsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["members"]]
+        expand : typing.Optional[typing.Union[typing.Literal["members"], typing.Sequence[typing.Literal["members"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -121,7 +123,11 @@ class RawConversationsClient:
         conversation_id: str,
         *,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[ConversationsMembersListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                ConversationsMembersListRequestExpandItem, typing.Sequence[ConversationsMembersListRequestExpandItem]
+            ]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -138,7 +144,7 @@ class RawConversationsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[ConversationsMembersListRequestExpand]
+        expand : typing.Optional[typing.Union[ConversationsMembersListRequestExpandItem, typing.Sequence[ConversationsMembersListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -193,7 +199,9 @@ class RawConversationsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["members"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["members"], typing.Sequence[typing.Literal["members"]]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -205,7 +213,7 @@ class RawConversationsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["members"]]
+        expand : typing.Optional[typing.Union[typing.Literal["members"], typing.Sequence[typing.Literal["members"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -258,7 +266,9 @@ class AsyncRawConversationsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["members"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["members"], typing.Sequence[typing.Literal["members"]]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -282,7 +292,7 @@ class AsyncRawConversationsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["members"]]
+        expand : typing.Optional[typing.Union[typing.Literal["members"], typing.Sequence[typing.Literal["members"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -352,7 +362,11 @@ class AsyncRawConversationsClient:
         conversation_id: str,
         *,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[ConversationsMembersListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                ConversationsMembersListRequestExpandItem, typing.Sequence[ConversationsMembersListRequestExpandItem]
+            ]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -369,7 +383,7 @@ class AsyncRawConversationsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[ConversationsMembersListRequestExpand]
+        expand : typing.Optional[typing.Union[ConversationsMembersListRequestExpandItem, typing.Sequence[ConversationsMembersListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -424,7 +438,9 @@ class AsyncRawConversationsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["members"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["members"], typing.Sequence[typing.Literal["members"]]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -436,7 +452,7 @@ class AsyncRawConversationsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["members"]]
+        expand : typing.Optional[typing.Union[typing.Literal["members"], typing.Sequence[typing.Literal["members"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

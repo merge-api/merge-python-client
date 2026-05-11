@@ -44,18 +44,12 @@ Instantiate and use the client with the following:
 
 ```python
 from merge import Merge
-from merge.resources.ats import ActivityRequest
 
 client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ats.activities.create(
-    is_debug_mode=True,
-    run_async=True,
-    model=ActivityRequest(),
-    remote_user_id="remote_user_id",
-)
+client.ats.account_token.regenerate_create()
 ```
 
 ## Instantiation
@@ -89,7 +83,6 @@ The SDK also exports an `async` client so that you can make non-blocking calls t
 import asyncio
 
 from merge import AsyncMerge
-from merge.resources.ats import ActivityRequest
 
 client = AsyncMerge(
     account_token="YOUR_ACCOUNT_TOKEN",
@@ -98,12 +91,7 @@ client = AsyncMerge(
 
 
 async def main() -> None:
-    await client.ats.activities.create(
-        is_debug_mode=True,
-        run_async=True,
-        model=ActivityRequest(),
-        remote_user_id="remote_user_id",
-    )
+    await client.ats.account_token.regenerate_create()
 
 
 asyncio.run(main())
@@ -118,7 +106,7 @@ will be thrown.
 from merge.core.api_error import ApiError
 
 try:
-    client.ats.activities.create(...)
+    client.ats.account_token.regenerate_create(...)
 except ApiError as e:
     print(e.status_code)
     print(e.body)
@@ -137,7 +125,7 @@ from merge import Merge
 client = Merge(
     ...,
 )
-response = client.ats.activities.with_raw_response.create(...)
+response = client.ats.account_token.with_raw_response.regenerate_create(...)
 print(response.headers)  # access the response headers
 print(response.data)  # access the underlying object
 ```
@@ -157,7 +145,7 @@ A request is deemed retryable when any of the following HTTP status codes is ret
 Use the `max_retries` request option to configure this behavior.
 
 ```python
-client.ats.activities.create(..., request_options={
+client.ats.account_token.regenerate_create(..., request_options={
     "max_retries": 1
 })
 ```
@@ -177,7 +165,7 @@ client = Merge(
 
 
 # Override timeout for a specific method
-client.ats.activities.create(..., request_options={
+client.ats.account_token.regenerate_create(..., request_options={
     "timeout_in_seconds": 1
 })
 ```
@@ -251,6 +239,7 @@ while response.next is not None:
         cursor=response.next, 
         created_after="2030-01-01")
 ```
+
 
 
 

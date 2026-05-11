@@ -11,16 +11,19 @@ from .....core.http_response import AsyncHttpResponse, HttpResponse
 from .....core.jsonable_encoder import jsonable_encoder
 from .....core.request_options import RequestOptions
 from .....core.unchecked_base_model import construct_type
+from ...types.async_bulk_create_response import AsyncBulkCreateResponse
+from ...types.batch_objects_response import BatchObjectsResponse
 from ...types.invoice import Invoice
+from ...types.invoice_batch_item_request import InvoiceBatchItemRequest
 from ...types.invoice_request import InvoiceRequest
 from ...types.invoice_response import InvoiceResponse
 from ...types.meta_response import MetaResponse
 from ...types.paginated_invoice_list import PaginatedInvoiceList
 from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClassList
-from .types.invoices_list_request_expand import InvoicesListRequestExpand
+from .types.invoices_list_request_expand_item import InvoicesListRequestExpandItem
 from .types.invoices_list_request_status import InvoicesListRequestStatus
 from .types.invoices_list_request_type import InvoicesListRequestType
-from .types.invoices_retrieve_request_expand import InvoicesRetrieveRequestExpand
+from .types.invoices_retrieve_request_expand_item import InvoicesRetrieveRequestExpandItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -38,7 +41,9 @@ class RawInvoicesClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[InvoicesListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[InvoicesListRequestExpandItem, typing.Sequence[InvoicesListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -76,7 +81,7 @@ class RawInvoicesClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[InvoicesListRequestExpand]
+        expand : typing.Optional[typing.Union[InvoicesListRequestExpandItem, typing.Sequence[InvoicesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -107,7 +112,7 @@ class RawInvoicesClient:
             If provided, will only return Invoices with this number.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_fields : typing.Optional[typing.Literal["type"]]
             Deprecated. Use show_enum_origins.
@@ -251,7 +256,9 @@ class RawInvoicesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[InvoicesRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[InvoicesRetrieveRequestExpandItem, typing.Sequence[InvoicesRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -266,7 +273,7 @@ class RawInvoicesClient:
         ----------
         id : str
 
-        expand : typing.Optional[InvoicesRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[InvoicesRetrieveRequestExpandItem, typing.Sequence[InvoicesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -383,6 +390,92 @@ class RawInvoicesClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
+    def bulk_create(
+        self,
+        *,
+        batch_items: typing.Sequence[InvoiceBatchItemRequest],
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[AsyncBulkCreateResponse]:
+        """
+        Creates multiple `Invoice` objects with the given values.
+
+        Parameters
+        ----------
+        batch_items : typing.Sequence[InvoiceBatchItemRequest]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[AsyncBulkCreateResponse]
+
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "accounting/v1/invoices/bulk",
+            method="POST",
+            json={
+                "batch_items": batch_items,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    AsyncBulkCreateResponse,
+                    construct_type(
+                        type_=AsyncBulkCreateResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def bulk_retrieve(
+        self, batch_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[BatchObjectsResponse]:
+        """
+        Returns the status and results of an `Invoice` bulk create batch.
+
+        Parameters
+        ----------
+        batch_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[BatchObjectsResponse]
+
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"accounting/v1/invoices/bulk/{jsonable_encoder(batch_id)}",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    BatchObjectsResponse,
+                    construct_type(
+                        type_=BatchObjectsResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
     def line_items_remote_field_classes_list(
         self,
         *,
@@ -419,7 +512,7 @@ class RawInvoicesClient:
             If provided, will only return remote fields classes with this is_custom value
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -568,7 +661,7 @@ class RawInvoicesClient:
             If provided, will only return remote fields classes with this is_custom value
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -620,7 +713,9 @@ class AsyncRawInvoicesClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[InvoicesListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[InvoicesListRequestExpandItem, typing.Sequence[InvoicesListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -658,7 +753,7 @@ class AsyncRawInvoicesClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[InvoicesListRequestExpand]
+        expand : typing.Optional[typing.Union[InvoicesListRequestExpandItem, typing.Sequence[InvoicesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -689,7 +784,7 @@ class AsyncRawInvoicesClient:
             If provided, will only return Invoices with this number.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_fields : typing.Optional[typing.Literal["type"]]
             Deprecated. Use show_enum_origins.
@@ -833,7 +928,9 @@ class AsyncRawInvoicesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[InvoicesRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[InvoicesRetrieveRequestExpandItem, typing.Sequence[InvoicesRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -848,7 +945,7 @@ class AsyncRawInvoicesClient:
         ----------
         id : str
 
-        expand : typing.Optional[InvoicesRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[InvoicesRetrieveRequestExpandItem, typing.Sequence[InvoicesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -965,6 +1062,92 @@ class AsyncRawInvoicesClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
+    async def bulk_create(
+        self,
+        *,
+        batch_items: typing.Sequence[InvoiceBatchItemRequest],
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[AsyncBulkCreateResponse]:
+        """
+        Creates multiple `Invoice` objects with the given values.
+
+        Parameters
+        ----------
+        batch_items : typing.Sequence[InvoiceBatchItemRequest]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[AsyncBulkCreateResponse]
+
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "accounting/v1/invoices/bulk",
+            method="POST",
+            json={
+                "batch_items": batch_items,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    AsyncBulkCreateResponse,
+                    construct_type(
+                        type_=AsyncBulkCreateResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def bulk_retrieve(
+        self, batch_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[BatchObjectsResponse]:
+        """
+        Returns the status and results of an `Invoice` bulk create batch.
+
+        Parameters
+        ----------
+        batch_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[BatchObjectsResponse]
+
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"accounting/v1/invoices/bulk/{jsonable_encoder(batch_id)}",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    BatchObjectsResponse,
+                    construct_type(
+                        type_=BatchObjectsResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
     async def line_items_remote_field_classes_list(
         self,
         *,
@@ -1001,7 +1184,7 @@ class AsyncRawInvoicesClient:
             If provided, will only return remote fields classes with this is_custom value
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1150,7 +1333,7 @@ class AsyncRawInvoicesClient:
             If provided, will only return remote fields classes with this is_custom value
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

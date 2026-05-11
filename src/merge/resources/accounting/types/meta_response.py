@@ -10,10 +10,13 @@ from .linked_account_status import LinkedAccountStatus
 
 class MetaResponse(UncheckedBaseModel):
     request_schema: typing.Dict[str, typing.Optional[typing.Any]]
-    remote_field_classes: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
     status: typing.Optional[LinkedAccountStatus] = None
     has_conditional_params: bool
     has_required_linked_account_params: bool
+    remote_fields: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
+    """
+    Remote field values to populate
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

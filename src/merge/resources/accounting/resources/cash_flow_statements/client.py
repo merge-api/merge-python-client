@@ -32,7 +32,9 @@ class CashFlowStatementsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["company"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["company"], typing.Sequence[typing.Literal["company"]]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -59,7 +61,7 @@ class CashFlowStatementsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["company"]]
+        expand : typing.Optional[typing.Union[typing.Literal["company"], typing.Sequence[typing.Literal["company"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -78,7 +80,7 @@ class CashFlowStatementsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -144,7 +146,9 @@ class CashFlowStatementsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["company"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["company"], typing.Sequence[typing.Literal["company"]]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -156,7 +160,7 @@ class CashFlowStatementsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["company"]]
+        expand : typing.Optional[typing.Union[typing.Literal["company"], typing.Sequence[typing.Literal["company"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -219,7 +223,9 @@ class AsyncCashFlowStatementsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["company"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["company"], typing.Sequence[typing.Literal["company"]]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -246,7 +252,7 @@ class AsyncCashFlowStatementsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["company"]]
+        expand : typing.Optional[typing.Union[typing.Literal["company"], typing.Sequence[typing.Literal["company"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -265,7 +271,7 @@ class AsyncCashFlowStatementsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -338,7 +344,9 @@ class AsyncCashFlowStatementsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["company"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["company"], typing.Sequence[typing.Literal["company"]]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -350,7 +358,7 @@ class AsyncCashFlowStatementsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["company"]]
+        expand : typing.Optional[typing.Union[typing.Literal["company"], typing.Sequence[typing.Literal["company"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

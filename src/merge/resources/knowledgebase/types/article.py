@@ -10,6 +10,7 @@ from ....core.pydantic_utilities import IS_PYDANTIC_V2, update_forward_refs
 from ....core.unchecked_base_model import UncheckedBaseModel
 from .article_attachments_item import ArticleAttachmentsItem
 from .article_author import ArticleAuthor
+from .article_field_mappings import ArticleFieldMappings
 from .article_last_edited_by import ArticleLastEditedBy
 from .article_parent_container import ArticleParentContainer
 from .article_permissions_item import ArticlePermissionsItem
@@ -68,10 +69,6 @@ class Article(UncheckedBaseModel):
     visibility: typing.Optional[ArticleVisibility] = pydantic.Field(default=None)
     """
     The visibility of the article.
-    
-    * `PUBLIC` - PUBLIC
-    * `INTERNAL` - INTERNAL
-    * `RESTRICTED` - RESTRICTED
     """
 
     article_content_download_url: typing.Optional[str] = pydantic.Field(default=None)
@@ -92,20 +89,11 @@ class Article(UncheckedBaseModel):
     status: typing.Optional[ArticleStatus] = pydantic.Field(default=None)
     """
     The status of the article.
-    
-    * `DRAFT` - DRAFT
-    * `PUBLISHED` - PUBLISHED
-    * `ARCHIVED` - ARCHIVED
-    * `TRASH` - TRASH
     """
 
     type: typing.Optional[ArticleType] = pydantic.Field(default=None)
     """
     The type of the article.
-    
-    * `PAGE` - PAGE
-    * `BLOG_POST` - BLOG_POST
-    * `SMART_LINK` - SMART_LINK
     """
 
     remote_created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
@@ -140,7 +128,7 @@ class Article(UncheckedBaseModel):
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
     """
 
-    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    field_mappings: typing.Optional[ArticleFieldMappings] = None
     remote_data: typing.Optional[typing.List[RemoteData]] = None
 
     if IS_PYDANTIC_V2:

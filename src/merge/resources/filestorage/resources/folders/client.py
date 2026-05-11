@@ -11,8 +11,8 @@ from ...types.folder_request import FolderRequest
 from ...types.meta_response import MetaResponse
 from ...types.paginated_folder_list import PaginatedFolderList
 from .raw_client import AsyncRawFoldersClient, RawFoldersClient
-from .types.folders_list_request_expand import FoldersListRequestExpand
-from .types.folders_retrieve_request_expand import FoldersRetrieveRequestExpand
+from .types.folders_list_request_expand_item import FoldersListRequestExpandItem
+from .types.folders_retrieve_request_expand_item import FoldersRetrieveRequestExpandItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -40,7 +40,9 @@ class FoldersClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         drive_id: typing.Optional[str] = None,
-        expand: typing.Optional[FoldersListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[FoldersListRequestExpandItem, typing.Sequence[FoldersListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -69,7 +71,7 @@ class FoldersClient:
         drive_id : typing.Optional[str]
             If provided, will only return folders in this drive.
 
-        expand : typing.Optional[FoldersListRequestExpand]
+        expand : typing.Optional[typing.Union[FoldersListRequestExpandItem, typing.Sequence[FoldersListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -91,7 +93,7 @@ class FoldersClient:
             If provided, will only return folders with this name. This performs an exact match.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         parent_folder_id : typing.Optional[str]
             If provided, will only return folders in this parent folder. If null, will return folders in root directory.
@@ -112,9 +114,6 @@ class FoldersClient:
         import datetime
 
         from merge import Merge
-        from merge.resources.filestorage.resources.folders import (
-            FoldersListRequestExpand,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -129,7 +128,6 @@ class FoldersClient:
             ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
             drive_id="drive_id",
-            expand=FoldersListRequestExpand.DRIVE,
             include_deleted_data=True,
             include_remote_data=True,
             include_shell_data=True,
@@ -217,7 +215,9 @@ class FoldersClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[FoldersRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[FoldersRetrieveRequestExpandItem, typing.Sequence[FoldersRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -229,7 +229,7 @@ class FoldersClient:
         ----------
         id : str
 
-        expand : typing.Optional[FoldersRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[FoldersRetrieveRequestExpandItem, typing.Sequence[FoldersRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -249,9 +249,6 @@ class FoldersClient:
         Examples
         --------
         from merge import Merge
-        from merge.resources.filestorage.resources.folders import (
-            FoldersRetrieveRequestExpand,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -259,7 +256,6 @@ class FoldersClient:
         )
         client.filestorage.folders.retrieve(
             id="id",
-            expand=FoldersRetrieveRequestExpand.DRIVE,
             include_remote_data=True,
             include_shell_data=True,
         )
@@ -323,7 +319,9 @@ class AsyncFoldersClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         drive_id: typing.Optional[str] = None,
-        expand: typing.Optional[FoldersListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[FoldersListRequestExpandItem, typing.Sequence[FoldersListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -352,7 +350,7 @@ class AsyncFoldersClient:
         drive_id : typing.Optional[str]
             If provided, will only return folders in this drive.
 
-        expand : typing.Optional[FoldersListRequestExpand]
+        expand : typing.Optional[typing.Union[FoldersListRequestExpandItem, typing.Sequence[FoldersListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -374,7 +372,7 @@ class AsyncFoldersClient:
             If provided, will only return folders with this name. This performs an exact match.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         parent_folder_id : typing.Optional[str]
             If provided, will only return folders in this parent folder. If null, will return folders in root directory.
@@ -396,9 +394,6 @@ class AsyncFoldersClient:
         import datetime
 
         from merge import AsyncMerge
-        from merge.resources.filestorage.resources.folders import (
-            FoldersListRequestExpand,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -416,7 +411,6 @@ class AsyncFoldersClient:
                 ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
                 drive_id="drive_id",
-                expand=FoldersListRequestExpand.DRIVE,
                 include_deleted_data=True,
                 include_remote_data=True,
                 include_shell_data=True,
@@ -515,7 +509,9 @@ class AsyncFoldersClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[FoldersRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[FoldersRetrieveRequestExpandItem, typing.Sequence[FoldersRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -527,7 +523,7 @@ class AsyncFoldersClient:
         ----------
         id : str
 
-        expand : typing.Optional[FoldersRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[FoldersRetrieveRequestExpandItem, typing.Sequence[FoldersRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -549,9 +545,6 @@ class AsyncFoldersClient:
         import asyncio
 
         from merge import AsyncMerge
-        from merge.resources.filestorage.resources.folders import (
-            FoldersRetrieveRequestExpand,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -562,7 +555,6 @@ class AsyncFoldersClient:
         async def main() -> None:
             await client.filestorage.folders.retrieve(
                 id="id",
-                expand=FoldersRetrieveRequestExpand.DRIVE,
                 include_remote_data=True,
                 include_shell_data=True,
             )

@@ -33,7 +33,7 @@ class RawAccountsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["owner"]] = None,
+        expand: typing.Optional[typing.Union[typing.Literal["owner"], typing.Sequence[typing.Literal["owner"]]]] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -60,7 +60,7 @@ class RawAccountsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["owner"]]
+        expand : typing.Optional[typing.Union[typing.Literal["owner"], typing.Sequence[typing.Literal["owner"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -88,7 +88,7 @@ class RawAccountsClient:
             If provided, will only return accounts with this owner.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -201,7 +201,7 @@ class RawAccountsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["owner"]] = None,
+        expand: typing.Optional[typing.Union[typing.Literal["owner"], typing.Sequence[typing.Literal["owner"]]]] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -214,7 +214,7 @@ class RawAccountsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["owner"]]
+        expand : typing.Optional[typing.Union[typing.Literal["owner"], typing.Sequence[typing.Literal["owner"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -437,7 +437,7 @@ class RawAccountsClient:
             If provided, will only return remote fields classes with this is_custom value
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -488,7 +488,7 @@ class AsyncRawAccountsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["owner"]] = None,
+        expand: typing.Optional[typing.Union[typing.Literal["owner"], typing.Sequence[typing.Literal["owner"]]]] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -515,7 +515,7 @@ class AsyncRawAccountsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["owner"]]
+        expand : typing.Optional[typing.Union[typing.Literal["owner"], typing.Sequence[typing.Literal["owner"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -543,7 +543,7 @@ class AsyncRawAccountsClient:
             If provided, will only return accounts with this owner.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -656,7 +656,7 @@ class AsyncRawAccountsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["owner"]] = None,
+        expand: typing.Optional[typing.Union[typing.Literal["owner"], typing.Sequence[typing.Literal["owner"]]]] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -669,7 +669,7 @@ class AsyncRawAccountsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["owner"]]
+        expand : typing.Optional[typing.Union[typing.Literal["owner"], typing.Sequence[typing.Literal["owner"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -892,7 +892,7 @@ class AsyncRawAccountsClient:
             If provided, will only return remote fields classes with this is_custom value
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

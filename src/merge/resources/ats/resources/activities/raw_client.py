@@ -35,7 +35,7 @@ class RawActivitiesClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["user"]] = None,
+        expand: typing.Optional[typing.Union[typing.Literal["user"], typing.Sequence[typing.Literal["user"]]]] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -62,7 +62,7 @@ class RawActivitiesClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["user"]]
+        expand : typing.Optional[typing.Union[typing.Literal["user"], typing.Sequence[typing.Literal["user"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -81,7 +81,7 @@ class RawActivitiesClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_fields : typing.Optional[ActivitiesListRequestRemoteFields]
             Deprecated. Use show_enum_origins.
@@ -207,7 +207,7 @@ class RawActivitiesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["user"]] = None,
+        expand: typing.Optional[typing.Union[typing.Literal["user"], typing.Sequence[typing.Literal["user"]]]] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[ActivitiesRetrieveRequestRemoteFields] = None,
@@ -221,7 +221,7 @@ class RawActivitiesClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["user"]]
+        expand : typing.Optional[typing.Union[typing.Literal["user"], typing.Sequence[typing.Literal["user"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -318,7 +318,7 @@ class AsyncRawActivitiesClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["user"]] = None,
+        expand: typing.Optional[typing.Union[typing.Literal["user"], typing.Sequence[typing.Literal["user"]]]] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -345,7 +345,7 @@ class AsyncRawActivitiesClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["user"]]
+        expand : typing.Optional[typing.Union[typing.Literal["user"], typing.Sequence[typing.Literal["user"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -364,7 +364,7 @@ class AsyncRawActivitiesClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_fields : typing.Optional[ActivitiesListRequestRemoteFields]
             Deprecated. Use show_enum_origins.
@@ -490,7 +490,7 @@ class AsyncRawActivitiesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["user"]] = None,
+        expand: typing.Optional[typing.Union[typing.Literal["user"], typing.Sequence[typing.Literal["user"]]]] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[ActivitiesRetrieveRequestRemoteFields] = None,
@@ -504,7 +504,7 @@ class AsyncRawActivitiesClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["user"]]
+        expand : typing.Optional[typing.Union[typing.Literal["user"], typing.Sequence[typing.Literal["user"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

@@ -8,6 +8,7 @@ from .....core.request_options import RequestOptions
 from ...types.group import Group
 from ...types.paginated_group_list import PaginatedGroupList
 from .raw_client import AsyncRawGroupsClient, RawGroupsClient
+from .types.groups_types_list_response import GroupsTypesListResponse
 
 
 class GroupsClient:
@@ -213,6 +214,52 @@ class GroupsClient:
             include_remote_data=include_remote_data,
             include_shell_data=include_shell_data,
             remote_fields=remote_fields,
+            show_enum_origins=show_enum_origins,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def types_list(
+        self,
+        *,
+        include_deleted_data: typing.Optional[bool] = None,
+        show_enum_origins: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GroupsTypesListResponse:
+        """
+        Returns a list of distinct group type values from the Groups common model.
+
+        Parameters
+        ----------
+        include_deleted_data : typing.Optional[bool]
+            Whether to include data that was marked as deleted by third party webhooks.
+
+        show_enum_origins : typing.Optional[str]
+            A comma separated list of enum field names for which you'd like the original values instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins)
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GroupsTypesListResponse
+
+
+        Examples
+        --------
+        from merge import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.hris.groups.types_list(
+            include_deleted_data=True,
+            show_enum_origins="show_enum_origins",
+        )
+        """
+        _response = self._raw_client.types_list(
+            include_deleted_data=include_deleted_data,
             show_enum_origins=show_enum_origins,
             request_options=request_options,
         )
@@ -437,6 +484,60 @@ class AsyncGroupsClient:
             include_remote_data=include_remote_data,
             include_shell_data=include_shell_data,
             remote_fields=remote_fields,
+            show_enum_origins=show_enum_origins,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def types_list(
+        self,
+        *,
+        include_deleted_data: typing.Optional[bool] = None,
+        show_enum_origins: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> GroupsTypesListResponse:
+        """
+        Returns a list of distinct group type values from the Groups common model.
+
+        Parameters
+        ----------
+        include_deleted_data : typing.Optional[bool]
+            Whether to include data that was marked as deleted by third party webhooks.
+
+        show_enum_origins : typing.Optional[str]
+            A comma separated list of enum field names for which you'd like the original values instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins)
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GroupsTypesListResponse
+
+
+        Examples
+        --------
+        import asyncio
+
+        from merge import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.hris.groups.types_list(
+                include_deleted_data=True,
+                show_enum_origins="show_enum_origins",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.types_list(
+            include_deleted_data=include_deleted_data,
             show_enum_origins=show_enum_origins,
             request_options=request_options,
         )

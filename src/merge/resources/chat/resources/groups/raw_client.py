@@ -25,7 +25,7 @@ class RawGroupsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["users"]] = None,
+        expand: typing.Optional[typing.Union[typing.Literal["users"], typing.Sequence[typing.Literal["users"]]]] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -49,7 +49,7 @@ class RawGroupsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["users"]]
+        expand : typing.Optional[typing.Union[typing.Literal["users"], typing.Sequence[typing.Literal["users"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -118,7 +118,7 @@ class RawGroupsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["users"]] = None,
+        expand: typing.Optional[typing.Union[typing.Literal["users"], typing.Sequence[typing.Literal["users"]]]] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -130,7 +130,7 @@ class RawGroupsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["users"]]
+        expand : typing.Optional[typing.Union[typing.Literal["users"], typing.Sequence[typing.Literal["users"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -183,7 +183,7 @@ class AsyncRawGroupsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["users"]] = None,
+        expand: typing.Optional[typing.Union[typing.Literal["users"], typing.Sequence[typing.Literal["users"]]]] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -207,7 +207,7 @@ class AsyncRawGroupsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["users"]]
+        expand : typing.Optional[typing.Union[typing.Literal["users"], typing.Sequence[typing.Literal["users"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -276,7 +276,7 @@ class AsyncRawGroupsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["users"]] = None,
+        expand: typing.Optional[typing.Union[typing.Literal["users"], typing.Sequence[typing.Literal["users"]]]] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -288,7 +288,7 @@ class AsyncRawGroupsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["users"]]
+        expand : typing.Optional[typing.Union[typing.Literal["users"], typing.Sequence[typing.Literal["users"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

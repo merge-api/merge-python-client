@@ -2,6 +2,6 @@
 
 import typing
 
-from .payment_line_item_request import PaymentLineItemRequest
+from .payment_line_item import PaymentLineItem
 
-PaymentRequestAppliedToLinesItem = typing.Union[str, PaymentLineItemRequest]
+PaymentRequestAppliedToLinesItem = typing.Union[str, PaymentLineItem]

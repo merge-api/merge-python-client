@@ -40,37 +40,37 @@ if typing.TYPE_CHECKING:
         webhook_receivers,
     )
     from .async_passthrough import AsyncPassthroughRetrieveResponse
-    from .contacts import ContactsListRequestExpand, ContactsRetrieveRequestExpand
-    from .engagements import EngagementsListRequestExpand, EngagementsRetrieveRequestExpand
+    from .contacts import ContactsListRequestExpandItem, ContactsRetrieveRequestExpandItem
+    from .engagements import EngagementsListRequestExpandItem, EngagementsRetrieveRequestExpandItem
     from .issues import IssuesListRequestStatus
-    from .leads import LeadsListRequestExpand, LeadsRetrieveRequestExpand
+    from .leads import LeadsListRequestExpandItem, LeadsRetrieveRequestExpandItem
     from .link_token import EndUserDetailsRequestLanguage
     from .linked_accounts import LinkedAccountsListRequestCategory
-    from .notes import NotesListRequestExpand, NotesRetrieveRequestExpand
+    from .notes import NotesListRequestExpandItem, NotesRetrieveRequestExpandItem
     from .opportunities import (
-        OpportunitiesListRequestExpand,
+        OpportunitiesListRequestExpandItem,
         OpportunitiesListRequestStatus,
-        OpportunitiesRetrieveRequestExpand,
+        OpportunitiesRetrieveRequestExpandItem,
     )
-    from .tasks import TasksListRequestExpand, TasksRetrieveRequestExpand
+    from .tasks import TasksListRequestExpandItem, TasksRetrieveRequestExpandItem
 _dynamic_imports: typing.Dict[str, str] = {
     "AsyncPassthroughRetrieveResponse": ".async_passthrough",
-    "ContactsListRequestExpand": ".contacts",
-    "ContactsRetrieveRequestExpand": ".contacts",
+    "ContactsListRequestExpandItem": ".contacts",
+    "ContactsRetrieveRequestExpandItem": ".contacts",
     "EndUserDetailsRequestLanguage": ".link_token",
-    "EngagementsListRequestExpand": ".engagements",
-    "EngagementsRetrieveRequestExpand": ".engagements",
+    "EngagementsListRequestExpandItem": ".engagements",
+    "EngagementsRetrieveRequestExpandItem": ".engagements",
     "IssuesListRequestStatus": ".issues",
-    "LeadsListRequestExpand": ".leads",
-    "LeadsRetrieveRequestExpand": ".leads",
+    "LeadsListRequestExpandItem": ".leads",
+    "LeadsRetrieveRequestExpandItem": ".leads",
     "LinkedAccountsListRequestCategory": ".linked_accounts",
-    "NotesListRequestExpand": ".notes",
-    "NotesRetrieveRequestExpand": ".notes",
-    "OpportunitiesListRequestExpand": ".opportunities",
+    "NotesListRequestExpandItem": ".notes",
+    "NotesRetrieveRequestExpandItem": ".notes",
+    "OpportunitiesListRequestExpandItem": ".opportunities",
     "OpportunitiesListRequestStatus": ".opportunities",
-    "OpportunitiesRetrieveRequestExpand": ".opportunities",
-    "TasksListRequestExpand": ".tasks",
-    "TasksRetrieveRequestExpand": ".tasks",
+    "OpportunitiesRetrieveRequestExpandItem": ".opportunities",
+    "TasksListRequestExpandItem": ".tasks",
+    "TasksRetrieveRequestExpandItem": ".tasks",
     "account_details": ".",
     "account_token": ".",
     "accounts": ".",
@@ -126,22 +126,22 @@ def __dir__():
 
 __all__ = [
     "AsyncPassthroughRetrieveResponse",
-    "ContactsListRequestExpand",
-    "ContactsRetrieveRequestExpand",
+    "ContactsListRequestExpandItem",
+    "ContactsRetrieveRequestExpandItem",
     "EndUserDetailsRequestLanguage",
-    "EngagementsListRequestExpand",
-    "EngagementsRetrieveRequestExpand",
+    "EngagementsListRequestExpandItem",
+    "EngagementsRetrieveRequestExpandItem",
     "IssuesListRequestStatus",
-    "LeadsListRequestExpand",
-    "LeadsRetrieveRequestExpand",
+    "LeadsListRequestExpandItem",
+    "LeadsRetrieveRequestExpandItem",
     "LinkedAccountsListRequestCategory",
-    "NotesListRequestExpand",
-    "NotesRetrieveRequestExpand",
-    "OpportunitiesListRequestExpand",
+    "NotesListRequestExpandItem",
+    "NotesRetrieveRequestExpandItem",
+    "OpportunitiesListRequestExpandItem",
     "OpportunitiesListRequestStatus",
-    "OpportunitiesRetrieveRequestExpand",
-    "TasksListRequestExpand",
-    "TasksRetrieveRequestExpand",
+    "OpportunitiesRetrieveRequestExpandItem",
+    "TasksListRequestExpandItem",
+    "TasksRetrieveRequestExpandItem",
     "account_details",
     "account_token",
     "accounts",
