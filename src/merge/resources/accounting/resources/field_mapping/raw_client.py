@@ -77,6 +77,9 @@ class RawFieldMappingClient:
         remote_url_path: str,
         common_model_name: str,
         exclude_remote_field_metadata: typing.Optional[bool] = None,
+        remote_data_iteration_count: typing.Optional[int] = None,
+        jmes_path: typing.Optional[str] = OMIT,
+        advanced_mapping_expression: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[FieldMappingInstanceResponse]:
         """
@@ -105,6 +108,15 @@ class RawFieldMappingClient:
         exclude_remote_field_metadata : typing.Optional[bool]
             If `true`, remote fields metadata is excluded from each field mapping instance (i.e. `remote_fields.remote_key_name` and `remote_fields.schema` will be null). This will increase the speed of the request since these fields require some calculations.
 
+        remote_data_iteration_count : typing.Optional[int]
+            Number of common model instances to iterate through when fetching remote data for field mappings. Defaults to 250 if not provided.
+
+        jmes_path : typing.Optional[str]
+            DEPRECATED: Use 'advanced_mapping_expression' instead.
+
+        advanced_mapping_expression : typing.Optional[str]
+            A JSONata expression used to transform the remote field data.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -118,6 +130,7 @@ class RawFieldMappingClient:
             method="POST",
             params={
                 "exclude_remote_field_metadata": exclude_remote_field_metadata,
+                "remote_data_iteration_count": remote_data_iteration_count,
             },
             json={
                 "target_field_name": target_field_name,
@@ -126,6 +139,8 @@ class RawFieldMappingClient:
                 "remote_method": remote_method,
                 "remote_url_path": remote_url_path,
                 "common_model_name": common_model_name,
+                "jmes_path": jmes_path,
+                "advanced_mapping_expression": advanced_mapping_expression,
             },
             headers={
                 "content-type": "application/json",
@@ -190,9 +205,12 @@ class RawFieldMappingClient:
         self,
         field_mapping_id: str,
         *,
+        remote_data_iteration_count: typing.Optional[int] = None,
         remote_field_traversal_path: typing.Optional[typing.Sequence[typing.Optional[typing.Any]]] = OMIT,
         remote_method: typing.Optional[str] = OMIT,
         remote_url_path: typing.Optional[str] = OMIT,
+        jmes_path: typing.Optional[str] = OMIT,
+        advanced_mapping_expression: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[FieldMappingInstanceResponse]:
         """
@@ -202,6 +220,9 @@ class RawFieldMappingClient:
         ----------
         field_mapping_id : str
 
+        remote_data_iteration_count : typing.Optional[int]
+            Number of common model instances to iterate through when fetching remote data for field mappings. Defaults to 250 if not provided.
+
         remote_field_traversal_path : typing.Optional[typing.Sequence[typing.Optional[typing.Any]]]
             The field traversal path of the remote field listed when you hit the GET /remote-fields endpoint.
 
@@ -210,6 +231,12 @@ class RawFieldMappingClient:
 
         remote_url_path : typing.Optional[str]
             The path of the remote endpoint where the remote field is coming from.
+
+        jmes_path : typing.Optional[str]
+            DEPRECATED: Use 'advanced_mapping_expression' instead.
+
+        advanced_mapping_expression : typing.Optional[str]
+            A JSONata expression used to transform the remote field data.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -222,10 +249,15 @@ class RawFieldMappingClient:
         _response = self._client_wrapper.httpx_client.request(
             f"accounting/v1/field-mappings/{jsonable_encoder(field_mapping_id)}",
             method="PATCH",
+            params={
+                "remote_data_iteration_count": remote_data_iteration_count,
+            },
             json={
                 "remote_field_traversal_path": remote_field_traversal_path,
                 "remote_method": remote_method,
                 "remote_url_path": remote_url_path,
+                "jmes_path": jmes_path,
+                "advanced_mapping_expression": advanced_mapping_expression,
             },
             headers={
                 "content-type": "application/json",
@@ -394,6 +426,9 @@ class AsyncRawFieldMappingClient:
         remote_url_path: str,
         common_model_name: str,
         exclude_remote_field_metadata: typing.Optional[bool] = None,
+        remote_data_iteration_count: typing.Optional[int] = None,
+        jmes_path: typing.Optional[str] = OMIT,
+        advanced_mapping_expression: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[FieldMappingInstanceResponse]:
         """
@@ -422,6 +457,15 @@ class AsyncRawFieldMappingClient:
         exclude_remote_field_metadata : typing.Optional[bool]
             If `true`, remote fields metadata is excluded from each field mapping instance (i.e. `remote_fields.remote_key_name` and `remote_fields.schema` will be null). This will increase the speed of the request since these fields require some calculations.
 
+        remote_data_iteration_count : typing.Optional[int]
+            Number of common model instances to iterate through when fetching remote data for field mappings. Defaults to 250 if not provided.
+
+        jmes_path : typing.Optional[str]
+            DEPRECATED: Use 'advanced_mapping_expression' instead.
+
+        advanced_mapping_expression : typing.Optional[str]
+            A JSONata expression used to transform the remote field data.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -435,6 +479,7 @@ class AsyncRawFieldMappingClient:
             method="POST",
             params={
                 "exclude_remote_field_metadata": exclude_remote_field_metadata,
+                "remote_data_iteration_count": remote_data_iteration_count,
             },
             json={
                 "target_field_name": target_field_name,
@@ -443,6 +488,8 @@ class AsyncRawFieldMappingClient:
                 "remote_method": remote_method,
                 "remote_url_path": remote_url_path,
                 "common_model_name": common_model_name,
+                "jmes_path": jmes_path,
+                "advanced_mapping_expression": advanced_mapping_expression,
             },
             headers={
                 "content-type": "application/json",
@@ -507,9 +554,12 @@ class AsyncRawFieldMappingClient:
         self,
         field_mapping_id: str,
         *,
+        remote_data_iteration_count: typing.Optional[int] = None,
         remote_field_traversal_path: typing.Optional[typing.Sequence[typing.Optional[typing.Any]]] = OMIT,
         remote_method: typing.Optional[str] = OMIT,
         remote_url_path: typing.Optional[str] = OMIT,
+        jmes_path: typing.Optional[str] = OMIT,
+        advanced_mapping_expression: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[FieldMappingInstanceResponse]:
         """
@@ -519,6 +569,9 @@ class AsyncRawFieldMappingClient:
         ----------
         field_mapping_id : str
 
+        remote_data_iteration_count : typing.Optional[int]
+            Number of common model instances to iterate through when fetching remote data for field mappings. Defaults to 250 if not provided.
+
         remote_field_traversal_path : typing.Optional[typing.Sequence[typing.Optional[typing.Any]]]
             The field traversal path of the remote field listed when you hit the GET /remote-fields endpoint.
 
@@ -527,6 +580,12 @@ class AsyncRawFieldMappingClient:
 
         remote_url_path : typing.Optional[str]
             The path of the remote endpoint where the remote field is coming from.
+
+        jmes_path : typing.Optional[str]
+            DEPRECATED: Use 'advanced_mapping_expression' instead.
+
+        advanced_mapping_expression : typing.Optional[str]
+            A JSONata expression used to transform the remote field data.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -539,10 +598,15 @@ class AsyncRawFieldMappingClient:
         _response = await self._client_wrapper.httpx_client.request(
             f"accounting/v1/field-mappings/{jsonable_encoder(field_mapping_id)}",
             method="PATCH",
+            params={
+                "remote_data_iteration_count": remote_data_iteration_count,
+            },
             json={
                 "remote_field_traversal_path": remote_field_traversal_path,
                 "remote_method": remote_method,
                 "remote_url_path": remote_url_path,
+                "jmes_path": jmes_path,
+                "advanced_mapping_expression": advanced_mapping_expression,
             },
             headers={
                 "content-type": "application/json",

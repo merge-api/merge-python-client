@@ -6,8 +6,14 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
+    from .end_user_details_request_completed_account_initial_screen import (
+        EndUserDetailsRequestCompletedAccountInitialScreen,
+    )
     from .end_user_details_request_language import EndUserDetailsRequestLanguage
-_dynamic_imports: typing.Dict[str, str] = {"EndUserDetailsRequestLanguage": ".end_user_details_request_language"}
+_dynamic_imports: typing.Dict[str, str] = {
+    "EndUserDetailsRequestCompletedAccountInitialScreen": ".end_user_details_request_completed_account_initial_screen",
+    "EndUserDetailsRequestLanguage": ".end_user_details_request_language",
+}
 
 
 def __getattr__(attr_name: str) -> typing.Any:
@@ -29,4 +35,4 @@ def __dir__():
     return sorted(lazy_attrs)
 
 
-__all__ = ["EndUserDetailsRequestLanguage"]
+__all__ = ["EndUserDetailsRequestCompletedAccountInitialScreen", "EndUserDetailsRequestLanguage"]

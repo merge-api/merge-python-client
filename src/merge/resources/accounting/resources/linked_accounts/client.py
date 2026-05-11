@@ -48,7 +48,7 @@ class LinkedAccountsClient:
         Parameters
         ----------
         category : typing.Optional[LinkedAccountsListRequestCategory]
-            Options: `accounting`, `ats`, `crm`, `filestorage`, `hris`, `mktg`, `ticketing`
+            Options: `accounting`, `ats`, `crm`, `filestorage`, `hris`, `knowledgebase`, `mktg`, `ticketing`
 
             * `hris` - hris
             * `ats` - ats
@@ -57,6 +57,10 @@ class LinkedAccountsClient:
             * `crm` - crm
             * `mktg` - mktg
             * `filestorage` - filestorage
+            * `datawarehouse` - datawarehouse
+            * `knowledgebase` - knowledgebase
+            * `communication` - communication
+            * `chat` - chat
 
         cursor : typing.Optional[str]
             The pagination cursor value.
@@ -88,7 +92,7 @@ class LinkedAccountsClient:
             If included, will only include test linked accounts. If not included, will only include non-test linked accounts.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         status : typing.Optional[str]
             Filter by status. Options: `COMPLETE`, `IDLE`, `INCOMPLETE`, `RELINK_NEEDED`
@@ -186,7 +190,7 @@ class AsyncLinkedAccountsClient:
         Parameters
         ----------
         category : typing.Optional[LinkedAccountsListRequestCategory]
-            Options: `accounting`, `ats`, `crm`, `filestorage`, `hris`, `mktg`, `ticketing`
+            Options: `accounting`, `ats`, `crm`, `filestorage`, `hris`, `knowledgebase`, `mktg`, `ticketing`
 
             * `hris` - hris
             * `ats` - ats
@@ -195,6 +199,10 @@ class AsyncLinkedAccountsClient:
             * `crm` - crm
             * `mktg` - mktg
             * `filestorage` - filestorage
+            * `datawarehouse` - datawarehouse
+            * `knowledgebase` - knowledgebase
+            * `communication` - communication
+            * `chat` - chat
 
         cursor : typing.Optional[str]
             The pagination cursor value.
@@ -226,7 +234,7 @@ class AsyncLinkedAccountsClient:
             If included, will only include test linked accounts. If not included, will only include non-test linked accounts.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         status : typing.Optional[str]
             Filter by status. Options: `COMPLETE`, `IDLE`, `INCOMPLETE`, `RELINK_NEEDED`

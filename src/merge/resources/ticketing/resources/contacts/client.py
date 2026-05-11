@@ -38,7 +38,9 @@ class ContactsClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         email_address: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["account"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["account"], typing.Sequence[typing.Literal["account"]]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -65,7 +67,7 @@ class ContactsClient:
         email_address : typing.Optional[str]
             If provided, will only return Contacts that match this email.
 
-        expand : typing.Optional[typing.Literal["account"]]
+        expand : typing.Optional[typing.Union[typing.Literal["account"], typing.Sequence[typing.Literal["account"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -199,7 +201,9 @@ class ContactsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["account"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["account"], typing.Sequence[typing.Literal["account"]]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -211,7 +215,7 @@ class ContactsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["account"]]
+        expand : typing.Optional[typing.Union[typing.Literal["account"], typing.Sequence[typing.Literal["account"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -301,7 +305,9 @@ class AsyncContactsClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         email_address: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["account"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["account"], typing.Sequence[typing.Literal["account"]]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -328,7 +334,7 @@ class AsyncContactsClient:
         email_address : typing.Optional[str]
             If provided, will only return Contacts that match this email.
 
-        expand : typing.Optional[typing.Literal["account"]]
+        expand : typing.Optional[typing.Union[typing.Literal["account"], typing.Sequence[typing.Literal["account"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -477,7 +483,9 @@ class AsyncContactsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["account"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["account"], typing.Sequence[typing.Literal["account"]]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -489,7 +497,7 @@ class AsyncContactsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["account"]]
+        expand : typing.Optional[typing.Union[typing.Literal["account"], typing.Sequence[typing.Literal["account"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

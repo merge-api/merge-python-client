@@ -8,8 +8,8 @@ from .....core.request_options import RequestOptions
 from ...types.company_info import CompanyInfo
 from ...types.paginated_company_info_list import PaginatedCompanyInfoList
 from .raw_client import AsyncRawCompanyInfoClient, RawCompanyInfoClient
-from .types.company_info_list_request_expand import CompanyInfoListRequestExpand
-from .types.company_info_retrieve_request_expand import CompanyInfoRetrieveRequestExpand
+from .types.company_info_list_request_expand_item import CompanyInfoListRequestExpandItem
+from .types.company_info_retrieve_request_expand_item import CompanyInfoRetrieveRequestExpandItem
 
 
 class CompanyInfoClient:
@@ -33,12 +33,15 @@ class CompanyInfoClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[CompanyInfoListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[CompanyInfoListRequestExpandItem, typing.Sequence[CompanyInfoListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
+        name: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -57,7 +60,7 @@ class CompanyInfoClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[CompanyInfoListRequestExpand]
+        expand : typing.Optional[typing.Union[CompanyInfoListRequestExpandItem, typing.Sequence[CompanyInfoListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -75,8 +78,11 @@ class CompanyInfoClient:
         modified_before : typing.Optional[dt.datetime]
             If provided, only objects synced by Merge before this date time will be returned.
 
+        name : typing.Optional[str]
+            If provided, will only return CompanyInfo objects with this name.
+
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -94,9 +100,6 @@ class CompanyInfoClient:
         import datetime
 
         from merge import Merge
-        from merge.resources.accounting.resources.company_info import (
-            CompanyInfoListRequestExpand,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -110,7 +113,6 @@ class CompanyInfoClient:
                 "2024-01-15 09:30:00+00:00",
             ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            expand=CompanyInfoListRequestExpand.ADDRESSES,
             include_deleted_data=True,
             include_remote_data=True,
             include_shell_data=True,
@@ -120,6 +122,7 @@ class CompanyInfoClient:
             modified_before=datetime.datetime.fromisoformat(
                 "2024-01-15 09:30:00+00:00",
             ),
+            name="name",
             page_size=1,
             remote_id="remote_id",
         )
@@ -134,6 +137,7 @@ class CompanyInfoClient:
             include_shell_data=include_shell_data,
             modified_after=modified_after,
             modified_before=modified_before,
+            name=name,
             page_size=page_size,
             remote_id=remote_id,
             request_options=request_options,
@@ -144,7 +148,9 @@ class CompanyInfoClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[CompanyInfoRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[CompanyInfoRetrieveRequestExpandItem, typing.Sequence[CompanyInfoRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -156,7 +162,7 @@ class CompanyInfoClient:
         ----------
         id : str
 
-        expand : typing.Optional[CompanyInfoRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[CompanyInfoRetrieveRequestExpandItem, typing.Sequence[CompanyInfoRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -176,9 +182,6 @@ class CompanyInfoClient:
         Examples
         --------
         from merge import Merge
-        from merge.resources.accounting.resources.company_info import (
-            CompanyInfoRetrieveRequestExpand,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -186,7 +189,6 @@ class CompanyInfoClient:
         )
         client.accounting.company_info.retrieve(
             id="id",
-            expand=CompanyInfoRetrieveRequestExpand.ADDRESSES,
             include_remote_data=True,
             include_shell_data=True,
         )
@@ -222,12 +224,15 @@ class AsyncCompanyInfoClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[CompanyInfoListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[CompanyInfoListRequestExpandItem, typing.Sequence[CompanyInfoListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
+        name: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -246,7 +251,7 @@ class AsyncCompanyInfoClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[CompanyInfoListRequestExpand]
+        expand : typing.Optional[typing.Union[CompanyInfoListRequestExpandItem, typing.Sequence[CompanyInfoListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -264,8 +269,11 @@ class AsyncCompanyInfoClient:
         modified_before : typing.Optional[dt.datetime]
             If provided, only objects synced by Merge before this date time will be returned.
 
+        name : typing.Optional[str]
+            If provided, will only return CompanyInfo objects with this name.
+
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -284,9 +292,6 @@ class AsyncCompanyInfoClient:
         import datetime
 
         from merge import AsyncMerge
-        from merge.resources.accounting.resources.company_info import (
-            CompanyInfoListRequestExpand,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -303,7 +308,6 @@ class AsyncCompanyInfoClient:
                     "2024-01-15 09:30:00+00:00",
                 ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                expand=CompanyInfoListRequestExpand.ADDRESSES,
                 include_deleted_data=True,
                 include_remote_data=True,
                 include_shell_data=True,
@@ -313,6 +317,7 @@ class AsyncCompanyInfoClient:
                 modified_before=datetime.datetime.fromisoformat(
                     "2024-01-15 09:30:00+00:00",
                 ),
+                name="name",
                 page_size=1,
                 remote_id="remote_id",
             )
@@ -330,6 +335,7 @@ class AsyncCompanyInfoClient:
             include_shell_data=include_shell_data,
             modified_after=modified_after,
             modified_before=modified_before,
+            name=name,
             page_size=page_size,
             remote_id=remote_id,
             request_options=request_options,
@@ -340,7 +346,9 @@ class AsyncCompanyInfoClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[CompanyInfoRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[CompanyInfoRetrieveRequestExpandItem, typing.Sequence[CompanyInfoRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -352,7 +360,7 @@ class AsyncCompanyInfoClient:
         ----------
         id : str
 
-        expand : typing.Optional[CompanyInfoRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[CompanyInfoRetrieveRequestExpandItem, typing.Sequence[CompanyInfoRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -374,9 +382,6 @@ class AsyncCompanyInfoClient:
         import asyncio
 
         from merge import AsyncMerge
-        from merge.resources.accounting.resources.company_info import (
-            CompanyInfoRetrieveRequestExpand,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -387,7 +392,6 @@ class AsyncCompanyInfoClient:
         async def main() -> None:
             await client.accounting.company_info.retrieve(
                 id="id",
-                expand=CompanyInfoRetrieveRequestExpand.ADDRESSES,
                 include_remote_data=True,
                 include_shell_data=True,
             )

@@ -7,15 +7,6 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class StatusFd5Enum(str, enum.Enum):
-    """
-    * `SYNCING` - SYNCING
-    * `DONE` - DONE
-    * `FAILED` - FAILED
-    * `DISABLED` - DISABLED
-    * `PAUSED` - PAUSED
-    * `PARTIALLY_SYNCED` - PARTIALLY_SYNCED
-    """
-
     SYNCING = "SYNCING"
     DONE = "DONE"
     FAILED = "FAILED"

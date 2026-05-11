@@ -7,22 +7,22 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .types import (
-        TimeOffListRequestExpand,
+        TimeOffListRequestExpandItem,
         TimeOffListRequestRemoteFields,
         TimeOffListRequestRequestType,
         TimeOffListRequestShowEnumOrigins,
         TimeOffListRequestStatus,
-        TimeOffRetrieveRequestExpand,
+        TimeOffRetrieveRequestExpandItem,
         TimeOffRetrieveRequestRemoteFields,
         TimeOffRetrieveRequestShowEnumOrigins,
     )
 _dynamic_imports: typing.Dict[str, str] = {
-    "TimeOffListRequestExpand": ".types",
+    "TimeOffListRequestExpandItem": ".types",
     "TimeOffListRequestRemoteFields": ".types",
     "TimeOffListRequestRequestType": ".types",
     "TimeOffListRequestShowEnumOrigins": ".types",
     "TimeOffListRequestStatus": ".types",
-    "TimeOffRetrieveRequestExpand": ".types",
+    "TimeOffRetrieveRequestExpandItem": ".types",
     "TimeOffRetrieveRequestRemoteFields": ".types",
     "TimeOffRetrieveRequestShowEnumOrigins": ".types",
 }
@@ -48,12 +48,12 @@ def __dir__():
 
 
 __all__ = [
-    "TimeOffListRequestExpand",
+    "TimeOffListRequestExpandItem",
     "TimeOffListRequestRemoteFields",
     "TimeOffListRequestRequestType",
     "TimeOffListRequestShowEnumOrigins",
     "TimeOffListRequestStatus",
-    "TimeOffRetrieveRequestExpand",
+    "TimeOffRetrieveRequestExpandItem",
     "TimeOffRetrieveRequestRemoteFields",
     "TimeOffRetrieveRequestShowEnumOrigins",
 ]

@@ -5,7 +5,7 @@ import typing
 import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2
 from ....core.unchecked_base_model import UncheckedBaseModel
-from .data_passthrough_request_method import DataPassthroughRequestMethod
+from .method_enum import MethodEnum
 from .multipart_form_field_request import MultipartFormFieldRequest
 from .request_format_enum import RequestFormatEnum
 
@@ -20,7 +20,7 @@ class DataPassthroughRequest(UncheckedBaseModel):
     Create a `DataPassthrough` to get team hierarchies from your Rippling integration.
     """
 
-    method: DataPassthroughRequestMethod
+    method: MethodEnum
     path: str = pydantic.Field()
     """
     The path of the request in the third party's platform.

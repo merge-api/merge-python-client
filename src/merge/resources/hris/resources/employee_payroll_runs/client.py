@@ -8,8 +8,8 @@ from .....core.request_options import RequestOptions
 from ...types.employee_payroll_run import EmployeePayrollRun
 from ...types.paginated_employee_payroll_run_list import PaginatedEmployeePayrollRunList
 from .raw_client import AsyncRawEmployeePayrollRunsClient, RawEmployeePayrollRunsClient
-from .types.employee_payroll_runs_list_request_expand import EmployeePayrollRunsListRequestExpand
-from .types.employee_payroll_runs_retrieve_request_expand import EmployeePayrollRunsRetrieveRequestExpand
+from .types.employee_payroll_runs_list_request_expand_item import EmployeePayrollRunsListRequestExpandItem
+from .types.employee_payroll_runs_retrieve_request_expand_item import EmployeePayrollRunsRetrieveRequestExpandItem
 
 
 class EmployeePayrollRunsClient:
@@ -36,7 +36,11 @@ class EmployeePayrollRunsClient:
         employee_id: typing.Optional[str] = None,
         ended_after: typing.Optional[dt.datetime] = None,
         ended_before: typing.Optional[dt.datetime] = None,
-        expand: typing.Optional[EmployeePayrollRunsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                EmployeePayrollRunsListRequestExpandItem, typing.Sequence[EmployeePayrollRunsListRequestExpandItem]
+            ]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -72,7 +76,7 @@ class EmployeePayrollRunsClient:
         ended_before : typing.Optional[dt.datetime]
             If provided, will only return employee payroll runs ended before this datetime.
 
-        expand : typing.Optional[EmployeePayrollRunsListRequestExpand]
+        expand : typing.Optional[typing.Union[EmployeePayrollRunsListRequestExpandItem, typing.Sequence[EmployeePayrollRunsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -118,9 +122,6 @@ class EmployeePayrollRunsClient:
         import datetime
 
         from merge import Merge
-        from merge.resources.hris.resources.employee_payroll_runs import (
-            EmployeePayrollRunsListRequestExpand,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -141,7 +142,6 @@ class EmployeePayrollRunsClient:
             ended_before=datetime.datetime.fromisoformat(
                 "2024-01-15 09:30:00+00:00",
             ),
-            expand=EmployeePayrollRunsListRequestExpand.EMPLOYEE,
             include_deleted_data=True,
             include_remote_data=True,
             include_shell_data=True,
@@ -188,7 +188,12 @@ class EmployeePayrollRunsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[EmployeePayrollRunsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                EmployeePayrollRunsRetrieveRequestExpandItem,
+                typing.Sequence[EmployeePayrollRunsRetrieveRequestExpandItem],
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -200,7 +205,7 @@ class EmployeePayrollRunsClient:
         ----------
         id : str
 
-        expand : typing.Optional[EmployeePayrollRunsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[EmployeePayrollRunsRetrieveRequestExpandItem, typing.Sequence[EmployeePayrollRunsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -220,9 +225,6 @@ class EmployeePayrollRunsClient:
         Examples
         --------
         from merge import Merge
-        from merge.resources.hris.resources.employee_payroll_runs import (
-            EmployeePayrollRunsRetrieveRequestExpand,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -230,7 +232,6 @@ class EmployeePayrollRunsClient:
         )
         client.hris.employee_payroll_runs.retrieve(
             id="id",
-            expand=EmployeePayrollRunsRetrieveRequestExpand.EMPLOYEE,
             include_remote_data=True,
             include_shell_data=True,
         )
@@ -269,7 +270,11 @@ class AsyncEmployeePayrollRunsClient:
         employee_id: typing.Optional[str] = None,
         ended_after: typing.Optional[dt.datetime] = None,
         ended_before: typing.Optional[dt.datetime] = None,
-        expand: typing.Optional[EmployeePayrollRunsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                EmployeePayrollRunsListRequestExpandItem, typing.Sequence[EmployeePayrollRunsListRequestExpandItem]
+            ]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -305,7 +310,7 @@ class AsyncEmployeePayrollRunsClient:
         ended_before : typing.Optional[dt.datetime]
             If provided, will only return employee payroll runs ended before this datetime.
 
-        expand : typing.Optional[EmployeePayrollRunsListRequestExpand]
+        expand : typing.Optional[typing.Union[EmployeePayrollRunsListRequestExpandItem, typing.Sequence[EmployeePayrollRunsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -352,9 +357,6 @@ class AsyncEmployeePayrollRunsClient:
         import datetime
 
         from merge import AsyncMerge
-        from merge.resources.hris.resources.employee_payroll_runs import (
-            EmployeePayrollRunsListRequestExpand,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -378,7 +380,6 @@ class AsyncEmployeePayrollRunsClient:
                 ended_before=datetime.datetime.fromisoformat(
                     "2024-01-15 09:30:00+00:00",
                 ),
-                expand=EmployeePayrollRunsListRequestExpand.EMPLOYEE,
                 include_deleted_data=True,
                 include_remote_data=True,
                 include_shell_data=True,
@@ -428,7 +429,12 @@ class AsyncEmployeePayrollRunsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[EmployeePayrollRunsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                EmployeePayrollRunsRetrieveRequestExpandItem,
+                typing.Sequence[EmployeePayrollRunsRetrieveRequestExpandItem],
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -440,7 +446,7 @@ class AsyncEmployeePayrollRunsClient:
         ----------
         id : str
 
-        expand : typing.Optional[EmployeePayrollRunsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[EmployeePayrollRunsRetrieveRequestExpandItem, typing.Sequence[EmployeePayrollRunsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -462,9 +468,6 @@ class AsyncEmployeePayrollRunsClient:
         import asyncio
 
         from merge import AsyncMerge
-        from merge.resources.hris.resources.employee_payroll_runs import (
-            EmployeePayrollRunsRetrieveRequestExpand,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -475,7 +478,6 @@ class AsyncEmployeePayrollRunsClient:
         async def main() -> None:
             await client.hris.employee_payroll_runs.retrieve(
                 id="id",
-                expand=EmployeePayrollRunsRetrieveRequestExpand.EMPLOYEE,
                 include_remote_data=True,
                 include_shell_data=True,
             )
