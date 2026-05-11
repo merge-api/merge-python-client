@@ -128,6 +128,10 @@ def _client_with_response(response: httpx.Response) -> Merge:
     )
 
 
+def _pay_period(item):
+    return item["pay_period"] if isinstance(item, dict) else item.pay_period
+
+
 def test_e2e_list_response_with_unknown_enum_does_not_raise():
     body = {
         "next": None,
@@ -141,10 +145,10 @@ def test_e2e_list_response_with_unknown_enum_does_not_raise():
     client = _client_with_response(httpx.Response(200, json=body))
     response = client.hris.employments.list()
     assert len(response.results) == 3
-    assert response.results[0].pay_period == "HOUR"
-    assert response.results[0].pay_period == PayPeriodEnum.HOUR
-    assert response.results[1].pay_period == "FUTURE_PAY_PERIOD"
-    assert response.results[2].pay_period is None
+    assert _pay_period(response.results[0]) == "HOUR"
+    assert _pay_period(response.results[0]) == PayPeriodEnum.HOUR
+    assert _pay_period(response.results[1]) == "FUTURE_PAY_PERIOD"
+    assert _pay_period(response.results[2]) is None
 
 
 def test_e2e_retrieve_response_with_unknown_enum_does_not_raise():
