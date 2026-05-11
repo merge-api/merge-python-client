@@ -12,8 +12,8 @@ from ...types.meta_response import MetaResponse
 from ...types.paginated_lead_list import PaginatedLeadList
 from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClassList
 from .raw_client import AsyncRawLeadsClient, RawLeadsClient
-from .types.leads_list_request_expand import LeadsListRequestExpand
-from .types.leads_retrieve_request_expand import LeadsRetrieveRequestExpand
+from .types.leads_list_request_expand_item import LeadsListRequestExpandItem
+from .types.leads_retrieve_request_expand_item import LeadsRetrieveRequestExpandItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -43,7 +43,9 @@ class LeadsClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         email_addresses: typing.Optional[str] = None,
-        expand: typing.Optional[LeadsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[LeadsListRequestExpandItem, typing.Sequence[LeadsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -79,7 +81,7 @@ class LeadsClient:
         email_addresses : typing.Optional[str]
             If provided, will only return contacts matching the email addresses; multiple email_addresses can be separated by commas.
 
-        expand : typing.Optional[LeadsListRequestExpand]
+        expand : typing.Optional[typing.Union[LeadsListRequestExpandItem, typing.Sequence[LeadsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -104,7 +106,7 @@ class LeadsClient:
             If provided, will only return leads with this owner.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         phone_numbers : typing.Optional[str]
             If provided, will only return contacts matching the phone numbers; multiple phone numbers can be separated by commas.
@@ -125,7 +127,6 @@ class LeadsClient:
         import datetime
 
         from merge import Merge
-        from merge.resources.crm.resources.leads import LeadsListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -142,7 +143,6 @@ class LeadsClient:
             ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
             email_addresses="email_addresses",
-            expand=LeadsListRequestExpand.CONVERTED_ACCOUNT,
             include_deleted_data=True,
             include_remote_data=True,
             include_remote_fields=True,
@@ -234,7 +234,9 @@ class LeadsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[LeadsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[LeadsRetrieveRequestExpandItem, typing.Sequence[LeadsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -247,7 +249,7 @@ class LeadsClient:
         ----------
         id : str
 
-        expand : typing.Optional[LeadsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[LeadsRetrieveRequestExpandItem, typing.Sequence[LeadsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -270,7 +272,6 @@ class LeadsClient:
         Examples
         --------
         from merge import Merge
-        from merge.resources.crm.resources.leads import LeadsRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -278,7 +279,6 @@ class LeadsClient:
         )
         client.crm.leads.retrieve(
             id="id",
-            expand=LeadsRetrieveRequestExpand.CONVERTED_ACCOUNT,
             include_remote_data=True,
             include_remote_fields=True,
             include_shell_data=True,
@@ -361,7 +361,7 @@ class LeadsClient:
             If provided, will only return remote fields classes with this is_custom value
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -428,7 +428,9 @@ class AsyncLeadsClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         email_addresses: typing.Optional[str] = None,
-        expand: typing.Optional[LeadsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[LeadsListRequestExpandItem, typing.Sequence[LeadsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -464,7 +466,7 @@ class AsyncLeadsClient:
         email_addresses : typing.Optional[str]
             If provided, will only return contacts matching the email addresses; multiple email_addresses can be separated by commas.
 
-        expand : typing.Optional[LeadsListRequestExpand]
+        expand : typing.Optional[typing.Union[LeadsListRequestExpandItem, typing.Sequence[LeadsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -489,7 +491,7 @@ class AsyncLeadsClient:
             If provided, will only return leads with this owner.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         phone_numbers : typing.Optional[str]
             If provided, will only return contacts matching the phone numbers; multiple phone numbers can be separated by commas.
@@ -511,7 +513,6 @@ class AsyncLeadsClient:
         import datetime
 
         from merge import AsyncMerge
-        from merge.resources.crm.resources.leads import LeadsListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -531,7 +532,6 @@ class AsyncLeadsClient:
                 ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
                 email_addresses="email_addresses",
-                expand=LeadsListRequestExpand.CONVERTED_ACCOUNT,
                 include_deleted_data=True,
                 include_remote_data=True,
                 include_remote_fields=True,
@@ -634,7 +634,9 @@ class AsyncLeadsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[LeadsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[LeadsRetrieveRequestExpandItem, typing.Sequence[LeadsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -647,7 +649,7 @@ class AsyncLeadsClient:
         ----------
         id : str
 
-        expand : typing.Optional[LeadsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[LeadsRetrieveRequestExpandItem, typing.Sequence[LeadsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -672,7 +674,6 @@ class AsyncLeadsClient:
         import asyncio
 
         from merge import AsyncMerge
-        from merge.resources.crm.resources.leads import LeadsRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -683,7 +684,6 @@ class AsyncLeadsClient:
         async def main() -> None:
             await client.crm.leads.retrieve(
                 id="id",
-                expand=LeadsRetrieveRequestExpand.CONVERTED_ACCOUNT,
                 include_remote_data=True,
                 include_remote_fields=True,
                 include_shell_data=True,
@@ -777,7 +777,7 @@ class AsyncLeadsClient:
             If provided, will only return remote fields classes with this is_custom value
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

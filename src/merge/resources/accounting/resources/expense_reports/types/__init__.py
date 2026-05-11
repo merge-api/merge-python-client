@@ -6,13 +6,13 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from .expense_reports_lines_list_request_expand import ExpenseReportsLinesListRequestExpand
-    from .expense_reports_list_request_expand import ExpenseReportsListRequestExpand
-    from .expense_reports_retrieve_request_expand import ExpenseReportsRetrieveRequestExpand
+    from .expense_reports_lines_list_request_expand_item import ExpenseReportsLinesListRequestExpandItem
+    from .expense_reports_list_request_expand_item import ExpenseReportsListRequestExpandItem
+    from .expense_reports_retrieve_request_expand_item import ExpenseReportsRetrieveRequestExpandItem
 _dynamic_imports: typing.Dict[str, str] = {
-    "ExpenseReportsLinesListRequestExpand": ".expense_reports_lines_list_request_expand",
-    "ExpenseReportsListRequestExpand": ".expense_reports_list_request_expand",
-    "ExpenseReportsRetrieveRequestExpand": ".expense_reports_retrieve_request_expand",
+    "ExpenseReportsLinesListRequestExpandItem": ".expense_reports_lines_list_request_expand_item",
+    "ExpenseReportsListRequestExpandItem": ".expense_reports_list_request_expand_item",
+    "ExpenseReportsRetrieveRequestExpandItem": ".expense_reports_retrieve_request_expand_item",
 }
 
 
@@ -36,7 +36,7 @@ def __dir__():
 
 
 __all__ = [
-    "ExpenseReportsLinesListRequestExpand",
-    "ExpenseReportsListRequestExpand",
-    "ExpenseReportsRetrieveRequestExpand",
+    "ExpenseReportsLinesListRequestExpandItem",
+    "ExpenseReportsListRequestExpandItem",
+    "ExpenseReportsRetrieveRequestExpandItem",
 ]

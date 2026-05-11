@@ -71,14 +71,18 @@ class FieldMappingClient:
     def field_mappings_create(
         self,
         *,
-        target_field_name: str,
-        target_field_description: str,
         remote_field_traversal_path: typing.Sequence[typing.Optional[typing.Any]],
         remote_method: str,
         remote_url_path: str,
         common_model_name: str,
         exclude_remote_field_metadata: typing.Optional[bool] = None,
+        remote_data_iteration_count: typing.Optional[int] = None,
+        target_field_name: typing.Optional[str] = OMIT,
+        target_field_description: typing.Optional[str] = OMIT,
+        organization_wide_target_field: typing.Optional[str] = OMIT,
+        is_integration_wide: typing.Optional[bool] = OMIT,
         jmes_path: typing.Optional[str] = OMIT,
+        advanced_mapping_expression: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> FieldMappingInstanceResponse:
         """
@@ -86,12 +90,6 @@ class FieldMappingClient:
 
         Parameters
         ----------
-        target_field_name : str
-            The name of the target field you want this remote field to map to.
-
-        target_field_description : str
-            The description of the target field you want this remote field to map to.
-
         remote_field_traversal_path : typing.Sequence[typing.Optional[typing.Any]]
             The field traversal path of the remote field listed when you hit the GET /remote-fields endpoint.
 
@@ -107,8 +105,26 @@ class FieldMappingClient:
         exclude_remote_field_metadata : typing.Optional[bool]
             If `true`, remote fields metadata is excluded from each field mapping instance (i.e. `remote_fields.remote_key_name` and `remote_fields.schema` will be null). This will increase the speed of the request since these fields require some calculations.
 
+        remote_data_iteration_count : typing.Optional[int]
+            Number of common model instances to iterate through when fetching remote data for field mappings. Defaults to 250 if not provided.
+
+        target_field_name : typing.Optional[str]
+            The name of the target field you want this remote field to map to. Required if organization_wide_target_field is not provided.
+
+        target_field_description : typing.Optional[str]
+            The description of the target field you want this remote field to map to. Required if organization_wide_target_field is not provided.
+
+        organization_wide_target_field : typing.Optional[str]
+            The name or key of an existing Organization-wide target field to map to. When provided, target_field_name and target_field_description are optional.
+
+        is_integration_wide : typing.Optional[bool]
+            If true, creates an integration-wide field mapping that applies to all Linked Accounts for the integration. Requires organization_wide_target_field.
+
         jmes_path : typing.Optional[str]
-            JMES path to specify json query expression to be used on field mapping.
+            DEPRECATED: Use 'advanced_mapping_expression' instead.
+
+        advanced_mapping_expression : typing.Optional[str]
+            A JSONata expression used to transform the remote field data.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -128,8 +144,7 @@ class FieldMappingClient:
         )
         client.chat.field_mapping.field_mappings_create(
             exclude_remote_field_metadata=True,
-            target_field_name="example_target_field_name",
-            target_field_description="this is a example description of the target field",
+            remote_data_iteration_count=1,
             remote_field_traversal_path=["example_remote_field"],
             remote_method="GET",
             remote_url_path="/example-url-path",
@@ -137,14 +152,18 @@ class FieldMappingClient:
         )
         """
         _response = self._raw_client.field_mappings_create(
-            target_field_name=target_field_name,
-            target_field_description=target_field_description,
             remote_field_traversal_path=remote_field_traversal_path,
             remote_method=remote_method,
             remote_url_path=remote_url_path,
             common_model_name=common_model_name,
             exclude_remote_field_metadata=exclude_remote_field_metadata,
+            remote_data_iteration_count=remote_data_iteration_count,
+            target_field_name=target_field_name,
+            target_field_description=target_field_description,
+            organization_wide_target_field=organization_wide_target_field,
+            is_integration_wide=is_integration_wide,
             jmes_path=jmes_path,
+            advanced_mapping_expression=advanced_mapping_expression,
             request_options=request_options,
         )
         return _response.data
@@ -186,10 +205,12 @@ class FieldMappingClient:
         self,
         field_mapping_id: str,
         *,
+        remote_data_iteration_count: typing.Optional[int] = None,
         remote_field_traversal_path: typing.Optional[typing.Sequence[typing.Optional[typing.Any]]] = OMIT,
         remote_method: typing.Optional[str] = OMIT,
         remote_url_path: typing.Optional[str] = OMIT,
         jmes_path: typing.Optional[str] = OMIT,
+        advanced_mapping_expression: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> FieldMappingInstanceResponse:
         """
@@ -198,6 +219,9 @@ class FieldMappingClient:
         Parameters
         ----------
         field_mapping_id : str
+
+        remote_data_iteration_count : typing.Optional[int]
+            Number of common model instances to iterate through when fetching remote data for field mappings. Defaults to 250 if not provided.
 
         remote_field_traversal_path : typing.Optional[typing.Sequence[typing.Optional[typing.Any]]]
             The field traversal path of the remote field listed when you hit the GET /remote-fields endpoint.
@@ -209,7 +233,10 @@ class FieldMappingClient:
             The path of the remote endpoint where the remote field is coming from.
 
         jmes_path : typing.Optional[str]
-            JMES path to specify json query expression to be used on field mapping.
+            DEPRECATED: Use 'advanced_mapping_expression' instead.
+
+        advanced_mapping_expression : typing.Optional[str]
+            A JSONata expression used to transform the remote field data.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -229,14 +256,17 @@ class FieldMappingClient:
         )
         client.chat.field_mapping.field_mappings_partial_update(
             field_mapping_id="field_mapping_id",
+            remote_data_iteration_count=1,
         )
         """
         _response = self._raw_client.field_mappings_partial_update(
             field_mapping_id,
+            remote_data_iteration_count=remote_data_iteration_count,
             remote_field_traversal_path=remote_field_traversal_path,
             remote_method=remote_method,
             remote_url_path=remote_url_path,
             jmes_path=jmes_path,
+            advanced_mapping_expression=advanced_mapping_expression,
             request_options=request_options,
         )
         return _response.data
@@ -314,6 +344,54 @@ class FieldMappingClient:
         _response = self._raw_client.target_fields_retrieve(request_options=request_options)
         return _response.data
 
+    def target_fields_create(
+        self,
+        *,
+        name: str,
+        common_model: str,
+        description: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ExternalTargetFieldApiResponse:
+        """
+        Create a new organization-wide Target Field. Target Fields are custom fields that your organization defines to collect supplemental data from integrations. [Learn more](https://docs.merge.dev/supplemental-data/field-mappings/target-fields/).
+
+        Parameters
+        ----------
+        name : str
+            The name of the target field.
+
+        common_model : str
+            The name of the Common Model to associate the target field with.
+
+        description : typing.Optional[str]
+            The description of the target field.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ExternalTargetFieldApiResponse
+
+
+        Examples
+        --------
+        from merge import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.chat.field_mapping.target_fields_create(
+            name="employee_favorite_team",
+            common_model="Employee",
+        )
+        """
+        _response = self._raw_client.target_fields_create(
+            name=name, common_model=common_model, description=description, request_options=request_options
+        )
+        return _response.data
+
 
 class AsyncFieldMappingClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -380,14 +458,18 @@ class AsyncFieldMappingClient:
     async def field_mappings_create(
         self,
         *,
-        target_field_name: str,
-        target_field_description: str,
         remote_field_traversal_path: typing.Sequence[typing.Optional[typing.Any]],
         remote_method: str,
         remote_url_path: str,
         common_model_name: str,
         exclude_remote_field_metadata: typing.Optional[bool] = None,
+        remote_data_iteration_count: typing.Optional[int] = None,
+        target_field_name: typing.Optional[str] = OMIT,
+        target_field_description: typing.Optional[str] = OMIT,
+        organization_wide_target_field: typing.Optional[str] = OMIT,
+        is_integration_wide: typing.Optional[bool] = OMIT,
         jmes_path: typing.Optional[str] = OMIT,
+        advanced_mapping_expression: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> FieldMappingInstanceResponse:
         """
@@ -395,12 +477,6 @@ class AsyncFieldMappingClient:
 
         Parameters
         ----------
-        target_field_name : str
-            The name of the target field you want this remote field to map to.
-
-        target_field_description : str
-            The description of the target field you want this remote field to map to.
-
         remote_field_traversal_path : typing.Sequence[typing.Optional[typing.Any]]
             The field traversal path of the remote field listed when you hit the GET /remote-fields endpoint.
 
@@ -416,8 +492,26 @@ class AsyncFieldMappingClient:
         exclude_remote_field_metadata : typing.Optional[bool]
             If `true`, remote fields metadata is excluded from each field mapping instance (i.e. `remote_fields.remote_key_name` and `remote_fields.schema` will be null). This will increase the speed of the request since these fields require some calculations.
 
+        remote_data_iteration_count : typing.Optional[int]
+            Number of common model instances to iterate through when fetching remote data for field mappings. Defaults to 250 if not provided.
+
+        target_field_name : typing.Optional[str]
+            The name of the target field you want this remote field to map to. Required if organization_wide_target_field is not provided.
+
+        target_field_description : typing.Optional[str]
+            The description of the target field you want this remote field to map to. Required if organization_wide_target_field is not provided.
+
+        organization_wide_target_field : typing.Optional[str]
+            The name or key of an existing Organization-wide target field to map to. When provided, target_field_name and target_field_description are optional.
+
+        is_integration_wide : typing.Optional[bool]
+            If true, creates an integration-wide field mapping that applies to all Linked Accounts for the integration. Requires organization_wide_target_field.
+
         jmes_path : typing.Optional[str]
-            JMES path to specify json query expression to be used on field mapping.
+            DEPRECATED: Use 'advanced_mapping_expression' instead.
+
+        advanced_mapping_expression : typing.Optional[str]
+            A JSONata expression used to transform the remote field data.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -442,8 +536,7 @@ class AsyncFieldMappingClient:
         async def main() -> None:
             await client.chat.field_mapping.field_mappings_create(
                 exclude_remote_field_metadata=True,
-                target_field_name="example_target_field_name",
-                target_field_description="this is a example description of the target field",
+                remote_data_iteration_count=1,
                 remote_field_traversal_path=["example_remote_field"],
                 remote_method="GET",
                 remote_url_path="/example-url-path",
@@ -454,14 +547,18 @@ class AsyncFieldMappingClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.field_mappings_create(
-            target_field_name=target_field_name,
-            target_field_description=target_field_description,
             remote_field_traversal_path=remote_field_traversal_path,
             remote_method=remote_method,
             remote_url_path=remote_url_path,
             common_model_name=common_model_name,
             exclude_remote_field_metadata=exclude_remote_field_metadata,
+            remote_data_iteration_count=remote_data_iteration_count,
+            target_field_name=target_field_name,
+            target_field_description=target_field_description,
+            organization_wide_target_field=organization_wide_target_field,
+            is_integration_wide=is_integration_wide,
             jmes_path=jmes_path,
+            advanced_mapping_expression=advanced_mapping_expression,
             request_options=request_options,
         )
         return _response.data
@@ -511,10 +608,12 @@ class AsyncFieldMappingClient:
         self,
         field_mapping_id: str,
         *,
+        remote_data_iteration_count: typing.Optional[int] = None,
         remote_field_traversal_path: typing.Optional[typing.Sequence[typing.Optional[typing.Any]]] = OMIT,
         remote_method: typing.Optional[str] = OMIT,
         remote_url_path: typing.Optional[str] = OMIT,
         jmes_path: typing.Optional[str] = OMIT,
+        advanced_mapping_expression: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> FieldMappingInstanceResponse:
         """
@@ -523,6 +622,9 @@ class AsyncFieldMappingClient:
         Parameters
         ----------
         field_mapping_id : str
+
+        remote_data_iteration_count : typing.Optional[int]
+            Number of common model instances to iterate through when fetching remote data for field mappings. Defaults to 250 if not provided.
 
         remote_field_traversal_path : typing.Optional[typing.Sequence[typing.Optional[typing.Any]]]
             The field traversal path of the remote field listed when you hit the GET /remote-fields endpoint.
@@ -534,7 +636,10 @@ class AsyncFieldMappingClient:
             The path of the remote endpoint where the remote field is coming from.
 
         jmes_path : typing.Optional[str]
-            JMES path to specify json query expression to be used on field mapping.
+            DEPRECATED: Use 'advanced_mapping_expression' instead.
+
+        advanced_mapping_expression : typing.Optional[str]
+            A JSONata expression used to transform the remote field data.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -559,6 +664,7 @@ class AsyncFieldMappingClient:
         async def main() -> None:
             await client.chat.field_mapping.field_mappings_partial_update(
                 field_mapping_id="field_mapping_id",
+                remote_data_iteration_count=1,
             )
 
 
@@ -566,10 +672,12 @@ class AsyncFieldMappingClient:
         """
         _response = await self._raw_client.field_mappings_partial_update(
             field_mapping_id,
+            remote_data_iteration_count=remote_data_iteration_count,
             remote_field_traversal_path=remote_field_traversal_path,
             remote_method=remote_method,
             remote_url_path=remote_url_path,
             jmes_path=jmes_path,
+            advanced_mapping_expression=advanced_mapping_expression,
             request_options=request_options,
         )
         return _response.data
@@ -661,4 +769,60 @@ class AsyncFieldMappingClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.target_fields_retrieve(request_options=request_options)
+        return _response.data
+
+    async def target_fields_create(
+        self,
+        *,
+        name: str,
+        common_model: str,
+        description: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ExternalTargetFieldApiResponse:
+        """
+        Create a new organization-wide Target Field. Target Fields are custom fields that your organization defines to collect supplemental data from integrations. [Learn more](https://docs.merge.dev/supplemental-data/field-mappings/target-fields/).
+
+        Parameters
+        ----------
+        name : str
+            The name of the target field.
+
+        common_model : str
+            The name of the Common Model to associate the target field with.
+
+        description : typing.Optional[str]
+            The description of the target field.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ExternalTargetFieldApiResponse
+
+
+        Examples
+        --------
+        import asyncio
+
+        from merge import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.chat.field_mapping.target_fields_create(
+                name="employee_favorite_team",
+                common_model="Employee",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.target_fields_create(
+            name=name, common_model=common_model, description=description, request_options=request_options
+        )
         return _response.data

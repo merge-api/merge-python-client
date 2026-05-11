@@ -8,6 +8,7 @@ import typing
 import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2, update_forward_refs
 from ....core.unchecked_base_model import UncheckedBaseModel
+from .permission_field_mappings import PermissionFieldMappings
 from .permission_group import PermissionGroup
 from .permission_type import PermissionType
 from .permission_user import PermissionUser
@@ -43,11 +44,6 @@ class Permission(UncheckedBaseModel):
     type: typing.Optional[PermissionType] = pydantic.Field(default=None)
     """
     Denotes what type of people have access to the Article or Container.
-    
-    * `USER` - USER
-    * `GROUP` - GROUP
-    * `COMPANY` - COMPANY
-    * `ANYONE` - ANYONE
     """
 
     roles: typing.Optional[typing.List[typing.Optional[RolesEnum]]] = pydantic.Field(default=None)
@@ -60,7 +56,7 @@ class Permission(UncheckedBaseModel):
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
     """
 
-    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    field_mappings: typing.Optional[PermissionFieldMappings] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

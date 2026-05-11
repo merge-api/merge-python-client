@@ -16,8 +16,8 @@ from ...types.comment_request import CommentRequest
 from ...types.comment_response import CommentResponse
 from ...types.meta_response import MetaResponse
 from ...types.paginated_comment_list import PaginatedCommentList
-from .types.comments_list_request_expand import CommentsListRequestExpand
-from .types.comments_retrieve_request_expand import CommentsRetrieveRequestExpand
+from .types.comments_list_request_expand_item import CommentsListRequestExpandItem
+from .types.comments_retrieve_request_expand_item import CommentsRetrieveRequestExpandItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -33,7 +33,9 @@ class RawCommentsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[CommentsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[CommentsListRequestExpandItem, typing.Sequence[CommentsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -59,7 +61,7 @@ class RawCommentsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[CommentsListRequestExpand]
+        expand : typing.Optional[typing.Union[CommentsListRequestExpandItem, typing.Sequence[CommentsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -198,7 +200,9 @@ class RawCommentsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[CommentsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[CommentsRetrieveRequestExpandItem, typing.Sequence[CommentsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -210,7 +214,7 @@ class RawCommentsClient:
         ----------
         id : str
 
-        expand : typing.Optional[CommentsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[CommentsRetrieveRequestExpandItem, typing.Sequence[CommentsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -299,7 +303,9 @@ class AsyncRawCommentsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[CommentsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[CommentsListRequestExpandItem, typing.Sequence[CommentsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -325,7 +331,7 @@ class AsyncRawCommentsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[CommentsListRequestExpand]
+        expand : typing.Optional[typing.Union[CommentsListRequestExpandItem, typing.Sequence[CommentsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -464,7 +470,9 @@ class AsyncRawCommentsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[CommentsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[CommentsRetrieveRequestExpandItem, typing.Sequence[CommentsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -476,7 +484,7 @@ class AsyncRawCommentsClient:
         ----------
         id : str
 
-        expand : typing.Optional[CommentsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[CommentsRetrieveRequestExpandItem, typing.Sequence[CommentsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

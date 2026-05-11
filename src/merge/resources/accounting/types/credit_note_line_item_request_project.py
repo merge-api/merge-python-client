@@ -2,6 +2,6 @@
 
 import typing
 
-from .contact import Contact
+from .project import Project
 
-CreditNoteLineItemRequestProject = typing.Union[str, Contact]
+CreditNoteLineItemRequestProject = typing.Union[str, Project]

@@ -30,25 +30,29 @@ if typing.TYPE_CHECKING:
         users,
         webhook_receivers,
     )
-    from .articles import ArticlesListRequestExpand, ArticlesListRequestType, ArticlesRetrieveRequestExpand
+    from .articles import ArticlesListRequestExpandItem, ArticlesListRequestType, ArticlesRetrieveRequestExpandItem
     from .async_passthrough import AsyncPassthroughRetrieveResponse
-    from .containers import ContainersListRequestExpand, ContainersListRequestType, ContainersRetrieveRequestExpand
-    from .groups import GroupsListRequestExpand, GroupsRetrieveRequestExpand
+    from .containers import (
+        ContainersListRequestExpandItem,
+        ContainersListRequestType,
+        ContainersRetrieveRequestExpandItem,
+    )
+    from .groups import GroupsListRequestExpandItem, GroupsRetrieveRequestExpandItem
     from .issues import IssuesListRequestStatus
     from .link_token import EndUserDetailsRequestCompletedAccountInitialScreen, EndUserDetailsRequestLanguage
     from .linked_accounts import LinkedAccountsListRequestCategory
 _dynamic_imports: typing.Dict[str, str] = {
-    "ArticlesListRequestExpand": ".articles",
+    "ArticlesListRequestExpandItem": ".articles",
     "ArticlesListRequestType": ".articles",
-    "ArticlesRetrieveRequestExpand": ".articles",
+    "ArticlesRetrieveRequestExpandItem": ".articles",
     "AsyncPassthroughRetrieveResponse": ".async_passthrough",
-    "ContainersListRequestExpand": ".containers",
+    "ContainersListRequestExpandItem": ".containers",
     "ContainersListRequestType": ".containers",
-    "ContainersRetrieveRequestExpand": ".containers",
+    "ContainersRetrieveRequestExpandItem": ".containers",
     "EndUserDetailsRequestCompletedAccountInitialScreen": ".link_token",
     "EndUserDetailsRequestLanguage": ".link_token",
-    "GroupsListRequestExpand": ".groups",
-    "GroupsRetrieveRequestExpand": ".groups",
+    "GroupsListRequestExpandItem": ".groups",
+    "GroupsRetrieveRequestExpandItem": ".groups",
     "IssuesListRequestStatus": ".issues",
     "LinkedAccountsListRequestCategory": ".linked_accounts",
     "account_details": ".",
@@ -96,17 +100,17 @@ def __dir__():
 
 
 __all__ = [
-    "ArticlesListRequestExpand",
+    "ArticlesListRequestExpandItem",
     "ArticlesListRequestType",
-    "ArticlesRetrieveRequestExpand",
+    "ArticlesRetrieveRequestExpandItem",
     "AsyncPassthroughRetrieveResponse",
-    "ContainersListRequestExpand",
+    "ContainersListRequestExpandItem",
     "ContainersListRequestType",
-    "ContainersRetrieveRequestExpand",
+    "ContainersRetrieveRequestExpandItem",
     "EndUserDetailsRequestCompletedAccountInitialScreen",
     "EndUserDetailsRequestLanguage",
-    "GroupsListRequestExpand",
-    "GroupsRetrieveRequestExpand",
+    "GroupsListRequestExpandItem",
+    "GroupsRetrieveRequestExpandItem",
     "IssuesListRequestStatus",
     "LinkedAccountsListRequestCategory",
     "account_details",

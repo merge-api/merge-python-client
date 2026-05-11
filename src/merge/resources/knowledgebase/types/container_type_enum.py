@@ -7,15 +7,6 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class ContainerTypeEnum(str, enum.Enum):
-    """
-    * `FOLDER` - FOLDER
-    * `SPACE` - SPACE
-    * `COLLECTION` - COLLECTION
-    * `SECTION` - SECTION
-    * `CATEGORY` - CATEGORY
-    * `DATABASE` - DATABASE
-    """
-
     FOLDER = "FOLDER"
     SPACE = "SPACE"
     COLLECTION = "COLLECTION"

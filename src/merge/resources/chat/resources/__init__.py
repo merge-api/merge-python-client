@@ -30,14 +30,14 @@ if typing.TYPE_CHECKING:
         webhook_receivers,
     )
     from .async_passthrough import AsyncPassthroughRetrieveResponse
-    from .conversations import ConversationsMembersListRequestExpand
+    from .conversations import ConversationsMembersListRequestExpandItem
     from .issues import IssuesListRequestStatus
     from .link_token import EndUserDetailsRequestCompletedAccountInitialScreen, EndUserDetailsRequestLanguage
     from .linked_accounts import LinkedAccountsListRequestCategory
     from .messages import MessagesListRequestOrderBy, MessagesRepliesListRequestOrderBy
 _dynamic_imports: typing.Dict[str, str] = {
     "AsyncPassthroughRetrieveResponse": ".async_passthrough",
-    "ConversationsMembersListRequestExpand": ".conversations",
+    "ConversationsMembersListRequestExpandItem": ".conversations",
     "EndUserDetailsRequestCompletedAccountInitialScreen": ".link_token",
     "EndUserDetailsRequestLanguage": ".link_token",
     "IssuesListRequestStatus": ".issues",
@@ -89,7 +89,7 @@ def __dir__():
 
 __all__ = [
     "AsyncPassthroughRetrieveResponse",
-    "ConversationsMembersListRequestExpand",
+    "ConversationsMembersListRequestExpandItem",
     "EndUserDetailsRequestCompletedAccountInitialScreen",
     "EndUserDetailsRequestLanguage",
     "IssuesListRequestStatus",
