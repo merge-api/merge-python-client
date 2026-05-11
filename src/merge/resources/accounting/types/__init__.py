@@ -10,6 +10,7 @@ if typing.TYPE_CHECKING:
     from .account_account_type import AccountAccountType
     from .account_account_type_enum import AccountAccountTypeEnum
     from .account_classification import AccountClassification
+    from .account_company import AccountCompany
     from .account_currency import AccountCurrency
     from .account_details import AccountDetails
     from .account_details_and_actions import AccountDetailsAndActions
@@ -22,6 +23,7 @@ if typing.TYPE_CHECKING:
     from .account_request import AccountRequest
     from .account_request_account_type import AccountRequestAccountType
     from .account_request_classification import AccountRequestClassification
+    from .account_request_company import AccountRequestCompany
     from .account_request_currency import AccountRequestCurrency
     from .account_request_status import AccountRequestStatus
     from .account_response import AccountResponse
@@ -43,6 +45,7 @@ if typing.TYPE_CHECKING:
     from .address_type import AddressType
     from .address_type_enum import AddressTypeEnum
     from .advanced_metadata import AdvancedMetadata
+    from .async_bulk_create_response import AsyncBulkCreateResponse
     from .async_passthrough_reciept import AsyncPassthroughReciept
     from .async_post_task import AsyncPostTask
     from .async_post_task_result import AsyncPostTaskResult
@@ -74,6 +77,13 @@ if typing.TYPE_CHECKING:
     )
     from .bank_feed_transaction_request_request_credit_or_debit import BankFeedTransactionRequestRequestCreditOrDebit
     from .bank_feed_transaction_response import BankFeedTransactionResponse
+    from .batch_object import BatchObject
+    from .batch_object_item_response import BatchObjectItemResponse
+    from .batch_object_status import BatchObjectStatus
+    from .batch_object_status_enum import BatchObjectStatusEnum
+    from .batch_objects_response import BatchObjectsResponse
+    from .batch_objects_response_status import BatchObjectsResponseStatus
+    from .batch_objects_response_status_enum import BatchObjectsResponseStatusEnum
     from .cash_flow_statement import CashFlowStatement
     from .cash_flow_statement_company import CashFlowStatementCompany
     from .cash_flow_statement_currency import CashFlowStatementCurrency
@@ -84,12 +94,19 @@ if typing.TYPE_CHECKING:
     from .common_model_scope_api import CommonModelScopeApi
     from .common_model_scopes_body_request import CommonModelScopesBodyRequest
     from .company_info import CompanyInfo
+    from .company_info_addresses_item import CompanyInfoAddressesItem
     from .company_info_currency import CompanyInfoCurrency
+    from .company_info_phone_numbers_item import CompanyInfoPhoneNumbersItem
+    from .completed_account_initial_screen_enum import CompletedAccountInitialScreenEnum
     from .component_type_enum import ComponentTypeEnum
     from .contact import Contact
     from .contact_addresses_item import ContactAddressesItem
+    from .contact_company import ContactCompany
+    from .contact_phone_numbers_item import ContactPhoneNumbersItem
     from .contact_request import ContactRequest
     from .contact_request_addresses_item import ContactRequestAddressesItem
+    from .contact_request_company import ContactRequestCompany
+    from .contact_request_phone_numbers_item import ContactRequestPhoneNumbersItem
     from .contact_request_status import ContactRequestStatus
     from .contact_response import ContactResponse
     from .contact_status import ContactStatus
@@ -116,6 +133,7 @@ if typing.TYPE_CHECKING:
     from .credit_note_line_item_request_contact import CreditNoteLineItemRequestContact
     from .credit_note_line_item_request_item import CreditNoteLineItemRequestItem
     from .credit_note_line_item_request_project import CreditNoteLineItemRequestProject
+    from .credit_note_line_items_item import CreditNoteLineItemsItem
     from .credit_note_payments_item import CreditNotePaymentsItem
     from .credit_note_request import CreditNoteRequest
     from .credit_note_request_accounting_period import CreditNoteRequestAccountingPeriod
@@ -133,7 +151,6 @@ if typing.TYPE_CHECKING:
     from .credit_note_tracking_categories_item import CreditNoteTrackingCategoriesItem
     from .credit_or_debit_enum import CreditOrDebitEnum
     from .data_passthrough_request import DataPassthroughRequest
-    from .data_passthrough_request_method import DataPassthroughRequestMethod
     from .debug_mode_log import DebugModeLog
     from .debug_model_log_summary import DebugModelLogSummary
     from .employee import Employee
@@ -146,6 +163,7 @@ if typing.TYPE_CHECKING:
     from .expense import Expense
     from .expense_account import ExpenseAccount
     from .expense_accounting_period import ExpenseAccountingPeriod
+    from .expense_batch_item_request import ExpenseBatchItemRequest
     from .expense_company import ExpenseCompany
     from .expense_contact import ExpenseContact
     from .expense_currency import ExpenseCurrency
@@ -169,25 +187,33 @@ if typing.TYPE_CHECKING:
     from .expense_line_tracking_categories_item import ExpenseLineTrackingCategoriesItem
     from .expense_line_tracking_category import ExpenseLineTrackingCategory
     from .expense_report import ExpenseReport
+    from .expense_report_accounting_period import ExpenseReportAccountingPeriod
     from .expense_report_company import ExpenseReportCompany
+    from .expense_report_currency import ExpenseReportCurrency
+    from .expense_report_employee import ExpenseReportEmployee
     from .expense_report_line import ExpenseReportLine
     from .expense_report_line_account import ExpenseReportLineAccount
     from .expense_report_line_company import ExpenseReportLineCompany
     from .expense_report_line_contact import ExpenseReportLineContact
+    from .expense_report_line_currency import ExpenseReportLineCurrency
     from .expense_report_line_employee import ExpenseReportLineEmployee
     from .expense_report_line_project import ExpenseReportLineProject
     from .expense_report_line_request import ExpenseReportLineRequest
     from .expense_report_line_request_account import ExpenseReportLineRequestAccount
     from .expense_report_line_request_company import ExpenseReportLineRequestCompany
     from .expense_report_line_request_contact import ExpenseReportLineRequestContact
+    from .expense_report_line_request_currency import ExpenseReportLineRequestCurrency
     from .expense_report_line_request_employee import ExpenseReportLineRequestEmployee
     from .expense_report_line_request_project import ExpenseReportLineRequestProject
     from .expense_report_line_request_tax_rate import ExpenseReportLineRequestTaxRate
     from .expense_report_line_tax_rate import ExpenseReportLineTaxRate
+    from .expense_report_lines_item import ExpenseReportLinesItem
     from .expense_report_request import ExpenseReportRequest
     from .expense_report_request_accounting_period import ExpenseReportRequestAccountingPeriod
     from .expense_report_request_company import ExpenseReportRequestCompany
+    from .expense_report_request_currency import ExpenseReportRequestCurrency
     from .expense_report_request_employee import ExpenseReportRequestEmployee
+    from .expense_report_request_status import ExpenseReportRequestStatus
     from .expense_report_response import ExpenseReportResponse
     from .expense_report_status import ExpenseReportStatus
     from .expense_report_status_enum import ExpenseReportStatusEnum
@@ -230,9 +256,6 @@ if typing.TYPE_CHECKING:
     from .general_ledger_transaction_line_employee import GeneralLedgerTransactionLineEmployee
     from .general_ledger_transaction_line_item import GeneralLedgerTransactionLineItem
     from .general_ledger_transaction_line_project import GeneralLedgerTransactionLineProject
-    from .general_ledger_transaction_line_tracking_categories_item import (
-        GeneralLedgerTransactionLineTrackingCategoriesItem,
-    )
     from .general_ledger_transaction_line_transaction_currency import GeneralLedgerTransactionLineTransactionCurrency
     from .general_ledger_transaction_tracking_categories_item import GeneralLedgerTransactionTrackingCategoriesItem
     from .general_ledger_transaction_underlying_transaction_type import (
@@ -248,6 +271,7 @@ if typing.TYPE_CHECKING:
     from .invoice_applied_credit_notes_item import InvoiceAppliedCreditNotesItem
     from .invoice_applied_payments_item import InvoiceAppliedPaymentsItem
     from .invoice_applied_vendor_credits_item import InvoiceAppliedVendorCreditsItem
+    from .invoice_batch_item_request import InvoiceBatchItemRequest
     from .invoice_company import InvoiceCompany
     from .invoice_contact import InvoiceContact
     from .invoice_currency import InvoiceCurrency
@@ -256,28 +280,29 @@ if typing.TYPE_CHECKING:
     from .invoice_line_item_account import InvoiceLineItemAccount
     from .invoice_line_item_contact import InvoiceLineItemContact
     from .invoice_line_item_currency import InvoiceLineItemCurrency
-    from .invoice_line_item_employee import InvoiceLineItemEmployee
     from .invoice_line_item_item import InvoiceLineItemItem
     from .invoice_line_item_project import InvoiceLineItemProject
     from .invoice_line_item_request import InvoiceLineItemRequest
     from .invoice_line_item_request_account import InvoiceLineItemRequestAccount
     from .invoice_line_item_request_contact import InvoiceLineItemRequestContact
     from .invoice_line_item_request_currency import InvoiceLineItemRequestCurrency
-    from .invoice_line_item_request_employee import InvoiceLineItemRequestEmployee
     from .invoice_line_item_request_item import InvoiceLineItemRequestItem
     from .invoice_line_item_request_project import InvoiceLineItemRequestProject
     from .invoice_line_item_request_tracking_categories_item import InvoiceLineItemRequestTrackingCategoriesItem
     from .invoice_line_item_request_tracking_category import InvoiceLineItemRequestTrackingCategory
     from .invoice_line_item_tracking_categories_item import InvoiceLineItemTrackingCategoriesItem
     from .invoice_line_item_tracking_category import InvoiceLineItemTrackingCategory
+    from .invoice_line_items_item import InvoiceLineItemsItem
     from .invoice_payment_term import InvoicePaymentTerm
     from .invoice_payments_item import InvoicePaymentsItem
     from .invoice_purchase_orders_item import InvoicePurchaseOrdersItem
     from .invoice_request import InvoiceRequest
+    from .invoice_request_accounting_period import InvoiceRequestAccountingPeriod
     from .invoice_request_company import InvoiceRequestCompany
     from .invoice_request_contact import InvoiceRequestContact
     from .invoice_request_currency import InvoiceRequestCurrency
     from .invoice_request_employee import InvoiceRequestEmployee
+    from .invoice_request_line_items_item import InvoiceRequestLineItemsItem
     from .invoice_request_payment_term import InvoiceRequestPaymentTerm
     from .invoice_request_payments_item import InvoiceRequestPaymentsItem
     from .invoice_request_purchase_orders_item import InvoiceRequestPurchaseOrdersItem
@@ -285,6 +310,7 @@ if typing.TYPE_CHECKING:
     from .invoice_request_tracking_categories_item import InvoiceRequestTrackingCategoriesItem
     from .invoice_request_type import InvoiceRequestType
     from .invoice_response import InvoiceResponse
+    from .invoice_sales_orders_item import InvoiceSalesOrdersItem
     from .invoice_status import InvoiceStatus
     from .invoice_status_enum import InvoiceStatusEnum
     from .invoice_tracking_categories_item import InvoiceTrackingCategoriesItem
@@ -296,6 +322,29 @@ if typing.TYPE_CHECKING:
     from .item import Item
     from .item_company import ItemCompany
     from .item_format_enum import ItemFormatEnum
+    from .item_fulfillment import ItemFulfillment
+    from .item_fulfillment_batch_item_request import ItemFulfillmentBatchItemRequest
+    from .item_fulfillment_company import ItemFulfillmentCompany
+    from .item_fulfillment_customer import ItemFulfillmentCustomer
+    from .item_fulfillment_line import ItemFulfillmentLine
+    from .item_fulfillment_line_item import ItemFulfillmentLineItem
+    from .item_fulfillment_line_request import ItemFulfillmentLineRequest
+    from .item_fulfillment_line_request_item import ItemFulfillmentLineRequestItem
+    from .item_fulfillment_line_request_sales_order_line import ItemFulfillmentLineRequestSalesOrderLine
+    from .item_fulfillment_line_request_tracking_categories_item import ItemFulfillmentLineRequestTrackingCategoriesItem
+    from .item_fulfillment_line_sales_order_line import ItemFulfillmentLineSalesOrderLine
+    from .item_fulfillment_line_tracking_categories_item import ItemFulfillmentLineTrackingCategoriesItem
+    from .item_fulfillment_lines_item import ItemFulfillmentLinesItem
+    from .item_fulfillment_request_request import ItemFulfillmentRequestRequest
+    from .item_fulfillment_request_request_company import ItemFulfillmentRequestRequestCompany
+    from .item_fulfillment_request_request_customer import ItemFulfillmentRequestRequestCustomer
+    from .item_fulfillment_request_request_lines_item import ItemFulfillmentRequestRequestLinesItem
+    from .item_fulfillment_request_request_sales_order import ItemFulfillmentRequestRequestSalesOrder
+    from .item_fulfillment_request_request_status import ItemFulfillmentRequestRequestStatus
+    from .item_fulfillment_response import ItemFulfillmentResponse
+    from .item_fulfillment_sales_order import ItemFulfillmentSalesOrder
+    from .item_fulfillment_status import ItemFulfillmentStatus
+    from .item_fulfillment_status_enum import ItemFulfillmentStatusEnum
     from .item_purchase_account import ItemPurchaseAccount
     from .item_purchase_tax_rate import ItemPurchaseTaxRate
     from .item_request_request import ItemRequestRequest
@@ -318,11 +367,13 @@ if typing.TYPE_CHECKING:
     from .journal_entry_applied_payments_item import JournalEntryAppliedPaymentsItem
     from .journal_entry_company import JournalEntryCompany
     from .journal_entry_currency import JournalEntryCurrency
+    from .journal_entry_lines_item import JournalEntryLinesItem
     from .journal_entry_payments_item import JournalEntryPaymentsItem
     from .journal_entry_posting_status import JournalEntryPostingStatus
     from .journal_entry_request import JournalEntryRequest
     from .journal_entry_request_company import JournalEntryRequestCompany
     from .journal_entry_request_currency import JournalEntryRequestCurrency
+    from .journal_entry_request_lines_item import JournalEntryRequestLinesItem
     from .journal_entry_request_payments_item import JournalEntryRequestPaymentsItem
     from .journal_entry_request_posting_status import JournalEntryRequestPostingStatus
     from .journal_entry_request_tracking_categories_item import JournalEntryRequestTrackingCategoriesItem
@@ -372,6 +423,7 @@ if typing.TYPE_CHECKING:
     from .paginated_income_statement_list import PaginatedIncomeStatementList
     from .paginated_invoice_list import PaginatedInvoiceList
     from .paginated_issue_list import PaginatedIssueList
+    from .paginated_item_fulfillment_list import PaginatedItemFulfillmentList
     from .paginated_item_list import PaginatedItemList
     from .paginated_journal_entry_list import PaginatedJournalEntryList
     from .paginated_payment_list import PaginatedPaymentList
@@ -380,26 +432,22 @@ if typing.TYPE_CHECKING:
     from .paginated_project_list import PaginatedProjectList
     from .paginated_purchase_order_list import PaginatedPurchaseOrderList
     from .paginated_remote_field_class_list import PaginatedRemoteFieldClassList
+    from .paginated_sales_order_list import PaginatedSalesOrderList
     from .paginated_sync_status_list import PaginatedSyncStatusList
     from .paginated_tax_rate_list import PaginatedTaxRateList
     from .paginated_tracking_category_list import PaginatedTrackingCategoryList
     from .paginated_transaction_list import PaginatedTransactionList
     from .paginated_vendor_credit_list import PaginatedVendorCreditList
     from .patched_contact_request import PatchedContactRequest
-    from .patched_contact_request_addresses_item import PatchedContactRequestAddressesItem
+    from .patched_contact_request_status import PatchedContactRequestStatus
     from .patched_item_request_request import PatchedItemRequestRequest
     from .patched_item_request_request_status import PatchedItemRequestRequestStatus
     from .patched_item_request_request_type import PatchedItemRequestRequestType
     from .patched_payment_request import PatchedPaymentRequest
-    from .patched_payment_request_account import PatchedPaymentRequestAccount
-    from .patched_payment_request_accounting_period import PatchedPaymentRequestAccountingPeriod
-    from .patched_payment_request_applied_to_lines_item import PatchedPaymentRequestAppliedToLinesItem
-    from .patched_payment_request_company import PatchedPaymentRequestCompany
-    from .patched_payment_request_contact import PatchedPaymentRequestContact
     from .patched_payment_request_currency import PatchedPaymentRequestCurrency
-    from .patched_payment_request_payment_method import PatchedPaymentRequestPaymentMethod
-    from .patched_payment_request_tracking_categories_item import PatchedPaymentRequestTrackingCategoriesItem
     from .patched_payment_request_type import PatchedPaymentRequestType
+    from .patched_vendor_credit_request import PatchedVendorCreditRequest
+    from .patched_vendor_credit_request_currency import PatchedVendorCreditRequestCurrency
     from .payment import Payment
     from .payment_account import PaymentAccount
     from .payment_accounting_period import PaymentAccountingPeriod
@@ -443,11 +491,13 @@ if typing.TYPE_CHECKING:
     from .purchase_order_line_item_request import PurchaseOrderLineItemRequest
     from .purchase_order_line_item_request_currency import PurchaseOrderLineItemRequestCurrency
     from .purchase_order_line_item_request_item import PurchaseOrderLineItemRequestItem
+    from .purchase_order_line_items_item import PurchaseOrderLineItemsItem
     from .purchase_order_payment_term import PurchaseOrderPaymentTerm
     from .purchase_order_request import PurchaseOrderRequest
     from .purchase_order_request_company import PurchaseOrderRequestCompany
     from .purchase_order_request_currency import PurchaseOrderRequestCurrency
     from .purchase_order_request_delivery_address import PurchaseOrderRequestDeliveryAddress
+    from .purchase_order_request_line_items_item import PurchaseOrderRequestLineItemsItem
     from .purchase_order_request_payment_term import PurchaseOrderRequestPaymentTerm
     from .purchase_order_request_status import PurchaseOrderRequestStatus
     from .purchase_order_request_tracking_categories_item import PurchaseOrderRequestTrackingCategoriesItem
@@ -457,6 +507,7 @@ if typing.TYPE_CHECKING:
     from .purchase_order_status_enum import PurchaseOrderStatusEnum
     from .purchase_order_tracking_categories_item import PurchaseOrderTrackingCategoriesItem
     from .purchase_order_vendor import PurchaseOrderVendor
+    from .regenerate_account_token import RegenerateAccountToken
     from .remote_data import RemoteData
     from .remote_endpoint_info import RemoteEndpointInfo
     from .remote_field import RemoteField
@@ -464,27 +515,57 @@ if typing.TYPE_CHECKING:
     from .remote_field_api_coverage import RemoteFieldApiCoverage
     from .remote_field_api_response import RemoteFieldApiResponse
     from .remote_field_class import RemoteFieldClass
-    from .remote_field_remote_field_class import RemoteFieldRemoteFieldClass
     from .remote_field_request import RemoteFieldRequest
-    from .remote_field_request_remote_field_class import RemoteFieldRequestRemoteFieldClass
     from .remote_key import RemoteKey
     from .remote_response import RemoteResponse
+    from .remote_response_response_type import RemoteResponseResponseType
     from .report_item import ReportItem
     from .request_format_enum import RequestFormatEnum
     from .response_type_enum import ResponseTypeEnum
     from .role_enum import RoleEnum
+    from .sales_order import SalesOrder
+    from .sales_order_batch_item_request import SalesOrderBatchItemRequest
+    from .sales_order_company import SalesOrderCompany
+    from .sales_order_currency import SalesOrderCurrency
+    from .sales_order_customer import SalesOrderCustomer
+    from .sales_order_line import SalesOrderLine
+    from .sales_order_line_company import SalesOrderLineCompany
+    from .sales_order_line_item import SalesOrderLineItem
+    from .sales_order_line_request import SalesOrderLineRequest
+    from .sales_order_line_request_company import SalesOrderLineRequestCompany
+    from .sales_order_line_request_item import SalesOrderLineRequestItem
+    from .sales_order_line_request_tax_rate import SalesOrderLineRequestTaxRate
+    from .sales_order_line_request_tracking_categories_item import SalesOrderLineRequestTrackingCategoriesItem
+    from .sales_order_line_tax_rate import SalesOrderLineTaxRate
+    from .sales_order_line_tracking_categories_item import SalesOrderLineTrackingCategoriesItem
+    from .sales_order_lines_item import SalesOrderLinesItem
+    from .sales_order_payment_term import SalesOrderPaymentTerm
+    from .sales_order_request_request import SalesOrderRequestRequest
+    from .sales_order_request_request_company import SalesOrderRequestRequestCompany
+    from .sales_order_request_request_currency import SalesOrderRequestRequestCurrency
+    from .sales_order_request_request_customer import SalesOrderRequestRequestCustomer
+    from .sales_order_request_request_lines_item import SalesOrderRequestRequestLinesItem
+    from .sales_order_request_request_payment_term import SalesOrderRequestRequestPaymentTerm
+    from .sales_order_request_request_shipping_address import SalesOrderRequestRequestShippingAddress
+    from .sales_order_request_request_status import SalesOrderRequestRequestStatus
+    from .sales_order_request_request_tracking_categories_item import SalesOrderRequestRequestTrackingCategoriesItem
+    from .sales_order_response import SalesOrderResponse
+    from .sales_order_shipping_address import SalesOrderShippingAddress
+    from .sales_order_status import SalesOrderStatus
+    from .sales_order_status_enum import SalesOrderStatusEnum
+    from .sales_order_tracking_categories_item import SalesOrderTrackingCategoriesItem
     from .selective_sync_configurations_usage_enum import SelectiveSyncConfigurationsUsageEnum
     from .status_7_d_1_enum import Status7D1Enum
     from .status_895_enum import Status895Enum
     from .status_fd_5_enum import StatusFd5Enum
     from .sync_status import SyncStatus
+    from .sync_status_last_sync_result import SyncStatusLastSyncResult
     from .sync_status_status import SyncStatusStatus
     from .tax_component import TaxComponent
     from .tax_component_component_type import TaxComponentComponentType
     from .tax_rate import TaxRate
     from .tax_rate_company import TaxRateCompany
     from .tax_rate_status import TaxRateStatus
-    from .tax_rate_tax_components_item import TaxRateTaxComponentsItem
     from .tracking_category import TrackingCategory
     from .tracking_category_category_type import TrackingCategoryCategoryType
     from .tracking_category_company import TrackingCategoryCompany
@@ -492,12 +573,14 @@ if typing.TYPE_CHECKING:
     from .transaction import Transaction
     from .transaction_account import TransactionAccount
     from .transaction_accounting_period import TransactionAccountingPeriod
+    from .transaction_company import TransactionCompany
     from .transaction_contact import TransactionContact
     from .transaction_currency import TransactionCurrency
     from .transaction_currency_enum import TransactionCurrencyEnum
     from .transaction_line_item import TransactionLineItem
     from .transaction_line_item_currency import TransactionLineItemCurrency
     from .transaction_line_item_item import TransactionLineItemItem
+    from .transaction_line_items_item import TransactionLineItemsItem
     from .transaction_tracking_categories_item import TransactionTrackingCategoriesItem
     from .type_2_bb_enum import Type2BbEnum
     from .underlying_transaction_type_enum import UnderlyingTransactionTypeEnum
@@ -522,6 +605,7 @@ if typing.TYPE_CHECKING:
     from .vendor_credit_line_request_account import VendorCreditLineRequestAccount
     from .vendor_credit_line_request_contact import VendorCreditLineRequestContact
     from .vendor_credit_line_request_project import VendorCreditLineRequestProject
+    from .vendor_credit_lines_item import VendorCreditLinesItem
     from .vendor_credit_request import VendorCreditRequest
     from .vendor_credit_request_accounting_period import VendorCreditRequestAccountingPeriod
     from .vendor_credit_request_company import VendorCreditRequestCompany
@@ -538,6 +622,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AccountAccountType": ".account_account_type",
     "AccountAccountTypeEnum": ".account_account_type_enum",
     "AccountClassification": ".account_classification",
+    "AccountCompany": ".account_company",
     "AccountCurrency": ".account_currency",
     "AccountDetails": ".account_details",
     "AccountDetailsAndActions": ".account_details_and_actions",
@@ -550,6 +635,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AccountRequest": ".account_request",
     "AccountRequestAccountType": ".account_request_account_type",
     "AccountRequestClassification": ".account_request_classification",
+    "AccountRequestCompany": ".account_request_company",
     "AccountRequestCurrency": ".account_request_currency",
     "AccountRequestStatus": ".account_request_status",
     "AccountResponse": ".account_response",
@@ -571,6 +657,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AddressType": ".address_type",
     "AddressTypeEnum": ".address_type_enum",
     "AdvancedMetadata": ".advanced_metadata",
+    "AsyncBulkCreateResponse": ".async_bulk_create_response",
     "AsyncPassthroughReciept": ".async_passthrough_reciept",
     "AsyncPostTask": ".async_post_task",
     "AsyncPostTaskResult": ".async_post_task_result",
@@ -600,6 +687,13 @@ _dynamic_imports: typing.Dict[str, str] = {
     "BankFeedTransactionRequestRequestBankFeedAccount": ".bank_feed_transaction_request_request_bank_feed_account",
     "BankFeedTransactionRequestRequestCreditOrDebit": ".bank_feed_transaction_request_request_credit_or_debit",
     "BankFeedTransactionResponse": ".bank_feed_transaction_response",
+    "BatchObject": ".batch_object",
+    "BatchObjectItemResponse": ".batch_object_item_response",
+    "BatchObjectStatus": ".batch_object_status",
+    "BatchObjectStatusEnum": ".batch_object_status_enum",
+    "BatchObjectsResponse": ".batch_objects_response",
+    "BatchObjectsResponseStatus": ".batch_objects_response_status",
+    "BatchObjectsResponseStatusEnum": ".batch_objects_response_status_enum",
     "CashFlowStatement": ".cash_flow_statement",
     "CashFlowStatementCompany": ".cash_flow_statement_company",
     "CashFlowStatementCurrency": ".cash_flow_statement_currency",
@@ -610,12 +704,19 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CommonModelScopeApi": ".common_model_scope_api",
     "CommonModelScopesBodyRequest": ".common_model_scopes_body_request",
     "CompanyInfo": ".company_info",
+    "CompanyInfoAddressesItem": ".company_info_addresses_item",
     "CompanyInfoCurrency": ".company_info_currency",
+    "CompanyInfoPhoneNumbersItem": ".company_info_phone_numbers_item",
+    "CompletedAccountInitialScreenEnum": ".completed_account_initial_screen_enum",
     "ComponentTypeEnum": ".component_type_enum",
     "Contact": ".contact",
     "ContactAddressesItem": ".contact_addresses_item",
+    "ContactCompany": ".contact_company",
+    "ContactPhoneNumbersItem": ".contact_phone_numbers_item",
     "ContactRequest": ".contact_request",
     "ContactRequestAddressesItem": ".contact_request_addresses_item",
+    "ContactRequestCompany": ".contact_request_company",
+    "ContactRequestPhoneNumbersItem": ".contact_request_phone_numbers_item",
     "ContactRequestStatus": ".contact_request_status",
     "ContactResponse": ".contact_response",
     "ContactStatus": ".contact_status",
@@ -642,6 +743,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreditNoteLineItemRequestContact": ".credit_note_line_item_request_contact",
     "CreditNoteLineItemRequestItem": ".credit_note_line_item_request_item",
     "CreditNoteLineItemRequestProject": ".credit_note_line_item_request_project",
+    "CreditNoteLineItemsItem": ".credit_note_line_items_item",
     "CreditNotePaymentsItem": ".credit_note_payments_item",
     "CreditNoteRequest": ".credit_note_request",
     "CreditNoteRequestAccountingPeriod": ".credit_note_request_accounting_period",
@@ -659,7 +761,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreditNoteTrackingCategoriesItem": ".credit_note_tracking_categories_item",
     "CreditOrDebitEnum": ".credit_or_debit_enum",
     "DataPassthroughRequest": ".data_passthrough_request",
-    "DataPassthroughRequestMethod": ".data_passthrough_request_method",
     "DebugModeLog": ".debug_mode_log",
     "DebugModelLogSummary": ".debug_model_log_summary",
     "Employee": ".employee",
@@ -672,6 +773,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Expense": ".expense",
     "ExpenseAccount": ".expense_account",
     "ExpenseAccountingPeriod": ".expense_accounting_period",
+    "ExpenseBatchItemRequest": ".expense_batch_item_request",
     "ExpenseCompany": ".expense_company",
     "ExpenseContact": ".expense_contact",
     "ExpenseCurrency": ".expense_currency",
@@ -695,25 +797,33 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ExpenseLineTrackingCategoriesItem": ".expense_line_tracking_categories_item",
     "ExpenseLineTrackingCategory": ".expense_line_tracking_category",
     "ExpenseReport": ".expense_report",
+    "ExpenseReportAccountingPeriod": ".expense_report_accounting_period",
     "ExpenseReportCompany": ".expense_report_company",
+    "ExpenseReportCurrency": ".expense_report_currency",
+    "ExpenseReportEmployee": ".expense_report_employee",
     "ExpenseReportLine": ".expense_report_line",
     "ExpenseReportLineAccount": ".expense_report_line_account",
     "ExpenseReportLineCompany": ".expense_report_line_company",
     "ExpenseReportLineContact": ".expense_report_line_contact",
+    "ExpenseReportLineCurrency": ".expense_report_line_currency",
     "ExpenseReportLineEmployee": ".expense_report_line_employee",
     "ExpenseReportLineProject": ".expense_report_line_project",
     "ExpenseReportLineRequest": ".expense_report_line_request",
     "ExpenseReportLineRequestAccount": ".expense_report_line_request_account",
     "ExpenseReportLineRequestCompany": ".expense_report_line_request_company",
     "ExpenseReportLineRequestContact": ".expense_report_line_request_contact",
+    "ExpenseReportLineRequestCurrency": ".expense_report_line_request_currency",
     "ExpenseReportLineRequestEmployee": ".expense_report_line_request_employee",
     "ExpenseReportLineRequestProject": ".expense_report_line_request_project",
     "ExpenseReportLineRequestTaxRate": ".expense_report_line_request_tax_rate",
     "ExpenseReportLineTaxRate": ".expense_report_line_tax_rate",
+    "ExpenseReportLinesItem": ".expense_report_lines_item",
     "ExpenseReportRequest": ".expense_report_request",
     "ExpenseReportRequestAccountingPeriod": ".expense_report_request_accounting_period",
     "ExpenseReportRequestCompany": ".expense_report_request_company",
+    "ExpenseReportRequestCurrency": ".expense_report_request_currency",
     "ExpenseReportRequestEmployee": ".expense_report_request_employee",
+    "ExpenseReportRequestStatus": ".expense_report_request_status",
     "ExpenseReportResponse": ".expense_report_response",
     "ExpenseReportStatus": ".expense_report_status",
     "ExpenseReportStatusEnum": ".expense_report_status_enum",
@@ -752,7 +862,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "GeneralLedgerTransactionLineEmployee": ".general_ledger_transaction_line_employee",
     "GeneralLedgerTransactionLineItem": ".general_ledger_transaction_line_item",
     "GeneralLedgerTransactionLineProject": ".general_ledger_transaction_line_project",
-    "GeneralLedgerTransactionLineTrackingCategoriesItem": ".general_ledger_transaction_line_tracking_categories_item",
     "GeneralLedgerTransactionLineTransactionCurrency": ".general_ledger_transaction_line_transaction_currency",
     "GeneralLedgerTransactionTrackingCategoriesItem": ".general_ledger_transaction_tracking_categories_item",
     "GeneralLedgerTransactionUnderlyingTransactionType": ".general_ledger_transaction_underlying_transaction_type",
@@ -766,6 +875,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "InvoiceAppliedCreditNotesItem": ".invoice_applied_credit_notes_item",
     "InvoiceAppliedPaymentsItem": ".invoice_applied_payments_item",
     "InvoiceAppliedVendorCreditsItem": ".invoice_applied_vendor_credits_item",
+    "InvoiceBatchItemRequest": ".invoice_batch_item_request",
     "InvoiceCompany": ".invoice_company",
     "InvoiceContact": ".invoice_contact",
     "InvoiceCurrency": ".invoice_currency",
@@ -774,28 +884,29 @@ _dynamic_imports: typing.Dict[str, str] = {
     "InvoiceLineItemAccount": ".invoice_line_item_account",
     "InvoiceLineItemContact": ".invoice_line_item_contact",
     "InvoiceLineItemCurrency": ".invoice_line_item_currency",
-    "InvoiceLineItemEmployee": ".invoice_line_item_employee",
     "InvoiceLineItemItem": ".invoice_line_item_item",
     "InvoiceLineItemProject": ".invoice_line_item_project",
     "InvoiceLineItemRequest": ".invoice_line_item_request",
     "InvoiceLineItemRequestAccount": ".invoice_line_item_request_account",
     "InvoiceLineItemRequestContact": ".invoice_line_item_request_contact",
     "InvoiceLineItemRequestCurrency": ".invoice_line_item_request_currency",
-    "InvoiceLineItemRequestEmployee": ".invoice_line_item_request_employee",
     "InvoiceLineItemRequestItem": ".invoice_line_item_request_item",
     "InvoiceLineItemRequestProject": ".invoice_line_item_request_project",
     "InvoiceLineItemRequestTrackingCategoriesItem": ".invoice_line_item_request_tracking_categories_item",
     "InvoiceLineItemRequestTrackingCategory": ".invoice_line_item_request_tracking_category",
     "InvoiceLineItemTrackingCategoriesItem": ".invoice_line_item_tracking_categories_item",
     "InvoiceLineItemTrackingCategory": ".invoice_line_item_tracking_category",
+    "InvoiceLineItemsItem": ".invoice_line_items_item",
     "InvoicePaymentTerm": ".invoice_payment_term",
     "InvoicePaymentsItem": ".invoice_payments_item",
     "InvoicePurchaseOrdersItem": ".invoice_purchase_orders_item",
     "InvoiceRequest": ".invoice_request",
+    "InvoiceRequestAccountingPeriod": ".invoice_request_accounting_period",
     "InvoiceRequestCompany": ".invoice_request_company",
     "InvoiceRequestContact": ".invoice_request_contact",
     "InvoiceRequestCurrency": ".invoice_request_currency",
     "InvoiceRequestEmployee": ".invoice_request_employee",
+    "InvoiceRequestLineItemsItem": ".invoice_request_line_items_item",
     "InvoiceRequestPaymentTerm": ".invoice_request_payment_term",
     "InvoiceRequestPaymentsItem": ".invoice_request_payments_item",
     "InvoiceRequestPurchaseOrdersItem": ".invoice_request_purchase_orders_item",
@@ -803,6 +914,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "InvoiceRequestTrackingCategoriesItem": ".invoice_request_tracking_categories_item",
     "InvoiceRequestType": ".invoice_request_type",
     "InvoiceResponse": ".invoice_response",
+    "InvoiceSalesOrdersItem": ".invoice_sales_orders_item",
     "InvoiceStatus": ".invoice_status",
     "InvoiceStatusEnum": ".invoice_status_enum",
     "InvoiceTrackingCategoriesItem": ".invoice_tracking_categories_item",
@@ -814,6 +926,29 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Item": ".item",
     "ItemCompany": ".item_company",
     "ItemFormatEnum": ".item_format_enum",
+    "ItemFulfillment": ".item_fulfillment",
+    "ItemFulfillmentBatchItemRequest": ".item_fulfillment_batch_item_request",
+    "ItemFulfillmentCompany": ".item_fulfillment_company",
+    "ItemFulfillmentCustomer": ".item_fulfillment_customer",
+    "ItemFulfillmentLine": ".item_fulfillment_line",
+    "ItemFulfillmentLineItem": ".item_fulfillment_line_item",
+    "ItemFulfillmentLineRequest": ".item_fulfillment_line_request",
+    "ItemFulfillmentLineRequestItem": ".item_fulfillment_line_request_item",
+    "ItemFulfillmentLineRequestSalesOrderLine": ".item_fulfillment_line_request_sales_order_line",
+    "ItemFulfillmentLineRequestTrackingCategoriesItem": ".item_fulfillment_line_request_tracking_categories_item",
+    "ItemFulfillmentLineSalesOrderLine": ".item_fulfillment_line_sales_order_line",
+    "ItemFulfillmentLineTrackingCategoriesItem": ".item_fulfillment_line_tracking_categories_item",
+    "ItemFulfillmentLinesItem": ".item_fulfillment_lines_item",
+    "ItemFulfillmentRequestRequest": ".item_fulfillment_request_request",
+    "ItemFulfillmentRequestRequestCompany": ".item_fulfillment_request_request_company",
+    "ItemFulfillmentRequestRequestCustomer": ".item_fulfillment_request_request_customer",
+    "ItemFulfillmentRequestRequestLinesItem": ".item_fulfillment_request_request_lines_item",
+    "ItemFulfillmentRequestRequestSalesOrder": ".item_fulfillment_request_request_sales_order",
+    "ItemFulfillmentRequestRequestStatus": ".item_fulfillment_request_request_status",
+    "ItemFulfillmentResponse": ".item_fulfillment_response",
+    "ItemFulfillmentSalesOrder": ".item_fulfillment_sales_order",
+    "ItemFulfillmentStatus": ".item_fulfillment_status",
+    "ItemFulfillmentStatusEnum": ".item_fulfillment_status_enum",
     "ItemPurchaseAccount": ".item_purchase_account",
     "ItemPurchaseTaxRate": ".item_purchase_tax_rate",
     "ItemRequestRequest": ".item_request_request",
@@ -836,11 +971,13 @@ _dynamic_imports: typing.Dict[str, str] = {
     "JournalEntryAppliedPaymentsItem": ".journal_entry_applied_payments_item",
     "JournalEntryCompany": ".journal_entry_company",
     "JournalEntryCurrency": ".journal_entry_currency",
+    "JournalEntryLinesItem": ".journal_entry_lines_item",
     "JournalEntryPaymentsItem": ".journal_entry_payments_item",
     "JournalEntryPostingStatus": ".journal_entry_posting_status",
     "JournalEntryRequest": ".journal_entry_request",
     "JournalEntryRequestCompany": ".journal_entry_request_company",
     "JournalEntryRequestCurrency": ".journal_entry_request_currency",
+    "JournalEntryRequestLinesItem": ".journal_entry_request_lines_item",
     "JournalEntryRequestPaymentsItem": ".journal_entry_request_payments_item",
     "JournalEntryRequestPostingStatus": ".journal_entry_request_posting_status",
     "JournalEntryRequestTrackingCategoriesItem": ".journal_entry_request_tracking_categories_item",
@@ -890,6 +1027,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PaginatedIncomeStatementList": ".paginated_income_statement_list",
     "PaginatedInvoiceList": ".paginated_invoice_list",
     "PaginatedIssueList": ".paginated_issue_list",
+    "PaginatedItemFulfillmentList": ".paginated_item_fulfillment_list",
     "PaginatedItemList": ".paginated_item_list",
     "PaginatedJournalEntryList": ".paginated_journal_entry_list",
     "PaginatedPaymentList": ".paginated_payment_list",
@@ -898,26 +1036,22 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PaginatedProjectList": ".paginated_project_list",
     "PaginatedPurchaseOrderList": ".paginated_purchase_order_list",
     "PaginatedRemoteFieldClassList": ".paginated_remote_field_class_list",
+    "PaginatedSalesOrderList": ".paginated_sales_order_list",
     "PaginatedSyncStatusList": ".paginated_sync_status_list",
     "PaginatedTaxRateList": ".paginated_tax_rate_list",
     "PaginatedTrackingCategoryList": ".paginated_tracking_category_list",
     "PaginatedTransactionList": ".paginated_transaction_list",
     "PaginatedVendorCreditList": ".paginated_vendor_credit_list",
     "PatchedContactRequest": ".patched_contact_request",
-    "PatchedContactRequestAddressesItem": ".patched_contact_request_addresses_item",
+    "PatchedContactRequestStatus": ".patched_contact_request_status",
     "PatchedItemRequestRequest": ".patched_item_request_request",
     "PatchedItemRequestRequestStatus": ".patched_item_request_request_status",
     "PatchedItemRequestRequestType": ".patched_item_request_request_type",
     "PatchedPaymentRequest": ".patched_payment_request",
-    "PatchedPaymentRequestAccount": ".patched_payment_request_account",
-    "PatchedPaymentRequestAccountingPeriod": ".patched_payment_request_accounting_period",
-    "PatchedPaymentRequestAppliedToLinesItem": ".patched_payment_request_applied_to_lines_item",
-    "PatchedPaymentRequestCompany": ".patched_payment_request_company",
-    "PatchedPaymentRequestContact": ".patched_payment_request_contact",
     "PatchedPaymentRequestCurrency": ".patched_payment_request_currency",
-    "PatchedPaymentRequestPaymentMethod": ".patched_payment_request_payment_method",
-    "PatchedPaymentRequestTrackingCategoriesItem": ".patched_payment_request_tracking_categories_item",
     "PatchedPaymentRequestType": ".patched_payment_request_type",
+    "PatchedVendorCreditRequest": ".patched_vendor_credit_request",
+    "PatchedVendorCreditRequestCurrency": ".patched_vendor_credit_request_currency",
     "Payment": ".payment",
     "PaymentAccount": ".payment_account",
     "PaymentAccountingPeriod": ".payment_accounting_period",
@@ -961,11 +1095,13 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PurchaseOrderLineItemRequest": ".purchase_order_line_item_request",
     "PurchaseOrderLineItemRequestCurrency": ".purchase_order_line_item_request_currency",
     "PurchaseOrderLineItemRequestItem": ".purchase_order_line_item_request_item",
+    "PurchaseOrderLineItemsItem": ".purchase_order_line_items_item",
     "PurchaseOrderPaymentTerm": ".purchase_order_payment_term",
     "PurchaseOrderRequest": ".purchase_order_request",
     "PurchaseOrderRequestCompany": ".purchase_order_request_company",
     "PurchaseOrderRequestCurrency": ".purchase_order_request_currency",
     "PurchaseOrderRequestDeliveryAddress": ".purchase_order_request_delivery_address",
+    "PurchaseOrderRequestLineItemsItem": ".purchase_order_request_line_items_item",
     "PurchaseOrderRequestPaymentTerm": ".purchase_order_request_payment_term",
     "PurchaseOrderRequestStatus": ".purchase_order_request_status",
     "PurchaseOrderRequestTrackingCategoriesItem": ".purchase_order_request_tracking_categories_item",
@@ -975,6 +1111,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PurchaseOrderStatusEnum": ".purchase_order_status_enum",
     "PurchaseOrderTrackingCategoriesItem": ".purchase_order_tracking_categories_item",
     "PurchaseOrderVendor": ".purchase_order_vendor",
+    "RegenerateAccountToken": ".regenerate_account_token",
     "RemoteData": ".remote_data",
     "RemoteEndpointInfo": ".remote_endpoint_info",
     "RemoteField": ".remote_field",
@@ -982,27 +1119,57 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RemoteFieldApiCoverage": ".remote_field_api_coverage",
     "RemoteFieldApiResponse": ".remote_field_api_response",
     "RemoteFieldClass": ".remote_field_class",
-    "RemoteFieldRemoteFieldClass": ".remote_field_remote_field_class",
     "RemoteFieldRequest": ".remote_field_request",
-    "RemoteFieldRequestRemoteFieldClass": ".remote_field_request_remote_field_class",
     "RemoteKey": ".remote_key",
     "RemoteResponse": ".remote_response",
+    "RemoteResponseResponseType": ".remote_response_response_type",
     "ReportItem": ".report_item",
     "RequestFormatEnum": ".request_format_enum",
     "ResponseTypeEnum": ".response_type_enum",
     "RoleEnum": ".role_enum",
+    "SalesOrder": ".sales_order",
+    "SalesOrderBatchItemRequest": ".sales_order_batch_item_request",
+    "SalesOrderCompany": ".sales_order_company",
+    "SalesOrderCurrency": ".sales_order_currency",
+    "SalesOrderCustomer": ".sales_order_customer",
+    "SalesOrderLine": ".sales_order_line",
+    "SalesOrderLineCompany": ".sales_order_line_company",
+    "SalesOrderLineItem": ".sales_order_line_item",
+    "SalesOrderLineRequest": ".sales_order_line_request",
+    "SalesOrderLineRequestCompany": ".sales_order_line_request_company",
+    "SalesOrderLineRequestItem": ".sales_order_line_request_item",
+    "SalesOrderLineRequestTaxRate": ".sales_order_line_request_tax_rate",
+    "SalesOrderLineRequestTrackingCategoriesItem": ".sales_order_line_request_tracking_categories_item",
+    "SalesOrderLineTaxRate": ".sales_order_line_tax_rate",
+    "SalesOrderLineTrackingCategoriesItem": ".sales_order_line_tracking_categories_item",
+    "SalesOrderLinesItem": ".sales_order_lines_item",
+    "SalesOrderPaymentTerm": ".sales_order_payment_term",
+    "SalesOrderRequestRequest": ".sales_order_request_request",
+    "SalesOrderRequestRequestCompany": ".sales_order_request_request_company",
+    "SalesOrderRequestRequestCurrency": ".sales_order_request_request_currency",
+    "SalesOrderRequestRequestCustomer": ".sales_order_request_request_customer",
+    "SalesOrderRequestRequestLinesItem": ".sales_order_request_request_lines_item",
+    "SalesOrderRequestRequestPaymentTerm": ".sales_order_request_request_payment_term",
+    "SalesOrderRequestRequestShippingAddress": ".sales_order_request_request_shipping_address",
+    "SalesOrderRequestRequestStatus": ".sales_order_request_request_status",
+    "SalesOrderRequestRequestTrackingCategoriesItem": ".sales_order_request_request_tracking_categories_item",
+    "SalesOrderResponse": ".sales_order_response",
+    "SalesOrderShippingAddress": ".sales_order_shipping_address",
+    "SalesOrderStatus": ".sales_order_status",
+    "SalesOrderStatusEnum": ".sales_order_status_enum",
+    "SalesOrderTrackingCategoriesItem": ".sales_order_tracking_categories_item",
     "SelectiveSyncConfigurationsUsageEnum": ".selective_sync_configurations_usage_enum",
     "Status7D1Enum": ".status_7_d_1_enum",
     "Status895Enum": ".status_895_enum",
     "StatusFd5Enum": ".status_fd_5_enum",
     "SyncStatus": ".sync_status",
+    "SyncStatusLastSyncResult": ".sync_status_last_sync_result",
     "SyncStatusStatus": ".sync_status_status",
     "TaxComponent": ".tax_component",
     "TaxComponentComponentType": ".tax_component_component_type",
     "TaxRate": ".tax_rate",
     "TaxRateCompany": ".tax_rate_company",
     "TaxRateStatus": ".tax_rate_status",
-    "TaxRateTaxComponentsItem": ".tax_rate_tax_components_item",
     "TrackingCategory": ".tracking_category",
     "TrackingCategoryCategoryType": ".tracking_category_category_type",
     "TrackingCategoryCompany": ".tracking_category_company",
@@ -1010,12 +1177,14 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Transaction": ".transaction",
     "TransactionAccount": ".transaction_account",
     "TransactionAccountingPeriod": ".transaction_accounting_period",
+    "TransactionCompany": ".transaction_company",
     "TransactionContact": ".transaction_contact",
     "TransactionCurrency": ".transaction_currency",
     "TransactionCurrencyEnum": ".transaction_currency_enum",
     "TransactionLineItem": ".transaction_line_item",
     "TransactionLineItemCurrency": ".transaction_line_item_currency",
     "TransactionLineItemItem": ".transaction_line_item_item",
+    "TransactionLineItemsItem": ".transaction_line_items_item",
     "TransactionTrackingCategoriesItem": ".transaction_tracking_categories_item",
     "Type2BbEnum": ".type_2_bb_enum",
     "UnderlyingTransactionTypeEnum": ".underlying_transaction_type_enum",
@@ -1038,6 +1207,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "VendorCreditLineRequestAccount": ".vendor_credit_line_request_account",
     "VendorCreditLineRequestContact": ".vendor_credit_line_request_contact",
     "VendorCreditLineRequestProject": ".vendor_credit_line_request_project",
+    "VendorCreditLinesItem": ".vendor_credit_lines_item",
     "VendorCreditRequest": ".vendor_credit_request",
     "VendorCreditRequestAccountingPeriod": ".vendor_credit_request_accounting_period",
     "VendorCreditRequestCompany": ".vendor_credit_request_company",
@@ -1076,6 +1246,7 @@ __all__ = [
     "AccountAccountType",
     "AccountAccountTypeEnum",
     "AccountClassification",
+    "AccountCompany",
     "AccountCurrency",
     "AccountDetails",
     "AccountDetailsAndActions",
@@ -1088,6 +1259,7 @@ __all__ = [
     "AccountRequest",
     "AccountRequestAccountType",
     "AccountRequestClassification",
+    "AccountRequestCompany",
     "AccountRequestCurrency",
     "AccountRequestStatus",
     "AccountResponse",
@@ -1109,6 +1281,7 @@ __all__ = [
     "AddressType",
     "AddressTypeEnum",
     "AdvancedMetadata",
+    "AsyncBulkCreateResponse",
     "AsyncPassthroughReciept",
     "AsyncPostTask",
     "AsyncPostTaskResult",
@@ -1138,6 +1311,13 @@ __all__ = [
     "BankFeedTransactionRequestRequestBankFeedAccount",
     "BankFeedTransactionRequestRequestCreditOrDebit",
     "BankFeedTransactionResponse",
+    "BatchObject",
+    "BatchObjectItemResponse",
+    "BatchObjectStatus",
+    "BatchObjectStatusEnum",
+    "BatchObjectsResponse",
+    "BatchObjectsResponseStatus",
+    "BatchObjectsResponseStatusEnum",
     "CashFlowStatement",
     "CashFlowStatementCompany",
     "CashFlowStatementCurrency",
@@ -1148,12 +1328,19 @@ __all__ = [
     "CommonModelScopeApi",
     "CommonModelScopesBodyRequest",
     "CompanyInfo",
+    "CompanyInfoAddressesItem",
     "CompanyInfoCurrency",
+    "CompanyInfoPhoneNumbersItem",
+    "CompletedAccountInitialScreenEnum",
     "ComponentTypeEnum",
     "Contact",
     "ContactAddressesItem",
+    "ContactCompany",
+    "ContactPhoneNumbersItem",
     "ContactRequest",
     "ContactRequestAddressesItem",
+    "ContactRequestCompany",
+    "ContactRequestPhoneNumbersItem",
     "ContactRequestStatus",
     "ContactResponse",
     "ContactStatus",
@@ -1180,6 +1367,7 @@ __all__ = [
     "CreditNoteLineItemRequestContact",
     "CreditNoteLineItemRequestItem",
     "CreditNoteLineItemRequestProject",
+    "CreditNoteLineItemsItem",
     "CreditNotePaymentsItem",
     "CreditNoteRequest",
     "CreditNoteRequestAccountingPeriod",
@@ -1197,7 +1385,6 @@ __all__ = [
     "CreditNoteTrackingCategoriesItem",
     "CreditOrDebitEnum",
     "DataPassthroughRequest",
-    "DataPassthroughRequestMethod",
     "DebugModeLog",
     "DebugModelLogSummary",
     "Employee",
@@ -1210,6 +1397,7 @@ __all__ = [
     "Expense",
     "ExpenseAccount",
     "ExpenseAccountingPeriod",
+    "ExpenseBatchItemRequest",
     "ExpenseCompany",
     "ExpenseContact",
     "ExpenseCurrency",
@@ -1233,25 +1421,33 @@ __all__ = [
     "ExpenseLineTrackingCategoriesItem",
     "ExpenseLineTrackingCategory",
     "ExpenseReport",
+    "ExpenseReportAccountingPeriod",
     "ExpenseReportCompany",
+    "ExpenseReportCurrency",
+    "ExpenseReportEmployee",
     "ExpenseReportLine",
     "ExpenseReportLineAccount",
     "ExpenseReportLineCompany",
     "ExpenseReportLineContact",
+    "ExpenseReportLineCurrency",
     "ExpenseReportLineEmployee",
     "ExpenseReportLineProject",
     "ExpenseReportLineRequest",
     "ExpenseReportLineRequestAccount",
     "ExpenseReportLineRequestCompany",
     "ExpenseReportLineRequestContact",
+    "ExpenseReportLineRequestCurrency",
     "ExpenseReportLineRequestEmployee",
     "ExpenseReportLineRequestProject",
     "ExpenseReportLineRequestTaxRate",
     "ExpenseReportLineTaxRate",
+    "ExpenseReportLinesItem",
     "ExpenseReportRequest",
     "ExpenseReportRequestAccountingPeriod",
     "ExpenseReportRequestCompany",
+    "ExpenseReportRequestCurrency",
     "ExpenseReportRequestEmployee",
+    "ExpenseReportRequestStatus",
     "ExpenseReportResponse",
     "ExpenseReportStatus",
     "ExpenseReportStatusEnum",
@@ -1290,7 +1486,6 @@ __all__ = [
     "GeneralLedgerTransactionLineEmployee",
     "GeneralLedgerTransactionLineItem",
     "GeneralLedgerTransactionLineProject",
-    "GeneralLedgerTransactionLineTrackingCategoriesItem",
     "GeneralLedgerTransactionLineTransactionCurrency",
     "GeneralLedgerTransactionTrackingCategoriesItem",
     "GeneralLedgerTransactionUnderlyingTransactionType",
@@ -1304,6 +1499,7 @@ __all__ = [
     "InvoiceAppliedCreditNotesItem",
     "InvoiceAppliedPaymentsItem",
     "InvoiceAppliedVendorCreditsItem",
+    "InvoiceBatchItemRequest",
     "InvoiceCompany",
     "InvoiceContact",
     "InvoiceCurrency",
@@ -1312,28 +1508,29 @@ __all__ = [
     "InvoiceLineItemAccount",
     "InvoiceLineItemContact",
     "InvoiceLineItemCurrency",
-    "InvoiceLineItemEmployee",
     "InvoiceLineItemItem",
     "InvoiceLineItemProject",
     "InvoiceLineItemRequest",
     "InvoiceLineItemRequestAccount",
     "InvoiceLineItemRequestContact",
     "InvoiceLineItemRequestCurrency",
-    "InvoiceLineItemRequestEmployee",
     "InvoiceLineItemRequestItem",
     "InvoiceLineItemRequestProject",
     "InvoiceLineItemRequestTrackingCategoriesItem",
     "InvoiceLineItemRequestTrackingCategory",
     "InvoiceLineItemTrackingCategoriesItem",
     "InvoiceLineItemTrackingCategory",
+    "InvoiceLineItemsItem",
     "InvoicePaymentTerm",
     "InvoicePaymentsItem",
     "InvoicePurchaseOrdersItem",
     "InvoiceRequest",
+    "InvoiceRequestAccountingPeriod",
     "InvoiceRequestCompany",
     "InvoiceRequestContact",
     "InvoiceRequestCurrency",
     "InvoiceRequestEmployee",
+    "InvoiceRequestLineItemsItem",
     "InvoiceRequestPaymentTerm",
     "InvoiceRequestPaymentsItem",
     "InvoiceRequestPurchaseOrdersItem",
@@ -1341,6 +1538,7 @@ __all__ = [
     "InvoiceRequestTrackingCategoriesItem",
     "InvoiceRequestType",
     "InvoiceResponse",
+    "InvoiceSalesOrdersItem",
     "InvoiceStatus",
     "InvoiceStatusEnum",
     "InvoiceTrackingCategoriesItem",
@@ -1352,6 +1550,29 @@ __all__ = [
     "Item",
     "ItemCompany",
     "ItemFormatEnum",
+    "ItemFulfillment",
+    "ItemFulfillmentBatchItemRequest",
+    "ItemFulfillmentCompany",
+    "ItemFulfillmentCustomer",
+    "ItemFulfillmentLine",
+    "ItemFulfillmentLineItem",
+    "ItemFulfillmentLineRequest",
+    "ItemFulfillmentLineRequestItem",
+    "ItemFulfillmentLineRequestSalesOrderLine",
+    "ItemFulfillmentLineRequestTrackingCategoriesItem",
+    "ItemFulfillmentLineSalesOrderLine",
+    "ItemFulfillmentLineTrackingCategoriesItem",
+    "ItemFulfillmentLinesItem",
+    "ItemFulfillmentRequestRequest",
+    "ItemFulfillmentRequestRequestCompany",
+    "ItemFulfillmentRequestRequestCustomer",
+    "ItemFulfillmentRequestRequestLinesItem",
+    "ItemFulfillmentRequestRequestSalesOrder",
+    "ItemFulfillmentRequestRequestStatus",
+    "ItemFulfillmentResponse",
+    "ItemFulfillmentSalesOrder",
+    "ItemFulfillmentStatus",
+    "ItemFulfillmentStatusEnum",
     "ItemPurchaseAccount",
     "ItemPurchaseTaxRate",
     "ItemRequestRequest",
@@ -1374,11 +1595,13 @@ __all__ = [
     "JournalEntryAppliedPaymentsItem",
     "JournalEntryCompany",
     "JournalEntryCurrency",
+    "JournalEntryLinesItem",
     "JournalEntryPaymentsItem",
     "JournalEntryPostingStatus",
     "JournalEntryRequest",
     "JournalEntryRequestCompany",
     "JournalEntryRequestCurrency",
+    "JournalEntryRequestLinesItem",
     "JournalEntryRequestPaymentsItem",
     "JournalEntryRequestPostingStatus",
     "JournalEntryRequestTrackingCategoriesItem",
@@ -1428,6 +1651,7 @@ __all__ = [
     "PaginatedIncomeStatementList",
     "PaginatedInvoiceList",
     "PaginatedIssueList",
+    "PaginatedItemFulfillmentList",
     "PaginatedItemList",
     "PaginatedJournalEntryList",
     "PaginatedPaymentList",
@@ -1436,26 +1660,22 @@ __all__ = [
     "PaginatedProjectList",
     "PaginatedPurchaseOrderList",
     "PaginatedRemoteFieldClassList",
+    "PaginatedSalesOrderList",
     "PaginatedSyncStatusList",
     "PaginatedTaxRateList",
     "PaginatedTrackingCategoryList",
     "PaginatedTransactionList",
     "PaginatedVendorCreditList",
     "PatchedContactRequest",
-    "PatchedContactRequestAddressesItem",
+    "PatchedContactRequestStatus",
     "PatchedItemRequestRequest",
     "PatchedItemRequestRequestStatus",
     "PatchedItemRequestRequestType",
     "PatchedPaymentRequest",
-    "PatchedPaymentRequestAccount",
-    "PatchedPaymentRequestAccountingPeriod",
-    "PatchedPaymentRequestAppliedToLinesItem",
-    "PatchedPaymentRequestCompany",
-    "PatchedPaymentRequestContact",
     "PatchedPaymentRequestCurrency",
-    "PatchedPaymentRequestPaymentMethod",
-    "PatchedPaymentRequestTrackingCategoriesItem",
     "PatchedPaymentRequestType",
+    "PatchedVendorCreditRequest",
+    "PatchedVendorCreditRequestCurrency",
     "Payment",
     "PaymentAccount",
     "PaymentAccountingPeriod",
@@ -1499,11 +1719,13 @@ __all__ = [
     "PurchaseOrderLineItemRequest",
     "PurchaseOrderLineItemRequestCurrency",
     "PurchaseOrderLineItemRequestItem",
+    "PurchaseOrderLineItemsItem",
     "PurchaseOrderPaymentTerm",
     "PurchaseOrderRequest",
     "PurchaseOrderRequestCompany",
     "PurchaseOrderRequestCurrency",
     "PurchaseOrderRequestDeliveryAddress",
+    "PurchaseOrderRequestLineItemsItem",
     "PurchaseOrderRequestPaymentTerm",
     "PurchaseOrderRequestStatus",
     "PurchaseOrderRequestTrackingCategoriesItem",
@@ -1513,6 +1735,7 @@ __all__ = [
     "PurchaseOrderStatusEnum",
     "PurchaseOrderTrackingCategoriesItem",
     "PurchaseOrderVendor",
+    "RegenerateAccountToken",
     "RemoteData",
     "RemoteEndpointInfo",
     "RemoteField",
@@ -1520,27 +1743,57 @@ __all__ = [
     "RemoteFieldApiCoverage",
     "RemoteFieldApiResponse",
     "RemoteFieldClass",
-    "RemoteFieldRemoteFieldClass",
     "RemoteFieldRequest",
-    "RemoteFieldRequestRemoteFieldClass",
     "RemoteKey",
     "RemoteResponse",
+    "RemoteResponseResponseType",
     "ReportItem",
     "RequestFormatEnum",
     "ResponseTypeEnum",
     "RoleEnum",
+    "SalesOrder",
+    "SalesOrderBatchItemRequest",
+    "SalesOrderCompany",
+    "SalesOrderCurrency",
+    "SalesOrderCustomer",
+    "SalesOrderLine",
+    "SalesOrderLineCompany",
+    "SalesOrderLineItem",
+    "SalesOrderLineRequest",
+    "SalesOrderLineRequestCompany",
+    "SalesOrderLineRequestItem",
+    "SalesOrderLineRequestTaxRate",
+    "SalesOrderLineRequestTrackingCategoriesItem",
+    "SalesOrderLineTaxRate",
+    "SalesOrderLineTrackingCategoriesItem",
+    "SalesOrderLinesItem",
+    "SalesOrderPaymentTerm",
+    "SalesOrderRequestRequest",
+    "SalesOrderRequestRequestCompany",
+    "SalesOrderRequestRequestCurrency",
+    "SalesOrderRequestRequestCustomer",
+    "SalesOrderRequestRequestLinesItem",
+    "SalesOrderRequestRequestPaymentTerm",
+    "SalesOrderRequestRequestShippingAddress",
+    "SalesOrderRequestRequestStatus",
+    "SalesOrderRequestRequestTrackingCategoriesItem",
+    "SalesOrderResponse",
+    "SalesOrderShippingAddress",
+    "SalesOrderStatus",
+    "SalesOrderStatusEnum",
+    "SalesOrderTrackingCategoriesItem",
     "SelectiveSyncConfigurationsUsageEnum",
     "Status7D1Enum",
     "Status895Enum",
     "StatusFd5Enum",
     "SyncStatus",
+    "SyncStatusLastSyncResult",
     "SyncStatusStatus",
     "TaxComponent",
     "TaxComponentComponentType",
     "TaxRate",
     "TaxRateCompany",
     "TaxRateStatus",
-    "TaxRateTaxComponentsItem",
     "TrackingCategory",
     "TrackingCategoryCategoryType",
     "TrackingCategoryCompany",
@@ -1548,12 +1801,14 @@ __all__ = [
     "Transaction",
     "TransactionAccount",
     "TransactionAccountingPeriod",
+    "TransactionCompany",
     "TransactionContact",
     "TransactionCurrency",
     "TransactionCurrencyEnum",
     "TransactionLineItem",
     "TransactionLineItemCurrency",
     "TransactionLineItemItem",
+    "TransactionLineItemsItem",
     "TransactionTrackingCategoriesItem",
     "Type2BbEnum",
     "UnderlyingTransactionTypeEnum",
@@ -1576,6 +1831,7 @@ __all__ = [
     "VendorCreditLineRequestAccount",
     "VendorCreditLineRequestContact",
     "VendorCreditLineRequestProject",
+    "VendorCreditLinesItem",
     "VendorCreditRequest",
     "VendorCreditRequestAccountingPeriod",
     "VendorCreditRequestCompany",

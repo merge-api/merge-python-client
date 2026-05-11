@@ -9,9 +9,10 @@ from ....core.unchecked_base_model import UncheckedBaseModel
 from .remote_data import RemoteData
 from .transaction_account import TransactionAccount
 from .transaction_accounting_period import TransactionAccountingPeriod
+from .transaction_company import TransactionCompany
 from .transaction_contact import TransactionContact
 from .transaction_currency import TransactionCurrency
-from .transaction_line_item import TransactionLineItem
+from .transaction_line_items_item import TransactionLineItemsItem
 from .transaction_tracking_categories_item import TransactionTrackingCategoriesItem
 
 
@@ -400,13 +401,13 @@ class Transaction(UncheckedBaseModel):
     The transaction's exchange rate.
     """
 
-    company: typing.Optional[str] = pydantic.Field(default=None)
+    company: typing.Optional[TransactionCompany] = pydantic.Field(default=None)
     """
     The company the transaction belongs to.
     """
 
     tracking_categories: typing.Optional[typing.List[typing.Optional[TransactionTrackingCategoriesItem]]] = None
-    line_items: typing.Optional[typing.List[TransactionLineItem]] = None
+    line_items: typing.Optional[typing.List[TransactionLineItemsItem]] = None
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).

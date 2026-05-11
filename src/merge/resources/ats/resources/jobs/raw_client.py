@@ -14,10 +14,10 @@ from .....core.unchecked_base_model import construct_type
 from ...types.job import Job
 from ...types.paginated_job_list import PaginatedJobList
 from ...types.paginated_screening_question_list import PaginatedScreeningQuestionList
-from .types.jobs_list_request_expand import JobsListRequestExpand
+from .types.jobs_list_request_expand_item import JobsListRequestExpandItem
 from .types.jobs_list_request_status import JobsListRequestStatus
-from .types.jobs_retrieve_request_expand import JobsRetrieveRequestExpand
-from .types.jobs_screening_questions_list_request_expand import JobsScreeningQuestionsListRequestExpand
+from .types.jobs_retrieve_request_expand_item import JobsRetrieveRequestExpandItem
+from .types.jobs_screening_questions_list_request_expand_item import JobsScreeningQuestionsListRequestExpandItem
 
 
 class RawJobsClient:
@@ -31,7 +31,9 @@ class RawJobsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[JobsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[JobsListRequestExpandItem, typing.Sequence[JobsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -62,7 +64,7 @@ class RawJobsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[JobsListRequestExpand]
+        expand : typing.Optional[typing.Union[JobsListRequestExpandItem, typing.Sequence[JobsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -84,7 +86,7 @@ class RawJobsClient:
             If provided, will only return jobs for this office; multiple offices can be separated by commas.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_fields : typing.Optional[typing.Literal["status"]]
             Deprecated. Use show_enum_origins.
@@ -154,7 +156,9 @@ class RawJobsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[JobsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[JobsRetrieveRequestExpandItem, typing.Sequence[JobsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["status"]] = None,
@@ -168,7 +172,7 @@ class RawJobsClient:
         ----------
         id : str
 
-        expand : typing.Optional[JobsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[JobsRetrieveRequestExpandItem, typing.Sequence[JobsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -223,7 +227,12 @@ class RawJobsClient:
         job_id: str,
         *,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[JobsScreeningQuestionsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                JobsScreeningQuestionsListRequestExpandItem,
+                typing.Sequence[JobsScreeningQuestionsListRequestExpandItem],
+            ]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -240,7 +249,7 @@ class RawJobsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[JobsScreeningQuestionsListRequestExpand]
+        expand : typing.Optional[typing.Union[JobsScreeningQuestionsListRequestExpandItem, typing.Sequence[JobsScreeningQuestionsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -253,7 +262,7 @@ class RawJobsClient:
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -303,7 +312,9 @@ class AsyncRawJobsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[JobsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[JobsListRequestExpandItem, typing.Sequence[JobsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -334,7 +345,7 @@ class AsyncRawJobsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[JobsListRequestExpand]
+        expand : typing.Optional[typing.Union[JobsListRequestExpandItem, typing.Sequence[JobsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -356,7 +367,7 @@ class AsyncRawJobsClient:
             If provided, will only return jobs for this office; multiple offices can be separated by commas.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_fields : typing.Optional[typing.Literal["status"]]
             Deprecated. Use show_enum_origins.
@@ -426,7 +437,9 @@ class AsyncRawJobsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[JobsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[JobsRetrieveRequestExpandItem, typing.Sequence[JobsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["status"]] = None,
@@ -440,7 +453,7 @@ class AsyncRawJobsClient:
         ----------
         id : str
 
-        expand : typing.Optional[JobsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[JobsRetrieveRequestExpandItem, typing.Sequence[JobsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -495,7 +508,12 @@ class AsyncRawJobsClient:
         job_id: str,
         *,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[JobsScreeningQuestionsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                JobsScreeningQuestionsListRequestExpandItem,
+                typing.Sequence[JobsScreeningQuestionsListRequestExpandItem],
+            ]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -512,7 +530,7 @@ class AsyncRawJobsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[JobsScreeningQuestionsListRequestExpand]
+        expand : typing.Optional[typing.Union[JobsScreeningQuestionsListRequestExpandItem, typing.Sequence[JobsScreeningQuestionsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -525,7 +543,7 @@ class AsyncRawJobsClient:
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

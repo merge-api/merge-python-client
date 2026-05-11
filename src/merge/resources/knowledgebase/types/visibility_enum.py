@@ -7,12 +7,6 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class VisibilityEnum(str, enum.Enum):
-    """
-    * `PUBLIC` - PUBLIC
-    * `INTERNAL` - INTERNAL
-    * `RESTRICTED` - RESTRICTED
-    """
-
     PUBLIC = "PUBLIC"
     INTERNAL = "INTERNAL"
     RESTRICTED = "RESTRICTED"

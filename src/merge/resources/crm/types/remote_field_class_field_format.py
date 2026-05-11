@@ -4,4 +4,4 @@ import typing
 
 from .field_format_enum import FieldFormatEnum
 
-RemoteFieldClassFieldFormat = typing.Union[FieldFormatEnum, str]
+RemoteFieldClassFieldFormat = typing.Union[str, FieldFormatEnum]

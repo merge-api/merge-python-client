@@ -18,8 +18,8 @@ from ...types.meta_response import MetaResponse
 from ...types.paginated_engagement_list import PaginatedEngagementList
 from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClassList
 from ...types.patched_engagement_request import PatchedEngagementRequest
-from .types.engagements_list_request_expand import EngagementsListRequestExpand
-from .types.engagements_retrieve_request_expand import EngagementsRetrieveRequestExpand
+from .types.engagements_list_request_expand_item import EngagementsListRequestExpandItem
+from .types.engagements_retrieve_request_expand_item import EngagementsRetrieveRequestExpandItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -35,7 +35,9 @@ class RawEngagementsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[EngagementsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[EngagementsListRequestExpandItem, typing.Sequence[EngagementsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -62,7 +64,7 @@ class RawEngagementsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[EngagementsListRequestExpand]
+        expand : typing.Optional[typing.Union[EngagementsListRequestExpandItem, typing.Sequence[EngagementsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -84,7 +86,7 @@ class RawEngagementsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -203,7 +205,9 @@ class RawEngagementsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[EngagementsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[EngagementsRetrieveRequestExpandItem, typing.Sequence[EngagementsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -216,7 +220,7 @@ class RawEngagementsClient:
         ----------
         id : str
 
-        expand : typing.Optional[EngagementsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[EngagementsRetrieveRequestExpandItem, typing.Sequence[EngagementsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -439,7 +443,7 @@ class RawEngagementsClient:
             If provided, will only return remote fields classes with this is_custom value
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -490,7 +494,9 @@ class AsyncRawEngagementsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[EngagementsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[EngagementsListRequestExpandItem, typing.Sequence[EngagementsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -517,7 +523,7 @@ class AsyncRawEngagementsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[EngagementsListRequestExpand]
+        expand : typing.Optional[typing.Union[EngagementsListRequestExpandItem, typing.Sequence[EngagementsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -539,7 +545,7 @@ class AsyncRawEngagementsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -658,7 +664,9 @@ class AsyncRawEngagementsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[EngagementsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[EngagementsRetrieveRequestExpandItem, typing.Sequence[EngagementsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -671,7 +679,7 @@ class AsyncRawEngagementsClient:
         ----------
         id : str
 
-        expand : typing.Optional[EngagementsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[EngagementsRetrieveRequestExpandItem, typing.Sequence[EngagementsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -894,7 +902,7 @@ class AsyncRawEngagementsClient:
             If provided, will only return remote fields classes with this is_custom value
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

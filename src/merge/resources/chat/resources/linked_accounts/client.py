@@ -48,17 +48,7 @@ class LinkedAccountsClient:
         Parameters
         ----------
         category : typing.Optional[LinkedAccountsListRequestCategory]
-            Options: `accounting`, `ats`, `crm`, `filestorage`, `hris`, `knowledgebase`, `mktg`, `ticketing`
-
-            * `hris` - hris
-            * `ats` - ats
-            * `accounting` - accounting
-            * `ticketing` - ticketing
-            * `crm` - crm
-            * `mktg` - mktg
-            * `filestorage` - filestorage
-            * `knowledgebase` - knowledgebase
-            * `chat` - chat
+            Options: `hris`, `ats`, `accounting`, `ticketing`, `crm`, `mktg`, `filestorage`, `knowledgebase`, `chat`
 
         cursor : typing.Optional[str]
             The pagination cursor value.
@@ -188,17 +178,7 @@ class AsyncLinkedAccountsClient:
         Parameters
         ----------
         category : typing.Optional[LinkedAccountsListRequestCategory]
-            Options: `accounting`, `ats`, `crm`, `filestorage`, `hris`, `knowledgebase`, `mktg`, `ticketing`
-
-            * `hris` - hris
-            * `ats` - ats
-            * `accounting` - accounting
-            * `ticketing` - ticketing
-            * `crm` - crm
-            * `mktg` - mktg
-            * `filestorage` - filestorage
-            * `knowledgebase` - knowledgebase
-            * `chat` - chat
+            Options: `hris`, `ats`, `accounting`, `ticketing`, `crm`, `mktg`, `filestorage`, `knowledgebase`, `chat`
 
         cursor : typing.Optional[str]
             The pagination cursor value.

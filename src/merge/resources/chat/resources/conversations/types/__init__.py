@@ -6,9 +6,9 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from .conversations_members_list_request_expand import ConversationsMembersListRequestExpand
+    from .conversations_members_list_request_expand_item import ConversationsMembersListRequestExpandItem
 _dynamic_imports: typing.Dict[str, str] = {
-    "ConversationsMembersListRequestExpand": ".conversations_members_list_request_expand"
+    "ConversationsMembersListRequestExpandItem": ".conversations_members_list_request_expand_item"
 }
 
 
@@ -31,4 +31,4 @@ def __dir__():
     return sorted(lazy_attrs)
 
 
-__all__ = ["ConversationsMembersListRequestExpand"]
+__all__ = ["ConversationsMembersListRequestExpandItem"]
