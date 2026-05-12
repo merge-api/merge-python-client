@@ -13,8 +13,8 @@ from .....core.request_options import RequestOptions
 from .....core.unchecked_base_model import construct_type
 from ...types.paginated_transaction_list import PaginatedTransactionList
 from ...types.transaction import Transaction
-from .types.transactions_list_request_expand import TransactionsListRequestExpand
-from .types.transactions_retrieve_request_expand import TransactionsRetrieveRequestExpand
+from .types.transactions_list_request_expand_item import TransactionsListRequestExpandItem
+from .types.transactions_retrieve_request_expand_item import TransactionsRetrieveRequestExpandItem
 
 
 class RawTransactionsClient:
@@ -28,7 +28,9 @@ class RawTransactionsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[TransactionsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[TransactionsListRequestExpandItem, typing.Sequence[TransactionsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -57,7 +59,7 @@ class RawTransactionsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[TransactionsListRequestExpand]
+        expand : typing.Optional[typing.Union[TransactionsListRequestExpandItem, typing.Sequence[TransactionsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -76,7 +78,7 @@ class RawTransactionsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -139,7 +141,9 @@ class RawTransactionsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[TransactionsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[TransactionsRetrieveRequestExpandItem, typing.Sequence[TransactionsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -151,7 +155,7 @@ class RawTransactionsClient:
         ----------
         id : str
 
-        expand : typing.Optional[TransactionsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[TransactionsRetrieveRequestExpandItem, typing.Sequence[TransactionsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -205,7 +209,9 @@ class AsyncRawTransactionsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[TransactionsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[TransactionsListRequestExpandItem, typing.Sequence[TransactionsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -234,7 +240,7 @@ class AsyncRawTransactionsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[TransactionsListRequestExpand]
+        expand : typing.Optional[typing.Union[TransactionsListRequestExpandItem, typing.Sequence[TransactionsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -253,7 +259,7 @@ class AsyncRawTransactionsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -316,7 +322,9 @@ class AsyncRawTransactionsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[TransactionsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[TransactionsRetrieveRequestExpandItem, typing.Sequence[TransactionsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -328,7 +336,7 @@ class AsyncRawTransactionsClient:
         ----------
         id : str
 
-        expand : typing.Optional[TransactionsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[TransactionsRetrieveRequestExpandItem, typing.Sequence[TransactionsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

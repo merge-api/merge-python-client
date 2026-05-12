@@ -5,6 +5,11 @@ import typing
 import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2
 from ....core.unchecked_base_model import UncheckedBaseModel
+from .patched_item_request_request_company import PatchedItemRequestRequestCompany
+from .patched_item_request_request_purchase_account import PatchedItemRequestRequestPurchaseAccount
+from .patched_item_request_request_purchase_tax_rate import PatchedItemRequestRequestPurchaseTaxRate
+from .patched_item_request_request_sales_account import PatchedItemRequestRequestSalesAccount
+from .patched_item_request_request_sales_tax_rate import PatchedItemRequestRequestSalesTaxRate
 from .patched_item_request_request_status import PatchedItemRequestRequestStatus
 from .patched_item_request_request_type import PatchedItemRequestRequestType
 
@@ -52,27 +57,27 @@ class PatchedItemRequestRequest(UncheckedBaseModel):
     The price at which the item is purchased from a vendor.
     """
 
-    purchase_account: typing.Optional[str] = pydantic.Field(default=None)
+    purchase_account: typing.Optional[PatchedItemRequestRequestPurchaseAccount] = pydantic.Field(default=None)
     """
     References the default account used to record a purchase of the item.
     """
 
-    sales_account: typing.Optional[str] = pydantic.Field(default=None)
+    sales_account: typing.Optional[PatchedItemRequestRequestSalesAccount] = pydantic.Field(default=None)
     """
     References the default account used to record a sale.
     """
 
-    company: typing.Optional[str] = pydantic.Field(default=None)
+    company: typing.Optional[PatchedItemRequestRequestCompany] = pydantic.Field(default=None)
     """
     The company the item belongs to.
     """
 
-    purchase_tax_rate: typing.Optional[str] = pydantic.Field(default=None)
+    purchase_tax_rate: typing.Optional[PatchedItemRequestRequestPurchaseTaxRate] = pydantic.Field(default=None)
     """
     The default purchase tax rate for this item.
     """
 
-    sales_tax_rate: typing.Optional[str] = pydantic.Field(default=None)
+    sales_tax_rate: typing.Optional[PatchedItemRequestRequestSalesTaxRate] = pydantic.Field(default=None)
     """
     The default sales tax rate for this item.
     """

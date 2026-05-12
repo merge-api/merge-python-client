@@ -5,13 +5,16 @@ import typing
 import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2
 from ....core.unchecked_base_model import UncheckedBaseModel
+from .association_type_request_request_target_object_classes_item import (
+    AssociationTypeRequestRequestTargetObjectClassesItem,
+)
 from .cardinality_enum import CardinalityEnum
 from .object_class_description_request import ObjectClassDescriptionRequest
 
 
 class AssociationTypeRequestRequest(UncheckedBaseModel):
     source_object_class: ObjectClassDescriptionRequest
-    target_object_classes: typing.List[ObjectClassDescriptionRequest]
+    target_object_classes: typing.List[AssociationTypeRequestRequestTargetObjectClassesItem]
     remote_key_name: str
     display_name: typing.Optional[str] = None
     cardinality: typing.Optional[CardinalityEnum] = None

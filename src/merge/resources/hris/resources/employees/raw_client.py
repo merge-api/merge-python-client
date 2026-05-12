@@ -14,16 +14,16 @@ from .....core.unchecked_base_model import construct_type
 from ...types.employee import Employee
 from ...types.employee_request import EmployeeRequest
 from ...types.employee_response import EmployeeResponse
+from ...types.ignore_common_model_request import IgnoreCommonModelRequest
 from ...types.meta_response import MetaResponse
 from ...types.paginated_employee_list import PaginatedEmployeeList
 from .types.employees_list_request_employment_status import EmployeesListRequestEmploymentStatus
-from .types.employees_list_request_expand import EmployeesListRequestExpand
+from .types.employees_list_request_expand_item import EmployeesListRequestExpandItem
 from .types.employees_list_request_remote_fields import EmployeesListRequestRemoteFields
 from .types.employees_list_request_show_enum_origins import EmployeesListRequestShowEnumOrigins
-from .types.employees_retrieve_request_expand import EmployeesRetrieveRequestExpand
+from .types.employees_retrieve_request_expand_item import EmployeesRetrieveRequestExpandItem
 from .types.employees_retrieve_request_remote_fields import EmployeesRetrieveRequestRemoteFields
 from .types.employees_retrieve_request_show_enum_origins import EmployeesRetrieveRequestShowEnumOrigins
-from .types.ignore_common_model_request_reason import IgnoreCommonModelRequestReason
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -44,7 +44,9 @@ class RawEmployeesClient:
         employee_number: typing.Optional[str] = None,
         employment_status: typing.Optional[EmployeesListRequestEmploymentStatus] = None,
         employment_type: typing.Optional[str] = None,
-        expand: typing.Optional[EmployeesListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[EmployeesListRequestExpandItem, typing.Sequence[EmployeesListRequestExpandItem]]
+        ] = None,
         first_name: typing.Optional[str] = None,
         groups: typing.Optional[str] = None,
         home_location_id: typing.Optional[str] = None,
@@ -105,7 +107,7 @@ class RawEmployeesClient:
         employment_type : typing.Optional[str]
             If provided, will only return employees that have an employment of the specified employment type.
 
-        expand : typing.Optional[EmployeesListRequestExpand]
+        expand : typing.Optional[typing.Union[EmployeesListRequestExpandItem, typing.Sequence[EmployeesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         first_name : typing.Optional[str]
@@ -145,7 +147,7 @@ class RawEmployeesClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         pay_group_id : typing.Optional[str]
             If provided, will only return employees for this pay group
@@ -311,7 +313,9 @@ class RawEmployeesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[EmployeesRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[EmployeesRetrieveRequestExpandItem, typing.Sequence[EmployeesRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_sensitive_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -326,7 +330,7 @@ class RawEmployeesClient:
         ----------
         id : str
 
-        expand : typing.Optional[EmployeesRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[EmployeesRetrieveRequestExpandItem, typing.Sequence[EmployeesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -384,8 +388,7 @@ class RawEmployeesClient:
         self,
         model_id: str,
         *,
-        reason: IgnoreCommonModelRequestReason,
-        message: typing.Optional[str] = OMIT,
+        request: IgnoreCommonModelRequest,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[None]:
         """
@@ -395,9 +398,7 @@ class RawEmployeesClient:
         ----------
         model_id : str
 
-        reason : IgnoreCommonModelRequestReason
-
-        message : typing.Optional[str]
+        request : IgnoreCommonModelRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -409,10 +410,7 @@ class RawEmployeesClient:
         _response = self._client_wrapper.httpx_client.request(
             f"hris/v1/employees/ignore/{jsonable_encoder(model_id)}",
             method="POST",
-            json={
-                "reason": reason,
-                "message": message,
-            },
+            json=request,
             headers={
                 "content-type": "application/json",
             },
@@ -479,7 +477,9 @@ class AsyncRawEmployeesClient:
         employee_number: typing.Optional[str] = None,
         employment_status: typing.Optional[EmployeesListRequestEmploymentStatus] = None,
         employment_type: typing.Optional[str] = None,
-        expand: typing.Optional[EmployeesListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[EmployeesListRequestExpandItem, typing.Sequence[EmployeesListRequestExpandItem]]
+        ] = None,
         first_name: typing.Optional[str] = None,
         groups: typing.Optional[str] = None,
         home_location_id: typing.Optional[str] = None,
@@ -540,7 +540,7 @@ class AsyncRawEmployeesClient:
         employment_type : typing.Optional[str]
             If provided, will only return employees that have an employment of the specified employment type.
 
-        expand : typing.Optional[EmployeesListRequestExpand]
+        expand : typing.Optional[typing.Union[EmployeesListRequestExpandItem, typing.Sequence[EmployeesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         first_name : typing.Optional[str]
@@ -580,7 +580,7 @@ class AsyncRawEmployeesClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         pay_group_id : typing.Optional[str]
             If provided, will only return employees for this pay group
@@ -746,7 +746,9 @@ class AsyncRawEmployeesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[EmployeesRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[EmployeesRetrieveRequestExpandItem, typing.Sequence[EmployeesRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_sensitive_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -761,7 +763,7 @@ class AsyncRawEmployeesClient:
         ----------
         id : str
 
-        expand : typing.Optional[EmployeesRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[EmployeesRetrieveRequestExpandItem, typing.Sequence[EmployeesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -819,8 +821,7 @@ class AsyncRawEmployeesClient:
         self,
         model_id: str,
         *,
-        reason: IgnoreCommonModelRequestReason,
-        message: typing.Optional[str] = OMIT,
+        request: IgnoreCommonModelRequest,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[None]:
         """
@@ -830,9 +831,7 @@ class AsyncRawEmployeesClient:
         ----------
         model_id : str
 
-        reason : IgnoreCommonModelRequestReason
-
-        message : typing.Optional[str]
+        request : IgnoreCommonModelRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -844,10 +843,7 @@ class AsyncRawEmployeesClient:
         _response = await self._client_wrapper.httpx_client.request(
             f"hris/v1/employees/ignore/{jsonable_encoder(model_id)}",
             method="POST",
-            json={
-                "reason": reason,
-                "message": message,
-            },
+            json=request,
             headers={
                 "content-type": "application/json",
             },

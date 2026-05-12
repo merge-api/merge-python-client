@@ -4,4 +4,4 @@ import typing
 
 from .field_type_enum import FieldTypeEnum
 
-RemoteFieldClassFieldType = typing.Union[FieldTypeEnum, str]
+RemoteFieldClassFieldType = typing.Union[str, FieldTypeEnum]

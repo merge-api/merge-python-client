@@ -34,6 +34,10 @@ if typing.TYPE_CHECKING:
     from .association_type import AssociationType
     from .association_type_cardinality import AssociationTypeCardinality
     from .association_type_request_request import AssociationTypeRequestRequest
+    from .association_type_request_request_target_object_classes_item import (
+        AssociationTypeRequestRequestTargetObjectClassesItem,
+    )
+    from .association_type_target_object_classes_item import AssociationTypeTargetObjectClassesItem
     from .async_passthrough_reciept import AsyncPassthroughReciept
     from .audit_log_event import AuditLogEvent
     from .audit_log_event_event_type import AuditLogEventEventType
@@ -57,6 +61,7 @@ if typing.TYPE_CHECKING:
     from .crm_custom_object_response import CrmCustomObjectResponse
     from .custom_object import CustomObject
     from .custom_object_class import CustomObjectClass
+    from .custom_object_class_fields_item import CustomObjectClassFieldsItem
     from .custom_object_request import CustomObjectRequest
     from .data_passthrough_request import DataPassthroughRequest
     from .debug_mode_log import DebugModeLog
@@ -118,6 +123,8 @@ if typing.TYPE_CHECKING:
     from .lead_request_converted_contact import LeadRequestConvertedContact
     from .lead_request_owner import LeadRequestOwner
     from .lead_response import LeadResponse
+    from .lead_status import LeadStatus
+    from .lead_status_enum import LeadStatusEnum
     from .link_token import LinkToken
     from .linked_account_status import LinkedAccountStatus
     from .meta_response import MetaResponse
@@ -172,17 +179,31 @@ if typing.TYPE_CHECKING:
     from .paginated_task_list import PaginatedTaskList
     from .paginated_user_list import PaginatedUserList
     from .patched_account_request import PatchedAccountRequest
+    from .patched_account_request_owner import PatchedAccountRequestOwner
     from .patched_contact_request import PatchedContactRequest
+    from .patched_contact_request_account import PatchedContactRequestAccount
     from .patched_contact_request_owner import PatchedContactRequestOwner
     from .patched_engagement_request import PatchedEngagementRequest
+    from .patched_engagement_request_account import PatchedEngagementRequestAccount
+    from .patched_engagement_request_contacts_item import PatchedEngagementRequestContactsItem
     from .patched_engagement_request_direction import PatchedEngagementRequestDirection
+    from .patched_engagement_request_engagement_type import PatchedEngagementRequestEngagementType
+    from .patched_engagement_request_owner import PatchedEngagementRequestOwner
     from .patched_opportunity_request import PatchedOpportunityRequest
+    from .patched_opportunity_request_account import PatchedOpportunityRequestAccount
+    from .patched_opportunity_request_owner import PatchedOpportunityRequestOwner
+    from .patched_opportunity_request_stage import PatchedOpportunityRequestStage
     from .patched_opportunity_request_status import PatchedOpportunityRequestStatus
     from .patched_task_request import PatchedTaskRequest
+    from .patched_task_request_account import PatchedTaskRequestAccount
+    from .patched_task_request_contact import PatchedTaskRequestContact
+    from .patched_task_request_opportunity import PatchedTaskRequestOpportunity
+    from .patched_task_request_owner import PatchedTaskRequestOwner
     from .patched_task_request_status import PatchedTaskRequestStatus
     from .phone_number import PhoneNumber
     from .phone_number_request import PhoneNumberRequest
     from .reason_enum import ReasonEnum
+    from .regenerate_account_token import RegenerateAccountToken
     from .remote_data import RemoteData
     from .remote_endpoint_info import RemoteEndpointInfo
     from .remote_field import RemoteField
@@ -205,6 +226,7 @@ if typing.TYPE_CHECKING:
     from .remote_field_request_remote_field_class import RemoteFieldRequestRemoteFieldClass
     from .remote_key import RemoteKey
     from .remote_response import RemoteResponse
+    from .remote_response_response_type import RemoteResponseResponseType
     from .request_format_enum import RequestFormatEnum
     from .response_type_enum import ResponseTypeEnum
     from .role_enum import RoleEnum
@@ -216,10 +238,12 @@ if typing.TYPE_CHECKING:
     from .sync_status_status import SyncStatusStatus
     from .task import Task
     from .task_account import TaskAccount
+    from .task_contact import TaskContact
     from .task_opportunity import TaskOpportunity
     from .task_owner import TaskOwner
     from .task_request import TaskRequest
     from .task_request_account import TaskRequestAccount
+    from .task_request_contact import TaskRequestContact
     from .task_request_opportunity import TaskRequestOpportunity
     from .task_request_owner import TaskRequestOwner
     from .task_request_status import TaskRequestStatus
@@ -259,6 +283,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AssociationType": ".association_type",
     "AssociationTypeCardinality": ".association_type_cardinality",
     "AssociationTypeRequestRequest": ".association_type_request_request",
+    "AssociationTypeRequestRequestTargetObjectClassesItem": ".association_type_request_request_target_object_classes_item",
+    "AssociationTypeTargetObjectClassesItem": ".association_type_target_object_classes_item",
     "AsyncPassthroughReciept": ".async_passthrough_reciept",
     "AuditLogEvent": ".audit_log_event",
     "AuditLogEventEventType": ".audit_log_event_event_type",
@@ -282,6 +308,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CrmCustomObjectResponse": ".crm_custom_object_response",
     "CustomObject": ".custom_object",
     "CustomObjectClass": ".custom_object_class",
+    "CustomObjectClassFieldsItem": ".custom_object_class_fields_item",
     "CustomObjectRequest": ".custom_object_request",
     "DataPassthroughRequest": ".data_passthrough_request",
     "DebugModeLog": ".debug_mode_log",
@@ -341,6 +368,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "LeadRequestConvertedContact": ".lead_request_converted_contact",
     "LeadRequestOwner": ".lead_request_owner",
     "LeadResponse": ".lead_response",
+    "LeadStatus": ".lead_status",
+    "LeadStatusEnum": ".lead_status_enum",
     "LinkToken": ".link_token",
     "LinkedAccountStatus": ".linked_account_status",
     "MetaResponse": ".meta_response",
@@ -395,17 +424,31 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PaginatedTaskList": ".paginated_task_list",
     "PaginatedUserList": ".paginated_user_list",
     "PatchedAccountRequest": ".patched_account_request",
+    "PatchedAccountRequestOwner": ".patched_account_request_owner",
     "PatchedContactRequest": ".patched_contact_request",
+    "PatchedContactRequestAccount": ".patched_contact_request_account",
     "PatchedContactRequestOwner": ".patched_contact_request_owner",
     "PatchedEngagementRequest": ".patched_engagement_request",
+    "PatchedEngagementRequestAccount": ".patched_engagement_request_account",
+    "PatchedEngagementRequestContactsItem": ".patched_engagement_request_contacts_item",
     "PatchedEngagementRequestDirection": ".patched_engagement_request_direction",
+    "PatchedEngagementRequestEngagementType": ".patched_engagement_request_engagement_type",
+    "PatchedEngagementRequestOwner": ".patched_engagement_request_owner",
     "PatchedOpportunityRequest": ".patched_opportunity_request",
+    "PatchedOpportunityRequestAccount": ".patched_opportunity_request_account",
+    "PatchedOpportunityRequestOwner": ".patched_opportunity_request_owner",
+    "PatchedOpportunityRequestStage": ".patched_opportunity_request_stage",
     "PatchedOpportunityRequestStatus": ".patched_opportunity_request_status",
     "PatchedTaskRequest": ".patched_task_request",
+    "PatchedTaskRequestAccount": ".patched_task_request_account",
+    "PatchedTaskRequestContact": ".patched_task_request_contact",
+    "PatchedTaskRequestOpportunity": ".patched_task_request_opportunity",
+    "PatchedTaskRequestOwner": ".patched_task_request_owner",
     "PatchedTaskRequestStatus": ".patched_task_request_status",
     "PhoneNumber": ".phone_number",
     "PhoneNumberRequest": ".phone_number_request",
     "ReasonEnum": ".reason_enum",
+    "RegenerateAccountToken": ".regenerate_account_token",
     "RemoteData": ".remote_data",
     "RemoteEndpointInfo": ".remote_endpoint_info",
     "RemoteField": ".remote_field",
@@ -426,6 +469,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RemoteFieldRequestRemoteFieldClass": ".remote_field_request_remote_field_class",
     "RemoteKey": ".remote_key",
     "RemoteResponse": ".remote_response",
+    "RemoteResponseResponseType": ".remote_response_response_type",
     "RequestFormatEnum": ".request_format_enum",
     "ResponseTypeEnum": ".response_type_enum",
     "RoleEnum": ".role_enum",
@@ -437,10 +481,12 @@ _dynamic_imports: typing.Dict[str, str] = {
     "SyncStatusStatus": ".sync_status_status",
     "Task": ".task",
     "TaskAccount": ".task_account",
+    "TaskContact": ".task_contact",
     "TaskOpportunity": ".task_opportunity",
     "TaskOwner": ".task_owner",
     "TaskRequest": ".task_request",
     "TaskRequestAccount": ".task_request_account",
+    "TaskRequestContact": ".task_request_contact",
     "TaskRequestOpportunity": ".task_request_opportunity",
     "TaskRequestOwner": ".task_request_owner",
     "TaskRequestStatus": ".task_request_status",
@@ -502,6 +548,8 @@ __all__ = [
     "AssociationType",
     "AssociationTypeCardinality",
     "AssociationTypeRequestRequest",
+    "AssociationTypeRequestRequestTargetObjectClassesItem",
+    "AssociationTypeTargetObjectClassesItem",
     "AsyncPassthroughReciept",
     "AuditLogEvent",
     "AuditLogEventEventType",
@@ -525,6 +573,7 @@ __all__ = [
     "CrmCustomObjectResponse",
     "CustomObject",
     "CustomObjectClass",
+    "CustomObjectClassFieldsItem",
     "CustomObjectRequest",
     "DataPassthroughRequest",
     "DebugModeLog",
@@ -584,6 +633,8 @@ __all__ = [
     "LeadRequestConvertedContact",
     "LeadRequestOwner",
     "LeadResponse",
+    "LeadStatus",
+    "LeadStatusEnum",
     "LinkToken",
     "LinkedAccountStatus",
     "MetaResponse",
@@ -638,17 +689,31 @@ __all__ = [
     "PaginatedTaskList",
     "PaginatedUserList",
     "PatchedAccountRequest",
+    "PatchedAccountRequestOwner",
     "PatchedContactRequest",
+    "PatchedContactRequestAccount",
     "PatchedContactRequestOwner",
     "PatchedEngagementRequest",
+    "PatchedEngagementRequestAccount",
+    "PatchedEngagementRequestContactsItem",
     "PatchedEngagementRequestDirection",
+    "PatchedEngagementRequestEngagementType",
+    "PatchedEngagementRequestOwner",
     "PatchedOpportunityRequest",
+    "PatchedOpportunityRequestAccount",
+    "PatchedOpportunityRequestOwner",
+    "PatchedOpportunityRequestStage",
     "PatchedOpportunityRequestStatus",
     "PatchedTaskRequest",
+    "PatchedTaskRequestAccount",
+    "PatchedTaskRequestContact",
+    "PatchedTaskRequestOpportunity",
+    "PatchedTaskRequestOwner",
     "PatchedTaskRequestStatus",
     "PhoneNumber",
     "PhoneNumberRequest",
     "ReasonEnum",
+    "RegenerateAccountToken",
     "RemoteData",
     "RemoteEndpointInfo",
     "RemoteField",
@@ -669,6 +734,7 @@ __all__ = [
     "RemoteFieldRequestRemoteFieldClass",
     "RemoteKey",
     "RemoteResponse",
+    "RemoteResponseResponseType",
     "RequestFormatEnum",
     "ResponseTypeEnum",
     "RoleEnum",
@@ -680,10 +746,12 @@ __all__ = [
     "SyncStatusStatus",
     "Task",
     "TaskAccount",
+    "TaskContact",
     "TaskOpportunity",
     "TaskOwner",
     "TaskRequest",
     "TaskRequestAccount",
+    "TaskRequestContact",
     "TaskRequestOpportunity",
     "TaskRequestOwner",
     "TaskRequestStatus",

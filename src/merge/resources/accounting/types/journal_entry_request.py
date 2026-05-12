@@ -8,10 +8,10 @@ from ....core.pydantic_utilities import IS_PYDANTIC_V2
 from ....core.unchecked_base_model import UncheckedBaseModel
 from .journal_entry_request_company import JournalEntryRequestCompany
 from .journal_entry_request_currency import JournalEntryRequestCurrency
+from .journal_entry_request_lines_item import JournalEntryRequestLinesItem
 from .journal_entry_request_payments_item import JournalEntryRequestPaymentsItem
 from .journal_entry_request_posting_status import JournalEntryRequestPostingStatus
 from .journal_entry_request_tracking_categories_item import JournalEntryRequestTrackingCategoriesItem
-from .journal_line_request import JournalLineRequest
 from .remote_field_request import RemoteFieldRequest
 
 
@@ -370,7 +370,7 @@ class JournalEntryRequest(UncheckedBaseModel):
     If the transaction is inclusive or exclusive of tax. `True` if inclusive, `False` if exclusive.
     """
 
-    lines: typing.Optional[typing.List[JournalLineRequest]] = None
+    lines: typing.Optional[typing.List[JournalEntryRequestLinesItem]] = None
     journal_number: typing.Optional[str] = pydantic.Field(default=None)
     """
     Reference number for identifying journal entries.

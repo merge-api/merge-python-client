@@ -8,6 +8,7 @@ from ....core.pydantic_utilities import IS_PYDANTIC_V2
 from ....core.unchecked_base_model import UncheckedBaseModel
 from .address_request import AddressRequest
 from .email_address_request import EmailAddressRequest
+from .patched_contact_request_account import PatchedContactRequestAccount
 from .patched_contact_request_owner import PatchedContactRequestOwner
 from .phone_number_request import PhoneNumberRequest
 from .remote_field_request import RemoteFieldRequest
@@ -32,7 +33,7 @@ class PatchedContactRequest(UncheckedBaseModel):
     The contact's last name.
     """
 
-    account: typing.Optional[str] = pydantic.Field(default=None)
+    account: typing.Optional[PatchedContactRequestAccount] = pydantic.Field(default=None)
     """
     The contact's account.
     """

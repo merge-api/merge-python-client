@@ -7,11 +7,6 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class IssueStatusEnum(str, enum.Enum):
-    """
-    * `ONGOING` - ONGOING
-    * `RESOLVED` - RESOLVED
-    """
-
     ONGOING = "ONGOING"
     RESOLVED = "RESOLVED"
 

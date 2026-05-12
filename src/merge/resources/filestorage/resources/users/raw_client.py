@@ -25,6 +25,7 @@ class RawUsersClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
+        email_address: typing.Optional[str] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -49,6 +50,9 @@ class RawUsersClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
+        email_address : typing.Optional[str]
+            If provided, will only return users with emails equal to this value (case insensitive).
+
         include_deleted_data : typing.Optional[bool]
             Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
 
@@ -68,7 +72,7 @@ class RawUsersClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -88,6 +92,7 @@ class RawUsersClient:
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,
                 "cursor": cursor,
+                "email_address": email_address,
                 "include_deleted_data": include_deleted_data,
                 "include_remote_data": include_remote_data,
                 "include_shell_data": include_shell_data,
@@ -178,6 +183,7 @@ class AsyncRawUsersClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
+        email_address: typing.Optional[str] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -202,6 +208,9 @@ class AsyncRawUsersClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
+        email_address : typing.Optional[str]
+            If provided, will only return users with emails equal to this value (case insensitive).
+
         include_deleted_data : typing.Optional[bool]
             Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
 
@@ -221,7 +230,7 @@ class AsyncRawUsersClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -241,6 +250,7 @@ class AsyncRawUsersClient:
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,
                 "cursor": cursor,
+                "email_address": email_address,
                 "include_deleted_data": include_deleted_data,
                 "include_remote_data": include_remote_data,
                 "include_shell_data": include_shell_data,

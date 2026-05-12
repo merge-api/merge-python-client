@@ -6,6 +6,9 @@ import typing
 import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2
 from ....core.unchecked_base_model import UncheckedBaseModel
+from .patched_opportunity_request_account import PatchedOpportunityRequestAccount
+from .patched_opportunity_request_owner import PatchedOpportunityRequestOwner
+from .patched_opportunity_request_stage import PatchedOpportunityRequestStage
 from .patched_opportunity_request_status import PatchedOpportunityRequestStatus
 from .remote_field_request import RemoteFieldRequest
 
@@ -34,17 +37,17 @@ class PatchedOpportunityRequest(UncheckedBaseModel):
     The opportunity's amount.
     """
 
-    owner: typing.Optional[str] = pydantic.Field(default=None)
+    owner: typing.Optional[PatchedOpportunityRequestOwner] = pydantic.Field(default=None)
     """
     The opportunity's owner.
     """
 
-    account: typing.Optional[str] = pydantic.Field(default=None)
+    account: typing.Optional[PatchedOpportunityRequestAccount] = pydantic.Field(default=None)
     """
     The account of the opportunity.
     """
 
-    stage: typing.Optional[str] = pydantic.Field(default=None)
+    stage: typing.Optional[PatchedOpportunityRequestStage] = pydantic.Field(default=None)
     """
     The stage of the opportunity.
     """

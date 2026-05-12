@@ -2,6 +2,6 @@
 
 import typing
 
-from .address import Address
+from .address_request import AddressRequest
 
-PatchedContactRequestAddressesItem = typing.Union[str, Address]
+PatchedContactRequestAddressesItem = typing.Union[str, AddressRequest]

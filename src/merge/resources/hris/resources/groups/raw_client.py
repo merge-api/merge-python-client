@@ -13,6 +13,7 @@ from .....core.request_options import RequestOptions
 from .....core.unchecked_base_model import construct_type
 from ...types.group import Group
 from ...types.paginated_group_list import PaginatedGroupList
+from .types.groups_types_list_response import GroupsTypesListResponse
 
 
 class RawGroupsClient:
@@ -197,6 +198,56 @@ class RawGroupsClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
+    def types_list(
+        self,
+        *,
+        include_deleted_data: typing.Optional[bool] = None,
+        show_enum_origins: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[GroupsTypesListResponse]:
+        """
+        Returns a list of distinct group type values from the Groups common model.
+
+        Parameters
+        ----------
+        include_deleted_data : typing.Optional[bool]
+            Whether to include data that was marked as deleted by third party webhooks.
+
+        show_enum_origins : typing.Optional[str]
+            A comma separated list of enum field names for which you'd like the original values instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins)
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[GroupsTypesListResponse]
+
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "hris/v1/groups/types",
+            method="GET",
+            params={
+                "include_deleted_data": include_deleted_data,
+                "show_enum_origins": show_enum_origins,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    GroupsTypesListResponse,
+                    construct_type(
+                        type_=GroupsTypesListResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
 
 class AsyncRawGroupsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -371,6 +422,56 @@ class AsyncRawGroupsClient:
                     Group,
                     construct_type(
                         type_=Group,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def types_list(
+        self,
+        *,
+        include_deleted_data: typing.Optional[bool] = None,
+        show_enum_origins: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[GroupsTypesListResponse]:
+        """
+        Returns a list of distinct group type values from the Groups common model.
+
+        Parameters
+        ----------
+        include_deleted_data : typing.Optional[bool]
+            Whether to include data that was marked as deleted by third party webhooks.
+
+        show_enum_origins : typing.Optional[str]
+            A comma separated list of enum field names for which you'd like the original values instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins)
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[GroupsTypesListResponse]
+
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "hris/v1/groups/types",
+            method="GET",
+            params={
+                "include_deleted_data": include_deleted_data,
+                "show_enum_origins": show_enum_origins,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    GroupsTypesListResponse,
+                    construct_type(
+                        type_=GroupsTypesListResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

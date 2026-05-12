@@ -13,11 +13,12 @@ from .....core.request_options import RequestOptions
 from .....core.unchecked_base_model import construct_type
 from ...types.meta_response import MetaResponse
 from ...types.paginated_vendor_credit_list import PaginatedVendorCreditList
+from ...types.patched_vendor_credit_request import PatchedVendorCreditRequest
 from ...types.vendor_credit import VendorCredit
 from ...types.vendor_credit_request import VendorCreditRequest
 from ...types.vendor_credit_response import VendorCreditResponse
-from .types.vendor_credits_list_request_expand import VendorCreditsListRequestExpand
-from .types.vendor_credits_retrieve_request_expand import VendorCreditsRetrieveRequestExpand
+from .types.vendor_credits_list_request_expand_item import VendorCreditsListRequestExpandItem
+from .types.vendor_credits_retrieve_request_expand_item import VendorCreditsRetrieveRequestExpandItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -34,7 +35,9 @@ class RawVendorCreditsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[VendorCreditsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[VendorCreditsListRequestExpandItem, typing.Sequence[VendorCreditsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -63,7 +66,7 @@ class RawVendorCreditsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[VendorCreditsListRequestExpand]
+        expand : typing.Optional[typing.Union[VendorCreditsListRequestExpandItem, typing.Sequence[VendorCreditsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -82,7 +85,7 @@ class RawVendorCreditsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -205,7 +208,11 @@ class RawVendorCreditsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[VendorCreditsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                VendorCreditsRetrieveRequestExpandItem, typing.Sequence[VendorCreditsRetrieveRequestExpandItem]
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -217,7 +224,7 @@ class RawVendorCreditsClient:
         ----------
         id : str
 
-        expand : typing.Optional[VendorCreditsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[VendorCreditsRetrieveRequestExpandItem, typing.Sequence[VendorCreditsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -250,6 +257,181 @@ class RawVendorCreditsClient:
                     VendorCredit,
                     construct_type(
                         type_=VendorCredit,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def partial_update(
+        self,
+        id: str,
+        *,
+        model: PatchedVendorCreditRequest,
+        is_debug_mode: typing.Optional[bool] = None,
+        run_async: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[VendorCreditResponse]:
+        """
+        Updates a `VendorCredit` object with the given `id`.
+
+        Parameters
+        ----------
+        id : str
+
+        model : PatchedVendorCreditRequest
+
+        is_debug_mode : typing.Optional[bool]
+            Whether to include debug fields (such as log file links) in the response.
+
+        run_async : typing.Optional[bool]
+            Whether or not third-party updates should be run asynchronously.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[VendorCreditResponse]
+
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"accounting/v1/vendor-credits/{jsonable_encoder(id)}",
+            method="PATCH",
+            params={
+                "is_debug_mode": is_debug_mode,
+                "run_async": run_async,
+            },
+            json={
+                "model": model,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    VendorCreditResponse,
+                    construct_type(
+                        type_=VendorCreditResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def application_create(
+        self,
+        id: str,
+        *,
+        applied_date: dt.datetime,
+        applied_amount: str,
+        is_debug_mode: typing.Optional[bool] = None,
+        run_async: typing.Optional[bool] = None,
+        invoice: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[VendorCreditResponse]:
+        """
+        Creates a new VendorCreditApplyLine to apply a vendor credit to an invoice
+
+        Parameters
+        ----------
+        id : str
+
+        applied_date : dt.datetime
+            Date that the vendor credit is applied to the invoice.
+
+        applied_amount : str
+            The amount of vendor credit applied to the invoice.
+
+        is_debug_mode : typing.Optional[bool]
+            Whether to include debug fields (such as log file links) in the response.
+
+        run_async : typing.Optional[bool]
+            Whether or not third-party updates should be run asynchronously.
+
+        invoice : typing.Optional[str]
+            The invoice to apply the vendor credit to.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[VendorCreditResponse]
+
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"accounting/v1/vendor-credits/{jsonable_encoder(id)}/application",
+            method="POST",
+            params={
+                "is_debug_mode": is_debug_mode,
+                "run_async": run_async,
+            },
+            json={
+                "invoice": invoice,
+                "applied_date": applied_date,
+                "applied_amount": applied_amount,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    VendorCreditResponse,
+                    construct_type(
+                        type_=VendorCreditResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def meta_patch_retrieve(
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[MetaResponse]:
+        """
+        Returns metadata for `VendorCredit` PATCHs.
+
+        Parameters
+        ----------
+        id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[MetaResponse]
+
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"accounting/v1/vendor-credits/meta/patch/{jsonable_encoder(id)}",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    MetaResponse,
+                    construct_type(
+                        type_=MetaResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -307,7 +489,9 @@ class AsyncRawVendorCreditsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[VendorCreditsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[VendorCreditsListRequestExpandItem, typing.Sequence[VendorCreditsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -336,7 +520,7 @@ class AsyncRawVendorCreditsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[VendorCreditsListRequestExpand]
+        expand : typing.Optional[typing.Union[VendorCreditsListRequestExpandItem, typing.Sequence[VendorCreditsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -355,7 +539,7 @@ class AsyncRawVendorCreditsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -478,7 +662,11 @@ class AsyncRawVendorCreditsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[VendorCreditsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                VendorCreditsRetrieveRequestExpandItem, typing.Sequence[VendorCreditsRetrieveRequestExpandItem]
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -490,7 +678,7 @@ class AsyncRawVendorCreditsClient:
         ----------
         id : str
 
-        expand : typing.Optional[VendorCreditsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[VendorCreditsRetrieveRequestExpandItem, typing.Sequence[VendorCreditsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -523,6 +711,181 @@ class AsyncRawVendorCreditsClient:
                     VendorCredit,
                     construct_type(
                         type_=VendorCredit,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def partial_update(
+        self,
+        id: str,
+        *,
+        model: PatchedVendorCreditRequest,
+        is_debug_mode: typing.Optional[bool] = None,
+        run_async: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[VendorCreditResponse]:
+        """
+        Updates a `VendorCredit` object with the given `id`.
+
+        Parameters
+        ----------
+        id : str
+
+        model : PatchedVendorCreditRequest
+
+        is_debug_mode : typing.Optional[bool]
+            Whether to include debug fields (such as log file links) in the response.
+
+        run_async : typing.Optional[bool]
+            Whether or not third-party updates should be run asynchronously.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[VendorCreditResponse]
+
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"accounting/v1/vendor-credits/{jsonable_encoder(id)}",
+            method="PATCH",
+            params={
+                "is_debug_mode": is_debug_mode,
+                "run_async": run_async,
+            },
+            json={
+                "model": model,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    VendorCreditResponse,
+                    construct_type(
+                        type_=VendorCreditResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def application_create(
+        self,
+        id: str,
+        *,
+        applied_date: dt.datetime,
+        applied_amount: str,
+        is_debug_mode: typing.Optional[bool] = None,
+        run_async: typing.Optional[bool] = None,
+        invoice: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[VendorCreditResponse]:
+        """
+        Creates a new VendorCreditApplyLine to apply a vendor credit to an invoice
+
+        Parameters
+        ----------
+        id : str
+
+        applied_date : dt.datetime
+            Date that the vendor credit is applied to the invoice.
+
+        applied_amount : str
+            The amount of vendor credit applied to the invoice.
+
+        is_debug_mode : typing.Optional[bool]
+            Whether to include debug fields (such as log file links) in the response.
+
+        run_async : typing.Optional[bool]
+            Whether or not third-party updates should be run asynchronously.
+
+        invoice : typing.Optional[str]
+            The invoice to apply the vendor credit to.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[VendorCreditResponse]
+
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"accounting/v1/vendor-credits/{jsonable_encoder(id)}/application",
+            method="POST",
+            params={
+                "is_debug_mode": is_debug_mode,
+                "run_async": run_async,
+            },
+            json={
+                "invoice": invoice,
+                "applied_date": applied_date,
+                "applied_amount": applied_amount,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    VendorCreditResponse,
+                    construct_type(
+                        type_=VendorCreditResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def meta_patch_retrieve(
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[MetaResponse]:
+        """
+        Returns metadata for `VendorCredit` PATCHs.
+
+        Parameters
+        ----------
+        id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[MetaResponse]
+
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"accounting/v1/vendor-credits/meta/patch/{jsonable_encoder(id)}",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    MetaResponse,
+                    construct_type(
+                        type_=MetaResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

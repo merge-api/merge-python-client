@@ -13,8 +13,8 @@ from ...types.task import Task
 from ...types.task_request import TaskRequest
 from ...types.task_response import TaskResponse
 from .raw_client import AsyncRawTasksClient, RawTasksClient
-from .types.tasks_list_request_expand import TasksListRequestExpand
-from .types.tasks_retrieve_request_expand import TasksRetrieveRequestExpand
+from .types.tasks_list_request_expand_item import TasksListRequestExpandItem
+from .types.tasks_retrieve_request_expand_item import TasksRetrieveRequestExpandItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -41,7 +41,9 @@ class TasksClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[TasksListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[TasksListRequestExpandItem, typing.Sequence[TasksListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -66,7 +68,7 @@ class TasksClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[TasksListRequestExpand]
+        expand : typing.Optional[typing.Union[TasksListRequestExpandItem, typing.Sequence[TasksListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -88,7 +90,7 @@ class TasksClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -106,7 +108,6 @@ class TasksClient:
         import datetime
 
         from merge import Merge
-        from merge.resources.crm.resources.tasks import TasksListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -120,7 +121,6 @@ class TasksClient:
                 "2024-01-15 09:30:00+00:00",
             ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            expand=TasksListRequestExpand.ACCOUNT,
             include_deleted_data=True,
             include_remote_data=True,
             include_remote_fields=True,
@@ -205,7 +205,9 @@ class TasksClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[TasksRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[TasksRetrieveRequestExpandItem, typing.Sequence[TasksRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -218,7 +220,7 @@ class TasksClient:
         ----------
         id : str
 
-        expand : typing.Optional[TasksRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[TasksRetrieveRequestExpandItem, typing.Sequence[TasksRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -241,7 +243,6 @@ class TasksClient:
         Examples
         --------
         from merge import Merge
-        from merge.resources.crm.resources.tasks import TasksRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -249,7 +250,6 @@ class TasksClient:
         )
         client.crm.tasks.retrieve(
             id="id",
-            expand=TasksRetrieveRequestExpand.ACCOUNT,
             include_remote_data=True,
             include_remote_fields=True,
             include_shell_data=True,
@@ -416,7 +416,7 @@ class TasksClient:
             If provided, will only return remote fields classes with this is_custom value
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -480,7 +480,9 @@ class AsyncTasksClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[TasksListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[TasksListRequestExpandItem, typing.Sequence[TasksListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -505,7 +507,7 @@ class AsyncTasksClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[TasksListRequestExpand]
+        expand : typing.Optional[typing.Union[TasksListRequestExpandItem, typing.Sequence[TasksListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -527,7 +529,7 @@ class AsyncTasksClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -546,7 +548,6 @@ class AsyncTasksClient:
         import datetime
 
         from merge import AsyncMerge
-        from merge.resources.crm.resources.tasks import TasksListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -563,7 +564,6 @@ class AsyncTasksClient:
                     "2024-01-15 09:30:00+00:00",
                 ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                expand=TasksListRequestExpand.ACCOUNT,
                 include_deleted_data=True,
                 include_remote_data=True,
                 include_remote_fields=True,
@@ -659,7 +659,9 @@ class AsyncTasksClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[TasksRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[TasksRetrieveRequestExpandItem, typing.Sequence[TasksRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -672,7 +674,7 @@ class AsyncTasksClient:
         ----------
         id : str
 
-        expand : typing.Optional[TasksRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[TasksRetrieveRequestExpandItem, typing.Sequence[TasksRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -697,7 +699,6 @@ class AsyncTasksClient:
         import asyncio
 
         from merge import AsyncMerge
-        from merge.resources.crm.resources.tasks import TasksRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -708,7 +709,6 @@ class AsyncTasksClient:
         async def main() -> None:
             await client.crm.tasks.retrieve(
                 id="id",
-                expand=TasksRetrieveRequestExpand.ACCOUNT,
                 include_remote_data=True,
                 include_remote_fields=True,
                 include_shell_data=True,
@@ -904,7 +904,7 @@ class AsyncTasksClient:
             If provided, will only return remote fields classes with this is_custom value
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

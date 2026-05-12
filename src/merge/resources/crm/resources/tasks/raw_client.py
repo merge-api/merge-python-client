@@ -18,8 +18,8 @@ from ...types.patched_task_request import PatchedTaskRequest
 from ...types.task import Task
 from ...types.task_request import TaskRequest
 from ...types.task_response import TaskResponse
-from .types.tasks_list_request_expand import TasksListRequestExpand
-from .types.tasks_retrieve_request_expand import TasksRetrieveRequestExpand
+from .types.tasks_list_request_expand_item import TasksListRequestExpandItem
+from .types.tasks_retrieve_request_expand_item import TasksRetrieveRequestExpandItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -35,7 +35,9 @@ class RawTasksClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[TasksListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[TasksListRequestExpandItem, typing.Sequence[TasksListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -60,7 +62,7 @@ class RawTasksClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[TasksListRequestExpand]
+        expand : typing.Optional[typing.Union[TasksListRequestExpandItem, typing.Sequence[TasksListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -82,7 +84,7 @@ class RawTasksClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -193,7 +195,9 @@ class RawTasksClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[TasksRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[TasksRetrieveRequestExpandItem, typing.Sequence[TasksRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -206,7 +210,7 @@ class RawTasksClient:
         ----------
         id : str
 
-        expand : typing.Optional[TasksRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[TasksRetrieveRequestExpandItem, typing.Sequence[TasksRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -429,7 +433,7 @@ class RawTasksClient:
             If provided, will only return remote fields classes with this is_custom value
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -480,7 +484,9 @@ class AsyncRawTasksClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[TasksListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[TasksListRequestExpandItem, typing.Sequence[TasksListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -505,7 +511,7 @@ class AsyncRawTasksClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[TasksListRequestExpand]
+        expand : typing.Optional[typing.Union[TasksListRequestExpandItem, typing.Sequence[TasksListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -527,7 +533,7 @@ class AsyncRawTasksClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -638,7 +644,9 @@ class AsyncRawTasksClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[TasksRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[TasksRetrieveRequestExpandItem, typing.Sequence[TasksRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -651,7 +659,7 @@ class AsyncRawTasksClient:
         ----------
         id : str
 
-        expand : typing.Optional[TasksRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[TasksRetrieveRequestExpandItem, typing.Sequence[TasksRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -874,7 +882,7 @@ class AsyncRawTasksClient:
             If provided, will only return remote fields classes with this is_custom value
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

@@ -14,8 +14,8 @@ from ...types.paginated_contact_list import PaginatedContactList
 from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClassList
 from ...types.patched_contact_request import PatchedContactRequest
 from .raw_client import AsyncRawContactsClient, RawContactsClient
-from .types.contacts_list_request_expand import ContactsListRequestExpand
-from .types.contacts_retrieve_request_expand import ContactsRetrieveRequestExpand
+from .types.contacts_list_request_expand_item import ContactsListRequestExpandItem
+from .types.contacts_retrieve_request_expand_item import ContactsRetrieveRequestExpandItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -44,7 +44,9 @@ class ContactsClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         email_addresses: typing.Optional[str] = None,
-        expand: typing.Optional[ContactsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ContactsListRequestExpandItem, typing.Sequence[ContactsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -76,7 +78,7 @@ class ContactsClient:
         email_addresses : typing.Optional[str]
             If provided, will only return contacts matching the email addresses; multiple email_addresses can be separated by commas.
 
-        expand : typing.Optional[ContactsListRequestExpand]
+        expand : typing.Optional[typing.Union[ContactsListRequestExpandItem, typing.Sequence[ContactsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -98,7 +100,7 @@ class ContactsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         phone_numbers : typing.Optional[str]
             If provided, will only return contacts matching the phone numbers; multiple phone numbers can be separated by commas.
@@ -119,7 +121,6 @@ class ContactsClient:
         import datetime
 
         from merge import Merge
-        from merge.resources.crm.resources.contacts import ContactsListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -135,7 +136,6 @@ class ContactsClient:
             ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
             email_addresses="email_addresses",
-            expand=ContactsListRequestExpand.ACCOUNT,
             include_deleted_data=True,
             include_remote_data=True,
             include_remote_fields=True,
@@ -224,7 +224,9 @@ class ContactsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[ContactsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ContactsRetrieveRequestExpandItem, typing.Sequence[ContactsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -237,7 +239,7 @@ class ContactsClient:
         ----------
         id : str
 
-        expand : typing.Optional[ContactsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[ContactsRetrieveRequestExpandItem, typing.Sequence[ContactsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -260,7 +262,6 @@ class ContactsClient:
         Examples
         --------
         from merge import Merge
-        from merge.resources.crm.resources.contacts import ContactsRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -268,7 +269,6 @@ class ContactsClient:
         )
         client.crm.contacts.retrieve(
             id="id",
-            expand=ContactsRetrieveRequestExpand.ACCOUNT,
             include_remote_data=True,
             include_remote_fields=True,
             include_shell_data=True,
@@ -477,7 +477,7 @@ class ContactsClient:
             If provided, will only return remote fields classes with this is_custom value
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -543,7 +543,9 @@ class AsyncContactsClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         email_addresses: typing.Optional[str] = None,
-        expand: typing.Optional[ContactsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ContactsListRequestExpandItem, typing.Sequence[ContactsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -575,7 +577,7 @@ class AsyncContactsClient:
         email_addresses : typing.Optional[str]
             If provided, will only return contacts matching the email addresses; multiple email_addresses can be separated by commas.
 
-        expand : typing.Optional[ContactsListRequestExpand]
+        expand : typing.Optional[typing.Union[ContactsListRequestExpandItem, typing.Sequence[ContactsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -597,7 +599,7 @@ class AsyncContactsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         phone_numbers : typing.Optional[str]
             If provided, will only return contacts matching the phone numbers; multiple phone numbers can be separated by commas.
@@ -619,7 +621,6 @@ class AsyncContactsClient:
         import datetime
 
         from merge import AsyncMerge
-        from merge.resources.crm.resources.contacts import ContactsListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -638,7 +639,6 @@ class AsyncContactsClient:
                 ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
                 email_addresses="email_addresses",
-                expand=ContactsListRequestExpand.ACCOUNT,
                 include_deleted_data=True,
                 include_remote_data=True,
                 include_remote_fields=True,
@@ -738,7 +738,9 @@ class AsyncContactsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[ContactsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ContactsRetrieveRequestExpandItem, typing.Sequence[ContactsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -751,7 +753,7 @@ class AsyncContactsClient:
         ----------
         id : str
 
-        expand : typing.Optional[ContactsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[ContactsRetrieveRequestExpandItem, typing.Sequence[ContactsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -776,7 +778,6 @@ class AsyncContactsClient:
         import asyncio
 
         from merge import AsyncMerge
-        from merge.resources.crm.resources.contacts import ContactsRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -787,7 +788,6 @@ class AsyncContactsClient:
         async def main() -> None:
             await client.crm.contacts.retrieve(
                 id="id",
-                expand=ContactsRetrieveRequestExpand.ACCOUNT,
                 include_remote_data=True,
                 include_remote_fields=True,
                 include_shell_data=True,
@@ -1033,7 +1033,7 @@ class AsyncContactsClient:
             If provided, will only return remote fields classes with this is_custom value
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
