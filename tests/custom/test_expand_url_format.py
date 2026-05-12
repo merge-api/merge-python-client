@@ -84,6 +84,30 @@ def test_expand_csv_string(client_and_requests):
     assert expand_param(reqs[0]) == ["account,assignees,creator"]
 
 
+def test_expand_empty_list(client_and_requests):
+    client, reqs = client_and_requests
+    client.ticketing.tickets.list(expand=[], page_size=1)
+    assert expand_param(reqs[0]) == []
+
+
+def test_expand_single_item_list(client_and_requests):
+    client, reqs = client_and_requests
+    client.ticketing.tickets.list(expand=[TicketsListRequestExpandItem.ACCOUNT], page_size=1)
+    assert expand_param(reqs[0]) == ["account"]
+
+
+def test_expand_tuple_input(client_and_requests):
+    client, reqs = client_and_requests
+    client.ticketing.tickets.list(
+        expand=(
+            TicketsListRequestExpandItem.ACCOUNT,
+            TicketsListRequestExpandItem.ASSIGNEES,
+        ),
+        page_size=1,
+    )
+    assert expand_param(reqs[0]) == ["account,assignees"]
+
+
 def test_expand_combined_enum_single_relation(client_and_requests):
     client, reqs = client_and_requests
     client.ticketing.tickets.list(expand=TicketsListRequestExpandItem.ACCOUNT, page_size=1)
@@ -161,6 +185,15 @@ async def test_async_expand_combined_enum_multi(async_client_and_requests):
         page_size=1,
     )
     assert expand_param(reqs[0]) == ["assignees,account,creator"]
+
+
+async def test_async_expand_list_of_items(async_client_and_requests):
+    client, reqs = async_client_and_requests
+    await client.ticketing.tickets.list(
+        expand=[TicketsListRequestExpandItem.ACCOUNT, TicketsListRequestExpandItem.ASSIGNEES],
+        page_size=1,
+    )
+    assert expand_param(reqs[0]) == ["account,assignees"]
 
 
 def test_raw_client_expand(client_and_requests):
