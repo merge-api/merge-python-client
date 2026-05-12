@@ -12,6 +12,7 @@ src/merge/core/query_encoder.py
 
 tests/integration/test_filestorage.py
 tests/integration/test_knowledgebase.py
+tests/integration/test_email.py
 tests/custom/test_expand_url_format.py
 tests/custom/test_environment_routing.py
 tests/custom/test_datetime_filters.py
