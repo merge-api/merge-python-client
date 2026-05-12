@@ -13,7 +13,7 @@ from .credit_note_applied_payments_item import CreditNoteAppliedPaymentsItem
 from .credit_note_company import CreditNoteCompany
 from .credit_note_contact import CreditNoteContact
 from .credit_note_currency import CreditNoteCurrency
-from .credit_note_line_item import CreditNoteLineItem
+from .credit_note_line_items_item import CreditNoteLineItemsItem
 from .credit_note_payments_item import CreditNotePaymentsItem
 from .credit_note_status import CreditNoteStatus
 from .credit_note_tracking_categories_item import CreditNoteTrackingCategoriesItem
@@ -95,7 +95,7 @@ class CreditNote(UncheckedBaseModel):
     If the transaction is inclusive or exclusive of tax. `True` if inclusive, `False` if exclusive.
     """
 
-    line_items: typing.Optional[typing.List[CreditNoteLineItem]] = None
+    line_items: typing.Optional[typing.List[CreditNoteLineItemsItem]] = None
     tracking_categories: typing.Optional[typing.List[typing.Optional[CreditNoteTrackingCategoriesItem]]] = None
     currency: typing.Optional[CreditNoteCurrency] = pydantic.Field(default=None)
     """

@@ -7,11 +7,6 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class LanguageEnum(str, enum.Enum):
-    """
-    * `en` - en
-    * `de` - de
-    """
-
     EN = "en"
     DE = "de"
 

@@ -14,12 +14,12 @@ from .....core.unchecked_base_model import construct_type
 from ...types.candidate import Candidate
 from ...types.candidate_request import CandidateRequest
 from ...types.candidate_response import CandidateResponse
+from ...types.ignore_common_model_request import IgnoreCommonModelRequest
 from ...types.meta_response import MetaResponse
 from ...types.paginated_candidate_list import PaginatedCandidateList
 from ...types.patched_candidate_request import PatchedCandidateRequest
-from .types.candidates_list_request_expand import CandidatesListRequestExpand
-from .types.candidates_retrieve_request_expand import CandidatesRetrieveRequestExpand
-from .types.ignore_common_model_request_reason import IgnoreCommonModelRequestReason
+from .types.candidates_list_request_expand_item import CandidatesListRequestExpandItem
+from .types.candidates_retrieve_request_expand_item import CandidatesRetrieveRequestExpandItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -36,7 +36,9 @@ class RawCandidatesClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         email_addresses: typing.Optional[str] = None,
-        expand: typing.Optional[CandidatesListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[CandidatesListRequestExpandItem, typing.Sequence[CandidatesListRequestExpandItem]]
+        ] = None,
         first_name: typing.Optional[str] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
@@ -66,7 +68,7 @@ class RawCandidatesClient:
         email_addresses : typing.Optional[str]
             If provided, will only return candidates with these email addresses; multiple addresses can be separated by commas.
 
-        expand : typing.Optional[CandidatesListRequestExpand]
+        expand : typing.Optional[typing.Union[CandidatesListRequestExpandItem, typing.Sequence[CandidatesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         first_name : typing.Optional[str]
@@ -212,7 +214,9 @@ class RawCandidatesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[CandidatesRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[CandidatesRetrieveRequestExpandItem, typing.Sequence[CandidatesRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -224,7 +228,7 @@ class RawCandidatesClient:
         ----------
         id : str
 
-        expand : typing.Optional[CandidatesRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[CandidatesRetrieveRequestExpandItem, typing.Sequence[CandidatesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -337,8 +341,7 @@ class RawCandidatesClient:
         self,
         model_id: str,
         *,
-        reason: IgnoreCommonModelRequestReason,
-        message: typing.Optional[str] = OMIT,
+        request: IgnoreCommonModelRequest,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[None]:
         """
@@ -348,9 +351,7 @@ class RawCandidatesClient:
         ----------
         model_id : str
 
-        reason : IgnoreCommonModelRequestReason
-
-        message : typing.Optional[str]
+        request : IgnoreCommonModelRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -362,10 +363,7 @@ class RawCandidatesClient:
         _response = self._client_wrapper.httpx_client.request(
             f"ats/v1/candidates/ignore/{jsonable_encoder(model_id)}",
             method="POST",
-            json={
-                "reason": reason,
-                "message": message,
-            },
+            json=request,
             headers={
                 "content-type": "application/json",
             },
@@ -466,7 +464,9 @@ class AsyncRawCandidatesClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         email_addresses: typing.Optional[str] = None,
-        expand: typing.Optional[CandidatesListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[CandidatesListRequestExpandItem, typing.Sequence[CandidatesListRequestExpandItem]]
+        ] = None,
         first_name: typing.Optional[str] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
@@ -496,7 +496,7 @@ class AsyncRawCandidatesClient:
         email_addresses : typing.Optional[str]
             If provided, will only return candidates with these email addresses; multiple addresses can be separated by commas.
 
-        expand : typing.Optional[CandidatesListRequestExpand]
+        expand : typing.Optional[typing.Union[CandidatesListRequestExpandItem, typing.Sequence[CandidatesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         first_name : typing.Optional[str]
@@ -642,7 +642,9 @@ class AsyncRawCandidatesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[CandidatesRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[CandidatesRetrieveRequestExpandItem, typing.Sequence[CandidatesRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -654,7 +656,7 @@ class AsyncRawCandidatesClient:
         ----------
         id : str
 
-        expand : typing.Optional[CandidatesRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[CandidatesRetrieveRequestExpandItem, typing.Sequence[CandidatesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -767,8 +769,7 @@ class AsyncRawCandidatesClient:
         self,
         model_id: str,
         *,
-        reason: IgnoreCommonModelRequestReason,
-        message: typing.Optional[str] = OMIT,
+        request: IgnoreCommonModelRequest,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[None]:
         """
@@ -778,9 +779,7 @@ class AsyncRawCandidatesClient:
         ----------
         model_id : str
 
-        reason : IgnoreCommonModelRequestReason
-
-        message : typing.Optional[str]
+        request : IgnoreCommonModelRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -792,10 +791,7 @@ class AsyncRawCandidatesClient:
         _response = await self._client_wrapper.httpx_client.request(
             f"ats/v1/candidates/ignore/{jsonable_encoder(model_id)}",
             method="POST",
-            json={
-                "reason": reason,
-                "message": message,
-            },
+            json=request,
             headers={
                 "content-type": "application/json",
             },

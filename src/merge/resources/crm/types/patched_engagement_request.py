@@ -6,7 +6,11 @@ import typing
 import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2
 from ....core.unchecked_base_model import UncheckedBaseModel
+from .patched_engagement_request_account import PatchedEngagementRequestAccount
+from .patched_engagement_request_contacts_item import PatchedEngagementRequestContactsItem
 from .patched_engagement_request_direction import PatchedEngagementRequestDirection
+from .patched_engagement_request_engagement_type import PatchedEngagementRequestEngagementType
+from .patched_engagement_request_owner import PatchedEngagementRequestOwner
 from .remote_field_request import RemoteFieldRequest
 
 
@@ -19,7 +23,7 @@ class PatchedEngagementRequest(UncheckedBaseModel):
     TODO
     """
 
-    owner: typing.Optional[str] = pydantic.Field(default=None)
+    owner: typing.Optional[PatchedEngagementRequestOwner] = pydantic.Field(default=None)
     """
     The engagement's owner.
     """
@@ -42,7 +46,7 @@ class PatchedEngagementRequest(UncheckedBaseModel):
     * `OUTBOUND` - OUTBOUND
     """
 
-    engagement_type: typing.Optional[str] = pydantic.Field(default=None)
+    engagement_type: typing.Optional[PatchedEngagementRequestEngagementType] = pydantic.Field(default=None)
     """
     The engagement type of the engagement.
     """
@@ -57,12 +61,12 @@ class PatchedEngagementRequest(UncheckedBaseModel):
     The time at which the engagement ended.
     """
 
-    account: typing.Optional[str] = pydantic.Field(default=None)
+    account: typing.Optional[PatchedEngagementRequestAccount] = pydantic.Field(default=None)
     """
     The account of the engagement.
     """
 
-    contacts: typing.Optional[typing.List[typing.Optional[str]]] = None
+    contacts: typing.Optional[typing.List[PatchedEngagementRequestContactsItem]] = None
     integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
     linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
     remote_fields: typing.Optional[typing.List[RemoteFieldRequest]] = None

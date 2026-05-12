@@ -399,6 +399,11 @@ class InvoiceLineItemRequest(UncheckedBaseModel):
     The company the invoice belongs to.
     """
 
+    is_billable: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Indicates if the line item can be charged to the client/customer.
+    """
+
     integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
     linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
     remote_fields: typing.Optional[typing.List[RemoteFieldRequest]] = None

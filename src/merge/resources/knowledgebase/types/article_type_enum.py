@@ -7,12 +7,6 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class ArticleTypeEnum(str, enum.Enum):
-    """
-    * `PAGE` - PAGE
-    * `BLOG_POST` - BLOG_POST
-    * `SMART_LINK` - SMART_LINK
-    """
-
     PAGE = "PAGE"
     BLOG_POST = "BLOG_POST"
     SMART_LINK = "SMART_LINK"

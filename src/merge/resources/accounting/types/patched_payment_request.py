@@ -383,9 +383,7 @@ class PatchedPaymentRequest(UncheckedBaseModel):
     * `ACCOUNTS_RECEIVABLE` - ACCOUNTS_RECEIVABLE
     """
 
-    tracking_categories: typing.Optional[typing.List[typing.Optional[PatchedPaymentRequestTrackingCategoriesItem]]] = (
-        None
-    )
+    tracking_categories: typing.Optional[typing.List[PatchedPaymentRequestTrackingCategoriesItem]] = None
     accounting_period: typing.Optional[PatchedPaymentRequestAccountingPeriod] = pydantic.Field(default=None)
     """
     The accounting period that the Payment was generated in.

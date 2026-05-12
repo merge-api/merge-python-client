@@ -18,9 +18,9 @@ from ...types.meta_response import MetaResponse
 from ...types.paginated_expense_report_line_list import PaginatedExpenseReportLineList
 from ...types.paginated_expense_report_list import PaginatedExpenseReportList
 from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClassList
-from .types.expense_reports_lines_list_request_expand import ExpenseReportsLinesListRequestExpand
-from .types.expense_reports_list_request_expand import ExpenseReportsListRequestExpand
-from .types.expense_reports_retrieve_request_expand import ExpenseReportsRetrieveRequestExpand
+from .types.expense_reports_lines_list_request_expand_item import ExpenseReportsLinesListRequestExpandItem
+from .types.expense_reports_list_request_expand_item import ExpenseReportsListRequestExpandItem
+from .types.expense_reports_retrieve_request_expand_item import ExpenseReportsRetrieveRequestExpandItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -37,7 +37,9 @@ class RawExpenseReportsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[ExpenseReportsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ExpenseReportsListRequestExpandItem, typing.Sequence[ExpenseReportsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -65,7 +67,7 @@ class RawExpenseReportsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[ExpenseReportsListRequestExpand]
+        expand : typing.Optional[typing.Union[ExpenseReportsListRequestExpandItem, typing.Sequence[ExpenseReportsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -87,7 +89,7 @@ class RawExpenseReportsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -200,7 +202,11 @@ class RawExpenseReportsClient:
         expense_report_id: str,
         *,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[ExpenseReportsLinesListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                ExpenseReportsLinesListRequestExpandItem, typing.Sequence[ExpenseReportsLinesListRequestExpandItem]
+            ]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -218,7 +224,7 @@ class RawExpenseReportsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[ExpenseReportsLinesListRequestExpand]
+        expand : typing.Optional[typing.Union[ExpenseReportsLinesListRequestExpandItem, typing.Sequence[ExpenseReportsLinesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -234,7 +240,7 @@ class RawExpenseReportsClient:
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -277,7 +283,11 @@ class RawExpenseReportsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[ExpenseReportsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                ExpenseReportsRetrieveRequestExpandItem, typing.Sequence[ExpenseReportsRetrieveRequestExpandItem]
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -290,7 +300,7 @@ class RawExpenseReportsClient:
         ----------
         id : str
 
-        expand : typing.Optional[ExpenseReportsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[ExpenseReportsRetrieveRequestExpandItem, typing.Sequence[ExpenseReportsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -372,7 +382,7 @@ class RawExpenseReportsClient:
             If provided, will only return remote fields classes with this is_custom value
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -483,7 +493,7 @@ class RawExpenseReportsClient:
             If provided, will only return remote fields classes with this is_custom value
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -534,7 +544,9 @@ class AsyncRawExpenseReportsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[ExpenseReportsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ExpenseReportsListRequestExpandItem, typing.Sequence[ExpenseReportsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -562,7 +574,7 @@ class AsyncRawExpenseReportsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[ExpenseReportsListRequestExpand]
+        expand : typing.Optional[typing.Union[ExpenseReportsListRequestExpandItem, typing.Sequence[ExpenseReportsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -584,7 +596,7 @@ class AsyncRawExpenseReportsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -697,7 +709,11 @@ class AsyncRawExpenseReportsClient:
         expense_report_id: str,
         *,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[ExpenseReportsLinesListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                ExpenseReportsLinesListRequestExpandItem, typing.Sequence[ExpenseReportsLinesListRequestExpandItem]
+            ]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -715,7 +731,7 @@ class AsyncRawExpenseReportsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[ExpenseReportsLinesListRequestExpand]
+        expand : typing.Optional[typing.Union[ExpenseReportsLinesListRequestExpandItem, typing.Sequence[ExpenseReportsLinesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -731,7 +747,7 @@ class AsyncRawExpenseReportsClient:
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -774,7 +790,11 @@ class AsyncRawExpenseReportsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[ExpenseReportsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                ExpenseReportsRetrieveRequestExpandItem, typing.Sequence[ExpenseReportsRetrieveRequestExpandItem]
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -787,7 +807,7 @@ class AsyncRawExpenseReportsClient:
         ----------
         id : str
 
-        expand : typing.Optional[ExpenseReportsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[ExpenseReportsRetrieveRequestExpandItem, typing.Sequence[ExpenseReportsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -869,7 +889,7 @@ class AsyncRawExpenseReportsClient:
             If provided, will only return remote fields classes with this is_custom value
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -980,7 +1000,7 @@ class AsyncRawExpenseReportsClient:
             If provided, will only return remote fields classes with this is_custom value
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

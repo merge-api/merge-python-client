@@ -13,9 +13,9 @@ from ...types.paginated_opportunity_list import PaginatedOpportunityList
 from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClassList
 from ...types.patched_opportunity_request import PatchedOpportunityRequest
 from .raw_client import AsyncRawOpportunitiesClient, RawOpportunitiesClient
-from .types.opportunities_list_request_expand import OpportunitiesListRequestExpand
+from .types.opportunities_list_request_expand_item import OpportunitiesListRequestExpandItem
 from .types.opportunities_list_request_status import OpportunitiesListRequestStatus
-from .types.opportunities_retrieve_request_expand import OpportunitiesRetrieveRequestExpand
+from .types.opportunities_retrieve_request_expand_item import OpportunitiesRetrieveRequestExpandItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -43,7 +43,9 @@ class OpportunitiesClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[OpportunitiesListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[OpportunitiesListRequestExpandItem, typing.Sequence[OpportunitiesListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -77,7 +79,7 @@ class OpportunitiesClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[OpportunitiesListRequestExpand]
+        expand : typing.Optional[typing.Union[OpportunitiesListRequestExpandItem, typing.Sequence[OpportunitiesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -102,7 +104,7 @@ class OpportunitiesClient:
             If provided, will only return opportunities with this owner.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_created_after : typing.Optional[dt.datetime]
             If provided, will only return opportunities created in the third party platform after this datetime.
@@ -140,7 +142,6 @@ class OpportunitiesClient:
 
         from merge import Merge
         from merge.resources.crm.resources.opportunities import (
-            OpportunitiesListRequestExpand,
             OpportunitiesListRequestStatus,
         )
 
@@ -157,7 +158,6 @@ class OpportunitiesClient:
                 "2024-01-15 09:30:00+00:00",
             ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            expand=OpportunitiesListRequestExpand.ACCOUNT,
             include_deleted_data=True,
             include_remote_data=True,
             include_remote_fields=True,
@@ -255,7 +255,11 @@ class OpportunitiesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[OpportunitiesRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                OpportunitiesRetrieveRequestExpandItem, typing.Sequence[OpportunitiesRetrieveRequestExpandItem]
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -270,7 +274,7 @@ class OpportunitiesClient:
         ----------
         id : str
 
-        expand : typing.Optional[OpportunitiesRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[OpportunitiesRetrieveRequestExpandItem, typing.Sequence[OpportunitiesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -299,9 +303,6 @@ class OpportunitiesClient:
         Examples
         --------
         from merge import Merge
-        from merge.resources.crm.resources.opportunities import (
-            OpportunitiesRetrieveRequestExpand,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -309,7 +310,6 @@ class OpportunitiesClient:
         )
         client.crm.opportunities.retrieve(
             id="id",
-            expand=OpportunitiesRetrieveRequestExpand.ACCOUNT,
             include_remote_data=True,
             include_remote_fields=True,
             include_shell_data=True,
@@ -478,7 +478,7 @@ class OpportunitiesClient:
             If provided, will only return remote fields classes with this is_custom value
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -543,7 +543,9 @@ class AsyncOpportunitiesClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[OpportunitiesListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[OpportunitiesListRequestExpandItem, typing.Sequence[OpportunitiesListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -577,7 +579,7 @@ class AsyncOpportunitiesClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[OpportunitiesListRequestExpand]
+        expand : typing.Optional[typing.Union[OpportunitiesListRequestExpandItem, typing.Sequence[OpportunitiesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -602,7 +604,7 @@ class AsyncOpportunitiesClient:
             If provided, will only return opportunities with this owner.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_created_after : typing.Optional[dt.datetime]
             If provided, will only return opportunities created in the third party platform after this datetime.
@@ -641,7 +643,6 @@ class AsyncOpportunitiesClient:
 
         from merge import AsyncMerge
         from merge.resources.crm.resources.opportunities import (
-            OpportunitiesListRequestExpand,
             OpportunitiesListRequestStatus,
         )
 
@@ -661,7 +662,6 @@ class AsyncOpportunitiesClient:
                     "2024-01-15 09:30:00+00:00",
                 ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                expand=OpportunitiesListRequestExpand.ACCOUNT,
                 include_deleted_data=True,
                 include_remote_data=True,
                 include_remote_fields=True,
@@ -770,7 +770,11 @@ class AsyncOpportunitiesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[OpportunitiesRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                OpportunitiesRetrieveRequestExpandItem, typing.Sequence[OpportunitiesRetrieveRequestExpandItem]
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -785,7 +789,7 @@ class AsyncOpportunitiesClient:
         ----------
         id : str
 
-        expand : typing.Optional[OpportunitiesRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[OpportunitiesRetrieveRequestExpandItem, typing.Sequence[OpportunitiesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -816,9 +820,6 @@ class AsyncOpportunitiesClient:
         import asyncio
 
         from merge import AsyncMerge
-        from merge.resources.crm.resources.opportunities import (
-            OpportunitiesRetrieveRequestExpand,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -829,7 +830,6 @@ class AsyncOpportunitiesClient:
         async def main() -> None:
             await client.crm.opportunities.retrieve(
                 id="id",
-                expand=OpportunitiesRetrieveRequestExpand.ACCOUNT,
                 include_remote_data=True,
                 include_remote_fields=True,
                 include_shell_data=True,
@@ -1027,7 +1027,7 @@ class AsyncOpportunitiesClient:
             If provided, will only return remote fields classes with this is_custom value
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

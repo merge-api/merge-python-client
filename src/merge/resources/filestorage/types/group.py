@@ -8,6 +8,7 @@ import typing
 import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2, update_forward_refs
 from ....core.unchecked_base_model import UncheckedBaseModel
+from .group_users_item import GroupUsersItem
 from .remote_data import RemoteData
 
 
@@ -41,7 +42,7 @@ class Group(UncheckedBaseModel):
     The group's name.
     """
 
-    users: typing.List[str] = pydantic.Field()
+    users: typing.List[GroupUsersItem] = pydantic.Field()
     """
     The users that belong in the group. If null, this typically means it's either a domain or the third-party platform does not surface this information.
     """

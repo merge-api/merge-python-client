@@ -5,8 +5,10 @@ import typing
 import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2
 from ....core.unchecked_base_model import UncheckedBaseModel
-from .accounting_phone_number_request import AccountingPhoneNumberRequest
 from .patched_contact_request_addresses_item import PatchedContactRequestAddressesItem
+from .patched_contact_request_company import PatchedContactRequestCompany
+from .patched_contact_request_phone_numbers_item import PatchedContactRequestPhoneNumbersItem
+from .patched_contact_request_status import PatchedContactRequestStatus
 from .remote_field_request import RemoteFieldRequest
 
 
@@ -47,7 +49,7 @@ class PatchedContactRequest(UncheckedBaseModel):
     The contact's tax number.
     """
 
-    status: typing.Optional[str] = pydantic.Field(default=None)
+    status: typing.Optional[PatchedContactRequestStatus] = pydantic.Field(default=None)
     """
     The contact's status
     
@@ -60,19 +62,17 @@ class PatchedContactRequest(UncheckedBaseModel):
     The currency the contact's transactions are in.
     """
 
-    company: typing.Optional[str] = pydantic.Field(default=None)
+    company: typing.Optional[PatchedContactRequestCompany] = pydantic.Field(default=None)
     """
     The company the contact belongs to.
     """
 
-    addresses: typing.Optional[typing.List[typing.Optional[PatchedContactRequestAddressesItem]]] = pydantic.Field(
-        default=None
-    )
+    addresses: typing.Optional[typing.List[PatchedContactRequestAddressesItem]] = pydantic.Field(default=None)
     """
     `Address` object IDs for the given `Contacts` object.
     """
 
-    phone_numbers: typing.Optional[typing.List[AccountingPhoneNumberRequest]] = pydantic.Field(default=None)
+    phone_numbers: typing.Optional[typing.List[PatchedContactRequestPhoneNumbersItem]] = pydantic.Field(default=None)
     """
     `AccountingPhoneNumber` object for the given `Contacts` object.
     """

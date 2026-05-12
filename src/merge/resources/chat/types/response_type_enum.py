@@ -7,11 +7,6 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class ResponseTypeEnum(str, enum.Enum):
-    """
-    * `JSON` - JSON
-    * `BASE64_GZIP` - BASE64_GZIP
-    """
-
     JSON = "JSON"
     BASE_64_GZIP = "BASE64_GZIP"
 

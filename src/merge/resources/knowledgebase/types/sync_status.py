@@ -18,7 +18,7 @@ class SyncStatus(UncheckedBaseModel):
     The `SyncStatus` object is used to represent the syncing state of an account
 
     ### Usage Example
-    View the `SyncStatus` for an account to see how recently its models were synced.
+     View the `SyncStatus` for an account to see how recently its models were synced.
     """
 
     model_name: str

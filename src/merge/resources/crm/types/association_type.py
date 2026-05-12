@@ -6,8 +6,8 @@ import typing
 import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2
 from ....core.unchecked_base_model import UncheckedBaseModel
-from .association_sub_type import AssociationSubType
 from .association_type_cardinality import AssociationTypeCardinality
+from .association_type_target_object_classes_item import AssociationTypeTargetObjectClassesItem
 
 
 class AssociationType(UncheckedBaseModel):
@@ -40,7 +40,7 @@ class AssociationType(UncheckedBaseModel):
     The class of the source object (Custom Object or Common Model) for the association type.
     """
 
-    target_object_classes: typing.Optional[typing.List[AssociationSubType]] = None
+    target_object_classes: typing.Optional[typing.List[AssociationTypeTargetObjectClassesItem]] = None
     remote_key_name: typing.Optional[str] = None
     display_name: typing.Optional[str] = None
     cardinality: typing.Optional[AssociationTypeCardinality] = None
