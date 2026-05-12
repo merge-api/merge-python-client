@@ -13,8 +13,9 @@ from .....core.request_options import RequestOptions
 from .....core.unchecked_base_model import construct_type
 from ...types.offer import Offer
 from ...types.paginated_offer_list import PaginatedOfferList
-from .types.offers_list_request_expand import OffersListRequestExpand
-from .types.offers_retrieve_request_expand import OffersRetrieveRequestExpand
+from .types.offers_list_request_expand_item import OffersListRequestExpandItem
+from .types.offers_list_request_status import OffersListRequestStatus
+from .types.offers_retrieve_request_expand_item import OffersRetrieveRequestExpandItem
 
 
 class RawOffersClient:
@@ -29,7 +30,9 @@ class RawOffersClient:
         created_before: typing.Optional[dt.datetime] = None,
         creator_id: typing.Optional[str] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[OffersListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[OffersListRequestExpandItem, typing.Sequence[OffersListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -39,6 +42,7 @@ class RawOffersClient:
         remote_fields: typing.Optional[typing.Literal["status"]] = None,
         remote_id: typing.Optional[str] = None,
         show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
+        status: typing.Optional[OffersListRequestStatus] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[PaginatedOfferList]:
         """
@@ -61,7 +65,7 @@ class RawOffersClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[OffersListRequestExpand]
+        expand : typing.Optional[typing.Union[OffersListRequestExpandItem, typing.Sequence[OffersListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -91,6 +95,19 @@ class RawOffersClient:
         show_enum_origins : typing.Optional[typing.Literal["status"]]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
+        status : typing.Optional[OffersListRequestStatus]
+            If provided, will only return offers with this status. Options: ('DRAFT', 'APPROVAL-SENT', 'APPROVED', 'SENT', 'SENT-MANUALLY', 'OPENED', 'DENIED', 'SIGNED', 'DEPRECATED')
+
+            * `DRAFT` - DRAFT
+            * `APPROVAL-SENT` - APPROVAL-SENT
+            * `APPROVED` - APPROVED
+            * `SENT` - SENT
+            * `SENT-MANUALLY` - SENT-MANUALLY
+            * `OPENED` - OPENED
+            * `DENIED` - DENIED
+            * `SIGNED` - SIGNED
+            * `DEPRECATED` - DEPRECATED
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -118,6 +135,7 @@ class RawOffersClient:
                 "remote_fields": remote_fields,
                 "remote_id": remote_id,
                 "show_enum_origins": show_enum_origins,
+                "status": status,
             },
             request_options=request_options,
         )
@@ -140,7 +158,9 @@ class RawOffersClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[OffersRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[OffersRetrieveRequestExpandItem, typing.Sequence[OffersRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["status"]] = None,
@@ -154,7 +174,7 @@ class RawOffersClient:
         ----------
         id : str
 
-        expand : typing.Optional[OffersRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[OffersRetrieveRequestExpandItem, typing.Sequence[OffersRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -217,7 +237,9 @@ class AsyncRawOffersClient:
         created_before: typing.Optional[dt.datetime] = None,
         creator_id: typing.Optional[str] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[OffersListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[OffersListRequestExpandItem, typing.Sequence[OffersListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -227,6 +249,7 @@ class AsyncRawOffersClient:
         remote_fields: typing.Optional[typing.Literal["status"]] = None,
         remote_id: typing.Optional[str] = None,
         show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
+        status: typing.Optional[OffersListRequestStatus] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[PaginatedOfferList]:
         """
@@ -249,7 +272,7 @@ class AsyncRawOffersClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[OffersListRequestExpand]
+        expand : typing.Optional[typing.Union[OffersListRequestExpandItem, typing.Sequence[OffersListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -279,6 +302,19 @@ class AsyncRawOffersClient:
         show_enum_origins : typing.Optional[typing.Literal["status"]]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
+        status : typing.Optional[OffersListRequestStatus]
+            If provided, will only return offers with this status. Options: ('DRAFT', 'APPROVAL-SENT', 'APPROVED', 'SENT', 'SENT-MANUALLY', 'OPENED', 'DENIED', 'SIGNED', 'DEPRECATED')
+
+            * `DRAFT` - DRAFT
+            * `APPROVAL-SENT` - APPROVAL-SENT
+            * `APPROVED` - APPROVED
+            * `SENT` - SENT
+            * `SENT-MANUALLY` - SENT-MANUALLY
+            * `OPENED` - OPENED
+            * `DENIED` - DENIED
+            * `SIGNED` - SIGNED
+            * `DEPRECATED` - DEPRECATED
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -306,6 +342,7 @@ class AsyncRawOffersClient:
                 "remote_fields": remote_fields,
                 "remote_id": remote_id,
                 "show_enum_origins": show_enum_origins,
+                "status": status,
             },
             request_options=request_options,
         )
@@ -328,7 +365,9 @@ class AsyncRawOffersClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[OffersRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[OffersRetrieveRequestExpandItem, typing.Sequence[OffersRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["status"]] = None,
@@ -342,7 +381,7 @@ class AsyncRawOffersClient:
         ----------
         id : str
 
-        expand : typing.Optional[OffersRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[OffersRetrieveRequestExpandItem, typing.Sequence[OffersRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

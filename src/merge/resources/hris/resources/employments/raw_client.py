@@ -13,11 +13,11 @@ from .....core.request_options import RequestOptions
 from .....core.unchecked_base_model import construct_type
 from ...types.employment import Employment
 from ...types.paginated_employment_list import PaginatedEmploymentList
-from .types.employments_list_request_expand import EmploymentsListRequestExpand
+from .types.employments_list_request_expand_item import EmploymentsListRequestExpandItem
 from .types.employments_list_request_order_by import EmploymentsListRequestOrderBy
 from .types.employments_list_request_remote_fields import EmploymentsListRequestRemoteFields
 from .types.employments_list_request_show_enum_origins import EmploymentsListRequestShowEnumOrigins
-from .types.employments_retrieve_request_expand import EmploymentsRetrieveRequestExpand
+from .types.employments_retrieve_request_expand_item import EmploymentsRetrieveRequestExpandItem
 from .types.employments_retrieve_request_remote_fields import EmploymentsRetrieveRequestRemoteFields
 from .types.employments_retrieve_request_show_enum_origins import EmploymentsRetrieveRequestShowEnumOrigins
 
@@ -33,7 +33,9 @@ class RawEmploymentsClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         employee_id: typing.Optional[str] = None,
-        expand: typing.Optional[EmploymentsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[EmploymentsListRequestExpandItem, typing.Sequence[EmploymentsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -63,7 +65,7 @@ class RawEmploymentsClient:
         employee_id : typing.Optional[str]
             If provided, will only return employments for this employee.
 
-        expand : typing.Optional[EmploymentsListRequestExpand]
+        expand : typing.Optional[typing.Union[EmploymentsListRequestExpandItem, typing.Sequence[EmploymentsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -145,7 +147,9 @@ class RawEmploymentsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[EmploymentsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[EmploymentsRetrieveRequestExpandItem, typing.Sequence[EmploymentsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[EmploymentsRetrieveRequestRemoteFields] = None,
@@ -159,7 +163,7 @@ class RawEmploymentsClient:
         ----------
         id : str
 
-        expand : typing.Optional[EmploymentsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[EmploymentsRetrieveRequestExpandItem, typing.Sequence[EmploymentsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -221,7 +225,9 @@ class AsyncRawEmploymentsClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         employee_id: typing.Optional[str] = None,
-        expand: typing.Optional[EmploymentsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[EmploymentsListRequestExpandItem, typing.Sequence[EmploymentsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -251,7 +257,7 @@ class AsyncRawEmploymentsClient:
         employee_id : typing.Optional[str]
             If provided, will only return employments for this employee.
 
-        expand : typing.Optional[EmploymentsListRequestExpand]
+        expand : typing.Optional[typing.Union[EmploymentsListRequestExpandItem, typing.Sequence[EmploymentsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -333,7 +339,9 @@ class AsyncRawEmploymentsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[EmploymentsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[EmploymentsRetrieveRequestExpandItem, typing.Sequence[EmploymentsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[EmploymentsRetrieveRequestRemoteFields] = None,
@@ -347,7 +355,7 @@ class AsyncRawEmploymentsClient:
         ----------
         id : str
 
-        expand : typing.Optional[EmploymentsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[EmploymentsRetrieveRequestExpandItem, typing.Sequence[EmploymentsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

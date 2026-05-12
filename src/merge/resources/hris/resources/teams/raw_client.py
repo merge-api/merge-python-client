@@ -25,7 +25,9 @@ class RawTeamsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["parent_team"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["parent_team"], typing.Sequence[typing.Literal["parent_team"]]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -50,7 +52,7 @@ class RawTeamsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["parent_team"]]
+        expand : typing.Optional[typing.Union[typing.Literal["parent_team"], typing.Sequence[typing.Literal["parent_team"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -123,7 +125,9 @@ class RawTeamsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["parent_team"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["parent_team"], typing.Sequence[typing.Literal["parent_team"]]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -135,7 +139,7 @@ class RawTeamsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["parent_team"]]
+        expand : typing.Optional[typing.Union[typing.Literal["parent_team"], typing.Sequence[typing.Literal["parent_team"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -188,7 +192,9 @@ class AsyncRawTeamsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["parent_team"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["parent_team"], typing.Sequence[typing.Literal["parent_team"]]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -213,7 +219,7 @@ class AsyncRawTeamsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["parent_team"]]
+        expand : typing.Optional[typing.Union[typing.Literal["parent_team"], typing.Sequence[typing.Literal["parent_team"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -286,7 +292,9 @@ class AsyncRawTeamsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["parent_team"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["parent_team"], typing.Sequence[typing.Literal["parent_team"]]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -298,7 +306,7 @@ class AsyncRawTeamsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["parent_team"]]
+        expand : typing.Optional[typing.Union[typing.Literal["parent_team"], typing.Sequence[typing.Literal["parent_team"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

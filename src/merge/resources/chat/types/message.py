@@ -14,7 +14,7 @@ class Message(UncheckedBaseModel):
     ### Description
     The `Message` object is used to represent a message within the Chat account.
     ### Usage Example
-    Fetch from the `GET /api/chat/v1/messages` endpoint and view their message.
+     Fetch from the `GET /api/chat/v1/messages` endpoint and view their message.
     """
 
     id: typing.Optional[str] = None

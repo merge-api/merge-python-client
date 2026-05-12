@@ -16,10 +16,10 @@ from ...types.credit_note_request import CreditNoteRequest
 from ...types.credit_note_response import CreditNoteResponse
 from ...types.meta_response import MetaResponse
 from ...types.paginated_credit_note_list import PaginatedCreditNoteList
-from .types.credit_notes_list_request_expand import CreditNotesListRequestExpand
+from .types.credit_notes_list_request_expand_item import CreditNotesListRequestExpandItem
 from .types.credit_notes_list_request_remote_fields import CreditNotesListRequestRemoteFields
 from .types.credit_notes_list_request_show_enum_origins import CreditNotesListRequestShowEnumOrigins
-from .types.credit_notes_retrieve_request_expand import CreditNotesRetrieveRequestExpand
+from .types.credit_notes_retrieve_request_expand_item import CreditNotesRetrieveRequestExpandItem
 from .types.credit_notes_retrieve_request_remote_fields import CreditNotesRetrieveRequestRemoteFields
 from .types.credit_notes_retrieve_request_show_enum_origins import CreditNotesRetrieveRequestShowEnumOrigins
 
@@ -38,7 +38,9 @@ class RawCreditNotesClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[CreditNotesListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[CreditNotesListRequestExpandItem, typing.Sequence[CreditNotesListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -69,7 +71,7 @@ class RawCreditNotesClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[CreditNotesListRequestExpand]
+        expand : typing.Optional[typing.Union[CreditNotesListRequestExpandItem, typing.Sequence[CreditNotesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -88,7 +90,7 @@ class RawCreditNotesClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_fields : typing.Optional[CreditNotesListRequestRemoteFields]
             Deprecated. Use show_enum_origins.
@@ -219,7 +221,9 @@ class RawCreditNotesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[CreditNotesRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[CreditNotesRetrieveRequestExpandItem, typing.Sequence[CreditNotesRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[CreditNotesRetrieveRequestRemoteFields] = None,
@@ -233,7 +237,7 @@ class RawCreditNotesClient:
         ----------
         id : str
 
-        expand : typing.Optional[CreditNotesRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[CreditNotesRetrieveRequestExpandItem, typing.Sequence[CreditNotesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -274,6 +278,181 @@ class RawCreditNotesClient:
                     CreditNote,
                     construct_type(
                         type_=CreditNote,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def partial_update(
+        self,
+        id: str,
+        *,
+        model: CreditNoteRequest,
+        is_debug_mode: typing.Optional[bool] = None,
+        run_async: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[CreditNoteResponse]:
+        """
+        Updates a `CreditNote` object with the given `id`.
+
+        Parameters
+        ----------
+        id : str
+
+        model : CreditNoteRequest
+
+        is_debug_mode : typing.Optional[bool]
+            Whether to include debug fields (such as log file links) in the response.
+
+        run_async : typing.Optional[bool]
+            Whether or not third-party updates should be run asynchronously.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[CreditNoteResponse]
+
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"accounting/v1/credit-notes/{jsonable_encoder(id)}",
+            method="PATCH",
+            params={
+                "is_debug_mode": is_debug_mode,
+                "run_async": run_async,
+            },
+            json={
+                "model": model,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    CreditNoteResponse,
+                    construct_type(
+                        type_=CreditNoteResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def application_create(
+        self,
+        id: str,
+        *,
+        applied_date: dt.datetime,
+        applied_amount: str,
+        is_debug_mode: typing.Optional[bool] = None,
+        run_async: typing.Optional[bool] = None,
+        invoice: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[CreditNoteResponse]:
+        """
+        Creates a new CreditNoteApplyLine to apply a credit note to an invoice
+
+        Parameters
+        ----------
+        id : str
+
+        applied_date : dt.datetime
+            Date that the credit note is applied to the invoice.
+
+        applied_amount : str
+            The amount of credit applied to the invoice.
+
+        is_debug_mode : typing.Optional[bool]
+            Whether to include debug fields (such as log file links) in the response.
+
+        run_async : typing.Optional[bool]
+            Whether or not third-party updates should be run asynchronously.
+
+        invoice : typing.Optional[str]
+            The invoice to apply the credit note to.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[CreditNoteResponse]
+
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"accounting/v1/credit-notes/{jsonable_encoder(id)}/application",
+            method="POST",
+            params={
+                "is_debug_mode": is_debug_mode,
+                "run_async": run_async,
+            },
+            json={
+                "invoice": invoice,
+                "applied_date": applied_date,
+                "applied_amount": applied_amount,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    CreditNoteResponse,
+                    construct_type(
+                        type_=CreditNoteResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def meta_patch_retrieve(
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[MetaResponse]:
+        """
+        Returns metadata for `CreditNote` PATCHs.
+
+        Parameters
+        ----------
+        id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[MetaResponse]
+
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"accounting/v1/credit-notes/meta/patch/{jsonable_encoder(id)}",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    MetaResponse,
+                    construct_type(
+                        type_=MetaResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -331,7 +510,9 @@ class AsyncRawCreditNotesClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[CreditNotesListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[CreditNotesListRequestExpandItem, typing.Sequence[CreditNotesListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -362,7 +543,7 @@ class AsyncRawCreditNotesClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[CreditNotesListRequestExpand]
+        expand : typing.Optional[typing.Union[CreditNotesListRequestExpandItem, typing.Sequence[CreditNotesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -381,7 +562,7 @@ class AsyncRawCreditNotesClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_fields : typing.Optional[CreditNotesListRequestRemoteFields]
             Deprecated. Use show_enum_origins.
@@ -512,7 +693,9 @@ class AsyncRawCreditNotesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[CreditNotesRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[CreditNotesRetrieveRequestExpandItem, typing.Sequence[CreditNotesRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[CreditNotesRetrieveRequestRemoteFields] = None,
@@ -526,7 +709,7 @@ class AsyncRawCreditNotesClient:
         ----------
         id : str
 
-        expand : typing.Optional[CreditNotesRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[CreditNotesRetrieveRequestExpandItem, typing.Sequence[CreditNotesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -567,6 +750,181 @@ class AsyncRawCreditNotesClient:
                     CreditNote,
                     construct_type(
                         type_=CreditNote,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def partial_update(
+        self,
+        id: str,
+        *,
+        model: CreditNoteRequest,
+        is_debug_mode: typing.Optional[bool] = None,
+        run_async: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[CreditNoteResponse]:
+        """
+        Updates a `CreditNote` object with the given `id`.
+
+        Parameters
+        ----------
+        id : str
+
+        model : CreditNoteRequest
+
+        is_debug_mode : typing.Optional[bool]
+            Whether to include debug fields (such as log file links) in the response.
+
+        run_async : typing.Optional[bool]
+            Whether or not third-party updates should be run asynchronously.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[CreditNoteResponse]
+
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"accounting/v1/credit-notes/{jsonable_encoder(id)}",
+            method="PATCH",
+            params={
+                "is_debug_mode": is_debug_mode,
+                "run_async": run_async,
+            },
+            json={
+                "model": model,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    CreditNoteResponse,
+                    construct_type(
+                        type_=CreditNoteResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def application_create(
+        self,
+        id: str,
+        *,
+        applied_date: dt.datetime,
+        applied_amount: str,
+        is_debug_mode: typing.Optional[bool] = None,
+        run_async: typing.Optional[bool] = None,
+        invoice: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[CreditNoteResponse]:
+        """
+        Creates a new CreditNoteApplyLine to apply a credit note to an invoice
+
+        Parameters
+        ----------
+        id : str
+
+        applied_date : dt.datetime
+            Date that the credit note is applied to the invoice.
+
+        applied_amount : str
+            The amount of credit applied to the invoice.
+
+        is_debug_mode : typing.Optional[bool]
+            Whether to include debug fields (such as log file links) in the response.
+
+        run_async : typing.Optional[bool]
+            Whether or not third-party updates should be run asynchronously.
+
+        invoice : typing.Optional[str]
+            The invoice to apply the credit note to.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[CreditNoteResponse]
+
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"accounting/v1/credit-notes/{jsonable_encoder(id)}/application",
+            method="POST",
+            params={
+                "is_debug_mode": is_debug_mode,
+                "run_async": run_async,
+            },
+            json={
+                "invoice": invoice,
+                "applied_date": applied_date,
+                "applied_amount": applied_amount,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    CreditNoteResponse,
+                    construct_type(
+                        type_=CreditNoteResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def meta_patch_retrieve(
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[MetaResponse]:
+        """
+        Returns metadata for `CreditNote` PATCHs.
+
+        Parameters
+        ----------
+        id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[MetaResponse]
+
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"accounting/v1/credit-notes/meta/patch/{jsonable_encoder(id)}",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    MetaResponse,
+                    construct_type(
+                        type_=MetaResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

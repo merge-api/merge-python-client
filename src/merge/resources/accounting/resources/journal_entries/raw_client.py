@@ -17,8 +17,8 @@ from ...types.journal_entry_response import JournalEntryResponse
 from ...types.meta_response import MetaResponse
 from ...types.paginated_journal_entry_list import PaginatedJournalEntryList
 from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClassList
-from .types.journal_entries_list_request_expand import JournalEntriesListRequestExpand
-from .types.journal_entries_retrieve_request_expand import JournalEntriesRetrieveRequestExpand
+from .types.journal_entries_list_request_expand_item import JournalEntriesListRequestExpandItem
+from .types.journal_entries_retrieve_request_expand_item import JournalEntriesRetrieveRequestExpandItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -35,7 +35,9 @@ class RawJournalEntriesClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[JournalEntriesListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[JournalEntriesListRequestExpandItem, typing.Sequence[JournalEntriesListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -65,7 +67,7 @@ class RawJournalEntriesClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[JournalEntriesListRequestExpand]
+        expand : typing.Optional[typing.Union[JournalEntriesListRequestExpandItem, typing.Sequence[JournalEntriesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -87,7 +89,7 @@ class RawJournalEntriesClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -211,7 +213,11 @@ class RawJournalEntriesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[JournalEntriesRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                JournalEntriesRetrieveRequestExpandItem, typing.Sequence[JournalEntriesRetrieveRequestExpandItem]
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -224,7 +230,7 @@ class RawJournalEntriesClient:
         ----------
         id : str
 
-        expand : typing.Optional[JournalEntriesRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[JournalEntriesRetrieveRequestExpandItem, typing.Sequence[JournalEntriesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -306,7 +312,7 @@ class RawJournalEntriesClient:
             If provided, will only return remote fields classes with this is_custom value
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -417,7 +423,7 @@ class RawJournalEntriesClient:
             If provided, will only return remote fields classes with this is_custom value
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -468,7 +474,9 @@ class AsyncRawJournalEntriesClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[JournalEntriesListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[JournalEntriesListRequestExpandItem, typing.Sequence[JournalEntriesListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -498,7 +506,7 @@ class AsyncRawJournalEntriesClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[JournalEntriesListRequestExpand]
+        expand : typing.Optional[typing.Union[JournalEntriesListRequestExpandItem, typing.Sequence[JournalEntriesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -520,7 +528,7 @@ class AsyncRawJournalEntriesClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -644,7 +652,11 @@ class AsyncRawJournalEntriesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[JournalEntriesRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                JournalEntriesRetrieveRequestExpandItem, typing.Sequence[JournalEntriesRetrieveRequestExpandItem]
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -657,7 +669,7 @@ class AsyncRawJournalEntriesClient:
         ----------
         id : str
 
-        expand : typing.Optional[JournalEntriesRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[JournalEntriesRetrieveRequestExpandItem, typing.Sequence[JournalEntriesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -739,7 +751,7 @@ class AsyncRawJournalEntriesClient:
             If provided, will only return remote fields classes with this is_custom value
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -850,7 +862,7 @@ class AsyncRawJournalEntriesClient:
             If provided, will only return remote fields classes with this is_custom value
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

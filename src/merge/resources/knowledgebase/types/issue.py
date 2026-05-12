@@ -13,10 +13,7 @@ class Issue(UncheckedBaseModel):
     id: typing.Optional[str] = None
     status: typing.Optional[IssueStatus] = pydantic.Field(default=None)
     """
-    Status of the issue. Options: ('ONGOING', 'RESOLVED')
-    
-    * `ONGOING` - ONGOING
-    * `RESOLVED` - RESOLVED
+    Status of the issue.
     """
 
     error_description: str

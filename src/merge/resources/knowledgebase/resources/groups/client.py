@@ -8,8 +8,8 @@ from .....core.request_options import RequestOptions
 from ...types.group import Group
 from ...types.paginated_group_list import PaginatedGroupList
 from .raw_client import AsyncRawGroupsClient, RawGroupsClient
-from .types.groups_list_request_expand import GroupsListRequestExpand
-from .types.groups_retrieve_request_expand import GroupsRetrieveRequestExpand
+from .types.groups_list_request_expand_item import GroupsListRequestExpandItem
+from .types.groups_retrieve_request_expand_item import GroupsRetrieveRequestExpandItem
 
 
 class GroupsClient:
@@ -33,7 +33,9 @@ class GroupsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[GroupsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[GroupsListRequestExpandItem, typing.Sequence[GroupsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -57,7 +59,7 @@ class GroupsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[GroupsListRequestExpand]
+        expand : typing.Optional[typing.Union[GroupsListRequestExpandItem, typing.Sequence[GroupsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -94,9 +96,6 @@ class GroupsClient:
         import datetime
 
         from merge import Merge
-        from merge.resources.knowledgebase.resources.groups import (
-            GroupsListRequestExpand,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -110,7 +109,6 @@ class GroupsClient:
                 "2024-01-15 09:30:00+00:00",
             ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            expand=GroupsListRequestExpand.PARENT_GROUP,
             include_deleted_data=True,
             include_remote_data=True,
             include_shell_data=True,
@@ -144,7 +142,9 @@ class GroupsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[GroupsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[GroupsRetrieveRequestExpandItem, typing.Sequence[GroupsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -156,7 +156,7 @@ class GroupsClient:
         ----------
         id : str
 
-        expand : typing.Optional[GroupsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[GroupsRetrieveRequestExpandItem, typing.Sequence[GroupsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -176,9 +176,6 @@ class GroupsClient:
         Examples
         --------
         from merge import Merge
-        from merge.resources.knowledgebase.resources.groups import (
-            GroupsRetrieveRequestExpand,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -186,7 +183,6 @@ class GroupsClient:
         )
         client.knowledgebase.groups.retrieve(
             id="id",
-            expand=GroupsRetrieveRequestExpand.PARENT_GROUP,
             include_remote_data=True,
             include_shell_data=True,
         )
@@ -222,7 +218,9 @@ class AsyncGroupsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[GroupsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[GroupsListRequestExpandItem, typing.Sequence[GroupsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -246,7 +244,7 @@ class AsyncGroupsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[GroupsListRequestExpand]
+        expand : typing.Optional[typing.Union[GroupsListRequestExpandItem, typing.Sequence[GroupsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -284,9 +282,6 @@ class AsyncGroupsClient:
         import datetime
 
         from merge import AsyncMerge
-        from merge.resources.knowledgebase.resources.groups import (
-            GroupsListRequestExpand,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -303,7 +298,6 @@ class AsyncGroupsClient:
                     "2024-01-15 09:30:00+00:00",
                 ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                expand=GroupsListRequestExpand.PARENT_GROUP,
                 include_deleted_data=True,
                 include_remote_data=True,
                 include_shell_data=True,
@@ -340,7 +334,9 @@ class AsyncGroupsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[GroupsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[GroupsRetrieveRequestExpandItem, typing.Sequence[GroupsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -352,7 +348,7 @@ class AsyncGroupsClient:
         ----------
         id : str
 
-        expand : typing.Optional[GroupsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[GroupsRetrieveRequestExpandItem, typing.Sequence[GroupsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -374,9 +370,6 @@ class AsyncGroupsClient:
         import asyncio
 
         from merge import AsyncMerge
-        from merge.resources.knowledgebase.resources.groups import (
-            GroupsRetrieveRequestExpand,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -387,7 +380,6 @@ class AsyncGroupsClient:
         async def main() -> None:
             await client.knowledgebase.groups.retrieve(
                 id="id",
-                expand=GroupsRetrieveRequestExpand.PARENT_GROUP,
                 include_remote_data=True,
                 include_shell_data=True,
             )

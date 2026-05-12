@@ -38,7 +38,9 @@ class AttachmentsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["candidate"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["candidate"], typing.Sequence[typing.Literal["candidate"]]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -67,7 +69,7 @@ class AttachmentsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["candidate"]]
+        expand : typing.Optional[typing.Union[typing.Literal["candidate"], typing.Sequence[typing.Literal["candidate"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -217,7 +219,9 @@ class AttachmentsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["candidate"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["candidate"], typing.Sequence[typing.Literal["candidate"]]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["attachment_type"]] = None,
@@ -231,7 +235,7 @@ class AttachmentsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["candidate"]]
+        expand : typing.Optional[typing.Union[typing.Literal["candidate"], typing.Sequence[typing.Literal["candidate"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -329,7 +333,9 @@ class AsyncAttachmentsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["candidate"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["candidate"], typing.Sequence[typing.Literal["candidate"]]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -358,7 +364,7 @@ class AsyncAttachmentsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["candidate"]]
+        expand : typing.Optional[typing.Union[typing.Literal["candidate"], typing.Sequence[typing.Literal["candidate"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -523,7 +529,9 @@ class AsyncAttachmentsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["candidate"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["candidate"], typing.Sequence[typing.Literal["candidate"]]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["attachment_type"]] = None,
@@ -537,7 +545,7 @@ class AsyncAttachmentsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["candidate"]]
+        expand : typing.Optional[typing.Union[typing.Literal["candidate"], typing.Sequence[typing.Literal["candidate"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

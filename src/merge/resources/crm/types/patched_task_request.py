@@ -6,6 +6,10 @@ import typing
 import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2
 from ....core.unchecked_base_model import UncheckedBaseModel
+from .patched_task_request_account import PatchedTaskRequestAccount
+from .patched_task_request_contact import PatchedTaskRequestContact
+from .patched_task_request_opportunity import PatchedTaskRequestOpportunity
+from .patched_task_request_owner import PatchedTaskRequestOwner
 from .patched_task_request_status import PatchedTaskRequestStatus
 from .remote_field_request import RemoteFieldRequest
 
@@ -29,19 +33,24 @@ class PatchedTaskRequest(UncheckedBaseModel):
     The task's content.
     """
 
-    owner: typing.Optional[str] = pydantic.Field(default=None)
+    owner: typing.Optional[PatchedTaskRequestOwner] = pydantic.Field(default=None)
     """
     The task's owner.
     """
 
-    account: typing.Optional[str] = pydantic.Field(default=None)
+    account: typing.Optional[PatchedTaskRequestAccount] = pydantic.Field(default=None)
     """
     The task's account.
     """
 
-    opportunity: typing.Optional[str] = pydantic.Field(default=None)
+    opportunity: typing.Optional[PatchedTaskRequestOpportunity] = pydantic.Field(default=None)
     """
     The task's opportunity.
+    """
+
+    contact: typing.Optional[PatchedTaskRequestContact] = pydantic.Field(default=None)
+    """
+    The task's contact.
     """
 
     completed_date: typing.Optional[dt.datetime] = pydantic.Field(default=None)

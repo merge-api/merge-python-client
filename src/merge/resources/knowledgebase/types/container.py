@@ -8,6 +8,7 @@ import typing
 import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2, update_forward_refs
 from ....core.unchecked_base_model import UncheckedBaseModel
+from .container_field_mappings import ContainerFieldMappings
 from .container_permissions_item import ContainerPermissionsItem
 from .container_status import ContainerStatus
 from .container_type import ContainerType
@@ -53,11 +54,6 @@ class Container(UncheckedBaseModel):
     status: typing.Optional[ContainerStatus] = pydantic.Field(default=None)
     """
     The container's status.
-    
-    * `DRAFT` - DRAFT
-    * `PUBLISHED` - PUBLISHED
-    * `ARCHIVED` - ARCHIVED
-    * `TRASH` - TRASH
     """
 
     container_url: typing.Optional[str] = pydantic.Field(default=None)
@@ -68,22 +64,11 @@ class Container(UncheckedBaseModel):
     type: typing.Optional[ContainerType] = pydantic.Field(default=None)
     """
     The container's type.
-    
-    * `FOLDER` - FOLDER
-    * `SPACE` - SPACE
-    * `COLLECTION` - COLLECTION
-    * `SECTION` - SECTION
-    * `CATEGORY` - CATEGORY
-    * `DATABASE` - DATABASE
     """
 
     visibility: typing.Optional[ContainerVisibility] = pydantic.Field(default=None)
     """
     The container's visibility.
-    
-    * `PUBLIC` - PUBLIC
-    * `INTERNAL` - INTERNAL
-    * `RESTRICTED` - RESTRICTED
     """
 
     remote_created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
@@ -112,7 +97,7 @@ class Container(UncheckedBaseModel):
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
     """
 
-    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    field_mappings: typing.Optional[ContainerFieldMappings] = None
     remote_data: typing.Optional[typing.List[RemoteData]] = None
 
     if IS_PYDANTIC_V2:

@@ -9,6 +9,7 @@ T_Result = typing.TypeVar("T_Result")
 class LinkedAccountsListRequestCategory(str, enum.Enum):
     ACCOUNTING = "accounting"
     ATS = "ats"
+    CHAT = "chat"
     CRM = "crm"
     FILESTORAGE = "filestorage"
     HRIS = "hris"
@@ -20,6 +21,7 @@ class LinkedAccountsListRequestCategory(str, enum.Enum):
         self,
         accounting: typing.Callable[[], T_Result],
         ats: typing.Callable[[], T_Result],
+        chat: typing.Callable[[], T_Result],
         crm: typing.Callable[[], T_Result],
         filestorage: typing.Callable[[], T_Result],
         hris: typing.Callable[[], T_Result],
@@ -31,6 +33,8 @@ class LinkedAccountsListRequestCategory(str, enum.Enum):
             return accounting()
         if self is LinkedAccountsListRequestCategory.ATS:
             return ats()
+        if self is LinkedAccountsListRequestCategory.CHAT:
+            return chat()
         if self is LinkedAccountsListRequestCategory.CRM:
             return crm()
         if self is LinkedAccountsListRequestCategory.FILESTORAGE:

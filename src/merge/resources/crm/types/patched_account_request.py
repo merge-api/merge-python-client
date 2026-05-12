@@ -7,6 +7,7 @@ import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2
 from ....core.unchecked_base_model import UncheckedBaseModel
 from .address_request import AddressRequest
+from .patched_account_request_owner import PatchedAccountRequestOwner
 from .remote_field_request import RemoteFieldRequest
 
 
@@ -19,7 +20,7 @@ class PatchedAccountRequest(UncheckedBaseModel):
     TODO
     """
 
-    owner: typing.Optional[str] = pydantic.Field(default=None)
+    owner: typing.Optional[PatchedAccountRequestOwner] = pydantic.Field(default=None)
     """
     The account's owner.
     """

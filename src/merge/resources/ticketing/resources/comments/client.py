@@ -11,8 +11,8 @@ from ...types.comment_response import CommentResponse
 from ...types.meta_response import MetaResponse
 from ...types.paginated_comment_list import PaginatedCommentList
 from .raw_client import AsyncRawCommentsClient, RawCommentsClient
-from .types.comments_list_request_expand import CommentsListRequestExpand
-from .types.comments_retrieve_request_expand import CommentsRetrieveRequestExpand
+from .types.comments_list_request_expand_item import CommentsListRequestExpandItem
+from .types.comments_retrieve_request_expand_item import CommentsRetrieveRequestExpandItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -39,7 +39,9 @@ class CommentsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[CommentsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[CommentsListRequestExpandItem, typing.Sequence[CommentsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -65,7 +67,7 @@ class CommentsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[CommentsListRequestExpand]
+        expand : typing.Optional[typing.Union[CommentsListRequestExpandItem, typing.Sequence[CommentsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -108,9 +110,6 @@ class CommentsClient:
         import datetime
 
         from merge import Merge
-        from merge.resources.ticketing.resources.comments import (
-            CommentsListRequestExpand,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -124,7 +123,6 @@ class CommentsClient:
                 "2024-01-15 09:30:00+00:00",
             ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            expand=CommentsListRequestExpand.CONTACT,
             include_deleted_data=True,
             include_remote_data=True,
             include_shell_data=True,
@@ -213,7 +211,9 @@ class CommentsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[CommentsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[CommentsRetrieveRequestExpandItem, typing.Sequence[CommentsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -225,7 +225,7 @@ class CommentsClient:
         ----------
         id : str
 
-        expand : typing.Optional[CommentsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[CommentsRetrieveRequestExpandItem, typing.Sequence[CommentsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -245,9 +245,6 @@ class CommentsClient:
         Examples
         --------
         from merge import Merge
-        from merge.resources.ticketing.resources.comments import (
-            CommentsRetrieveRequestExpand,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -255,7 +252,6 @@ class CommentsClient:
         )
         client.ticketing.comments.retrieve(
             id="id",
-            expand=CommentsRetrieveRequestExpand.CONTACT,
             include_remote_data=True,
             include_shell_data=True,
         )
@@ -318,7 +314,9 @@ class AsyncCommentsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[CommentsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[CommentsListRequestExpandItem, typing.Sequence[CommentsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -344,7 +342,7 @@ class AsyncCommentsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[CommentsListRequestExpand]
+        expand : typing.Optional[typing.Union[CommentsListRequestExpandItem, typing.Sequence[CommentsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -388,9 +386,6 @@ class AsyncCommentsClient:
         import datetime
 
         from merge import AsyncMerge
-        from merge.resources.ticketing.resources.comments import (
-            CommentsListRequestExpand,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -407,7 +402,6 @@ class AsyncCommentsClient:
                     "2024-01-15 09:30:00+00:00",
                 ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                expand=CommentsListRequestExpand.CONTACT,
                 include_deleted_data=True,
                 include_remote_data=True,
                 include_shell_data=True,
@@ -507,7 +501,9 @@ class AsyncCommentsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[CommentsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[CommentsRetrieveRequestExpandItem, typing.Sequence[CommentsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -519,7 +515,7 @@ class AsyncCommentsClient:
         ----------
         id : str
 
-        expand : typing.Optional[CommentsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[CommentsRetrieveRequestExpandItem, typing.Sequence[CommentsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -541,9 +537,6 @@ class AsyncCommentsClient:
         import asyncio
 
         from merge import AsyncMerge
-        from merge.resources.ticketing.resources.comments import (
-            CommentsRetrieveRequestExpand,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -554,7 +547,6 @@ class AsyncCommentsClient:
         async def main() -> None:
             await client.ticketing.comments.retrieve(
                 id="id",
-                expand=CommentsRetrieveRequestExpand.CONTACT,
                 include_remote_data=True,
                 include_shell_data=True,
             )

@@ -14,7 +14,7 @@ from .....core.unchecked_base_model import construct_type
 from ...types.paginated_project_list import PaginatedProjectList
 from ...types.paginated_user_list import PaginatedUserList
 from ...types.project import Project
-from .types.projects_users_list_request_expand import ProjectsUsersListRequestExpand
+from .types.projects_users_list_request_expand_item import ProjectsUsersListRequestExpandItem
 
 
 class RawProjectsClient:
@@ -66,7 +66,7 @@ class RawProjectsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -169,7 +169,9 @@ class RawProjectsClient:
         parent_id: str,
         *,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[ProjectsUsersListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ProjectsUsersListRequestExpandItem, typing.Sequence[ProjectsUsersListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -186,7 +188,7 @@ class RawProjectsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[ProjectsUsersListRequestExpand]
+        expand : typing.Optional[typing.Union[ProjectsUsersListRequestExpandItem, typing.Sequence[ProjectsUsersListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -287,7 +289,7 @@ class AsyncRawProjectsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -390,7 +392,9 @@ class AsyncRawProjectsClient:
         parent_id: str,
         *,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[ProjectsUsersListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ProjectsUsersListRequestExpandItem, typing.Sequence[ProjectsUsersListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -407,7 +411,7 @@ class AsyncRawProjectsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[ProjectsUsersListRequestExpand]
+        expand : typing.Optional[typing.Union[ProjectsUsersListRequestExpandItem, typing.Sequence[ProjectsUsersListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]

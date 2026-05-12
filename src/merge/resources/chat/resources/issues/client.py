@@ -87,10 +87,7 @@ class IssuesClient:
             If included, will only include issues whose most recent action occurred after this time
 
         status : typing.Optional[IssuesListRequestStatus]
-            Status of the issue. Options: ('ONGOING', 'RESOLVED')
-
-            * `ONGOING` - ONGOING
-            * `RESOLVED` - RESOLVED
+            Status of the issue.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -263,10 +260,7 @@ class AsyncIssuesClient:
             If included, will only include issues whose most recent action occurred after this time
 
         status : typing.Optional[IssuesListRequestStatus]
-            Status of the issue. Options: ('ONGOING', 'RESOLVED')
-
-            * `ONGOING` - ONGOING
-            * `RESOLVED` - RESOLVED
+            Status of the issue.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

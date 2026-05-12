@@ -6,17 +6,17 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from .credit_notes_list_request_expand import CreditNotesListRequestExpand
+    from .credit_notes_list_request_expand_item import CreditNotesListRequestExpandItem
     from .credit_notes_list_request_remote_fields import CreditNotesListRequestRemoteFields
     from .credit_notes_list_request_show_enum_origins import CreditNotesListRequestShowEnumOrigins
-    from .credit_notes_retrieve_request_expand import CreditNotesRetrieveRequestExpand
+    from .credit_notes_retrieve_request_expand_item import CreditNotesRetrieveRequestExpandItem
     from .credit_notes_retrieve_request_remote_fields import CreditNotesRetrieveRequestRemoteFields
     from .credit_notes_retrieve_request_show_enum_origins import CreditNotesRetrieveRequestShowEnumOrigins
 _dynamic_imports: typing.Dict[str, str] = {
-    "CreditNotesListRequestExpand": ".credit_notes_list_request_expand",
+    "CreditNotesListRequestExpandItem": ".credit_notes_list_request_expand_item",
     "CreditNotesListRequestRemoteFields": ".credit_notes_list_request_remote_fields",
     "CreditNotesListRequestShowEnumOrigins": ".credit_notes_list_request_show_enum_origins",
-    "CreditNotesRetrieveRequestExpand": ".credit_notes_retrieve_request_expand",
+    "CreditNotesRetrieveRequestExpandItem": ".credit_notes_retrieve_request_expand_item",
     "CreditNotesRetrieveRequestRemoteFields": ".credit_notes_retrieve_request_remote_fields",
     "CreditNotesRetrieveRequestShowEnumOrigins": ".credit_notes_retrieve_request_show_enum_origins",
 }
@@ -42,10 +42,10 @@ def __dir__():
 
 
 __all__ = [
-    "CreditNotesListRequestExpand",
+    "CreditNotesListRequestExpandItem",
     "CreditNotesListRequestRemoteFields",
     "CreditNotesListRequestShowEnumOrigins",
-    "CreditNotesRetrieveRequestExpand",
+    "CreditNotesRetrieveRequestExpandItem",
     "CreditNotesRetrieveRequestRemoteFields",
     "CreditNotesRetrieveRequestShowEnumOrigins",
 ]

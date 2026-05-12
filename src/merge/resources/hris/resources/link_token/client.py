@@ -9,9 +9,6 @@ from ...types.common_model_scopes_body_request import CommonModelScopesBodyReque
 from ...types.individual_common_model_scope_deserializer_request import IndividualCommonModelScopeDeserializerRequest
 from ...types.link_token import LinkToken
 from .raw_client import AsyncRawLinkTokenClient, RawLinkTokenClient
-from .types.end_user_details_request_completed_account_initial_screen import (
-    EndUserDetailsRequestCompletedAccountInitialScreen,
-)
 from .types.end_user_details_request_language import EndUserDetailsRequestLanguage
 
 # this is used as the default value for optional parameters
@@ -51,11 +48,11 @@ class LinkTokenClient:
         language: typing.Optional[EndUserDetailsRequestLanguage] = OMIT,
         are_syncs_disabled: typing.Optional[bool] = OMIT,
         integration_specific_config: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
-        completed_account_initial_screen: typing.Optional[EndUserDetailsRequestCompletedAccountInitialScreen] = OMIT,
+        linked_destination_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> LinkToken:
         """
-        Creates a link token to be used when linking a new end user.
+        Creates a link token to be used when linking a new end user. The link token expires after single use.
 
         Parameters
         ----------
@@ -101,10 +98,8 @@ class LinkTokenClient:
         integration_specific_config : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
             A JSON object containing integration-specific configuration options.
 
-        completed_account_initial_screen : typing.Optional[EndUserDetailsRequestCompletedAccountInitialScreen]
-            When creating a Link token, you can specifiy the initial screen of Linking Flow for a completed Linked Account.
-
-            * `SELECTIVE_SYNC` - SELECTIVE_SYNC
+        linked_destination_id : typing.Optional[str]
+            The UUID of the linked destination that you want this Linked Account to be tied to.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -144,7 +139,7 @@ class LinkTokenClient:
             language=language,
             are_syncs_disabled=are_syncs_disabled,
             integration_specific_config=integration_specific_config,
-            completed_account_initial_screen=completed_account_initial_screen,
+            linked_destination_id=linked_destination_id,
             request_options=request_options,
         )
         return _response.data
@@ -183,11 +178,11 @@ class AsyncLinkTokenClient:
         language: typing.Optional[EndUserDetailsRequestLanguage] = OMIT,
         are_syncs_disabled: typing.Optional[bool] = OMIT,
         integration_specific_config: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
-        completed_account_initial_screen: typing.Optional[EndUserDetailsRequestCompletedAccountInitialScreen] = OMIT,
+        linked_destination_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> LinkToken:
         """
-        Creates a link token to be used when linking a new end user.
+        Creates a link token to be used when linking a new end user. The link token expires after single use.
 
         Parameters
         ----------
@@ -233,10 +228,8 @@ class AsyncLinkTokenClient:
         integration_specific_config : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
             A JSON object containing integration-specific configuration options.
 
-        completed_account_initial_screen : typing.Optional[EndUserDetailsRequestCompletedAccountInitialScreen]
-            When creating a Link token, you can specifiy the initial screen of Linking Flow for a completed Linked Account.
-
-            * `SELECTIVE_SYNC` - SELECTIVE_SYNC
+        linked_destination_id : typing.Optional[str]
+            The UUID of the linked destination that you want this Linked Account to be tied to.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -284,7 +277,7 @@ class AsyncLinkTokenClient:
             language=language,
             are_syncs_disabled=are_syncs_disabled,
             integration_specific_config=integration_specific_config,
-            completed_account_initial_screen=completed_account_initial_screen,
+            linked_destination_id=linked_destination_id,
             request_options=request_options,
         )
         return _response.data
