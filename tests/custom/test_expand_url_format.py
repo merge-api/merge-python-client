@@ -4,11 +4,11 @@ import httpx
 import pytest
 
 from merge import AsyncMerge, Merge
-from merge.resources.crm.resources.contacts.types.contacts_list_request_expand import (
-    ContactsListRequestExpand,
+from merge.resources.crm.resources.contacts.types.contacts_list_request_expand_item import (
+    ContactsListRequestExpandItem,
 )
-from merge.resources.ticketing.resources.tickets.types.tickets_list_request_expand import (
-    TicketsListRequestExpand,
+from merge.resources.ticketing.resources.tickets.types.tickets_list_request_expand_item import (
+    TicketsListRequestExpandItem,
 )
 from merge.resources.ticketing.resources.tickets.types.tickets_list_request_remote_fields import (
     TicketsListRequestRemoteFields,
@@ -16,11 +16,11 @@ from merge.resources.ticketing.resources.tickets.types.tickets_list_request_remo
 from merge.resources.ticketing.resources.tickets.types.tickets_list_request_show_enum_origins import (
     TicketsListRequestShowEnumOrigins,
 )
-from merge.resources.ticketing.resources.tickets.types.tickets_retrieve_request_expand import (
-    TicketsRetrieveRequestExpand,
+from merge.resources.ticketing.resources.tickets.types.tickets_retrieve_request_expand_item import (
+    TicketsRetrieveRequestExpandItem,
 )
-from merge.resources.ticketing.resources.tickets.types.tickets_viewers_list_request_expand import (
-    TicketsViewersListRequestExpand,
+from merge.resources.ticketing.resources.tickets.types.tickets_viewers_list_request_expand_item import (
+    TicketsViewersListRequestExpandItem,
 )
 
 
@@ -86,14 +86,19 @@ def test_expand_csv_string(client_and_requests):
 
 def test_expand_combined_enum_single_relation(client_and_requests):
     client, reqs = client_and_requests
-    client.ticketing.tickets.list(expand=TicketsListRequestExpand.ACCOUNT, page_size=1)
+    client.ticketing.tickets.list(expand=TicketsListRequestExpandItem.ACCOUNT, page_size=1)
     assert expand_param(reqs[0]) == ["account"]
 
 
 def test_expand_combined_enum_multi_relation(client_and_requests):
     client, reqs = client_and_requests
     client.ticketing.tickets.list(
-        expand=TicketsListRequestExpand.ASSIGNEES_ACCOUNT_CREATOR, page_size=1
+        expand=[
+            TicketsListRequestExpandItem.ASSIGNEES,
+            TicketsListRequestExpandItem.ACCOUNT,
+            TicketsListRequestExpandItem.CREATOR,
+        ],
+        page_size=1,
     )
     assert expand_param(reqs[0]) == ["assignees,account,creator"]
 
@@ -101,7 +106,12 @@ def test_expand_combined_enum_multi_relation(client_and_requests):
 def test_string_and_enum_produce_same_url(client_and_requests):
     client, reqs = client_and_requests
     client.ticketing.tickets.list(
-        expand=TicketsListRequestExpand.ASSIGNEES_ACCOUNT_CREATOR, page_size=1
+        expand=[
+            TicketsListRequestExpandItem.ASSIGNEES,
+            TicketsListRequestExpandItem.ACCOUNT,
+            TicketsListRequestExpandItem.CREATOR,
+        ],
+        page_size=1,
     )
     client.ticketing.tickets.list(expand="assignees,account,creator", page_size=1)
     assert expand_param(reqs[0]) == expand_param(reqs[1])
@@ -143,7 +153,12 @@ async def test_async_expand_csv_string(async_client_and_requests):
 async def test_async_expand_combined_enum_multi(async_client_and_requests):
     client, reqs = async_client_and_requests
     await client.ticketing.tickets.list(
-        expand=TicketsListRequestExpand.ASSIGNEES_ACCOUNT_CREATOR, page_size=1
+        expand=[
+            TicketsListRequestExpandItem.ASSIGNEES,
+            TicketsListRequestExpandItem.ACCOUNT,
+            TicketsListRequestExpandItem.CREATOR,
+        ],
+        page_size=1,
     )
     assert expand_param(reqs[0]) == ["assignees,account,creator"]
 
@@ -165,7 +180,11 @@ def test_retrieve_endpoint_expand():
     client = Merge(account_token="t", api_key="k", httpx_client=httpx_client)
     try:
         client.ticketing.tickets.retrieve(
-            "some-id", expand=TicketsRetrieveRequestExpand.ACCOUNT_CREATOR
+            "some-id",
+            expand=[
+                TicketsRetrieveRequestExpandItem.ACCOUNT,
+                TicketsRetrieveRequestExpandItem.CREATOR,
+            ],
         )
     except Exception:
         pass
@@ -175,14 +194,23 @@ def test_retrieve_endpoint_expand():
 def test_viewers_list_endpoint_expand(client_and_requests):
     client, reqs = client_and_requests
     client.ticketing.tickets.viewers_list(
-        "some-id", expand=TicketsViewersListRequestExpand.USER_TEAM
+        "some-id",
+        expand=[
+            TicketsViewersListRequestExpandItem.USER,
+            TicketsViewersListRequestExpandItem.TEAM,
+        ],
     )
     assert expand_param(reqs[0]) == ["user,team"]
 
 
 def test_cross_category_expand(client_and_requests):
     client, reqs = client_and_requests
-    client.crm.contacts.list(expand=ContactsListRequestExpand.ACCOUNT_OWNER)
+    client.crm.contacts.list(
+        expand=[
+            ContactsListRequestExpandItem.ACCOUNT,
+            ContactsListRequestExpandItem.OWNER,
+        ],
+    )
     assert expand_param(reqs[0]) == ["account,owner"]
 
 

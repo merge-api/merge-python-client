@@ -1,12 +1,12 @@
 import os
 import pytest
 from merge import Merge
-from merge.resources.knowledgebase.resources.articles.types.articles_list_request_expand import ArticlesListRequestExpand
-from merge.resources.knowledgebase.resources.articles.types.articles_retrieve_request_expand import ArticlesRetrieveRequestExpand
-from merge.resources.knowledgebase.resources.containers.types.containers_list_request_expand import ContainersListRequestExpand
-from merge.resources.knowledgebase.resources.containers.types.containers_retrieve_request_expand import ContainersRetrieveRequestExpand
-from merge.resources.knowledgebase.resources.groups.types.groups_list_request_expand import GroupsListRequestExpand
-from merge.resources.knowledgebase.resources.groups.types.groups_retrieve_request_expand import GroupsRetrieveRequestExpand
+from merge.resources.knowledgebase.resources.articles.types.articles_list_request_expand_item import ArticlesListRequestExpandItem
+from merge.resources.knowledgebase.resources.articles.types.articles_retrieve_request_expand_item import ArticlesRetrieveRequestExpandItem
+from merge.resources.knowledgebase.resources.containers.types.containers_list_request_expand_item import ContainersListRequestExpandItem
+from merge.resources.knowledgebase.resources.containers.types.containers_retrieve_request_expand_item import ContainersRetrieveRequestExpandItem
+from merge.resources.knowledgebase.resources.groups.types.groups_list_request_expand_item import GroupsListRequestExpandItem
+from merge.resources.knowledgebase.resources.groups.types.groups_retrieve_request_expand_item import GroupsRetrieveRequestExpandItem
 
 
 @pytest.fixture
@@ -26,19 +26,19 @@ def test_articles_list(client):
     assert isinstance(response.results, list)
 
 def test_articles_list_with_expand_author(client):
-    response = client.knowledgebase.articles.list(expand=ArticlesListRequestExpand.AUTHOR)
+    response = client.knowledgebase.articles.list(expand=ArticlesListRequestExpandItem.AUTHOR)
     assert response is not None
     assert hasattr(response, 'results')
     assert isinstance(response.results, list)
 
 def test_articles_list_with_expand_attachments(client):
-    response = client.knowledgebase.articles.list(expand=ArticlesListRequestExpand.ATTACHMENTS)
+    response = client.knowledgebase.articles.list(expand=ArticlesListRequestExpandItem.ATTACHMENTS)
     assert response is not None
     assert hasattr(response, 'results')
     assert isinstance(response.results, list)
 
 def test_articles_list_with_expand_permissions(client):
-    response = client.knowledgebase.articles.list(expand=ArticlesListRequestExpand.PERMISSIONS)
+    response = client.knowledgebase.articles.list(expand=ArticlesListRequestExpandItem.PERMISSIONS)
     assert response is not None
     assert hasattr(response, 'results')
     assert isinstance(response.results, list)
@@ -74,13 +74,13 @@ def test_containers_retrieve(client):
         assert container.id == container_id
 
 def test_containers_list_with_expand_permissions(client):
-    response = client.knowledgebase.containers.list(expand=ContainersListRequestExpand.PERMISSIONS)
+    response = client.knowledgebase.containers.list(expand=ContainersListRequestExpandItem.PERMISSIONS)
     assert response is not None
     assert hasattr(response, 'results')
     assert isinstance(response.results, list)
 
 def test_containers_list_with_expand_parent_container(client):
-    response = client.knowledgebase.containers.list(expand=ContainersListRequestExpand.PARENT_CONTAINER)
+    response = client.knowledgebase.containers.list(expand=ContainersListRequestExpandItem.PARENT_CONTAINER)
     assert response is not None
     assert hasattr(response, 'results')
     assert isinstance(response.results, list)
@@ -90,7 +90,7 @@ def test_containers_retrieve_with_expand_permissions(client):
 
     if containers_response.results:
         container_id = containers_response.results[0].id
-        container = client.knowledgebase.containers.retrieve(id=container_id, expand=ContainersRetrieveRequestExpand.PERMISSIONS)
+        container = client.knowledgebase.containers.retrieve(id=container_id, expand=ContainersRetrieveRequestExpandItem.PERMISSIONS)
         assert container is not None
         assert container.id == container_id
 
@@ -99,7 +99,7 @@ def test_containers_retrieve_with_expand_parent_container(client):
 
     if containers_response.results:
         container_id = containers_response.results[0].id
-        container = client.knowledgebase.containers.retrieve(id=container_id, expand=ContainersRetrieveRequestExpand.PARENT_CONTAINER)
+        container = client.knowledgebase.containers.retrieve(id=container_id, expand=ContainersRetrieveRequestExpandItem.PARENT_CONTAINER)
         assert container is not None
         assert container.id == container_id
 
@@ -137,13 +137,13 @@ def test_groups_list(client):
     assert isinstance(response.results, list)
 
 def test_groups_list_with_expand_users(client):
-    response = client.knowledgebase.groups.list(expand=GroupsListRequestExpand.USERS)
+    response = client.knowledgebase.groups.list(expand=GroupsListRequestExpandItem.USERS)
     assert response is not None
     assert hasattr(response, 'results')
     assert isinstance(response.results, list)
 
 def test_groups_list_with_expand_parent_group(client):
-    response = client.knowledgebase.groups.list(expand=GroupsListRequestExpand.PARENT_GROUP)
+    response = client.knowledgebase.groups.list(expand=GroupsListRequestExpandItem.PARENT_GROUP)
     assert response is not None
     assert hasattr(response, 'results')
     assert isinstance(response.results, list)
