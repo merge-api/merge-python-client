@@ -6,12 +6,13 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from . import accounting, ats, chat, crm, filestorage, hris, knowledgebase, ticketing
+    from . import accounting, ats, chat, crm, email, filestorage, hris, knowledgebase, ticketing
 _dynamic_imports: typing.Dict[str, str] = {
     "accounting": ".",
     "ats": ".",
     "chat": ".",
     "crm": ".",
+    "email": ".",
     "filestorage": ".",
     "hris": ".",
     "knowledgebase": ".",
@@ -38,4 +39,4 @@ def __dir__():
     return sorted(lazy_attrs)
 
 
-__all__ = ["accounting", "ats", "chat", "crm", "filestorage", "hris", "knowledgebase", "ticketing"]
+__all__ = ["accounting", "ats", "chat", "crm", "email", "filestorage", "hris", "knowledgebase", "ticketing"]
