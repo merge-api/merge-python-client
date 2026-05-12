@@ -13,8 +13,8 @@ from .....core.request_options import RequestOptions
 from .....core.unchecked_base_model import construct_type
 from ...types.paginated_scorecard_list import PaginatedScorecardList
 from ...types.scorecard import Scorecard
-from .types.scorecards_list_request_expand import ScorecardsListRequestExpand
-from .types.scorecards_retrieve_request_expand import ScorecardsRetrieveRequestExpand
+from .types.scorecards_list_request_expand_item import ScorecardsListRequestExpandItem
+from .types.scorecards_retrieve_request_expand_item import ScorecardsRetrieveRequestExpandItem
 
 
 class RawScorecardsClient:
@@ -28,7 +28,9 @@ class RawScorecardsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[ScorecardsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ScorecardsListRequestExpandItem, typing.Sequence[ScorecardsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -59,7 +61,7 @@ class RawScorecardsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[ScorecardsListRequestExpand]
+        expand : typing.Optional[typing.Union[ScorecardsListRequestExpandItem, typing.Sequence[ScorecardsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -84,7 +86,7 @@ class RawScorecardsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_fields : typing.Optional[typing.Literal["overall_recommendation"]]
             Deprecated. Use show_enum_origins.
@@ -145,7 +147,9 @@ class RawScorecardsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[ScorecardsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ScorecardsRetrieveRequestExpandItem, typing.Sequence[ScorecardsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["overall_recommendation"]] = None,
@@ -159,7 +163,7 @@ class RawScorecardsClient:
         ----------
         id : str
 
-        expand : typing.Optional[ScorecardsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[ScorecardsRetrieveRequestExpandItem, typing.Sequence[ScorecardsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -221,7 +225,9 @@ class AsyncRawScorecardsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[ScorecardsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ScorecardsListRequestExpandItem, typing.Sequence[ScorecardsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -252,7 +258,7 @@ class AsyncRawScorecardsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[ScorecardsListRequestExpand]
+        expand : typing.Optional[typing.Union[ScorecardsListRequestExpandItem, typing.Sequence[ScorecardsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -277,7 +283,7 @@ class AsyncRawScorecardsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_fields : typing.Optional[typing.Literal["overall_recommendation"]]
             Deprecated. Use show_enum_origins.
@@ -338,7 +344,9 @@ class AsyncRawScorecardsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[ScorecardsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ScorecardsRetrieveRequestExpandItem, typing.Sequence[ScorecardsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["overall_recommendation"]] = None,
@@ -352,7 +360,7 @@ class AsyncRawScorecardsClient:
         ----------
         id : str
 
-        expand : typing.Optional[ScorecardsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[ScorecardsRetrieveRequestExpandItem, typing.Sequence[ScorecardsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

@@ -31,6 +31,7 @@ class UsersClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
+        email_address: typing.Optional[str] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -55,6 +56,9 @@ class UsersClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
+        email_address : typing.Optional[str]
+            If provided, will only return users with emails equal to this value (case insensitive).
+
         include_deleted_data : typing.Optional[bool]
             Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
 
@@ -74,7 +78,7 @@ class UsersClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -105,6 +109,7 @@ class UsersClient:
                 "2024-01-15 09:30:00+00:00",
             ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            email_address="email_address",
             include_deleted_data=True,
             include_remote_data=True,
             include_shell_data=True,
@@ -123,6 +128,7 @@ class UsersClient:
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
+            email_address=email_address,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
             include_shell_data=include_shell_data,
@@ -208,6 +214,7 @@ class AsyncUsersClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
+        email_address: typing.Optional[str] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -232,6 +239,9 @@ class AsyncUsersClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
+        email_address : typing.Optional[str]
+            If provided, will only return users with emails equal to this value (case insensitive).
+
         include_deleted_data : typing.Optional[bool]
             Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
 
@@ -251,7 +261,7 @@ class AsyncUsersClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -286,6 +296,7 @@ class AsyncUsersClient:
                     "2024-01-15 09:30:00+00:00",
                 ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                email_address="email_address",
                 include_deleted_data=True,
                 include_remote_data=True,
                 include_shell_data=True,
@@ -307,6 +318,7 @@ class AsyncUsersClient:
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
+            email_address=email_address,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
             include_shell_data=include_shell_data,

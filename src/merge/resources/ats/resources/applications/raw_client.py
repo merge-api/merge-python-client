@@ -16,8 +16,8 @@ from ...types.application_request import ApplicationRequest
 from ...types.application_response import ApplicationResponse
 from ...types.meta_response import MetaResponse
 from ...types.paginated_application_list import PaginatedApplicationList
-from .types.applications_list_request_expand import ApplicationsListRequestExpand
-from .types.applications_retrieve_request_expand import ApplicationsRetrieveRequestExpand
+from .types.applications_list_request_expand_item import ApplicationsListRequestExpandItem
+from .types.applications_retrieve_request_expand_item import ApplicationsRetrieveRequestExpandItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -36,7 +36,9 @@ class RawApplicationsClient:
         credited_to_id: typing.Optional[str] = None,
         current_stage_id: typing.Optional[str] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[ApplicationsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ApplicationsListRequestExpandItem, typing.Sequence[ApplicationsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -72,7 +74,7 @@ class RawApplicationsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[ApplicationsListRequestExpand]
+        expand : typing.Optional[typing.Union[ApplicationsListRequestExpandItem, typing.Sequence[ApplicationsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -223,7 +225,9 @@ class RawApplicationsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[ApplicationsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ApplicationsRetrieveRequestExpandItem, typing.Sequence[ApplicationsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -235,7 +239,7 @@ class RawApplicationsClient:
         ----------
         id : str
 
-        expand : typing.Optional[ApplicationsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[ApplicationsRetrieveRequestExpandItem, typing.Sequence[ApplicationsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -404,7 +408,9 @@ class AsyncRawApplicationsClient:
         credited_to_id: typing.Optional[str] = None,
         current_stage_id: typing.Optional[str] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[ApplicationsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ApplicationsListRequestExpandItem, typing.Sequence[ApplicationsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -440,7 +446,7 @@ class AsyncRawApplicationsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[ApplicationsListRequestExpand]
+        expand : typing.Optional[typing.Union[ApplicationsListRequestExpandItem, typing.Sequence[ApplicationsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -591,7 +597,9 @@ class AsyncRawApplicationsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[ApplicationsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ApplicationsRetrieveRequestExpandItem, typing.Sequence[ApplicationsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -603,7 +611,7 @@ class AsyncRawApplicationsClient:
         ----------
         id : str
 
-        expand : typing.Optional[ApplicationsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[ApplicationsRetrieveRequestExpandItem, typing.Sequence[ApplicationsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

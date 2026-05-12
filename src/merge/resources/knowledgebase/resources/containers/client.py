@@ -8,9 +8,9 @@ from .....core.request_options import RequestOptions
 from ...types.container import Container
 from ...types.paginated_container_list import PaginatedContainerList
 from .raw_client import AsyncRawContainersClient, RawContainersClient
-from .types.containers_list_request_expand import ContainersListRequestExpand
+from .types.containers_list_request_expand_item import ContainersListRequestExpandItem
 from .types.containers_list_request_type import ContainersListRequestType
-from .types.containers_retrieve_request_expand import ContainersRetrieveRequestExpand
+from .types.containers_retrieve_request_expand_item import ContainersRetrieveRequestExpandItem
 
 
 class ContainersClient:
@@ -34,7 +34,9 @@ class ContainersClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[ContainersListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ContainersListRequestExpandItem, typing.Sequence[ContainersListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -61,7 +63,7 @@ class ContainersClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[ContainersListRequestExpand]
+        expand : typing.Optional[typing.Union[ContainersListRequestExpandItem, typing.Sequence[ContainersListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -108,7 +110,6 @@ class ContainersClient:
 
         from merge import Merge
         from merge.resources.knowledgebase.resources.containers import (
-            ContainersListRequestExpand,
             ContainersListRequestType,
         )
 
@@ -124,7 +125,6 @@ class ContainersClient:
                 "2024-01-15 09:30:00+00:00",
             ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            expand=ContainersListRequestExpand.PARENT_ARTICLE,
             include_deleted_data=True,
             include_remote_data=True,
             include_shell_data=True,
@@ -164,7 +164,9 @@ class ContainersClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[ContainersRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ContainersRetrieveRequestExpandItem, typing.Sequence[ContainersRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -176,7 +178,7 @@ class ContainersClient:
         ----------
         id : str
 
-        expand : typing.Optional[ContainersRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[ContainersRetrieveRequestExpandItem, typing.Sequence[ContainersRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -196,9 +198,6 @@ class ContainersClient:
         Examples
         --------
         from merge import Merge
-        from merge.resources.knowledgebase.resources.containers import (
-            ContainersRetrieveRequestExpand,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -206,7 +205,6 @@ class ContainersClient:
         )
         client.knowledgebase.containers.retrieve(
             id="id",
-            expand=ContainersRetrieveRequestExpand.PARENT_ARTICLE,
             include_remote_data=True,
             include_shell_data=True,
         )
@@ -242,7 +240,9 @@ class AsyncContainersClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[ContainersListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ContainersListRequestExpandItem, typing.Sequence[ContainersListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -269,7 +269,7 @@ class AsyncContainersClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[ContainersListRequestExpand]
+        expand : typing.Optional[typing.Union[ContainersListRequestExpandItem, typing.Sequence[ContainersListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -317,7 +317,6 @@ class AsyncContainersClient:
 
         from merge import AsyncMerge
         from merge.resources.knowledgebase.resources.containers import (
-            ContainersListRequestExpand,
             ContainersListRequestType,
         )
 
@@ -336,7 +335,6 @@ class AsyncContainersClient:
                     "2024-01-15 09:30:00+00:00",
                 ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                expand=ContainersListRequestExpand.PARENT_ARTICLE,
                 include_deleted_data=True,
                 include_remote_data=True,
                 include_shell_data=True,
@@ -379,7 +377,9 @@ class AsyncContainersClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[ContainersRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ContainersRetrieveRequestExpandItem, typing.Sequence[ContainersRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -391,7 +391,7 @@ class AsyncContainersClient:
         ----------
         id : str
 
-        expand : typing.Optional[ContainersRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[ContainersRetrieveRequestExpandItem, typing.Sequence[ContainersRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -413,9 +413,6 @@ class AsyncContainersClient:
         import asyncio
 
         from merge import AsyncMerge
-        from merge.resources.knowledgebase.resources.containers import (
-            ContainersRetrieveRequestExpand,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -426,7 +423,6 @@ class AsyncContainersClient:
         async def main() -> None:
             await client.knowledgebase.containers.retrieve(
                 id="id",
-                expand=ContainersRetrieveRequestExpand.PARENT_ARTICLE,
                 include_remote_data=True,
                 include_shell_data=True,
             )

@@ -30,7 +30,10 @@ def single_query_encoder(query_key: str, query_value: Any) -> List[Tuple[str, An
         else:
             obj_dict = query_value
         return traverse_query_dict(obj_dict, query_key)
-    elif isinstance(query_value, list):
+    elif isinstance(query_value, (list, tuple)):
+        if query_key == "expand" and query_value and all(isinstance(v, str) for v in query_value):
+            return [(query_key, ",".join(query_value))]
+
         encoded_values: List[Tuple[str, Any]] = []
         for value in query_value:
             if isinstance(value, pydantic.BaseModel) or isinstance(value, dict):

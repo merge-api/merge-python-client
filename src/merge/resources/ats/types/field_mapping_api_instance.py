@@ -14,6 +14,7 @@ class FieldMappingApiInstance(UncheckedBaseModel):
     is_integration_wide: typing.Optional[bool] = None
     target_field: typing.Optional[FieldMappingApiInstanceTargetField] = None
     remote_field: typing.Optional[FieldMappingApiInstanceRemoteField] = None
+    jmes_path: typing.Optional[str] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

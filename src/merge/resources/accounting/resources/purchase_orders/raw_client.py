@@ -17,8 +17,8 @@ from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClass
 from ...types.purchase_order import PurchaseOrder
 from ...types.purchase_order_request import PurchaseOrderRequest
 from ...types.purchase_order_response import PurchaseOrderResponse
-from .types.purchase_orders_list_request_expand import PurchaseOrdersListRequestExpand
-from .types.purchase_orders_retrieve_request_expand import PurchaseOrdersRetrieveRequestExpand
+from .types.purchase_orders_list_request_expand_item import PurchaseOrdersListRequestExpandItem
+from .types.purchase_orders_retrieve_request_expand_item import PurchaseOrdersRetrieveRequestExpandItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -35,7 +35,9 @@ class RawPurchaseOrdersClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[PurchaseOrdersListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[PurchaseOrdersListRequestExpandItem, typing.Sequence[PurchaseOrdersListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -67,7 +69,7 @@ class RawPurchaseOrdersClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[PurchaseOrdersListRequestExpand]
+        expand : typing.Optional[typing.Union[PurchaseOrdersListRequestExpandItem, typing.Sequence[PurchaseOrdersListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -95,7 +97,7 @@ class RawPurchaseOrdersClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_fields : typing.Optional[typing.Literal["status"]]
             Deprecated. Use show_enum_origins.
@@ -217,7 +219,11 @@ class RawPurchaseOrdersClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[PurchaseOrdersRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                PurchaseOrdersRetrieveRequestExpandItem, typing.Sequence[PurchaseOrdersRetrieveRequestExpandItem]
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -232,7 +238,7 @@ class RawPurchaseOrdersClient:
         ----------
         id : str
 
-        expand : typing.Optional[PurchaseOrdersRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[PurchaseOrdersRetrieveRequestExpandItem, typing.Sequence[PurchaseOrdersRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -322,7 +328,7 @@ class RawPurchaseOrdersClient:
             If provided, will only return remote fields classes with this is_custom value
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -433,7 +439,7 @@ class RawPurchaseOrdersClient:
             If provided, will only return remote fields classes with this is_custom value
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -484,7 +490,9 @@ class AsyncRawPurchaseOrdersClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[PurchaseOrdersListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[PurchaseOrdersListRequestExpandItem, typing.Sequence[PurchaseOrdersListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -516,7 +524,7 @@ class AsyncRawPurchaseOrdersClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[PurchaseOrdersListRequestExpand]
+        expand : typing.Optional[typing.Union[PurchaseOrdersListRequestExpandItem, typing.Sequence[PurchaseOrdersListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -544,7 +552,7 @@ class AsyncRawPurchaseOrdersClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_fields : typing.Optional[typing.Literal["status"]]
             Deprecated. Use show_enum_origins.
@@ -666,7 +674,11 @@ class AsyncRawPurchaseOrdersClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[PurchaseOrdersRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                PurchaseOrdersRetrieveRequestExpandItem, typing.Sequence[PurchaseOrdersRetrieveRequestExpandItem]
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -681,7 +693,7 @@ class AsyncRawPurchaseOrdersClient:
         ----------
         id : str
 
-        expand : typing.Optional[PurchaseOrdersRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[PurchaseOrdersRetrieveRequestExpandItem, typing.Sequence[PurchaseOrdersRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -771,7 +783,7 @@ class AsyncRawPurchaseOrdersClient:
             If provided, will only return remote fields classes with this is_custom value
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -882,7 +894,7 @@ class AsyncRawPurchaseOrdersClient:
             If provided, will only return remote fields classes with this is_custom value
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

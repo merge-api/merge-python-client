@@ -12,8 +12,8 @@ from ...types.note_response import NoteResponse
 from ...types.paginated_note_list import PaginatedNoteList
 from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClassList
 from .raw_client import AsyncRawNotesClient, RawNotesClient
-from .types.notes_list_request_expand import NotesListRequestExpand
-from .types.notes_retrieve_request_expand import NotesRetrieveRequestExpand
+from .types.notes_list_request_expand_item import NotesListRequestExpandItem
+from .types.notes_retrieve_request_expand_item import NotesRetrieveRequestExpandItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -42,7 +42,9 @@ class NotesClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[NotesListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[NotesListRequestExpandItem, typing.Sequence[NotesListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -75,7 +77,7 @@ class NotesClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[NotesListRequestExpand]
+        expand : typing.Optional[typing.Union[NotesListRequestExpandItem, typing.Sequence[NotesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -103,7 +105,7 @@ class NotesClient:
             If provided, will only return notes with this owner.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -121,7 +123,6 @@ class NotesClient:
         import datetime
 
         from merge import Merge
-        from merge.resources.crm.resources.notes import NotesListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -137,7 +138,6 @@ class NotesClient:
                 "2024-01-15 09:30:00+00:00",
             ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            expand=NotesListRequestExpand.ACCOUNT,
             include_deleted_data=True,
             include_remote_data=True,
             include_remote_fields=True,
@@ -228,7 +228,9 @@ class NotesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[NotesRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[NotesRetrieveRequestExpandItem, typing.Sequence[NotesRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -241,7 +243,7 @@ class NotesClient:
         ----------
         id : str
 
-        expand : typing.Optional[NotesRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[NotesRetrieveRequestExpandItem, typing.Sequence[NotesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -264,7 +266,6 @@ class NotesClient:
         Examples
         --------
         from merge import Merge
-        from merge.resources.crm.resources.notes import NotesRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -272,7 +273,6 @@ class NotesClient:
         )
         client.crm.notes.retrieve(
             id="id",
-            expand=NotesRetrieveRequestExpand.ACCOUNT,
             include_remote_data=True,
             include_remote_fields=True,
             include_shell_data=True,
@@ -355,7 +355,7 @@ class NotesClient:
             If provided, will only return remote fields classes with this is_custom value
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -421,7 +421,9 @@ class AsyncNotesClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[NotesListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[NotesListRequestExpandItem, typing.Sequence[NotesListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -454,7 +456,7 @@ class AsyncNotesClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[NotesListRequestExpand]
+        expand : typing.Optional[typing.Union[NotesListRequestExpandItem, typing.Sequence[NotesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -482,7 +484,7 @@ class AsyncNotesClient:
             If provided, will only return notes with this owner.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -501,7 +503,6 @@ class AsyncNotesClient:
         import datetime
 
         from merge import AsyncMerge
-        from merge.resources.crm.resources.notes import NotesListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -520,7 +521,6 @@ class AsyncNotesClient:
                     "2024-01-15 09:30:00+00:00",
                 ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                expand=NotesListRequestExpand.ACCOUNT,
                 include_deleted_data=True,
                 include_remote_data=True,
                 include_remote_fields=True,
@@ -622,7 +622,9 @@ class AsyncNotesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[NotesRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[NotesRetrieveRequestExpandItem, typing.Sequence[NotesRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -635,7 +637,7 @@ class AsyncNotesClient:
         ----------
         id : str
 
-        expand : typing.Optional[NotesRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[NotesRetrieveRequestExpandItem, typing.Sequence[NotesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -660,7 +662,6 @@ class AsyncNotesClient:
         import asyncio
 
         from merge import AsyncMerge
-        from merge.resources.crm.resources.notes import NotesRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -671,7 +672,6 @@ class AsyncNotesClient:
         async def main() -> None:
             await client.crm.notes.retrieve(
                 id="id",
-                expand=NotesRetrieveRequestExpand.ACCOUNT,
                 include_remote_data=True,
                 include_remote_fields=True,
                 include_shell_data=True,
@@ -765,7 +765,7 @@ class AsyncNotesClient:
             If provided, will only return remote fields classes with this is_custom value
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

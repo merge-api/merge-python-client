@@ -4,4 +4,4 @@ import typing
 
 from .ticket_actions_enum import TicketActionsEnum
 
-RoleTicketActionsItem = typing.Union[str, TicketActionsEnum]
+RoleTicketActionsItem = typing.Union[TicketActionsEnum, str]

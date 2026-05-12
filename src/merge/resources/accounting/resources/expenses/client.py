@@ -5,15 +5,18 @@ import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.request_options import RequestOptions
+from ...types.async_bulk_create_response import AsyncBulkCreateResponse
+from ...types.batch_objects_response import BatchObjectsResponse
 from ...types.expense import Expense
+from ...types.expense_batch_item_request import ExpenseBatchItemRequest
 from ...types.expense_request import ExpenseRequest
 from ...types.expense_response import ExpenseResponse
 from ...types.meta_response import MetaResponse
 from ...types.paginated_expense_list import PaginatedExpenseList
 from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClassList
 from .raw_client import AsyncRawExpensesClient, RawExpensesClient
-from .types.expenses_list_request_expand import ExpensesListRequestExpand
-from .types.expenses_retrieve_request_expand import ExpensesRetrieveRequestExpand
+from .types.expenses_list_request_expand_item import ExpensesListRequestExpandItem
+from .types.expenses_retrieve_request_expand_item import ExpensesRetrieveRequestExpandItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -41,7 +44,9 @@ class ExpensesClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[ExpensesListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ExpensesListRequestExpandItem, typing.Sequence[ExpensesListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -71,7 +76,7 @@ class ExpensesClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[ExpensesListRequestExpand]
+        expand : typing.Optional[typing.Union[ExpensesListRequestExpandItem, typing.Sequence[ExpensesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -93,7 +98,7 @@ class ExpensesClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -117,9 +122,6 @@ class ExpensesClient:
         import datetime
 
         from merge import Merge
-        from merge.resources.accounting.resources.expenses import (
-            ExpensesListRequestExpand,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -134,7 +136,6 @@ class ExpensesClient:
                 "2024-01-15 09:30:00+00:00",
             ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            expand=ExpensesListRequestExpand.ACCOUNT,
             include_deleted_data=True,
             include_remote_data=True,
             include_remote_fields=True,
@@ -228,7 +229,9 @@ class ExpensesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[ExpensesRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ExpensesRetrieveRequestExpandItem, typing.Sequence[ExpensesRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -241,7 +244,7 @@ class ExpensesClient:
         ----------
         id : str
 
-        expand : typing.Optional[ExpensesRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[ExpensesRetrieveRequestExpandItem, typing.Sequence[ExpensesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -264,9 +267,6 @@ class ExpensesClient:
         Examples
         --------
         from merge import Merge
-        from merge.resources.accounting.resources.expenses import (
-            ExpensesRetrieveRequestExpand,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -274,7 +274,6 @@ class ExpensesClient:
         )
         client.accounting.expenses.retrieve(
             id="id",
-            expand=ExpensesRetrieveRequestExpand.ACCOUNT,
             include_remote_data=True,
             include_remote_fields=True,
             include_shell_data=True,
@@ -288,6 +287,81 @@ class ExpensesClient:
             include_shell_data=include_shell_data,
             request_options=request_options,
         )
+        return _response.data
+
+    def bulk_create(
+        self,
+        *,
+        batch_items: typing.Sequence[ExpenseBatchItemRequest],
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncBulkCreateResponse:
+        """
+        Creates multiple `Expense` objects with the given values.
+
+        Parameters
+        ----------
+        batch_items : typing.Sequence[ExpenseBatchItemRequest]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncBulkCreateResponse
+
+
+        Examples
+        --------
+        from merge import Merge
+        from merge.resources.accounting import ExpenseBatchItemRequest, ExpenseRequest
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.accounting.expenses.bulk_create(
+            batch_items=[
+                ExpenseBatchItemRequest(
+                    item_id="item_id",
+                    payload=ExpenseRequest(),
+                )
+            ],
+        )
+        """
+        _response = self._raw_client.bulk_create(batch_items=batch_items, request_options=request_options)
+        return _response.data
+
+    def bulk_retrieve(
+        self, batch_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> BatchObjectsResponse:
+        """
+        Returns the status and results of an `Expense` bulk create batch.
+
+        Parameters
+        ----------
+        batch_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        BatchObjectsResponse
+
+
+        Examples
+        --------
+        from merge import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.accounting.expenses.bulk_retrieve(
+            batch_id="batch_id",
+        )
+        """
+        _response = self._raw_client.bulk_retrieve(batch_id, request_options=request_options)
         return _response.data
 
     def lines_remote_field_classes_list(
@@ -326,7 +400,7 @@ class ExpensesClient:
             If provided, will only return remote fields classes with this is_custom value
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -429,7 +503,7 @@ class ExpensesClient:
             If provided, will only return remote fields classes with this is_custom value
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -492,7 +566,9 @@ class AsyncExpensesClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[ExpensesListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ExpensesListRequestExpandItem, typing.Sequence[ExpensesListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -522,7 +598,7 @@ class AsyncExpensesClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[ExpensesListRequestExpand]
+        expand : typing.Optional[typing.Union[ExpensesListRequestExpandItem, typing.Sequence[ExpensesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -544,7 +620,7 @@ class AsyncExpensesClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -569,9 +645,6 @@ class AsyncExpensesClient:
         import datetime
 
         from merge import AsyncMerge
-        from merge.resources.accounting.resources.expenses import (
-            ExpensesListRequestExpand,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -589,7 +662,6 @@ class AsyncExpensesClient:
                     "2024-01-15 09:30:00+00:00",
                 ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                expand=ExpensesListRequestExpand.ACCOUNT,
                 include_deleted_data=True,
                 include_remote_data=True,
                 include_remote_fields=True,
@@ -694,7 +766,9 @@ class AsyncExpensesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[ExpensesRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ExpensesRetrieveRequestExpandItem, typing.Sequence[ExpensesRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -707,7 +781,7 @@ class AsyncExpensesClient:
         ----------
         id : str
 
-        expand : typing.Optional[ExpensesRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[ExpensesRetrieveRequestExpandItem, typing.Sequence[ExpensesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -732,9 +806,6 @@ class AsyncExpensesClient:
         import asyncio
 
         from merge import AsyncMerge
-        from merge.resources.accounting.resources.expenses import (
-            ExpensesRetrieveRequestExpand,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -745,7 +816,6 @@ class AsyncExpensesClient:
         async def main() -> None:
             await client.accounting.expenses.retrieve(
                 id="id",
-                expand=ExpensesRetrieveRequestExpand.ACCOUNT,
                 include_remote_data=True,
                 include_remote_fields=True,
                 include_shell_data=True,
@@ -762,6 +832,97 @@ class AsyncExpensesClient:
             include_shell_data=include_shell_data,
             request_options=request_options,
         )
+        return _response.data
+
+    async def bulk_create(
+        self,
+        *,
+        batch_items: typing.Sequence[ExpenseBatchItemRequest],
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncBulkCreateResponse:
+        """
+        Creates multiple `Expense` objects with the given values.
+
+        Parameters
+        ----------
+        batch_items : typing.Sequence[ExpenseBatchItemRequest]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncBulkCreateResponse
+
+
+        Examples
+        --------
+        import asyncio
+
+        from merge import AsyncMerge
+        from merge.resources.accounting import ExpenseBatchItemRequest, ExpenseRequest
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.accounting.expenses.bulk_create(
+                batch_items=[
+                    ExpenseBatchItemRequest(
+                        item_id="item_id",
+                        payload=ExpenseRequest(),
+                    )
+                ],
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.bulk_create(batch_items=batch_items, request_options=request_options)
+        return _response.data
+
+    async def bulk_retrieve(
+        self, batch_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> BatchObjectsResponse:
+        """
+        Returns the status and results of an `Expense` bulk create batch.
+
+        Parameters
+        ----------
+        batch_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        BatchObjectsResponse
+
+
+        Examples
+        --------
+        import asyncio
+
+        from merge import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.accounting.expenses.bulk_retrieve(
+                batch_id="batch_id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.bulk_retrieve(batch_id, request_options=request_options)
         return _response.data
 
     async def lines_remote_field_classes_list(
@@ -800,7 +961,7 @@ class AsyncExpensesClient:
             If provided, will only return remote fields classes with this is_custom value
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -919,7 +1080,7 @@ class AsyncExpensesClient:
             If provided, will only return remote fields classes with this is_custom value
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

@@ -37,7 +37,9 @@ class AttachmentsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["ticket"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["ticket"], typing.Sequence[typing.Literal["ticket"]]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -63,7 +65,7 @@ class AttachmentsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["ticket"]]
+        expand : typing.Optional[typing.Union[typing.Literal["ticket"], typing.Sequence[typing.Literal["ticket"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -82,7 +84,7 @@ class AttachmentsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         remote_created_after : typing.Optional[dt.datetime]
             If provided, will only return attachments created in the third party platform after this datetime.
@@ -207,7 +209,9 @@ class AttachmentsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["ticket"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["ticket"], typing.Sequence[typing.Literal["ticket"]]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -219,7 +223,7 @@ class AttachmentsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["ticket"]]
+        expand : typing.Optional[typing.Union[typing.Literal["ticket"], typing.Sequence[typing.Literal["ticket"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -342,7 +346,9 @@ class AsyncAttachmentsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["ticket"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["ticket"], typing.Sequence[typing.Literal["ticket"]]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -368,7 +374,7 @@ class AsyncAttachmentsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["ticket"]]
+        expand : typing.Optional[typing.Union[typing.Literal["ticket"], typing.Sequence[typing.Literal["ticket"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -387,7 +393,7 @@ class AsyncAttachmentsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         remote_created_after : typing.Optional[dt.datetime]
             If provided, will only return attachments created in the third party platform after this datetime.
@@ -527,7 +533,9 @@ class AsyncAttachmentsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["ticket"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["ticket"], typing.Sequence[typing.Literal["ticket"]]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -539,7 +547,7 @@ class AsyncAttachmentsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["ticket"]]
+        expand : typing.Optional[typing.Union[typing.Literal["ticket"], typing.Sequence[typing.Literal["ticket"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

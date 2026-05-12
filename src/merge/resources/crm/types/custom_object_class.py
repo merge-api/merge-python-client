@@ -6,7 +6,7 @@ import typing
 import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2
 from ....core.unchecked_base_model import UncheckedBaseModel
-from .remote_field_class_for_custom_object_class import RemoteFieldClassForCustomObjectClass
+from .custom_object_class_fields_item import CustomObjectClassFieldsItem
 
 
 class CustomObjectClass(UncheckedBaseModel):
@@ -41,7 +41,7 @@ class CustomObjectClass(UncheckedBaseModel):
     The custom object class's singular and plural labels.
     """
 
-    fields: typing.Optional[typing.List[RemoteFieldClassForCustomObjectClass]] = None
+    fields: typing.Optional[typing.List[CustomObjectClassFieldsItem]] = None
     association_types: typing.Optional[typing.List[typing.Dict[str, typing.Optional[typing.Any]]]] = pydantic.Field(
         default=None
     )
