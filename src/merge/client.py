@@ -13,6 +13,7 @@ if typing.TYPE_CHECKING:
     from .resources.ats.client import AsyncAtsClient, AtsClient
     from .resources.chat.client import AsyncChatClient, ChatClient
     from .resources.crm.client import AsyncCrmClient, CrmClient
+    from .resources.email.client import AsyncEmailClient, EmailClient
     from .resources.filestorage.client import AsyncFilestorageClient, FilestorageClient
     from .resources.hris.client import AsyncHrisClient, HrisClient
     from .resources.knowledgebase.client import AsyncKnowledgebaseClient, KnowledgebaseClient
@@ -94,6 +95,7 @@ class Merge:
         self._hris: typing.Optional[HrisClient] = None
         self._ticketing: typing.Optional[TicketingClient] = None
         self._chat: typing.Optional[ChatClient] = None
+        self._email: typing.Optional[EmailClient] = None
         self._filestorage: typing.Optional[FilestorageClient] = None
         self._knowledgebase: typing.Optional[KnowledgebaseClient] = None
 
@@ -144,6 +146,14 @@ class Merge:
 
             self._chat = ChatClient(client_wrapper=self._client_wrapper)
         return self._chat
+
+    @property
+    def email(self):
+        if self._email is None:
+            from .resources.email.client import EmailClient  # noqa: E402
+
+            self._email = EmailClient(client_wrapper=self._client_wrapper)
+        return self._email
 
     @property
     def filestorage(self):
@@ -237,6 +247,7 @@ class AsyncMerge:
         self._hris: typing.Optional[AsyncHrisClient] = None
         self._ticketing: typing.Optional[AsyncTicketingClient] = None
         self._chat: typing.Optional[AsyncChatClient] = None
+        self._email: typing.Optional[AsyncEmailClient] = None
         self._filestorage: typing.Optional[AsyncFilestorageClient] = None
         self._knowledgebase: typing.Optional[AsyncKnowledgebaseClient] = None
 
@@ -287,6 +298,14 @@ class AsyncMerge:
 
             self._chat = AsyncChatClient(client_wrapper=self._client_wrapper)
         return self._chat
+
+    @property
+    def email(self):
+        if self._email is None:
+            from .resources.email.client import AsyncEmailClient  # noqa: E402
+
+            self._email = AsyncEmailClient(client_wrapper=self._client_wrapper)
+        return self._email
 
     @property
     def filestorage(self):
