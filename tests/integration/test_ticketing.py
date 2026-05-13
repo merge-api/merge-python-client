@@ -12,7 +12,7 @@ from merge.resources.ticketing.resources.users.types.users_list_request_expand_i
 @pytest.fixture
 def client():
     account_token = os.environ["SDK_TESTING_TICKETING_ACCOUNT_TOKEN"]
-    api_key = os.environ["SDK_TESTING_KEY"]
+    api_key = os.environ["SDK_TESTING_KEY_SECONDARY"]
 
     return Merge(
             account_token=account_token,
