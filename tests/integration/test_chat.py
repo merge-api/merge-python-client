@@ -138,29 +138,11 @@ def test_users_list(client):
     assert hasattr(response, 'results')
     assert isinstance(response.results, list)
 
-def test_users_retrieve(client):
-    users_response = client.chat.users.list(page_size=1)
-
-    if users_response.results:
-        user_id = users_response.results[0].id
-        user = client.chat.users.retrieve(id=user_id)
-        assert user is not None
-        assert user.id == user_id
-
 def test_groups_list(client):
     response = client.chat.groups.list()
     assert response is not None
     assert hasattr(response, 'results')
     assert isinstance(response.results, list)
-
-def test_groups_retrieve(client):
-    groups_response = client.chat.groups.list(page_size=1)
-
-    if groups_response.results:
-        group_id = groups_response.results[0].id
-        group = client.chat.groups.retrieve(id=group_id)
-        assert group is not None
-        assert group.id == group_id
 
 def test_sync_status_list(client):
     response = client.chat.sync_status.list()

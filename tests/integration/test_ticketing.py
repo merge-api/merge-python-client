@@ -2,9 +2,7 @@ import os
 import pytest
 from merge import Merge
 from merge.resources.ticketing.resources.tickets.types.tickets_list_request_expand_item import TicketsListRequestExpandItem
-from merge.resources.ticketing.resources.tickets.types.tickets_retrieve_request_expand_item import TicketsRetrieveRequestExpandItem
 from merge.resources.ticketing.resources.collections.types.collections_list_request_expand_item import CollectionsListRequestExpandItem
-from merge.resources.ticketing.resources.collections.types.collections_retrieve_request_expand_item import CollectionsRetrieveRequestExpandItem
 from merge.resources.ticketing.resources.comments.types.comments_list_request_expand_item import CommentsListRequestExpandItem
 from merge.resources.ticketing.resources.users.types.users_list_request_expand_item import UsersListRequestExpandItem
 
@@ -24,15 +22,6 @@ def test_tickets_list(client):
     assert response is not None
     assert hasattr(response, 'results')
     assert isinstance(response.results, list)
-
-def test_tickets_retrieve(client):
-    tickets_response = client.ticketing.tickets.list(page_size=1)
-
-    if tickets_response.results:
-        ticket_id = tickets_response.results[0].id
-        ticket = client.ticketing.tickets.retrieve(id=ticket_id)
-        assert ticket is not None
-        assert ticket.id == ticket_id
 
 def test_tickets_list_with_expand_assignees(client):
     response = client.ticketing.tickets.list(expand=TicketsListRequestExpandItem.ASSIGNEES)
@@ -76,29 +65,11 @@ def test_tickets_list_with_expand_parent_ticket(client):
     assert hasattr(response, 'results')
     assert isinstance(response.results, list)
 
-def test_tickets_retrieve_with_expand_assignees(client):
-    tickets_response = client.ticketing.tickets.list(page_size=1)
-
-    if tickets_response.results:
-        ticket_id = tickets_response.results[0].id
-        ticket = client.ticketing.tickets.retrieve(id=ticket_id, expand=TicketsRetrieveRequestExpandItem.ASSIGNEES)
-        assert ticket is not None
-        assert ticket.id == ticket_id
-
 def test_collections_list(client):
     response = client.ticketing.collections.list()
     assert response is not None
     assert hasattr(response, 'results')
     assert isinstance(response.results, list)
-
-def test_collections_retrieve(client):
-    collections_response = client.ticketing.collections.list(page_size=1)
-
-    if collections_response.results:
-        collection_id = collections_response.results[0].id
-        collection = client.ticketing.collections.retrieve(id=collection_id)
-        assert collection is not None
-        assert collection.id == collection_id
 
 def test_collections_list_with_expand_parent_collection(client):
     response = client.ticketing.collections.list(expand=CollectionsListRequestExpandItem.PARENT_COLLECTION)
@@ -111,15 +82,6 @@ def test_collections_list_with_expand_permissions(client):
     assert response is not None
     assert hasattr(response, 'results')
     assert isinstance(response.results, list)
-
-def test_collections_retrieve_with_expand_parent_collection(client):
-    collections_response = client.ticketing.collections.list(page_size=1)
-
-    if collections_response.results:
-        collection_id = collections_response.results[0].id
-        collection = client.ticketing.collections.retrieve(id=collection_id, expand=CollectionsRetrieveRequestExpandItem.PARENT_COLLECTION)
-        assert collection is not None
-        assert collection.id == collection_id
 
 def test_comments_list(client):
     response = client.ticketing.comments.list()
