@@ -171,8 +171,8 @@ def test_messages_list_with_expand_to(client):
     assert hasattr(response, 'results')
     assert isinstance(response.results, list)
 
-def test_messages_list_with_expand_folder(client):
-    response = client.email.messages.list(expand=MessagesListRequestExpandItem.FOLDER)
+def test_messages_list_with_expand_folders(client):
+    response = client.email.messages.list(expand=MessagesListRequestExpandItem.FOLDERS)
     assert response is not None
     assert hasattr(response, 'results')
     assert isinstance(response.results, list)
