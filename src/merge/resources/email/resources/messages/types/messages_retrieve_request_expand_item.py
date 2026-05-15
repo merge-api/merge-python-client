@@ -9,7 +9,7 @@ T_Result = typing.TypeVar("T_Result")
 class MessagesRetrieveRequestExpandItem(str, enum.Enum):
     BCC = "bcc"
     CC = "cc"
-    FOLDER = "folder"
+    FOLDERS = "folders"
     FROM_ADDRESS = "from_address"
     MAILBOXES = "mailboxes"
     PERMISSIONS = "permissions"
@@ -20,7 +20,7 @@ class MessagesRetrieveRequestExpandItem(str, enum.Enum):
         self,
         bcc: typing.Callable[[], T_Result],
         cc: typing.Callable[[], T_Result],
-        folder: typing.Callable[[], T_Result],
+        folders: typing.Callable[[], T_Result],
         from_address: typing.Callable[[], T_Result],
         mailboxes: typing.Callable[[], T_Result],
         permissions: typing.Callable[[], T_Result],
@@ -31,8 +31,8 @@ class MessagesRetrieveRequestExpandItem(str, enum.Enum):
             return bcc()
         if self is MessagesRetrieveRequestExpandItem.CC:
             return cc()
-        if self is MessagesRetrieveRequestExpandItem.FOLDER:
-            return folder()
+        if self is MessagesRetrieveRequestExpandItem.FOLDERS:
+            return folders()
         if self is MessagesRetrieveRequestExpandItem.FROM_ADDRESS:
             return from_address()
         if self is MessagesRetrieveRequestExpandItem.MAILBOXES:
