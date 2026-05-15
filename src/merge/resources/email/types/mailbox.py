@@ -47,11 +47,6 @@ class Mailbox(UncheckedBaseModel):
     The mailbox's type.
     """
 
-    type_native: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    Remote field for type.
-    """
-
     folders: typing.Optional[typing.List[typing.Optional[str]]] = None
     groups: typing.Optional[typing.List[typing.Optional[str]]] = None
     users: typing.Optional[typing.List[typing.Optional[str]]] = None

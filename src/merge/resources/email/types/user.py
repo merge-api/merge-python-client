@@ -46,11 +46,6 @@ class User(UncheckedBaseModel):
     The user's type.
     """
 
-    type_native: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    Remote field for type.
-    """
-
     remote_created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     When the third party's user was created.

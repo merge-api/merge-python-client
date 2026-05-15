@@ -79,11 +79,7 @@ class Message(UncheckedBaseModel):
     bcc: typing.Optional[typing.List[typing.Optional[str]]] = None
     mailboxes: typing.Optional[typing.List[typing.Optional[str]]] = None
     permissions: typing.Optional[typing.List[Permission]] = None
-    folder: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The folder that the message belongs to.
-    """
-
+    folders: typing.Optional[typing.List[typing.Optional[str]]] = None
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
