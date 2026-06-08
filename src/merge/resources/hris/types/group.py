@@ -20,6 +20,11 @@ class Group(UncheckedBaseModel):
     Fetch from the `LIST Employee` endpoint and expand groups to view an employee's groups.
     """
 
+    group_url: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The 3rd party URL of the group.
+    """
+
     id: typing.Optional[str] = None
     remote_id: typing.Optional[str] = pydantic.Field(default=None)
     """

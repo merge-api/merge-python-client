@@ -63,6 +63,7 @@ if typing.TYPE_CHECKING:
     from .language_enum import LanguageEnum
     from .last_sync_result_enum import LastSyncResultEnum
     from .link_token import LinkToken
+    from .linked_account_patch_response import LinkedAccountPatchResponse
     from .mailbox import Mailbox
     from .mailbox_field_mappings import MailboxFieldMappings
     from .mailbox_type import MailboxType
@@ -168,6 +169,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "LanguageEnum": ".language_enum",
     "LastSyncResultEnum": ".last_sync_result_enum",
     "LinkToken": ".link_token",
+    "LinkedAccountPatchResponse": ".linked_account_patch_response",
     "Mailbox": ".mailbox",
     "MailboxFieldMappings": ".mailbox_field_mappings",
     "MailboxType": ".mailbox_type",
@@ -295,6 +297,7 @@ __all__ = [
     "LanguageEnum",
     "LastSyncResultEnum",
     "LinkToken",
+    "LinkedAccountPatchResponse",
     "Mailbox",
     "MailboxFieldMappings",
     "MailboxType",

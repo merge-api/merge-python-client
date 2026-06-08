@@ -420,6 +420,10 @@ class Transaction(UncheckedBaseModel):
 
     field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
     remote_data: typing.Optional[typing.List[RemoteData]] = None
+    transaction_url: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The 3rd party URL of the transaction.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

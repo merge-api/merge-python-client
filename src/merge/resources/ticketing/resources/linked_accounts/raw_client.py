@@ -6,10 +6,15 @@ from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.http_response import AsyncHttpResponse, HttpResponse
+from .....core.jsonable_encoder import jsonable_encoder
 from .....core.request_options import RequestOptions
 from .....core.unchecked_base_model import construct_type
+from ...types.linked_account_patch_response import LinkedAccountPatchResponse
 from ...types.paginated_account_details_and_actions_list import PaginatedAccountDetailsAndActionsList
 from .types.linked_accounts_list_request_category import LinkedAccountsListRequestCategory
+
+# this is used as the default value for optional parameters
+OMIT = typing.cast(typing.Any, ...)
 
 
 class RawLinkedAccountsClient:
@@ -128,6 +133,57 @@ class RawLinkedAccountsClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
+    def partial_update(
+        self,
+        linked_account_id: str,
+        *,
+        ekm_enabled: typing.Optional[bool] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[LinkedAccountPatchResponse]:
+        """
+        Update a linked account.
+
+        Parameters
+        ----------
+        linked_account_id : str
+
+        ekm_enabled : typing.Optional[bool]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[LinkedAccountPatchResponse]
+
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"ticketing/v1/linked-accounts/{jsonable_encoder(linked_account_id)}",
+            method="PATCH",
+            json={
+                "ekm_enabled": ekm_enabled,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    LinkedAccountPatchResponse,
+                    construct_type(
+                        type_=LinkedAccountPatchResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
 
 class AsyncRawLinkedAccountsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -236,6 +292,57 @@ class AsyncRawLinkedAccountsClient:
                     PaginatedAccountDetailsAndActionsList,
                     construct_type(
                         type_=PaginatedAccountDetailsAndActionsList,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def partial_update(
+        self,
+        linked_account_id: str,
+        *,
+        ekm_enabled: typing.Optional[bool] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[LinkedAccountPatchResponse]:
+        """
+        Update a linked account.
+
+        Parameters
+        ----------
+        linked_account_id : str
+
+        ekm_enabled : typing.Optional[bool]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[LinkedAccountPatchResponse]
+
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"ticketing/v1/linked-accounts/{jsonable_encoder(linked_account_id)}",
+            method="PATCH",
+            json={
+                "ekm_enabled": ekm_enabled,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    LinkedAccountPatchResponse,
+                    construct_type(
+                        type_=LinkedAccountPatchResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

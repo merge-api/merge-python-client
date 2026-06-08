@@ -30,6 +30,11 @@ class CreditNote(UncheckedBaseModel):
     Fetch from the `LIST CreditNotes` endpoint and view a company's credit notes.
     """
 
+    credit_note_url: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The 3rd party URL of the credit note.
+    """
+
     id: typing.Optional[str] = None
     remote_id: typing.Optional[str] = pydantic.Field(default=None)
     """
