@@ -81,6 +81,7 @@ if typing.TYPE_CHECKING:
     from .language_enum import LanguageEnum
     from .last_sync_result_enum import LastSyncResultEnum
     from .link_token import LinkToken
+    from .linked_account_patch_response import LinkedAccountPatchResponse
     from .method_enum import MethodEnum
     from .model_operation import ModelOperation
     from .model_permission_deserializer import ModelPermissionDeserializer
@@ -202,6 +203,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "LanguageEnum": ".language_enum",
     "LastSyncResultEnum": ".last_sync_result_enum",
     "LinkToken": ".link_token",
+    "LinkedAccountPatchResponse": ".linked_account_patch_response",
     "MethodEnum": ".method_enum",
     "ModelOperation": ".model_operation",
     "ModelPermissionDeserializer": ".model_permission_deserializer",
@@ -345,6 +347,7 @@ __all__ = [
     "LanguageEnum",
     "LastSyncResultEnum",
     "LinkToken",
+    "LinkedAccountPatchResponse",
     "MethodEnum",
     "ModelOperation",
     "ModelPermissionDeserializer",
