@@ -27,11 +27,6 @@ class ExpenseReport(UncheckedBaseModel):
     Fetch from the `GET ExpenseReport` endpoint to view details of expense reports and their line items.
     """
 
-    expense_report_url: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The 3rd party URL of the expense report.
-    """
-
     id: typing.Optional[str] = None
     remote_id: typing.Optional[str] = pydantic.Field(default=None)
     """

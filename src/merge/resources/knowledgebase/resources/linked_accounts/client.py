@@ -4,13 +4,9 @@ import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.request_options import RequestOptions
-from ...types.linked_account_patch_response import LinkedAccountPatchResponse
 from ...types.paginated_account_details_and_actions_list import PaginatedAccountDetailsAndActionsList
 from .raw_client import AsyncRawLinkedAccountsClient, RawLinkedAccountsClient
 from .types.linked_accounts_list_request_category import LinkedAccountsListRequestCategory
-
-# this is used as the default value for optional parameters
-OMIT = typing.cast(typing.Any, ...)
 
 
 class LinkedAccountsClient:
@@ -139,47 +135,6 @@ class LinkedAccountsClient:
             page_size=page_size,
             status=status,
             request_options=request_options,
-        )
-        return _response.data
-
-    def partial_update(
-        self,
-        linked_account_id: str,
-        *,
-        ekm_enabled: typing.Optional[bool] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> LinkedAccountPatchResponse:
-        """
-        Update a linked account.
-
-        Parameters
-        ----------
-        linked_account_id : str
-
-        ekm_enabled : typing.Optional[bool]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        LinkedAccountPatchResponse
-
-
-        Examples
-        --------
-        from merge import Merge
-
-        client = Merge(
-            account_token="YOUR_ACCOUNT_TOKEN",
-            api_key="YOUR_API_KEY",
-        )
-        client.knowledgebase.linked_accounts.partial_update(
-            linked_account_id="linked_account_id",
-        )
-        """
-        _response = self._raw_client.partial_update(
-            linked_account_id, ekm_enabled=ekm_enabled, request_options=request_options
         )
         return _response.data
 
@@ -318,54 +273,5 @@ class AsyncLinkedAccountsClient:
             page_size=page_size,
             status=status,
             request_options=request_options,
-        )
-        return _response.data
-
-    async def partial_update(
-        self,
-        linked_account_id: str,
-        *,
-        ekm_enabled: typing.Optional[bool] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> LinkedAccountPatchResponse:
-        """
-        Update a linked account.
-
-        Parameters
-        ----------
-        linked_account_id : str
-
-        ekm_enabled : typing.Optional[bool]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        LinkedAccountPatchResponse
-
-
-        Examples
-        --------
-        import asyncio
-
-        from merge import AsyncMerge
-
-        client = AsyncMerge(
-            account_token="YOUR_ACCOUNT_TOKEN",
-            api_key="YOUR_API_KEY",
-        )
-
-
-        async def main() -> None:
-            await client.knowledgebase.linked_accounts.partial_update(
-                linked_account_id="linked_account_id",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.partial_update(
-            linked_account_id, ekm_enabled=ekm_enabled, request_options=request_options
         )
         return _response.data

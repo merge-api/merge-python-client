@@ -21,11 +21,6 @@ class BankFeedAccountRequest(UncheckedBaseModel):
     Fetch from the `GET BankFeedAccount` endpoint to view details of a bank feed account.
     """
 
-    bank_feed_account_url: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The 3rd party URL of the bank feed account.
-    """
-
     source_account_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The unique identifier of the source account from our customer’s platform.

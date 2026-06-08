@@ -23,11 +23,6 @@ class Project(UncheckedBaseModel):
     """
 
     id: typing.Optional[str] = None
-    project_url: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The 3rd party URL of the project.
-    """
-
     remote_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The third-party API ID of the matching object.

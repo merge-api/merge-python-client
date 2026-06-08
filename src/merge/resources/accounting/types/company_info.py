@@ -22,11 +22,6 @@ class CompanyInfo(UncheckedBaseModel):
     Fetch from the `GET CompanyInfo` endpoint and view a company's information.
     """
 
-    company_info_url: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The 3rd party URL of the company info.
-    """
-
     id: typing.Optional[str] = None
     remote_id: typing.Optional[str] = pydantic.Field(default=None)
     """
