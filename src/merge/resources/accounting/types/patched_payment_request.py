@@ -28,11 +28,6 @@ class PatchedPaymentRequest(UncheckedBaseModel):
     Fetch from the `GET Payment` endpoint and view an invoice's payment.
     """
 
-    payment_url: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The 3rd party URL of the payment.
-    """
-
     transaction_date: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The payment's transaction date.

@@ -126,7 +126,6 @@ if typing.TYPE_CHECKING:
     from .lead_status import LeadStatus
     from .lead_status_enum import LeadStatusEnum
     from .link_token import LinkToken
-    from .linked_account_patch_response import LinkedAccountPatchResponse
     from .linked_account_status import LinkedAccountStatus
     from .meta_response import MetaResponse
     from .method_enum import MethodEnum
@@ -372,7 +371,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "LeadStatus": ".lead_status",
     "LeadStatusEnum": ".lead_status_enum",
     "LinkToken": ".link_token",
-    "LinkedAccountPatchResponse": ".linked_account_patch_response",
     "LinkedAccountStatus": ".linked_account_status",
     "MetaResponse": ".meta_response",
     "MethodEnum": ".method_enum",
@@ -638,7 +636,6 @@ __all__ = [
     "LeadStatus",
     "LeadStatusEnum",
     "LinkToken",
-    "LinkedAccountPatchResponse",
     "LinkedAccountStatus",
     "MetaResponse",
     "MethodEnum",
