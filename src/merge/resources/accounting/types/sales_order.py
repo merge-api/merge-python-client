@@ -371,6 +371,11 @@ class SalesOrder(UncheckedBaseModel):
     The subsidiary associated with the order.
     """
 
+    sales_order_url: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The 3rd party URL of the sales order.
+    """
+
     status: typing.Optional[SalesOrderStatus] = pydantic.Field(default=None)
     """
     The status of the sales order.

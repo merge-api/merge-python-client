@@ -31,6 +31,11 @@ class Employee(UncheckedBaseModel):
     Fetch from the `LIST Employee` endpoint and filter by `ID` to show all employees.
     """
 
+    employee_url: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The 3rd party URL of the employee.
+    """
+
     id: typing.Optional[str] = None
     remote_id: typing.Optional[str] = pydantic.Field(default=None)
     """

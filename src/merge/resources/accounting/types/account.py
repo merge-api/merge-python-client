@@ -31,6 +31,11 @@ class Account(UncheckedBaseModel):
     Fetch from the `LIST Accounts` endpoint and view a company's accounts.
     """
 
+    account_url: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The 3rd party URL of the account.
+    """
+
     id: typing.Optional[str] = None
     remote_id: typing.Optional[str] = pydantic.Field(default=None)
     """

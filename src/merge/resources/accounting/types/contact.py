@@ -26,6 +26,11 @@ class Contact(UncheckedBaseModel):
     Fetch from the `LIST Contacts` endpoint and view a company's contacts.
     """
 
+    contact_url: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The 3rd party URL of the contact.
+    """
+
     id: typing.Optional[str] = None
     remote_id: typing.Optional[str] = pydantic.Field(default=None)
     """
