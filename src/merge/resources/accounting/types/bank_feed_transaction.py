@@ -20,6 +20,11 @@ class BankFeedTransaction(UncheckedBaseModel):
     Fetch from the `GET BankFeedTransaction` endpoint to view details of a transaction associated with a bank feed account.
     """
 
+    bank_feed_transaction_url: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The 3rd party URL of the bank feed transaction.
+    """
+
     id: typing.Optional[str] = None
     remote_id: typing.Optional[str] = pydantic.Field(default=None)
     """

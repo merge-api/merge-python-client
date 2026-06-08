@@ -62,6 +62,7 @@ if typing.TYPE_CHECKING:
     from .language_enum import LanguageEnum
     from .last_sync_result_enum import LastSyncResultEnum
     from .link_token import LinkToken
+    from .linked_account_patch_response import LinkedAccountPatchResponse
     from .member import Member
     from .member_field_mappings import MemberFieldMappings
     from .member_group import MemberGroup
@@ -162,6 +163,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "LanguageEnum": ".language_enum",
     "LastSyncResultEnum": ".last_sync_result_enum",
     "LinkToken": ".link_token",
+    "LinkedAccountPatchResponse": ".linked_account_patch_response",
     "Member": ".member",
     "MemberFieldMappings": ".member_field_mappings",
     "MemberGroup": ".member_group",
@@ -284,6 +286,7 @@ __all__ = [
     "LanguageEnum",
     "LastSyncResultEnum",
     "LinkToken",
+    "LinkedAccountPatchResponse",
     "Member",
     "MemberFieldMappings",
     "MemberGroup",
