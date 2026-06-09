@@ -6,7 +6,7 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from .resources import accounting, ats, chat, crm, email, filestorage, hris, knowledgebase, ticketing
+    from .resources import accounting, ats, calendar, chat, crm, email, filestorage, hris, knowledgebase, ticketing
     from .client import AsyncMerge, Merge
     from .environment import MergeEnvironment
     from .version import __version__
@@ -17,6 +17,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "__version__": ".version",
     "accounting": ".resources",
     "ats": ".resources",
+    "calendar": ".resources",
     "chat": ".resources",
     "crm": ".resources",
     "email": ".resources",
@@ -53,6 +54,7 @@ __all__ = [
     "__version__",
     "accounting",
     "ats",
+    "calendar",
     "chat",
     "crm",
     "email",

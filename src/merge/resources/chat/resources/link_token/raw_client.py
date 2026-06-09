@@ -46,7 +46,6 @@ class RawLinkTokenClient:
         completed_account_initial_screen: typing.Optional[EndUserDetailsRequestCompletedAccountInitialScreen] = OMIT,
         linked_destination_id: typing.Optional[str] = OMIT,
         credential_id: typing.Optional[str] = OMIT,
-        ekm_enabled: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[LinkToken]:
         """
@@ -102,9 +101,6 @@ class RawLinkTokenClient:
         credential_id : typing.Optional[str]
             The id of the credential that you want this Linked Account to be tied to.
 
-        ekm_enabled : typing.Optional[bool]
-            Whether to enable EKM (External Key Management) for this Linked Account.
-
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -133,7 +129,6 @@ class RawLinkTokenClient:
                 "completed_account_initial_screen": completed_account_initial_screen,
                 "linked_destination_id": linked_destination_id,
                 "credential_id": credential_id,
-                "ekm_enabled": ekm_enabled,
             },
             headers={
                 "content-type": "application/json",
@@ -182,7 +177,6 @@ class AsyncRawLinkTokenClient:
         completed_account_initial_screen: typing.Optional[EndUserDetailsRequestCompletedAccountInitialScreen] = OMIT,
         linked_destination_id: typing.Optional[str] = OMIT,
         credential_id: typing.Optional[str] = OMIT,
-        ekm_enabled: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[LinkToken]:
         """
@@ -238,9 +232,6 @@ class AsyncRawLinkTokenClient:
         credential_id : typing.Optional[str]
             The id of the credential that you want this Linked Account to be tied to.
 
-        ekm_enabled : typing.Optional[bool]
-            Whether to enable EKM (External Key Management) for this Linked Account.
-
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -269,7 +260,6 @@ class AsyncRawLinkTokenClient:
                 "completed_account_initial_screen": completed_account_initial_screen,
                 "linked_destination_id": linked_destination_id,
                 "credential_id": credential_id,
-                "ekm_enabled": ekm_enabled,
             },
             headers={
                 "content-type": "application/json",

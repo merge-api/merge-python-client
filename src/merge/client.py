@@ -11,6 +11,7 @@ from .environment import MergeEnvironment
 if typing.TYPE_CHECKING:
     from .resources.accounting.client import AccountingClient, AsyncAccountingClient
     from .resources.ats.client import AsyncAtsClient, AtsClient
+    from .resources.calendar.client import AsyncCalendarClient, CalendarClient
     from .resources.chat.client import AsyncChatClient, ChatClient
     from .resources.crm.client import AsyncCrmClient, CrmClient
     from .resources.email.client import AsyncEmailClient, EmailClient
@@ -94,6 +95,7 @@ class Merge:
         self._crm: typing.Optional[CrmClient] = None
         self._hris: typing.Optional[HrisClient] = None
         self._ticketing: typing.Optional[TicketingClient] = None
+        self._calendar: typing.Optional[CalendarClient] = None
         self._chat: typing.Optional[ChatClient] = None
         self._email: typing.Optional[EmailClient] = None
         self._filestorage: typing.Optional[FilestorageClient] = None
@@ -138,6 +140,14 @@ class Merge:
 
             self._ticketing = TicketingClient(client_wrapper=self._client_wrapper)
         return self._ticketing
+
+    @property
+    def calendar(self):
+        if self._calendar is None:
+            from .resources.calendar.client import CalendarClient  # noqa: E402
+
+            self._calendar = CalendarClient(client_wrapper=self._client_wrapper)
+        return self._calendar
 
     @property
     def chat(self):
@@ -246,6 +256,7 @@ class AsyncMerge:
         self._crm: typing.Optional[AsyncCrmClient] = None
         self._hris: typing.Optional[AsyncHrisClient] = None
         self._ticketing: typing.Optional[AsyncTicketingClient] = None
+        self._calendar: typing.Optional[AsyncCalendarClient] = None
         self._chat: typing.Optional[AsyncChatClient] = None
         self._email: typing.Optional[AsyncEmailClient] = None
         self._filestorage: typing.Optional[AsyncFilestorageClient] = None
@@ -290,6 +301,14 @@ class AsyncMerge:
 
             self._ticketing = AsyncTicketingClient(client_wrapper=self._client_wrapper)
         return self._ticketing
+
+    @property
+    def calendar(self):
+        if self._calendar is None:
+            from .resources.calendar.client import AsyncCalendarClient  # noqa: E402
+
+            self._calendar = AsyncCalendarClient(client_wrapper=self._client_wrapper)
+        return self._calendar
 
     @property
     def chat(self):
