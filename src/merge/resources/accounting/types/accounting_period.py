@@ -20,6 +20,11 @@ class AccountingPeriod(UncheckedBaseModel):
     Common models like `Invoice` and `Transaction` will have `AccountingPeriod` objects which will denote when they occurred.
     """
 
+    accounting_period_url: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The 3rd party URL of the accounting period.
+    """
+
     id: typing.Optional[str] = None
     remote_id: typing.Optional[str] = pydantic.Field(default=None)
     """

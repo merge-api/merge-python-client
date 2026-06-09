@@ -54,7 +54,6 @@ class LinkTokenClient:
         completed_account_initial_screen: typing.Optional[EndUserDetailsRequestCompletedAccountInitialScreen] = OMIT,
         linked_destination_id: typing.Optional[str] = OMIT,
         credential_id: typing.Optional[str] = OMIT,
-        ekm_enabled: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> LinkToken:
         """
@@ -109,9 +108,6 @@ class LinkTokenClient:
 
         credential_id : typing.Optional[str]
             The id of the credential that you want this Linked Account to be tied to.
-
-        ekm_enabled : typing.Optional[bool]
-            Whether to enable EKM (External Key Management) for this Linked Account.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -154,7 +150,6 @@ class LinkTokenClient:
             completed_account_initial_screen=completed_account_initial_screen,
             linked_destination_id=linked_destination_id,
             credential_id=credential_id,
-            ekm_enabled=ekm_enabled,
             request_options=request_options,
         )
         return _response.data
@@ -196,7 +191,6 @@ class AsyncLinkTokenClient:
         completed_account_initial_screen: typing.Optional[EndUserDetailsRequestCompletedAccountInitialScreen] = OMIT,
         linked_destination_id: typing.Optional[str] = OMIT,
         credential_id: typing.Optional[str] = OMIT,
-        ekm_enabled: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> LinkToken:
         """
@@ -251,9 +245,6 @@ class AsyncLinkTokenClient:
 
         credential_id : typing.Optional[str]
             The id of the credential that you want this Linked Account to be tied to.
-
-        ekm_enabled : typing.Optional[bool]
-            Whether to enable EKM (External Key Management) for this Linked Account.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -304,7 +295,6 @@ class AsyncLinkTokenClient:
             completed_account_initial_screen=completed_account_initial_screen,
             linked_destination_id=linked_destination_id,
             credential_id=credential_id,
-            ekm_enabled=ekm_enabled,
             request_options=request_options,
         )
         return _response.data
