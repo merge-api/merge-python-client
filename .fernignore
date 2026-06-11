@@ -15,6 +15,7 @@ tests/integration/test_knowledgebase.py
 tests/integration/test_email.py
 tests/integration/test_ticketing.py
 tests/integration/test_chat.py
+tests/integration/test_calendar.py
 tests/custom/test_expand_url_format.py
 tests/custom/test_environment_routing.py
 tests/custom/test_datetime_filters.py

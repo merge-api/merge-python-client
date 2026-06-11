@@ -42,6 +42,11 @@ class EmployeeRequest(UncheckedBaseModel):
     The ID of the employee's company.
     """
 
+    employee_url: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The 3rd party URL of the employee.
+    """
+
     first_name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The employee's first name.
