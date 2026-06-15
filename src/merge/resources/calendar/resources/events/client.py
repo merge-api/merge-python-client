@@ -7,7 +7,10 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.request_options import RequestOptions
 from ...types.event import Event
 from ...types.paginated_event_list import PaginatedEventList
+from ...types.paginated_invitee_list import PaginatedInviteeList
+from ...types.paginated_location_list import PaginatedLocationList
 from .raw_client import AsyncRawEventsClient, RawEventsClient
+from .types.events_invitees_list_request_expand import EventsInviteesListRequestExpand
 from .types.events_list_request_expand_item import EventsListRequestExpandItem
 from .types.events_retrieve_request_expand_item import EventsRetrieveRequestExpandItem
 
@@ -186,6 +189,158 @@ class EventsClient:
             series_id=series_id,
             starts_after=starts_after,
             starts_before=starts_before,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def invitees_list(
+        self,
+        event_id: str,
+        *,
+        cursor: typing.Optional[str] = None,
+        expand: typing.Optional[EventsInviteesListRequestExpand] = None,
+        include_deleted_data: typing.Optional[bool] = None,
+        include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
+        page_size: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> PaginatedInviteeList:
+        """
+        Returns a list of `Invitee` objects.
+
+        Parameters
+        ----------
+        event_id : str
+
+        cursor : typing.Optional[str]
+            The pagination cursor value.
+
+        expand : typing.Optional[EventsInviteesListRequestExpand]
+            Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+
+        include_deleted_data : typing.Optional[bool]
+            Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+
+        page_size : typing.Optional[int]
+            Number of results to return per page. The maximum limit is 100.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaginatedInviteeList
+
+
+        Examples
+        --------
+        from merge import Merge
+        from merge.resources.calendar.resources.events import (
+            EventsInviteesListRequestExpand,
+        )
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.calendar.events.invitees_list(
+            event_id="event_id",
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            expand=EventsInviteesListRequestExpand.EVENT,
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_shell_data=True,
+            page_size=1,
+        )
+        """
+        _response = self._raw_client.invitees_list(
+            event_id,
+            cursor=cursor,
+            expand=expand,
+            include_deleted_data=include_deleted_data,
+            include_remote_data=include_remote_data,
+            include_shell_data=include_shell_data,
+            page_size=page_size,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def locations_list(
+        self,
+        event_id: str,
+        *,
+        cursor: typing.Optional[str] = None,
+        expand: typing.Optional[typing.Literal["event"]] = None,
+        include_deleted_data: typing.Optional[bool] = None,
+        include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
+        page_size: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> PaginatedLocationList:
+        """
+        Returns a list of `Location` objects.
+
+        Parameters
+        ----------
+        event_id : str
+
+        cursor : typing.Optional[str]
+            The pagination cursor value.
+
+        expand : typing.Optional[typing.Literal["event"]]
+            Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+
+        include_deleted_data : typing.Optional[bool]
+            Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+
+        page_size : typing.Optional[int]
+            Number of results to return per page. The maximum limit is 100.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaginatedLocationList
+
+
+        Examples
+        --------
+        from merge import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.calendar.events.locations_list(
+            event_id="event_id",
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_shell_data=True,
+            page_size=1,
+        )
+        """
+        _response = self._raw_client.locations_list(
+            event_id,
+            cursor=cursor,
+            expand=expand,
+            include_deleted_data=include_deleted_data,
+            include_remote_data=include_remote_data,
+            include_shell_data=include_shell_data,
+            page_size=page_size,
             request_options=request_options,
         )
         return _response.data
@@ -430,6 +585,174 @@ class AsyncEventsClient:
             series_id=series_id,
             starts_after=starts_after,
             starts_before=starts_before,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def invitees_list(
+        self,
+        event_id: str,
+        *,
+        cursor: typing.Optional[str] = None,
+        expand: typing.Optional[EventsInviteesListRequestExpand] = None,
+        include_deleted_data: typing.Optional[bool] = None,
+        include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
+        page_size: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> PaginatedInviteeList:
+        """
+        Returns a list of `Invitee` objects.
+
+        Parameters
+        ----------
+        event_id : str
+
+        cursor : typing.Optional[str]
+            The pagination cursor value.
+
+        expand : typing.Optional[EventsInviteesListRequestExpand]
+            Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+
+        include_deleted_data : typing.Optional[bool]
+            Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+
+        page_size : typing.Optional[int]
+            Number of results to return per page. The maximum limit is 100.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaginatedInviteeList
+
+
+        Examples
+        --------
+        import asyncio
+
+        from merge import AsyncMerge
+        from merge.resources.calendar.resources.events import (
+            EventsInviteesListRequestExpand,
+        )
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.calendar.events.invitees_list(
+                event_id="event_id",
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                expand=EventsInviteesListRequestExpand.EVENT,
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_shell_data=True,
+                page_size=1,
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.invitees_list(
+            event_id,
+            cursor=cursor,
+            expand=expand,
+            include_deleted_data=include_deleted_data,
+            include_remote_data=include_remote_data,
+            include_shell_data=include_shell_data,
+            page_size=page_size,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def locations_list(
+        self,
+        event_id: str,
+        *,
+        cursor: typing.Optional[str] = None,
+        expand: typing.Optional[typing.Literal["event"]] = None,
+        include_deleted_data: typing.Optional[bool] = None,
+        include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
+        page_size: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> PaginatedLocationList:
+        """
+        Returns a list of `Location` objects.
+
+        Parameters
+        ----------
+        event_id : str
+
+        cursor : typing.Optional[str]
+            The pagination cursor value.
+
+        expand : typing.Optional[typing.Literal["event"]]
+            Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+
+        include_deleted_data : typing.Optional[bool]
+            Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+
+        page_size : typing.Optional[int]
+            Number of results to return per page. The maximum limit is 100.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaginatedLocationList
+
+
+        Examples
+        --------
+        import asyncio
+
+        from merge import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.calendar.events.locations_list(
+                event_id="event_id",
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_shell_data=True,
+                page_size=1,
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.locations_list(
+            event_id,
+            cursor=cursor,
+            expand=expand,
+            include_deleted_data=include_deleted_data,
+            include_remote_data=include_remote_data,
+            include_shell_data=include_shell_data,
+            page_size=page_size,
             request_options=request_options,
         )
         return _response.data

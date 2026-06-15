@@ -20,6 +20,7 @@ if typing.TYPE_CHECKING:
     from .audit_log_event import AuditLogEvent
     from .audit_log_event_event_type import AuditLogEventEventType
     from .audit_log_event_role import AuditLogEventRole
+    from .availability_status_enum import AvailabilityStatusEnum
     from .available_actions import AvailableActions
     from .calendar import Calendar
     from .calendar_field_mappings import CalendarFieldMappings
@@ -58,6 +59,9 @@ if typing.TYPE_CHECKING:
     from .group_field_mappings import GroupFieldMappings
     from .individual_common_model_scope_deserializer import IndividualCommonModelScopeDeserializer
     from .individual_common_model_scope_deserializer_request import IndividualCommonModelScopeDeserializerRequest
+    from .invitee import Invitee
+    from .invitee_availability_status import InviteeAvailabilityStatus
+    from .invitee_rsvp import InviteeRsvp
     from .issue import Issue
     from .issue_status import IssueStatus
     from .issue_status_enum import IssueStatusEnum
@@ -65,6 +69,9 @@ if typing.TYPE_CHECKING:
     from .last_sync_result_enum import LastSyncResultEnum
     from .link_token import LinkToken
     from .linked_account_patch_response import LinkedAccountPatchResponse
+    from .location import Location
+    from .location_location_type import LocationLocationType
+    from .location_type_enum import LocationTypeEnum
     from .method_enum import MethodEnum
     from .model_operation import ModelOperation
     from .model_permission_deserializer import ModelPermissionDeserializer
@@ -76,7 +83,9 @@ if typing.TYPE_CHECKING:
     from .paginated_calendar_list import PaginatedCalendarList
     from .paginated_event_list import PaginatedEventList
     from .paginated_group_list import PaginatedGroupList
+    from .paginated_invitee_list import PaginatedInviteeList
     from .paginated_issue_list import PaginatedIssueList
+    from .paginated_location_list import PaginatedLocationList
     from .paginated_series_list import PaginatedSeriesList
     from .paginated_sync_status_list import PaginatedSyncStatusList
     from .paginated_user_list import PaginatedUserList
@@ -99,6 +108,7 @@ if typing.TYPE_CHECKING:
     from .response_type_enum import ResponseTypeEnum
     from .role_enum import RoleEnum
     from .roles_enum import RolesEnum
+    from .rsvp_enum import RsvpEnum
     from .selective_sync_configurations_usage_enum import SelectiveSyncConfigurationsUsageEnum
     from .series import Series
     from .series_field_mappings import SeriesFieldMappings
@@ -126,6 +136,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AuditLogEvent": ".audit_log_event",
     "AuditLogEventEventType": ".audit_log_event_event_type",
     "AuditLogEventRole": ".audit_log_event_role",
+    "AvailabilityStatusEnum": ".availability_status_enum",
     "AvailableActions": ".available_actions",
     "Calendar": ".calendar",
     "CalendarFieldMappings": ".calendar_field_mappings",
@@ -162,6 +173,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "GroupFieldMappings": ".group_field_mappings",
     "IndividualCommonModelScopeDeserializer": ".individual_common_model_scope_deserializer",
     "IndividualCommonModelScopeDeserializerRequest": ".individual_common_model_scope_deserializer_request",
+    "Invitee": ".invitee",
+    "InviteeAvailabilityStatus": ".invitee_availability_status",
+    "InviteeRsvp": ".invitee_rsvp",
     "Issue": ".issue",
     "IssueStatus": ".issue_status",
     "IssueStatusEnum": ".issue_status_enum",
@@ -169,6 +183,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "LastSyncResultEnum": ".last_sync_result_enum",
     "LinkToken": ".link_token",
     "LinkedAccountPatchResponse": ".linked_account_patch_response",
+    "Location": ".location",
+    "LocationLocationType": ".location_location_type",
+    "LocationTypeEnum": ".location_type_enum",
     "MethodEnum": ".method_enum",
     "ModelOperation": ".model_operation",
     "ModelPermissionDeserializer": ".model_permission_deserializer",
@@ -180,7 +197,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PaginatedCalendarList": ".paginated_calendar_list",
     "PaginatedEventList": ".paginated_event_list",
     "PaginatedGroupList": ".paginated_group_list",
+    "PaginatedInviteeList": ".paginated_invitee_list",
     "PaginatedIssueList": ".paginated_issue_list",
+    "PaginatedLocationList": ".paginated_location_list",
     "PaginatedSeriesList": ".paginated_series_list",
     "PaginatedSyncStatusList": ".paginated_sync_status_list",
     "PaginatedUserList": ".paginated_user_list",
@@ -203,6 +222,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ResponseTypeEnum": ".response_type_enum",
     "RoleEnum": ".role_enum",
     "RolesEnum": ".roles_enum",
+    "RsvpEnum": ".rsvp_enum",
     "SelectiveSyncConfigurationsUsageEnum": ".selective_sync_configurations_usage_enum",
     "Series": ".series",
     "SeriesFieldMappings": ".series_field_mappings",
@@ -252,6 +272,7 @@ __all__ = [
     "AuditLogEvent",
     "AuditLogEventEventType",
     "AuditLogEventRole",
+    "AvailabilityStatusEnum",
     "AvailableActions",
     "Calendar",
     "CalendarFieldMappings",
@@ -288,6 +309,9 @@ __all__ = [
     "GroupFieldMappings",
     "IndividualCommonModelScopeDeserializer",
     "IndividualCommonModelScopeDeserializerRequest",
+    "Invitee",
+    "InviteeAvailabilityStatus",
+    "InviteeRsvp",
     "Issue",
     "IssueStatus",
     "IssueStatusEnum",
@@ -295,6 +319,9 @@ __all__ = [
     "LastSyncResultEnum",
     "LinkToken",
     "LinkedAccountPatchResponse",
+    "Location",
+    "LocationLocationType",
+    "LocationTypeEnum",
     "MethodEnum",
     "ModelOperation",
     "ModelPermissionDeserializer",
@@ -306,7 +333,9 @@ __all__ = [
     "PaginatedCalendarList",
     "PaginatedEventList",
     "PaginatedGroupList",
+    "PaginatedInviteeList",
     "PaginatedIssueList",
+    "PaginatedLocationList",
     "PaginatedSeriesList",
     "PaginatedSyncStatusList",
     "PaginatedUserList",
@@ -329,6 +358,7 @@ __all__ = [
     "ResponseTypeEnum",
     "RoleEnum",
     "RolesEnum",
+    "RsvpEnum",
     "SelectiveSyncConfigurationsUsageEnum",
     "Series",
     "SeriesFieldMappings",

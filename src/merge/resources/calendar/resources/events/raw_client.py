@@ -13,6 +13,9 @@ from .....core.request_options import RequestOptions
 from .....core.unchecked_base_model import construct_type
 from ...types.event import Event
 from ...types.paginated_event_list import PaginatedEventList
+from ...types.paginated_invitee_list import PaginatedInviteeList
+from ...types.paginated_location_list import PaginatedLocationList
+from .types.events_invitees_list_request_expand import EventsInviteesListRequestExpand
 from .types.events_list_request_expand_item import EventsListRequestExpandItem
 from .types.events_retrieve_request_expand_item import EventsRetrieveRequestExpandItem
 
@@ -149,6 +152,152 @@ class RawEventsClient:
                     PaginatedEventList,
                     construct_type(
                         type_=PaginatedEventList,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def invitees_list(
+        self,
+        event_id: str,
+        *,
+        cursor: typing.Optional[str] = None,
+        expand: typing.Optional[EventsInviteesListRequestExpand] = None,
+        include_deleted_data: typing.Optional[bool] = None,
+        include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
+        page_size: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[PaginatedInviteeList]:
+        """
+        Returns a list of `Invitee` objects.
+
+        Parameters
+        ----------
+        event_id : str
+
+        cursor : typing.Optional[str]
+            The pagination cursor value.
+
+        expand : typing.Optional[EventsInviteesListRequestExpand]
+            Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+
+        include_deleted_data : typing.Optional[bool]
+            Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+
+        page_size : typing.Optional[int]
+            Number of results to return per page. The maximum limit is 100.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[PaginatedInviteeList]
+
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"calendar/v1/events/{jsonable_encoder(event_id)}/invitees",
+            method="GET",
+            params={
+                "cursor": cursor,
+                "expand": expand,
+                "include_deleted_data": include_deleted_data,
+                "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
+                "page_size": page_size,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    PaginatedInviteeList,
+                    construct_type(
+                        type_=PaginatedInviteeList,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def locations_list(
+        self,
+        event_id: str,
+        *,
+        cursor: typing.Optional[str] = None,
+        expand: typing.Optional[typing.Literal["event"]] = None,
+        include_deleted_data: typing.Optional[bool] = None,
+        include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
+        page_size: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[PaginatedLocationList]:
+        """
+        Returns a list of `Location` objects.
+
+        Parameters
+        ----------
+        event_id : str
+
+        cursor : typing.Optional[str]
+            The pagination cursor value.
+
+        expand : typing.Optional[typing.Literal["event"]]
+            Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+
+        include_deleted_data : typing.Optional[bool]
+            Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+
+        page_size : typing.Optional[int]
+            Number of results to return per page. The maximum limit is 100.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[PaginatedLocationList]
+
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"calendar/v1/events/{jsonable_encoder(event_id)}/locations",
+            method="GET",
+            params={
+                "cursor": cursor,
+                "expand": expand,
+                "include_deleted_data": include_deleted_data,
+                "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
+                "page_size": page_size,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    PaginatedLocationList,
+                    construct_type(
+                        type_=PaginatedLocationList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -351,6 +500,152 @@ class AsyncRawEventsClient:
                     PaginatedEventList,
                     construct_type(
                         type_=PaginatedEventList,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def invitees_list(
+        self,
+        event_id: str,
+        *,
+        cursor: typing.Optional[str] = None,
+        expand: typing.Optional[EventsInviteesListRequestExpand] = None,
+        include_deleted_data: typing.Optional[bool] = None,
+        include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
+        page_size: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[PaginatedInviteeList]:
+        """
+        Returns a list of `Invitee` objects.
+
+        Parameters
+        ----------
+        event_id : str
+
+        cursor : typing.Optional[str]
+            The pagination cursor value.
+
+        expand : typing.Optional[EventsInviteesListRequestExpand]
+            Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+
+        include_deleted_data : typing.Optional[bool]
+            Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+
+        page_size : typing.Optional[int]
+            Number of results to return per page. The maximum limit is 100.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[PaginatedInviteeList]
+
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"calendar/v1/events/{jsonable_encoder(event_id)}/invitees",
+            method="GET",
+            params={
+                "cursor": cursor,
+                "expand": expand,
+                "include_deleted_data": include_deleted_data,
+                "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
+                "page_size": page_size,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    PaginatedInviteeList,
+                    construct_type(
+                        type_=PaginatedInviteeList,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def locations_list(
+        self,
+        event_id: str,
+        *,
+        cursor: typing.Optional[str] = None,
+        expand: typing.Optional[typing.Literal["event"]] = None,
+        include_deleted_data: typing.Optional[bool] = None,
+        include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
+        page_size: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[PaginatedLocationList]:
+        """
+        Returns a list of `Location` objects.
+
+        Parameters
+        ----------
+        event_id : str
+
+        cursor : typing.Optional[str]
+            The pagination cursor value.
+
+        expand : typing.Optional[typing.Literal["event"]]
+            Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+
+        include_deleted_data : typing.Optional[bool]
+            Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+
+        page_size : typing.Optional[int]
+            Number of results to return per page. The maximum limit is 100.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[PaginatedLocationList]
+
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"calendar/v1/events/{jsonable_encoder(event_id)}/locations",
+            method="GET",
+            params={
+                "cursor": cursor,
+                "expand": expand,
+                "include_deleted_data": include_deleted_data,
+                "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
+                "page_size": page_size,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    PaginatedLocationList,
+                    construct_type(
+                        type_=PaginatedLocationList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
