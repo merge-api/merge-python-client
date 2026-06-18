@@ -15,7 +15,7 @@ from ...types.event import Event
 from ...types.paginated_event_list import PaginatedEventList
 from ...types.paginated_invitee_list import PaginatedInviteeList
 from ...types.paginated_location_list import PaginatedLocationList
-from .types.events_invitees_list_request_expand import EventsInviteesListRequestExpand
+from .types.events_invitees_list_request_expand_item import EventsInviteesListRequestExpandItem
 from .types.events_list_request_expand_item import EventsListRequestExpandItem
 from .types.events_retrieve_request_expand_item import EventsRetrieveRequestExpandItem
 
@@ -166,7 +166,9 @@ class RawEventsClient:
         event_id: str,
         *,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[EventsInviteesListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[EventsInviteesListRequestExpandItem, typing.Sequence[EventsInviteesListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -183,7 +185,7 @@ class RawEventsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[EventsInviteesListRequestExpand]
+        expand : typing.Optional[typing.Union[EventsInviteesListRequestExpandItem, typing.Sequence[EventsInviteesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -239,7 +241,7 @@ class RawEventsClient:
         event_id: str,
         *,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["event"]] = None,
+        expand: typing.Optional[typing.Union[typing.Literal["event"], typing.Sequence[typing.Literal["event"]]]] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -256,7 +258,7 @@ class RawEventsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["event"]]
+        expand : typing.Optional[typing.Union[typing.Literal["event"], typing.Sequence[typing.Literal["event"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -514,7 +516,9 @@ class AsyncRawEventsClient:
         event_id: str,
         *,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[EventsInviteesListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[EventsInviteesListRequestExpandItem, typing.Sequence[EventsInviteesListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -531,7 +535,7 @@ class AsyncRawEventsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[EventsInviteesListRequestExpand]
+        expand : typing.Optional[typing.Union[EventsInviteesListRequestExpandItem, typing.Sequence[EventsInviteesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -587,7 +591,7 @@ class AsyncRawEventsClient:
         event_id: str,
         *,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["event"]] = None,
+        expand: typing.Optional[typing.Union[typing.Literal["event"], typing.Sequence[typing.Literal["event"]]]] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -604,7 +608,7 @@ class AsyncRawEventsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["event"]]
+        expand : typing.Optional[typing.Union[typing.Literal["event"], typing.Sequence[typing.Literal["event"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]

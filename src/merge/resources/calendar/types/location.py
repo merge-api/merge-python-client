@@ -34,7 +34,7 @@ class Location(UncheckedBaseModel):
 
     location_type: typing.Optional[LocationLocationType] = pydantic.Field(default=None)
     """
-    The type of location. Possible values include: PHYSICAL, VIRTUAL, OTHER.
+    The type of location. Possible values include: PHYSICAL, VIRTUAL, UNKNOWN.
     """
 
     name: typing.Optional[str] = pydantic.Field(default=None)

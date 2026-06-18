@@ -9,17 +9,17 @@ T_Result = typing.TypeVar("T_Result")
 class LocationTypeEnum(str, enum.Enum):
     PHYSICAL = "PHYSICAL"
     VIRTUAL = "VIRTUAL"
-    OTHER = "OTHER"
+    UNKNOWN = "UNKNOWN"
 
     def visit(
         self,
         physical: typing.Callable[[], T_Result],
         virtual: typing.Callable[[], T_Result],
-        other: typing.Callable[[], T_Result],
+        unknown: typing.Callable[[], T_Result],
     ) -> T_Result:
         if self is LocationTypeEnum.PHYSICAL:
             return physical()
         if self is LocationTypeEnum.VIRTUAL:
             return virtual()
-        if self is LocationTypeEnum.OTHER:
-            return other()
+        if self is LocationTypeEnum.UNKNOWN:
+            return unknown()

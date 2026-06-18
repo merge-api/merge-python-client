@@ -54440,9 +54440,6 @@ Returns a list of `Invitee` objects.
 
 ```python
 from merge import Merge
-from merge.resources.calendar.resources.events import (
-    EventsInviteesListRequestExpand,
-)
 
 client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
@@ -54451,7 +54448,6 @@ client = Merge(
 client.calendar.events.invitees_list(
     event_id="event_id",
     cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    expand=EventsInviteesListRequestExpand.EVENT,
     include_deleted_data=True,
     include_remote_data=True,
     include_shell_data=True,
@@ -54488,7 +54484,12 @@ client.calendar.events.invitees_list(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[EventsInviteesListRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        EventsInviteesListRequestExpandItem,
+        typing.Sequence[EventsInviteesListRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -54612,7 +54613,11 @@ client.calendar.events.locations_list(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[typing.Literal["event"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        typing.Literal["event"], typing.Sequence[typing.Literal["event"]]
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>

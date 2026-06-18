@@ -10,7 +10,7 @@ from ...types.paginated_event_list import PaginatedEventList
 from ...types.paginated_invitee_list import PaginatedInviteeList
 from ...types.paginated_location_list import PaginatedLocationList
 from .raw_client import AsyncRawEventsClient, RawEventsClient
-from .types.events_invitees_list_request_expand import EventsInviteesListRequestExpand
+from .types.events_invitees_list_request_expand_item import EventsInviteesListRequestExpandItem
 from .types.events_list_request_expand_item import EventsListRequestExpandItem
 from .types.events_retrieve_request_expand_item import EventsRetrieveRequestExpandItem
 
@@ -198,7 +198,9 @@ class EventsClient:
         event_id: str,
         *,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[EventsInviteesListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[EventsInviteesListRequestExpandItem, typing.Sequence[EventsInviteesListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -215,7 +217,7 @@ class EventsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[EventsInviteesListRequestExpand]
+        expand : typing.Optional[typing.Union[EventsInviteesListRequestExpandItem, typing.Sequence[EventsInviteesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -241,9 +243,6 @@ class EventsClient:
         Examples
         --------
         from merge import Merge
-        from merge.resources.calendar.resources.events import (
-            EventsInviteesListRequestExpand,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -252,7 +251,6 @@ class EventsClient:
         client.calendar.events.invitees_list(
             event_id="event_id",
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            expand=EventsInviteesListRequestExpand.EVENT,
             include_deleted_data=True,
             include_remote_data=True,
             include_shell_data=True,
@@ -276,7 +274,7 @@ class EventsClient:
         event_id: str,
         *,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["event"]] = None,
+        expand: typing.Optional[typing.Union[typing.Literal["event"], typing.Sequence[typing.Literal["event"]]]] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -293,7 +291,7 @@ class EventsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["event"]]
+        expand : typing.Optional[typing.Union[typing.Literal["event"], typing.Sequence[typing.Literal["event"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -594,7 +592,9 @@ class AsyncEventsClient:
         event_id: str,
         *,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[EventsInviteesListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[EventsInviteesListRequestExpandItem, typing.Sequence[EventsInviteesListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -611,7 +611,7 @@ class AsyncEventsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[EventsInviteesListRequestExpand]
+        expand : typing.Optional[typing.Union[EventsInviteesListRequestExpandItem, typing.Sequence[EventsInviteesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -639,9 +639,6 @@ class AsyncEventsClient:
         import asyncio
 
         from merge import AsyncMerge
-        from merge.resources.calendar.resources.events import (
-            EventsInviteesListRequestExpand,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -653,7 +650,6 @@ class AsyncEventsClient:
             await client.calendar.events.invitees_list(
                 event_id="event_id",
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                expand=EventsInviteesListRequestExpand.EVENT,
                 include_deleted_data=True,
                 include_remote_data=True,
                 include_shell_data=True,
@@ -680,7 +676,7 @@ class AsyncEventsClient:
         event_id: str,
         *,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["event"]] = None,
+        expand: typing.Optional[typing.Union[typing.Literal["event"], typing.Sequence[typing.Literal["event"]]]] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -697,7 +693,7 @@ class AsyncEventsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["event"]]
+        expand : typing.Optional[typing.Union[typing.Literal["event"], typing.Sequence[typing.Literal["event"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]

@@ -32,7 +32,11 @@ if typing.TYPE_CHECKING:
     )
     from .async_passthrough import AsyncPassthroughRetrieveResponse
     from .calendars import CalendarsListRequestType
-    from .events import EventsInviteesListRequestExpand, EventsListRequestExpandItem, EventsRetrieveRequestExpandItem
+    from .events import (
+        EventsInviteesListRequestExpandItem,
+        EventsListRequestExpandItem,
+        EventsRetrieveRequestExpandItem,
+    )
     from .groups import GroupsListRequestExpandItem, GroupsRetrieveRequestExpandItem
     from .issues import IssuesListRequestStatus
     from .link_token import EndUserDetailsRequestCompletedAccountInitialScreen, EndUserDetailsRequestLanguage
@@ -42,7 +46,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CalendarsListRequestType": ".calendars",
     "EndUserDetailsRequestCompletedAccountInitialScreen": ".link_token",
     "EndUserDetailsRequestLanguage": ".link_token",
-    "EventsInviteesListRequestExpand": ".events",
+    "EventsInviteesListRequestExpandItem": ".events",
     "EventsListRequestExpandItem": ".events",
     "EventsRetrieveRequestExpandItem": ".events",
     "GroupsListRequestExpandItem": ".groups",
@@ -98,7 +102,7 @@ __all__ = [
     "CalendarsListRequestType",
     "EndUserDetailsRequestCompletedAccountInitialScreen",
     "EndUserDetailsRequestLanguage",
-    "EventsInviteesListRequestExpand",
+    "EventsInviteesListRequestExpandItem",
     "EventsListRequestExpandItem",
     "EventsRetrieveRequestExpandItem",
     "GroupsListRequestExpandItem",
