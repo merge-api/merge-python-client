@@ -6,5 +6,248 @@ generations:
     timestamp: 2026-06-15T16:04:12.369Z
     cli_version: unknown
     generator_versions: {}
-current_generation: d1b397945cde28063f302964d1e6ea46f27e8829
-patches: []
+  - commit_sha: 3f73767305ee9dc15a905e160650c32b0cb83a27
+    tree_hash: 2dc6d27eb108630d365720bb36a49ceea358eb31
+    timestamp: 2026-07-14T13:12:00.851Z
+    cli_version: unknown
+    generator_versions:
+      fernapi/fern-python-sdk: 5.0.8
+current_generation: 3f73767305ee9dc15a905e160650c32b0cb83a27
+patches:
+  - id: patch-09841618
+    content_hash: sha256:5da05043df04207e1c3dad25d3c390a26cfc9f23b67f46f105aa367c41393ba5
+    original_commit: 09841618445eb42e604af20e004e184435c55914
+    original_message: update version to 3.1.0 (#198)
+    original_author: niteshsandal-merge <nitesh.sandal@merge.dev>
+    base_generation: a2b68b2671dab90a88084e2970bef54addf2a6f0
+    files:
+      - pyproject.toml
+      - src/merge/core/client_wrapper.py
+    patch_content: |+
+      From 09841618445eb42e604af20e004e184435c55914 Mon Sep 17 00:00:00 2001
+      From: niteshsandal-merge <nitesh.sandal@merge.dev>
+      Date: Mon, 22 Jun 2026 11:30:45 -0400
+      Subject: [PATCH] update version to 3.1.0 (#198)
+
+      Co-authored-by: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+      ---
+       pyproject.toml                   | 2 +-
+       src/merge/core/client_wrapper.py | 4 ++--
+       2 files changed, 3 insertions(+), 3 deletions(-)
+
+      diff --git a/pyproject.toml b/pyproject.toml
+      index f7ed8747..fb4dc9ff 100644
+      --- a/pyproject.toml
+      +++ b/pyproject.toml
+      @@ -3,7 +3,7 @@ name = "MergePythonClient"
+       
+       [tool.poetry]
+       name = "MergePythonClient"
+      -version = "3.1.0a3"
+      +version = "3.1.0"
+       description = ""
+       readme = "README.md"
+       authors = []
+      diff --git a/src/merge/core/client_wrapper.py b/src/merge/core/client_wrapper.py
+      index 1e729a6e..fb141371 100644
+      --- a/src/merge/core/client_wrapper.py
+      +++ b/src/merge/core/client_wrapper.py
+      @@ -24,10 +24,10 @@ class BaseClientWrapper:
+       
+           def get_headers(self) -> typing.Dict[str, str]:
+               headers: typing.Dict[str, str] = {
+      -            "User-Agent": "MergePythonClient/3.1.0a3",
+      +            "User-Agent": "MergePythonClient/3.1.0",
+                   "X-Fern-Language": "Python",
+                   "X-Fern-SDK-Name": "MergePythonClient",
+      -            "X-Fern-SDK-Version": "3.1.0a3",
+      +            "X-Fern-SDK-Version": "3.1.0",
+                   **(self.get_custom_headers() or {}),
+               }
+               if self._account_token is not None:
+      -- 
+      2.52.0
+
+    theirs_snapshot:
+      pyproject.toml: |
+        [project]
+        name = "MergePythonClient"
+
+        [tool.poetry]
+        name = "MergePythonClient"
+        version = "3.1.0"
+        description = ""
+        readme = "README.md"
+        authors = []
+        keywords = []
+
+        classifiers = [
+            "Intended Audience :: Developers",
+            "Programming Language :: Python",
+            "Programming Language :: Python :: 3",
+            "Programming Language :: Python :: 3.8",
+            "Programming Language :: Python :: 3.9",
+            "Programming Language :: Python :: 3.10",
+            "Programming Language :: Python :: 3.11",
+            "Programming Language :: Python :: 3.12",
+            "Operating System :: OS Independent",
+            "Operating System :: POSIX",
+            "Operating System :: MacOS",
+            "Operating System :: POSIX :: Linux",
+            "Operating System :: Microsoft :: Windows",
+            "Topic :: Software Development :: Libraries :: Python Modules",
+            "Typing :: Typed"
+        ]
+        packages = [
+            { include = "merge", from = "src"}
+        ]
+
+        [project.urls]
+        Repository = 'https://github.com/merge-api/merge-python-client'
+
+        [tool.poetry.dependencies]
+        python = "^3.8"
+        httpx = ">=0.21.2"
+        pydantic = ">= 1.9.2"
+        pydantic-core = ">=2.18.2"
+        typing_extensions = ">= 4.0.0"
+
+        [tool.poetry.group.dev.dependencies]
+        mypy = "==1.13.0"
+        pytest = "^7.4.0"
+        pytest-asyncio = "^0.23.5"
+        python-dateutil = "^2.9.0"
+        types-python-dateutil = "^2.9.0.20240316"
+        ruff = "==0.11.5"
+
+        [tool.pytest.ini_options]
+        testpaths = [ "tests" ]
+        asyncio_mode = "auto"
+
+        [tool.mypy]
+        plugins = ["pydantic.mypy"]
+
+        [tool.ruff]
+        line-length = 120
+
+        [tool.ruff.lint]
+        select = [
+            "E",  # pycodestyle errors
+            "F",  # pyflakes
+            "I",  # isort
+        ]
+        ignore = [
+            "E402",  # Module level import not at top of file
+            "E501",  # Line too long
+            "E711",  # Comparison to `None` should be `cond is not None`
+            "E712",  # Avoid equality comparisons to `True`; use `if ...:` checks
+            "E721",  # Use `is` and `is not` for type comparisons, or `isinstance()` for insinstance checks
+            "E722",  # Do not use bare `except`
+            "E731",  # Do not assign a `lambda` expression, use a `def`
+            "F821",  # Undefined name
+            "F841"   # Local variable ... is assigned to but never used
+        ]
+
+        [tool.ruff.lint.isort]
+        section-order = ["future", "standard-library", "third-party", "first-party"]
+
+        [build-system]
+        requires = ["poetry-core"]
+        build-backend = "poetry.core.masonry.api"
+      src/merge/core/client_wrapper.py: |
+        # This file was auto-generated by Fern from our API Definition.
+
+        import typing
+
+        import httpx
+        from .http_client import AsyncHttpClient, HttpClient
+
+
+        class BaseClientWrapper:
+            def __init__(
+                self,
+                *,
+                account_token: typing.Optional[str] = None,
+                api_key: typing.Union[str, typing.Callable[[], str]],
+                headers: typing.Optional[typing.Dict[str, str]] = None,
+                base_url: str,
+                timeout: typing.Optional[float] = None,
+            ):
+                self._account_token = account_token
+                self._api_key = api_key
+                self._headers = headers
+                self._base_url = base_url
+                self._timeout = timeout
+
+            def get_headers(self) -> typing.Dict[str, str]:
+                headers: typing.Dict[str, str] = {
+                    "User-Agent": "MergePythonClient/3.1.0",
+                    "X-Fern-Language": "Python",
+                    "X-Fern-SDK-Name": "MergePythonClient",
+                    "X-Fern-SDK-Version": "3.1.0",
+                    **(self.get_custom_headers() or {}),
+                }
+                if self._account_token is not None:
+                    headers["X-Account-Token"] = self._account_token
+                headers["Authorization"] = f"Bearer {self._get_api_key()}"
+                return headers
+
+            def _get_api_key(self) -> str:
+                if isinstance(self._api_key, str):
+                    return self._api_key
+                else:
+                    return self._api_key()
+
+            def get_custom_headers(self) -> typing.Optional[typing.Dict[str, str]]:
+                return self._headers
+
+            def get_base_url(self) -> str:
+                return self._base_url
+
+            def get_timeout(self) -> typing.Optional[float]:
+                return self._timeout
+
+
+        class SyncClientWrapper(BaseClientWrapper):
+            def __init__(
+                self,
+                *,
+                account_token: typing.Optional[str] = None,
+                api_key: typing.Union[str, typing.Callable[[], str]],
+                headers: typing.Optional[typing.Dict[str, str]] = None,
+                base_url: str,
+                timeout: typing.Optional[float] = None,
+                httpx_client: httpx.Client,
+            ):
+                super().__init__(
+                    account_token=account_token, api_key=api_key, headers=headers, base_url=base_url, timeout=timeout
+                )
+                self.httpx_client = HttpClient(
+                    httpx_client=httpx_client,
+                    base_headers=self.get_headers,
+                    base_timeout=self.get_timeout,
+                    base_url=self.get_base_url,
+                )
+
+
+        class AsyncClientWrapper(BaseClientWrapper):
+            def __init__(
+                self,
+                *,
+                account_token: typing.Optional[str] = None,
+                api_key: typing.Union[str, typing.Callable[[], str]],
+                headers: typing.Optional[typing.Dict[str, str]] = None,
+                base_url: str,
+                timeout: typing.Optional[float] = None,
+                httpx_client: httpx.AsyncClient,
+            ):
+                super().__init__(
+                    account_token=account_token, api_key=api_key, headers=headers, base_url=base_url, timeout=timeout
+                )
+                self.httpx_client = AsyncHttpClient(
+                    httpx_client=httpx_client,
+                    base_headers=self.get_headers,
+                    base_timeout=self.get_timeout,
+                    base_url=self.get_base_url,
+                )
+    status: unresolved
