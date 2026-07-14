@@ -139,39 +139,39 @@ _dynamic_imports: typing.Dict[str, str] = {
     "TimeOffRetrieveRequestRemoteFields": ".time_off",
     "TimeOffRetrieveRequestShowEnumOrigins": ".time_off",
     "TimesheetEntriesListRequestOrderBy": ".timesheet_entries",
-    "account_details": ".",
-    "account_token": ".",
-    "async_passthrough": ".",
-    "audit_trail": ".",
-    "available_actions": ".",
-    "bank_info": ".",
-    "benefits": ".",
-    "companies": ".",
-    "delete_account": ".",
-    "dependents": ".",
-    "employee_payroll_runs": ".",
-    "employees": ".",
-    "employer_benefits": ".",
-    "employments": ".",
-    "field_mapping": ".",
-    "force_resync": ".",
-    "generate_key": ".",
-    "groups": ".",
-    "issues": ".",
-    "link_token": ".",
-    "linked_accounts": ".",
-    "locations": ".",
-    "passthrough": ".",
-    "pay_groups": ".",
-    "payroll_runs": ".",
-    "regenerate_key": ".",
-    "scopes": ".",
-    "sync_status": ".",
-    "teams": ".",
-    "time_off": ".",
-    "time_off_balances": ".",
-    "timesheet_entries": ".",
-    "webhook_receivers": ".",
+    "account_details": ".account_details",
+    "account_token": ".account_token",
+    "async_passthrough": ".async_passthrough",
+    "audit_trail": ".audit_trail",
+    "available_actions": ".available_actions",
+    "bank_info": ".bank_info",
+    "benefits": ".benefits",
+    "companies": ".companies",
+    "delete_account": ".delete_account",
+    "dependents": ".dependents",
+    "employee_payroll_runs": ".employee_payroll_runs",
+    "employees": ".employees",
+    "employer_benefits": ".employer_benefits",
+    "employments": ".employments",
+    "field_mapping": ".field_mapping",
+    "force_resync": ".force_resync",
+    "generate_key": ".generate_key",
+    "groups": ".groups",
+    "issues": ".issues",
+    "link_token": ".link_token",
+    "linked_accounts": ".linked_accounts",
+    "locations": ".locations",
+    "passthrough": ".passthrough",
+    "pay_groups": ".pay_groups",
+    "payroll_runs": ".payroll_runs",
+    "regenerate_key": ".regenerate_key",
+    "scopes": ".scopes",
+    "sync_status": ".sync_status",
+    "teams": ".teams",
+    "time_off": ".time_off",
+    "time_off_balances": ".time_off_balances",
+    "timesheet_entries": ".timesheet_entries",
+    "webhook_receivers": ".webhook_receivers",
 }
 
 
@@ -181,8 +181,10 @@ def __getattr__(attr_name: str) -> typing.Any:
         raise AttributeError(f"No {attr_name} found in _dynamic_imports for module name -> {__name__}")
     try:
         module = import_module(module_name, __package__)
-        result = getattr(module, attr_name)
-        return result
+        if module_name == f".{attr_name}":
+            return module
+        else:
+            return getattr(module, attr_name)
     except ImportError as e:
         raise ImportError(f"Failed to import {attr_name} from {module_name}: {e}") from e
     except AttributeError as e:

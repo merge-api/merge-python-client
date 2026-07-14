@@ -133,8 +133,8 @@ class TicketRequest(UncheckedBaseModel):
     * `LOW` - LOW
     """
 
-    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
-    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    integration_params: typing.Optional[typing.Dict[str, typing.Any]] = None
+    linked_account_params: typing.Optional[typing.Dict[str, typing.Any]] = None
     remote_fields: typing.Optional[typing.List[RemoteFieldRequest]] = None
 
     if IS_PYDANTIC_V2:
@@ -146,9 +146,5 @@ class TicketRequest(UncheckedBaseModel):
             smart_union = True
             extra = pydantic.Extra.allow
 
-
-from .collection import Collection  # noqa: E402, F401, I001
-from .attachment import Attachment  # noqa: E402, F401, I001
-from .ticket import Ticket  # noqa: E402, F401, I001
 
 update_forward_refs(TicketRequest)

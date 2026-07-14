@@ -87,34 +87,34 @@ _dynamic_imports: typing.Dict[str, str] = {
     "TicketsViewersListRequestExpandItem": ".tickets",
     "UsersListRequestExpandItem": ".users",
     "UsersRetrieveRequestExpandItem": ".users",
-    "account_details": ".",
-    "account_token": ".",
-    "accounts": ".",
-    "async_passthrough": ".",
-    "attachments": ".",
-    "audit_trail": ".",
-    "available_actions": ".",
-    "collections": ".",
-    "comments": ".",
-    "contacts": ".",
-    "delete_account": ".",
-    "field_mapping": ".",
-    "force_resync": ".",
-    "generate_key": ".",
-    "issues": ".",
-    "link_token": ".",
-    "linked_accounts": ".",
-    "passthrough": ".",
-    "projects": ".",
-    "regenerate_key": ".",
-    "roles": ".",
-    "scopes": ".",
-    "sync_status": ".",
-    "tags": ".",
-    "teams": ".",
-    "tickets": ".",
-    "users": ".",
-    "webhook_receivers": ".",
+    "account_details": ".account_details",
+    "account_token": ".account_token",
+    "accounts": ".accounts",
+    "async_passthrough": ".async_passthrough",
+    "attachments": ".attachments",
+    "audit_trail": ".audit_trail",
+    "available_actions": ".available_actions",
+    "collections": ".collections",
+    "comments": ".comments",
+    "contacts": ".contacts",
+    "delete_account": ".delete_account",
+    "field_mapping": ".field_mapping",
+    "force_resync": ".force_resync",
+    "generate_key": ".generate_key",
+    "issues": ".issues",
+    "link_token": ".link_token",
+    "linked_accounts": ".linked_accounts",
+    "passthrough": ".passthrough",
+    "projects": ".projects",
+    "regenerate_key": ".regenerate_key",
+    "roles": ".roles",
+    "scopes": ".scopes",
+    "sync_status": ".sync_status",
+    "tags": ".tags",
+    "teams": ".teams",
+    "tickets": ".tickets",
+    "users": ".users",
+    "webhook_receivers": ".webhook_receivers",
 }
 
 
@@ -124,8 +124,10 @@ def __getattr__(attr_name: str) -> typing.Any:
         raise AttributeError(f"No {attr_name} found in _dynamic_imports for module name -> {__name__}")
     try:
         module = import_module(module_name, __package__)
-        result = getattr(module, attr_name)
-        return result
+        if module_name == f".{attr_name}":
+            return module
+        else:
+            return getattr(module, attr_name)
     except ImportError as e:
         raise ImportError(f"Failed to import {attr_name} from {module_name}: {e}") from e
     except AttributeError as e:

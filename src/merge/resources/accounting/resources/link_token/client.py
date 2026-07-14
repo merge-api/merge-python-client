@@ -50,7 +50,7 @@ class LinkTokenClient:
         ] = OMIT,
         language: typing.Optional[EndUserDetailsRequestLanguage] = OMIT,
         are_syncs_disabled: typing.Optional[bool] = OMIT,
-        integration_specific_config: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
+        integration_specific_config: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         completed_account_initial_screen: typing.Optional[EndUserDetailsRequestCompletedAccountInitialScreen] = OMIT,
         linked_destination_id: typing.Optional[str] = OMIT,
         credential_id: typing.Optional[str] = OMIT,
@@ -100,7 +100,7 @@ class LinkTokenClient:
         are_syncs_disabled : typing.Optional[bool]
             The boolean that indicates whether initial, periodic, and force syncs will be disabled.
 
-        integration_specific_config : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
+        integration_specific_config : typing.Optional[typing.Dict[str, typing.Any]]
             A JSON object containing integration-specific configuration options.
 
         completed_account_initial_screen : typing.Optional[EndUserDetailsRequestCompletedAccountInitialScreen]
@@ -192,7 +192,7 @@ class AsyncLinkTokenClient:
         ] = OMIT,
         language: typing.Optional[EndUserDetailsRequestLanguage] = OMIT,
         are_syncs_disabled: typing.Optional[bool] = OMIT,
-        integration_specific_config: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
+        integration_specific_config: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         completed_account_initial_screen: typing.Optional[EndUserDetailsRequestCompletedAccountInitialScreen] = OMIT,
         linked_destination_id: typing.Optional[str] = OMIT,
         credential_id: typing.Optional[str] = OMIT,
@@ -242,7 +242,7 @@ class AsyncLinkTokenClient:
         are_syncs_disabled : typing.Optional[bool]
             The boolean that indicates whether initial, periodic, and force syncs will be disabled.
 
-        integration_specific_config : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
+        integration_specific_config : typing.Optional[typing.Dict[str, typing.Any]]
             A JSON object containing integration-specific configuration options.
 
         completed_account_initial_screen : typing.Optional[EndUserDetailsRequestCompletedAccountInitialScreen]

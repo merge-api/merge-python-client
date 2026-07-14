@@ -53,28 +53,28 @@ _dynamic_imports: typing.Dict[str, str] = {
     "GroupsRetrieveRequestExpandItem": ".groups",
     "IssuesListRequestStatus": ".issues",
     "LinkedAccountsListRequestCategory": ".linked_accounts",
-    "account_details": ".",
-    "account_token": ".",
-    "async_passthrough": ".",
-    "audit_trail": ".",
-    "available_actions": ".",
-    "calendars": ".",
-    "delete_account": ".",
-    "events": ".",
-    "field_mapping": ".",
-    "force_resync": ".",
-    "generate_key": ".",
-    "groups": ".",
-    "issues": ".",
-    "link_token": ".",
-    "linked_accounts": ".",
-    "passthrough": ".",
-    "regenerate_key": ".",
-    "scopes": ".",
-    "series": ".",
-    "sync_status": ".",
-    "users": ".",
-    "webhook_receivers": ".",
+    "account_details": ".account_details",
+    "account_token": ".account_token",
+    "async_passthrough": ".async_passthrough",
+    "audit_trail": ".audit_trail",
+    "available_actions": ".available_actions",
+    "calendars": ".calendars",
+    "delete_account": ".delete_account",
+    "events": ".events",
+    "field_mapping": ".field_mapping",
+    "force_resync": ".force_resync",
+    "generate_key": ".generate_key",
+    "groups": ".groups",
+    "issues": ".issues",
+    "link_token": ".link_token",
+    "linked_accounts": ".linked_accounts",
+    "passthrough": ".passthrough",
+    "regenerate_key": ".regenerate_key",
+    "scopes": ".scopes",
+    "series": ".series",
+    "sync_status": ".sync_status",
+    "users": ".users",
+    "webhook_receivers": ".webhook_receivers",
 }
 
 
@@ -84,8 +84,10 @@ def __getattr__(attr_name: str) -> typing.Any:
         raise AttributeError(f"No {attr_name} found in _dynamic_imports for module name -> {__name__}")
     try:
         module = import_module(module_name, __package__)
-        result = getattr(module, attr_name)
-        return result
+        if module_name == f".{attr_name}":
+            return module
+        else:
+            return getattr(module, attr_name)
     except ImportError as e:
         raise ImportError(f"Failed to import {attr_name} from {module_name}: {e}") from e
     except AttributeError as e:

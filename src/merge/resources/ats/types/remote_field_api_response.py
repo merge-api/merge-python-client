@@ -3,32 +3,82 @@
 import typing
 
 import pydantic
+import typing_extensions
 from ....core.pydantic_utilities import IS_PYDANTIC_V2
+from ....core.serialization import FieldMetadata
 from ....core.unchecked_base_model import UncheckedBaseModel
 from .remote_field_api import RemoteFieldApi
 
 
 class RemoteFieldApiResponse(UncheckedBaseModel):
-    activity: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Activity", default=None)
-    application: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Application", default=None)
-    attachment: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Attachment", default=None)
-    candidate: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Candidate", default=None)
-    department: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Department", default=None)
-    eeoc: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="EEOC", default=None)
-    scheduled_interview: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(
-        alias="ScheduledInterview", default=None
-    )
-    job: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Job", default=None)
-    job_posting: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="JobPosting", default=None)
-    job_interview_stage: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(
-        alias="JobInterviewStage", default=None
-    )
-    offer: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Offer", default=None)
-    office: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Office", default=None)
-    reject_reason: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="RejectReason", default=None)
-    scorecard: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Scorecard", default=None)
-    tag: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Tag", default=None)
-    remote_user: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="RemoteUser", default=None)
+    activity: typing_extensions.Annotated[
+        typing.Optional[typing.List[RemoteFieldApi]], FieldMetadata(alias="Activity"), pydantic.Field(alias="Activity")
+    ] = None
+    application: typing_extensions.Annotated[
+        typing.Optional[typing.List[RemoteFieldApi]],
+        FieldMetadata(alias="Application"),
+        pydantic.Field(alias="Application"),
+    ] = None
+    attachment: typing_extensions.Annotated[
+        typing.Optional[typing.List[RemoteFieldApi]],
+        FieldMetadata(alias="Attachment"),
+        pydantic.Field(alias="Attachment"),
+    ] = None
+    candidate: typing_extensions.Annotated[
+        typing.Optional[typing.List[RemoteFieldApi]],
+        FieldMetadata(alias="Candidate"),
+        pydantic.Field(alias="Candidate"),
+    ] = None
+    department: typing_extensions.Annotated[
+        typing.Optional[typing.List[RemoteFieldApi]],
+        FieldMetadata(alias="Department"),
+        pydantic.Field(alias="Department"),
+    ] = None
+    eeoc: typing_extensions.Annotated[
+        typing.Optional[typing.List[RemoteFieldApi]], FieldMetadata(alias="EEOC"), pydantic.Field(alias="EEOC")
+    ] = None
+    scheduled_interview: typing_extensions.Annotated[
+        typing.Optional[typing.List[RemoteFieldApi]],
+        FieldMetadata(alias="ScheduledInterview"),
+        pydantic.Field(alias="ScheduledInterview"),
+    ] = None
+    job: typing_extensions.Annotated[
+        typing.Optional[typing.List[RemoteFieldApi]], FieldMetadata(alias="Job"), pydantic.Field(alias="Job")
+    ] = None
+    job_posting: typing_extensions.Annotated[
+        typing.Optional[typing.List[RemoteFieldApi]],
+        FieldMetadata(alias="JobPosting"),
+        pydantic.Field(alias="JobPosting"),
+    ] = None
+    job_interview_stage: typing_extensions.Annotated[
+        typing.Optional[typing.List[RemoteFieldApi]],
+        FieldMetadata(alias="JobInterviewStage"),
+        pydantic.Field(alias="JobInterviewStage"),
+    ] = None
+    offer: typing_extensions.Annotated[
+        typing.Optional[typing.List[RemoteFieldApi]], FieldMetadata(alias="Offer"), pydantic.Field(alias="Offer")
+    ] = None
+    office: typing_extensions.Annotated[
+        typing.Optional[typing.List[RemoteFieldApi]], FieldMetadata(alias="Office"), pydantic.Field(alias="Office")
+    ] = None
+    reject_reason: typing_extensions.Annotated[
+        typing.Optional[typing.List[RemoteFieldApi]],
+        FieldMetadata(alias="RejectReason"),
+        pydantic.Field(alias="RejectReason"),
+    ] = None
+    scorecard: typing_extensions.Annotated[
+        typing.Optional[typing.List[RemoteFieldApi]],
+        FieldMetadata(alias="Scorecard"),
+        pydantic.Field(alias="Scorecard"),
+    ] = None
+    tag: typing_extensions.Annotated[
+        typing.Optional[typing.List[RemoteFieldApi]], FieldMetadata(alias="Tag"), pydantic.Field(alias="Tag")
+    ] = None
+    remote_user: typing_extensions.Annotated[
+        typing.Optional[typing.List[RemoteFieldApi]],
+        FieldMetadata(alias="RemoteUser"),
+        pydantic.Field(alias="RemoteUser"),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

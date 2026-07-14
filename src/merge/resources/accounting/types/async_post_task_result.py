@@ -9,7 +9,7 @@ from ....core.unchecked_base_model import UncheckedBaseModel
 
 class AsyncPostTaskResult(UncheckedBaseModel):
     status_code: typing.Optional[int] = None
-    response: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    response: typing.Optional[typing.Dict[str, typing.Any]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

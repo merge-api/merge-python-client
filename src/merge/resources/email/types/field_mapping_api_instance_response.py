@@ -3,19 +3,37 @@
 import typing
 
 import pydantic
+import typing_extensions
 from ....core.pydantic_utilities import IS_PYDANTIC_V2
+from ....core.serialization import FieldMetadata
 from ....core.unchecked_base_model import UncheckedBaseModel
 from .field_mapping_api_instance import FieldMappingApiInstance
 
 
 class FieldMappingApiInstanceResponse(UncheckedBaseModel):
-    user: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(alias="User", default=None)
-    group: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(alias="Group", default=None)
-    mailbox: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(alias="Mailbox", default=None)
-    folder: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(alias="Folder", default=None)
-    email_address: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(
-        alias="EmailAddress", default=None
-    )
+    user: typing_extensions.Annotated[
+        typing.Optional[typing.List[FieldMappingApiInstance]], FieldMetadata(alias="User"), pydantic.Field(alias="User")
+    ] = None
+    group: typing_extensions.Annotated[
+        typing.Optional[typing.List[FieldMappingApiInstance]],
+        FieldMetadata(alias="Group"),
+        pydantic.Field(alias="Group"),
+    ] = None
+    mailbox: typing_extensions.Annotated[
+        typing.Optional[typing.List[FieldMappingApiInstance]],
+        FieldMetadata(alias="Mailbox"),
+        pydantic.Field(alias="Mailbox"),
+    ] = None
+    folder: typing_extensions.Annotated[
+        typing.Optional[typing.List[FieldMappingApiInstance]],
+        FieldMetadata(alias="Folder"),
+        pydantic.Field(alias="Folder"),
+    ] = None
+    email_address: typing_extensions.Annotated[
+        typing.Optional[typing.List[FieldMappingApiInstance]],
+        FieldMetadata(alias="EmailAddress"),
+        pydantic.Field(alias="EmailAddress"),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

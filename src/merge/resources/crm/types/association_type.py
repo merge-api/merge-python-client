@@ -35,7 +35,7 @@ class AssociationType(UncheckedBaseModel):
     The datetime that this object was modified by Merge.
     """
 
-    source_object_class: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = pydantic.Field(default=None)
+    source_object_class: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(default=None)
     """
     The class of the source object (Custom Object or Common Model) for the association type.
     """

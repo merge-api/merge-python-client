@@ -1,0 +1,16 @@
+{
+  "cliVersion": "3.72.0",
+  "generatorName": "fernapi/fern-python-sdk",
+  "generatorVersion": "5.0.8",
+  "generatorConfig": {
+    "client_class_name": "Merge",
+    "inline_request_params": false,
+    "improved_imports": false,
+    "pydantic_config": {
+      "skip_validation": true,
+      "enum_type": "python_enums",
+      "use_pydantic_field_aliases": true
+    }
+  },
+  "sdkVersion": "4.0.0"
+}

@@ -451,7 +451,7 @@ class CreditNote(UncheckedBaseModel):
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
     """
 
-    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    field_mappings: typing.Optional[typing.Dict[str, typing.Any]] = None
     remote_data: typing.Optional[typing.List[RemoteData]] = None
 
     if IS_PYDANTIC_V2:
@@ -464,11 +464,31 @@ class CreditNote(UncheckedBaseModel):
             extra = pydantic.Extra.allow
 
 
-from .credit_note_apply_line_for_credit_note import CreditNoteApplyLineForCreditNote  # noqa: E402, F401, I001
-from .credit_note_apply_line_for_invoice import CreditNoteApplyLineForInvoice  # noqa: E402, F401, I001
-from .invoice import Invoice  # noqa: E402, F401, I001
-from .vendor_credit import VendorCredit  # noqa: E402, F401, I001
-from .vendor_credit_apply_line_for_invoice import VendorCreditApplyLineForInvoice  # noqa: E402, F401, I001
-from .vendor_credit_apply_line_for_vendor_credit import VendorCreditApplyLineForVendorCredit  # noqa: E402, F401, I001
+from .credit_note_apply_line_for_credit_note import CreditNoteApplyLineForCreditNote  # noqa: E402, I001
+from .credit_note_apply_line_for_credit_note_invoice import CreditNoteApplyLineForCreditNoteInvoice  # noqa: E402, I001
+from .credit_note_apply_line_for_invoice import CreditNoteApplyLineForInvoice  # noqa: E402, I001
+from .credit_note_apply_line_for_invoice_credit_note import CreditNoteApplyLineForInvoiceCreditNote  # noqa: E402, I001
+from .invoice import Invoice  # noqa: E402, I001
+from .invoice_applied_credit_notes_item import InvoiceAppliedCreditNotesItem  # noqa: E402, I001
+from .invoice_applied_vendor_credits_item import InvoiceAppliedVendorCreditsItem  # noqa: E402, I001
+from .vendor_credit import VendorCredit  # noqa: E402, I001
+from .vendor_credit_apply_line_for_invoice import VendorCreditApplyLineForInvoice  # noqa: E402, I001
+from .vendor_credit_apply_line_for_invoice_vendor_credit import VendorCreditApplyLineForInvoiceVendorCredit  # noqa: E402, I001
+from .vendor_credit_apply_line_for_vendor_credit import VendorCreditApplyLineForVendorCredit  # noqa: E402, I001
+from .vendor_credit_apply_line_for_vendor_credit_invoice import VendorCreditApplyLineForVendorCreditInvoice  # noqa: E402, I001
 
-update_forward_refs(CreditNote)
+update_forward_refs(
+    CreditNote,
+    CreditNoteApplyLineForCreditNote=CreditNoteApplyLineForCreditNote,
+    CreditNoteApplyLineForCreditNoteInvoice=CreditNoteApplyLineForCreditNoteInvoice,
+    CreditNoteApplyLineForInvoice=CreditNoteApplyLineForInvoice,
+    CreditNoteApplyLineForInvoiceCreditNote=CreditNoteApplyLineForInvoiceCreditNote,
+    Invoice=Invoice,
+    InvoiceAppliedCreditNotesItem=InvoiceAppliedCreditNotesItem,
+    InvoiceAppliedVendorCreditsItem=InvoiceAppliedVendorCreditsItem,
+    VendorCredit=VendorCredit,
+    VendorCreditApplyLineForInvoice=VendorCreditApplyLineForInvoice,
+    VendorCreditApplyLineForInvoiceVendorCredit=VendorCreditApplyLineForInvoiceVendorCredit,
+    VendorCreditApplyLineForVendorCredit=VendorCreditApplyLineForVendorCredit,
+    VendorCreditApplyLineForVendorCreditInvoice=VendorCreditApplyLineForVendorCreditInvoice,
+)

@@ -67,6 +67,6 @@ class Group(UncheckedBaseModel):
             extra = pydantic.Extra.allow
 
 
-from .group_parent_group import GroupParentGroup  # noqa: E402, F401, I001
+from .group_parent_group import GroupParentGroup  # noqa: E402, I001
 
-update_forward_refs(Group)
+update_forward_refs(Group, GroupParentGroup=GroupParentGroup)

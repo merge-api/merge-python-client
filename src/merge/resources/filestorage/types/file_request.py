@@ -56,7 +56,7 @@ class FileRequest(UncheckedBaseModel):
     The folder that the file belongs to.
     """
 
-    checksum: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = pydantic.Field(default=None)
+    checksum: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(default=None)
     """
     This field stores file checksum data. 'type' indicates the algorithm (e.g. crc_32, sha1, sha256, quickXor, or md5), and 'content_hash' is the unique hash used to verify file integrity and detect alterations.
     """
@@ -71,8 +71,8 @@ class FileRequest(UncheckedBaseModel):
     The drive that the file belongs to.
     """
 
-    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
-    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    integration_params: typing.Optional[typing.Dict[str, typing.Any]] = None
+    linked_account_params: typing.Optional[typing.Dict[str, typing.Any]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
@@ -83,8 +83,5 @@ class FileRequest(UncheckedBaseModel):
             smart_union = True
             extra = pydantic.Extra.allow
 
-
-from .folder import Folder  # noqa: E402, F401, I001
-from .group import Group  # noqa: E402, F401, I001
 
 update_forward_refs(FileRequest)

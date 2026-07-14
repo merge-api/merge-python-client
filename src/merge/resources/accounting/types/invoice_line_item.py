@@ -421,7 +421,7 @@ class InvoiceLineItem(UncheckedBaseModel):
     Indicates if the line item can be charged to the client/customer.
     """
 
-    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    field_mappings: typing.Optional[typing.Dict[str, typing.Any]] = None
     remote_fields: typing.Optional[typing.List[RemoteField]] = None
 
     if IS_PYDANTIC_V2:

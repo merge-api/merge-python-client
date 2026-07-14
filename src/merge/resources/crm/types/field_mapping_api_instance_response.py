@@ -3,23 +3,51 @@
 import typing
 
 import pydantic
+import typing_extensions
 from ....core.pydantic_utilities import IS_PYDANTIC_V2
+from ....core.serialization import FieldMetadata
 from ....core.unchecked_base_model import UncheckedBaseModel
 from .field_mapping_api_instance import FieldMappingApiInstance
 
 
 class FieldMappingApiInstanceResponse(UncheckedBaseModel):
-    account: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(alias="Account", default=None)
-    contact: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(alias="Contact", default=None)
-    lead: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(alias="Lead", default=None)
-    note: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(alias="Note", default=None)
-    opportunity: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(
-        alias="Opportunity", default=None
-    )
-    stage: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(alias="Stage", default=None)
-    user: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(alias="User", default=None)
-    task: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(alias="Task", default=None)
-    engagement: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(alias="Engagement", default=None)
+    account: typing_extensions.Annotated[
+        typing.Optional[typing.List[FieldMappingApiInstance]],
+        FieldMetadata(alias="Account"),
+        pydantic.Field(alias="Account"),
+    ] = None
+    contact: typing_extensions.Annotated[
+        typing.Optional[typing.List[FieldMappingApiInstance]],
+        FieldMetadata(alias="Contact"),
+        pydantic.Field(alias="Contact"),
+    ] = None
+    lead: typing_extensions.Annotated[
+        typing.Optional[typing.List[FieldMappingApiInstance]], FieldMetadata(alias="Lead"), pydantic.Field(alias="Lead")
+    ] = None
+    note: typing_extensions.Annotated[
+        typing.Optional[typing.List[FieldMappingApiInstance]], FieldMetadata(alias="Note"), pydantic.Field(alias="Note")
+    ] = None
+    opportunity: typing_extensions.Annotated[
+        typing.Optional[typing.List[FieldMappingApiInstance]],
+        FieldMetadata(alias="Opportunity"),
+        pydantic.Field(alias="Opportunity"),
+    ] = None
+    stage: typing_extensions.Annotated[
+        typing.Optional[typing.List[FieldMappingApiInstance]],
+        FieldMetadata(alias="Stage"),
+        pydantic.Field(alias="Stage"),
+    ] = None
+    user: typing_extensions.Annotated[
+        typing.Optional[typing.List[FieldMappingApiInstance]], FieldMetadata(alias="User"), pydantic.Field(alias="User")
+    ] = None
+    task: typing_extensions.Annotated[
+        typing.Optional[typing.List[FieldMappingApiInstance]], FieldMetadata(alias="Task"), pydantic.Field(alias="Task")
+    ] = None
+    engagement: typing_extensions.Annotated[
+        typing.Optional[typing.List[FieldMappingApiInstance]],
+        FieldMetadata(alias="Engagement"),
+        pydantic.Field(alias="Engagement"),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

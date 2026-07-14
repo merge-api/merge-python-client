@@ -24,8 +24,17 @@ class PaginatedEmployeeList(UncheckedBaseModel):
             extra = pydantic.Extra.allow
 
 
-from .employee import Employee  # noqa: E402, F401, I001
-from .employment import Employment  # noqa: E402, F401, I001
-from .team import Team  # noqa: E402, F401, I001
+from .employee import Employee  # noqa: E402, I001
+from .employee_employments_item import EmployeeEmploymentsItem  # noqa: E402, I001
+from .employee_manager import EmployeeManager  # noqa: E402, I001
+from .employment import Employment  # noqa: E402, I001
+from .employment_employee import EmploymentEmployee  # noqa: E402, I001
 
-update_forward_refs(PaginatedEmployeeList)
+update_forward_refs(
+    PaginatedEmployeeList,
+    Employee=Employee,
+    EmployeeEmploymentsItem=EmployeeEmploymentsItem,
+    EmployeeManager=EmployeeManager,
+    Employment=Employment,
+    EmploymentEmployee=EmploymentEmployee,
+)

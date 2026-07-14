@@ -89,7 +89,4 @@ class ScreeningQuestion(UncheckedBaseModel):
             extra = pydantic.Extra.allow
 
 
-from .job import Job  # noqa: E402, F401, I001
-from .job_posting import JobPosting  # noqa: E402, F401, I001
-
 update_forward_refs(ScreeningQuestion)

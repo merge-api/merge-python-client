@@ -163,7 +163,7 @@ class Ticket(UncheckedBaseModel):
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
     """
 
-    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    field_mappings: typing.Optional[typing.Dict[str, typing.Any]] = None
     remote_data: typing.Optional[typing.List[RemoteData]] = None
     remote_fields: typing.Optional[typing.List[RemoteField]] = None
 
@@ -177,9 +177,15 @@ class Ticket(UncheckedBaseModel):
             extra = pydantic.Extra.allow
 
 
-from .collection import Collection  # noqa: E402, F401, I001
-from .attachment import Attachment  # noqa: E402, F401, I001
-from .ticket_parent_ticket import TicketParentTicket  # noqa: E402, F401, I001
-from .ticket_attachments_item import TicketAttachmentsItem  # noqa: E402, F401, I001
+from .attachment import Attachment  # noqa: E402, I001
+from .attachment_ticket import AttachmentTicket  # noqa: E402, I001
+from .ticket_attachments_item import TicketAttachmentsItem  # noqa: E402, I001
+from .ticket_parent_ticket import TicketParentTicket  # noqa: E402, I001
 
-update_forward_refs(Ticket)
+update_forward_refs(
+    Ticket,
+    Attachment=Attachment,
+    AttachmentTicket=AttachmentTicket,
+    TicketAttachmentsItem=TicketAttachmentsItem,
+    TicketParentTicket=TicketParentTicket,
+)

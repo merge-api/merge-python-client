@@ -141,7 +141,6 @@ class Article(UncheckedBaseModel):
             extra = pydantic.Extra.allow
 
 
-from .group import Group  # noqa: E402, F401, I001
-from .article_parent_article import ArticleParentArticle  # noqa: E402, F401, I001
+from .article_parent_article import ArticleParentArticle  # noqa: E402, I001
 
-update_forward_refs(Article)
+update_forward_refs(Article, ArticleParentArticle=ArticleParentArticle)

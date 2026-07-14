@@ -3,78 +3,152 @@
 import typing
 
 import pydantic
+import typing_extensions
 from ....core.pydantic_utilities import IS_PYDANTIC_V2
+from ....core.serialization import FieldMetadata
 from ....core.unchecked_base_model import UncheckedBaseModel
 from .field_mapping_api_instance import FieldMappingApiInstance
 
 
 class FieldMappingApiInstanceResponse(UncheckedBaseModel):
-    account: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(alias="Account", default=None)
-    accounting_attachment: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(
-        alias="AccountingAttachment", default=None
-    )
-    balance_sheet: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(
-        alias="BalanceSheet", default=None
-    )
-    cash_flow_statement: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(
-        alias="CashFlowStatement", default=None
-    )
-    company_info: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(
-        alias="CompanyInfo", default=None
-    )
-    contact: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(alias="Contact", default=None)
-    income_statement: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(
-        alias="IncomeStatement", default=None
-    )
-    credit_note: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(
-        alias="CreditNote", default=None
-    )
-    item: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(alias="Item", default=None)
-    purchase_order: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(
-        alias="PurchaseOrder", default=None
-    )
-    sales_order: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(
-        alias="SalesOrder", default=None
-    )
-    item_fulfillment: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(
-        alias="ItemFulfillment", default=None
-    )
-    expense_report: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(
-        alias="ExpenseReport", default=None
-    )
-    tracking_category: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(
-        alias="TrackingCategory", default=None
-    )
-    journal_entry: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(
-        alias="JournalEntry", default=None
-    )
-    tax_rate: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(alias="TaxRate", default=None)
-    invoice: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(alias="Invoice", default=None)
-    payment: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(alias="Payment", default=None)
-    expense: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(alias="Expense", default=None)
-    vendor_credit: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(
-        alias="VendorCredit", default=None
-    )
-    transaction: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(
-        alias="Transaction", default=None
-    )
-    accounting_period: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(
-        alias="AccountingPeriod", default=None
-    )
-    general_ledger_transaction: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(
-        alias="GeneralLedgerTransaction", default=None
-    )
-    bank_feed_account: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(
-        alias="BankFeedAccount", default=None
-    )
-    employee: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(alias="Employee", default=None)
-    payment_method: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(
-        alias="PaymentMethod", default=None
-    )
-    project: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(alias="Project", default=None)
-    payment_term: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(
-        alias="PaymentTerm", default=None
-    )
+    account: typing_extensions.Annotated[
+        typing.Optional[typing.List[FieldMappingApiInstance]],
+        FieldMetadata(alias="Account"),
+        pydantic.Field(alias="Account"),
+    ] = None
+    accounting_attachment: typing_extensions.Annotated[
+        typing.Optional[typing.List[FieldMappingApiInstance]],
+        FieldMetadata(alias="AccountingAttachment"),
+        pydantic.Field(alias="AccountingAttachment"),
+    ] = None
+    balance_sheet: typing_extensions.Annotated[
+        typing.Optional[typing.List[FieldMappingApiInstance]],
+        FieldMetadata(alias="BalanceSheet"),
+        pydantic.Field(alias="BalanceSheet"),
+    ] = None
+    cash_flow_statement: typing_extensions.Annotated[
+        typing.Optional[typing.List[FieldMappingApiInstance]],
+        FieldMetadata(alias="CashFlowStatement"),
+        pydantic.Field(alias="CashFlowStatement"),
+    ] = None
+    company_info: typing_extensions.Annotated[
+        typing.Optional[typing.List[FieldMappingApiInstance]],
+        FieldMetadata(alias="CompanyInfo"),
+        pydantic.Field(alias="CompanyInfo"),
+    ] = None
+    contact: typing_extensions.Annotated[
+        typing.Optional[typing.List[FieldMappingApiInstance]],
+        FieldMetadata(alias="Contact"),
+        pydantic.Field(alias="Contact"),
+    ] = None
+    income_statement: typing_extensions.Annotated[
+        typing.Optional[typing.List[FieldMappingApiInstance]],
+        FieldMetadata(alias="IncomeStatement"),
+        pydantic.Field(alias="IncomeStatement"),
+    ] = None
+    credit_note: typing_extensions.Annotated[
+        typing.Optional[typing.List[FieldMappingApiInstance]],
+        FieldMetadata(alias="CreditNote"),
+        pydantic.Field(alias="CreditNote"),
+    ] = None
+    item: typing_extensions.Annotated[
+        typing.Optional[typing.List[FieldMappingApiInstance]], FieldMetadata(alias="Item"), pydantic.Field(alias="Item")
+    ] = None
+    purchase_order: typing_extensions.Annotated[
+        typing.Optional[typing.List[FieldMappingApiInstance]],
+        FieldMetadata(alias="PurchaseOrder"),
+        pydantic.Field(alias="PurchaseOrder"),
+    ] = None
+    sales_order: typing_extensions.Annotated[
+        typing.Optional[typing.List[FieldMappingApiInstance]],
+        FieldMetadata(alias="SalesOrder"),
+        pydantic.Field(alias="SalesOrder"),
+    ] = None
+    item_fulfillment: typing_extensions.Annotated[
+        typing.Optional[typing.List[FieldMappingApiInstance]],
+        FieldMetadata(alias="ItemFulfillment"),
+        pydantic.Field(alias="ItemFulfillment"),
+    ] = None
+    expense_report: typing_extensions.Annotated[
+        typing.Optional[typing.List[FieldMappingApiInstance]],
+        FieldMetadata(alias="ExpenseReport"),
+        pydantic.Field(alias="ExpenseReport"),
+    ] = None
+    tracking_category: typing_extensions.Annotated[
+        typing.Optional[typing.List[FieldMappingApiInstance]],
+        FieldMetadata(alias="TrackingCategory"),
+        pydantic.Field(alias="TrackingCategory"),
+    ] = None
+    journal_entry: typing_extensions.Annotated[
+        typing.Optional[typing.List[FieldMappingApiInstance]],
+        FieldMetadata(alias="JournalEntry"),
+        pydantic.Field(alias="JournalEntry"),
+    ] = None
+    tax_rate: typing_extensions.Annotated[
+        typing.Optional[typing.List[FieldMappingApiInstance]],
+        FieldMetadata(alias="TaxRate"),
+        pydantic.Field(alias="TaxRate"),
+    ] = None
+    invoice: typing_extensions.Annotated[
+        typing.Optional[typing.List[FieldMappingApiInstance]],
+        FieldMetadata(alias="Invoice"),
+        pydantic.Field(alias="Invoice"),
+    ] = None
+    payment: typing_extensions.Annotated[
+        typing.Optional[typing.List[FieldMappingApiInstance]],
+        FieldMetadata(alias="Payment"),
+        pydantic.Field(alias="Payment"),
+    ] = None
+    expense: typing_extensions.Annotated[
+        typing.Optional[typing.List[FieldMappingApiInstance]],
+        FieldMetadata(alias="Expense"),
+        pydantic.Field(alias="Expense"),
+    ] = None
+    vendor_credit: typing_extensions.Annotated[
+        typing.Optional[typing.List[FieldMappingApiInstance]],
+        FieldMetadata(alias="VendorCredit"),
+        pydantic.Field(alias="VendorCredit"),
+    ] = None
+    transaction: typing_extensions.Annotated[
+        typing.Optional[typing.List[FieldMappingApiInstance]],
+        FieldMetadata(alias="Transaction"),
+        pydantic.Field(alias="Transaction"),
+    ] = None
+    accounting_period: typing_extensions.Annotated[
+        typing.Optional[typing.List[FieldMappingApiInstance]],
+        FieldMetadata(alias="AccountingPeriod"),
+        pydantic.Field(alias="AccountingPeriod"),
+    ] = None
+    general_ledger_transaction: typing_extensions.Annotated[
+        typing.Optional[typing.List[FieldMappingApiInstance]],
+        FieldMetadata(alias="GeneralLedgerTransaction"),
+        pydantic.Field(alias="GeneralLedgerTransaction"),
+    ] = None
+    bank_feed_account: typing_extensions.Annotated[
+        typing.Optional[typing.List[FieldMappingApiInstance]],
+        FieldMetadata(alias="BankFeedAccount"),
+        pydantic.Field(alias="BankFeedAccount"),
+    ] = None
+    employee: typing_extensions.Annotated[
+        typing.Optional[typing.List[FieldMappingApiInstance]],
+        FieldMetadata(alias="Employee"),
+        pydantic.Field(alias="Employee"),
+    ] = None
+    payment_method: typing_extensions.Annotated[
+        typing.Optional[typing.List[FieldMappingApiInstance]],
+        FieldMetadata(alias="PaymentMethod"),
+        pydantic.Field(alias="PaymentMethod"),
+    ] = None
+    project: typing_extensions.Annotated[
+        typing.Optional[typing.List[FieldMappingApiInstance]],
+        FieldMetadata(alias="Project"),
+        pydantic.Field(alias="Project"),
+    ] = None
+    payment_term: typing_extensions.Annotated[
+        typing.Optional[typing.List[FieldMappingApiInstance]],
+        FieldMetadata(alias="PaymentTerm"),
+        pydantic.Field(alias="PaymentTerm"),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

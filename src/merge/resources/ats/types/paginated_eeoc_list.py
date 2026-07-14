@@ -25,10 +25,4 @@ class PaginatedEeocList(UncheckedBaseModel):
             extra = pydantic.Extra.allow
 
 
-from .application import Application  # noqa: E402, F401, I001
-from .candidate import Candidate  # noqa: E402, F401, I001
-from .job import Job  # noqa: E402, F401, I001
-from .job_posting import JobPosting  # noqa: E402, F401, I001
-from .offer import Offer  # noqa: E402, F401, I001
-
 update_forward_refs(PaginatedEeocList)

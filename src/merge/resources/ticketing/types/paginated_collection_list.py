@@ -24,6 +24,9 @@ class PaginatedCollectionList(UncheckedBaseModel):
             extra = pydantic.Extra.allow
 
 
-from .collection import Collection  # noqa: E402, F401, I001
+from .collection import Collection  # noqa: E402, I001
+from .collection_parent_collection import CollectionParentCollection  # noqa: E402, I001
 
-update_forward_refs(PaginatedCollectionList)
+update_forward_refs(
+    PaginatedCollectionList, Collection=Collection, CollectionParentCollection=CollectionParentCollection
+)

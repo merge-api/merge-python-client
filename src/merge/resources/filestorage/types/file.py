@@ -74,7 +74,7 @@ class File(UncheckedBaseModel):
     The folder that the file belongs to.
     """
 
-    checksum: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = pydantic.Field(default=None)
+    checksum: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(default=None)
     """
     This field stores file checksum data. 'type' indicates the algorithm (e.g. crc_32, sha1, sha256, quickXor, or md5), and 'content_hash' is the unique hash used to verify file integrity and detect alterations.
     """
@@ -104,7 +104,7 @@ class File(UncheckedBaseModel):
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
     """
 
-    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    field_mappings: typing.Optional[typing.Dict[str, typing.Any]] = None
     remote_data: typing.Optional[typing.List[RemoteData]] = None
 
     if IS_PYDANTIC_V2:
@@ -116,8 +116,5 @@ class File(UncheckedBaseModel):
             smart_union = True
             extra = pydantic.Extra.allow
 
-
-from .folder import Folder  # noqa: E402, F401, I001
-from .group import Group  # noqa: E402, F401, I001
 
 update_forward_refs(File)

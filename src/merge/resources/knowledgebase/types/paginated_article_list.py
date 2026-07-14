@@ -24,7 +24,7 @@ class PaginatedArticleList(UncheckedBaseModel):
             extra = pydantic.Extra.allow
 
 
-from .article import Article  # noqa: E402, F401, I001
-from .group import Group  # noqa: E402, F401, I001
+from .article import Article  # noqa: E402, I001
+from .article_parent_article import ArticleParentArticle  # noqa: E402, I001
 
-update_forward_refs(PaginatedArticleList)
+update_forward_refs(PaginatedArticleList, Article=Article, ArticleParentArticle=ArticleParentArticle)

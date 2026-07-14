@@ -10,7 +10,7 @@ from ....core.unchecked_base_model import UncheckedBaseModel
 class RemoteEndpointInfo(UncheckedBaseModel):
     method: str
     url_path: str
-    field_traversal_path: typing.List[typing.Optional[typing.Any]]
+    field_traversal_path: typing.List[typing.Any]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

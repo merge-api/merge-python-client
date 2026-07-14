@@ -365,8 +365,8 @@ class PatchedVendorCreditRequest(UncheckedBaseModel):
     """
 
     tracking_categories: typing.Optional[typing.List[PatchedVendorCreditRequestTrackingCategoriesItem]] = None
-    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
-    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    integration_params: typing.Optional[typing.Dict[str, typing.Any]] = None
+    linked_account_params: typing.Optional[typing.Dict[str, typing.Any]] = None
     vendor_credit_url: typing.Optional[str] = pydantic.Field(default=None)
     """
     The 3rd party URL of the vendor credit.

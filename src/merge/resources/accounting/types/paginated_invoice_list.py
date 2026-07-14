@@ -24,12 +24,33 @@ class PaginatedInvoiceList(UncheckedBaseModel):
             extra = pydantic.Extra.allow
 
 
-from .credit_note import CreditNote  # noqa: E402, F401, I001
-from .credit_note_apply_line_for_credit_note import CreditNoteApplyLineForCreditNote  # noqa: E402, F401, I001
-from .credit_note_apply_line_for_invoice import CreditNoteApplyLineForInvoice  # noqa: E402, F401, I001
-from .invoice import Invoice  # noqa: E402, F401, I001
-from .vendor_credit import VendorCredit  # noqa: E402, F401, I001
-from .vendor_credit_apply_line_for_invoice import VendorCreditApplyLineForInvoice  # noqa: E402, F401, I001
-from .vendor_credit_apply_line_for_vendor_credit import VendorCreditApplyLineForVendorCredit  # noqa: E402, F401, I001
+from .credit_note import CreditNote  # noqa: E402, I001
+from .credit_note_apply_line_for_credit_note import CreditNoteApplyLineForCreditNote  # noqa: E402, I001
+from .credit_note_apply_line_for_credit_note_invoice import CreditNoteApplyLineForCreditNoteInvoice  # noqa: E402, I001
+from .credit_note_apply_line_for_invoice import CreditNoteApplyLineForInvoice  # noqa: E402, I001
+from .credit_note_apply_line_for_invoice_credit_note import CreditNoteApplyLineForInvoiceCreditNote  # noqa: E402, I001
+from .invoice import Invoice  # noqa: E402, I001
+from .invoice_applied_credit_notes_item import InvoiceAppliedCreditNotesItem  # noqa: E402, I001
+from .invoice_applied_vendor_credits_item import InvoiceAppliedVendorCreditsItem  # noqa: E402, I001
+from .vendor_credit import VendorCredit  # noqa: E402, I001
+from .vendor_credit_apply_line_for_invoice import VendorCreditApplyLineForInvoice  # noqa: E402, I001
+from .vendor_credit_apply_line_for_invoice_vendor_credit import VendorCreditApplyLineForInvoiceVendorCredit  # noqa: E402, I001
+from .vendor_credit_apply_line_for_vendor_credit import VendorCreditApplyLineForVendorCredit  # noqa: E402, I001
+from .vendor_credit_apply_line_for_vendor_credit_invoice import VendorCreditApplyLineForVendorCreditInvoice  # noqa: E402, I001
 
-update_forward_refs(PaginatedInvoiceList)
+update_forward_refs(
+    PaginatedInvoiceList,
+    CreditNote=CreditNote,
+    CreditNoteApplyLineForCreditNote=CreditNoteApplyLineForCreditNote,
+    CreditNoteApplyLineForCreditNoteInvoice=CreditNoteApplyLineForCreditNoteInvoice,
+    CreditNoteApplyLineForInvoice=CreditNoteApplyLineForInvoice,
+    CreditNoteApplyLineForInvoiceCreditNote=CreditNoteApplyLineForInvoiceCreditNote,
+    Invoice=Invoice,
+    InvoiceAppliedCreditNotesItem=InvoiceAppliedCreditNotesItem,
+    InvoiceAppliedVendorCreditsItem=InvoiceAppliedVendorCreditsItem,
+    VendorCredit=VendorCredit,
+    VendorCreditApplyLineForInvoice=VendorCreditApplyLineForInvoice,
+    VendorCreditApplyLineForInvoiceVendorCredit=VendorCreditApplyLineForInvoiceVendorCredit,
+    VendorCreditApplyLineForVendorCredit=VendorCreditApplyLineForVendorCredit,
+    VendorCreditApplyLineForVendorCreditInvoice=VendorCreditApplyLineForVendorCreditInvoice,
+)

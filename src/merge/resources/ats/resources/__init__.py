@@ -98,39 +98,39 @@ _dynamic_imports: typing.Dict[str, str] = {
     "OffersRetrieveRequestExpandItem": ".offers",
     "ScorecardsListRequestExpandItem": ".scorecards",
     "ScorecardsRetrieveRequestExpandItem": ".scorecards",
-    "account_details": ".",
-    "account_token": ".",
-    "activities": ".",
-    "applications": ".",
-    "async_passthrough": ".",
-    "attachments": ".",
-    "audit_trail": ".",
-    "available_actions": ".",
-    "candidates": ".",
-    "delete_account": ".",
-    "departments": ".",
-    "eeocs": ".",
-    "field_mapping": ".",
-    "force_resync": ".",
-    "generate_key": ".",
-    "interviews": ".",
-    "issues": ".",
-    "job_interview_stages": ".",
-    "job_postings": ".",
-    "jobs": ".",
-    "link_token": ".",
-    "linked_accounts": ".",
-    "offers": ".",
-    "offices": ".",
-    "passthrough": ".",
-    "regenerate_key": ".",
-    "reject_reasons": ".",
-    "scopes": ".",
-    "scorecards": ".",
-    "sync_status": ".",
-    "tags": ".",
-    "users": ".",
-    "webhook_receivers": ".",
+    "account_details": ".account_details",
+    "account_token": ".account_token",
+    "activities": ".activities",
+    "applications": ".applications",
+    "async_passthrough": ".async_passthrough",
+    "attachments": ".attachments",
+    "audit_trail": ".audit_trail",
+    "available_actions": ".available_actions",
+    "candidates": ".candidates",
+    "delete_account": ".delete_account",
+    "departments": ".departments",
+    "eeocs": ".eeocs",
+    "field_mapping": ".field_mapping",
+    "force_resync": ".force_resync",
+    "generate_key": ".generate_key",
+    "interviews": ".interviews",
+    "issues": ".issues",
+    "job_interview_stages": ".job_interview_stages",
+    "job_postings": ".job_postings",
+    "jobs": ".jobs",
+    "link_token": ".link_token",
+    "linked_accounts": ".linked_accounts",
+    "offers": ".offers",
+    "offices": ".offices",
+    "passthrough": ".passthrough",
+    "regenerate_key": ".regenerate_key",
+    "reject_reasons": ".reject_reasons",
+    "scopes": ".scopes",
+    "scorecards": ".scorecards",
+    "sync_status": ".sync_status",
+    "tags": ".tags",
+    "users": ".users",
+    "webhook_receivers": ".webhook_receivers",
 }
 
 
@@ -140,8 +140,10 @@ def __getattr__(attr_name: str) -> typing.Any:
         raise AttributeError(f"No {attr_name} found in _dynamic_imports for module name -> {__name__}")
     try:
         module = import_module(module_name, __package__)
-        result = getattr(module, attr_name)
-        return result
+        if module_name == f".{attr_name}":
+            return module
+        else:
+            return getattr(module, attr_name)
     except ImportError as e:
         raise ImportError(f"Failed to import {attr_name} from {module_name}: {e}") from e
     except AttributeError as e:

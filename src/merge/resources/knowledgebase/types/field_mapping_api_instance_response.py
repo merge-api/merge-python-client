@@ -3,17 +3,37 @@
 import typing
 
 import pydantic
+import typing_extensions
 from ....core.pydantic_utilities import IS_PYDANTIC_V2
+from ....core.serialization import FieldMetadata
 from ....core.unchecked_base_model import UncheckedBaseModel
 from .field_mapping_api_instance import FieldMappingApiInstance
 
 
 class FieldMappingApiInstanceResponse(UncheckedBaseModel):
-    container: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(alias="Container", default=None)
-    article: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(alias="Article", default=None)
-    attachment: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(alias="Attachment", default=None)
-    user: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(alias="User", default=None)
-    group: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(alias="Group", default=None)
+    container: typing_extensions.Annotated[
+        typing.Optional[typing.List[FieldMappingApiInstance]],
+        FieldMetadata(alias="Container"),
+        pydantic.Field(alias="Container"),
+    ] = None
+    article: typing_extensions.Annotated[
+        typing.Optional[typing.List[FieldMappingApiInstance]],
+        FieldMetadata(alias="Article"),
+        pydantic.Field(alias="Article"),
+    ] = None
+    attachment: typing_extensions.Annotated[
+        typing.Optional[typing.List[FieldMappingApiInstance]],
+        FieldMetadata(alias="Attachment"),
+        pydantic.Field(alias="Attachment"),
+    ] = None
+    user: typing_extensions.Annotated[
+        typing.Optional[typing.List[FieldMappingApiInstance]], FieldMetadata(alias="User"), pydantic.Field(alias="User")
+    ] = None
+    group: typing_extensions.Annotated[
+        typing.Optional[typing.List[FieldMappingApiInstance]],
+        FieldMetadata(alias="Group"),
+        pydantic.Field(alias="Group"),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

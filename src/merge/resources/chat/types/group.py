@@ -71,7 +71,8 @@ class Group(UncheckedBaseModel):
             extra = pydantic.Extra.allow
 
 
-from .user import User  # noqa: E402, F401, I001
-from .group_users_item import GroupUsersItem  # noqa: E402, F401, I001
+from .group_users_item import GroupUsersItem  # noqa: E402, I001
+from .user import User  # noqa: E402, I001
+from .user_groups_item import UserGroupsItem  # noqa: E402, I001
 
-update_forward_refs(Group)
+update_forward_refs(Group, GroupUsersItem=GroupUsersItem, User=User, UserGroupsItem=UserGroupsItem)

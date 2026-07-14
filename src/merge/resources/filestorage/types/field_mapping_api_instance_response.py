@@ -3,17 +3,35 @@
 import typing
 
 import pydantic
+import typing_extensions
 from ....core.pydantic_utilities import IS_PYDANTIC_V2
+from ....core.serialization import FieldMetadata
 from ....core.unchecked_base_model import UncheckedBaseModel
 from .field_mapping_api_instance import FieldMappingApiInstance
 
 
 class FieldMappingApiInstanceResponse(UncheckedBaseModel):
-    file: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(alias="File", default=None)
-    folder: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(alias="Folder", default=None)
-    drive: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(alias="Drive", default=None)
-    group: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(alias="Group", default=None)
-    user: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(alias="User", default=None)
+    file: typing_extensions.Annotated[
+        typing.Optional[typing.List[FieldMappingApiInstance]], FieldMetadata(alias="File"), pydantic.Field(alias="File")
+    ] = None
+    folder: typing_extensions.Annotated[
+        typing.Optional[typing.List[FieldMappingApiInstance]],
+        FieldMetadata(alias="Folder"),
+        pydantic.Field(alias="Folder"),
+    ] = None
+    drive: typing_extensions.Annotated[
+        typing.Optional[typing.List[FieldMappingApiInstance]],
+        FieldMetadata(alias="Drive"),
+        pydantic.Field(alias="Drive"),
+    ] = None
+    group: typing_extensions.Annotated[
+        typing.Optional[typing.List[FieldMappingApiInstance]],
+        FieldMetadata(alias="Group"),
+        pydantic.Field(alias="Group"),
+    ] = None
+    user: typing_extensions.Annotated[
+        typing.Optional[typing.List[FieldMappingApiInstance]], FieldMetadata(alias="User"), pydantic.Field(alias="User")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

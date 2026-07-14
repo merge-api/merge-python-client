@@ -3,34 +3,76 @@
 import typing
 
 import pydantic
+import typing_extensions
 from ....core.pydantic_utilities import IS_PYDANTIC_V2
+from ....core.serialization import FieldMetadata
 from ....core.unchecked_base_model import UncheckedBaseModel
 from .remote_field_api import RemoteFieldApi
 
 
 class RemoteFieldApiResponse(UncheckedBaseModel):
-    benefit: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Benefit", default=None)
-    employer_benefit: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(
-        alias="EmployerBenefit", default=None
-    )
-    company: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Company", default=None)
-    employee_payroll_run: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(
-        alias="EmployeePayrollRun", default=None
-    )
-    employee: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Employee", default=None)
-    employment: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Employment", default=None)
-    location: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Location", default=None)
-    payroll_run: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="PayrollRun", default=None)
-    team: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Team", default=None)
-    time_off: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="TimeOff", default=None)
-    time_off_balance: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(
-        alias="TimeOffBalance", default=None
-    )
-    bank_info: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="BankInfo", default=None)
-    pay_group: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="PayGroup", default=None)
-    group: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Group", default=None)
-    dependent: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Dependent", default=None)
-    timesheet_entry: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="TimesheetEntry", default=None)
+    benefit: typing_extensions.Annotated[
+        typing.Optional[typing.List[RemoteFieldApi]], FieldMetadata(alias="Benefit"), pydantic.Field(alias="Benefit")
+    ] = None
+    employer_benefit: typing_extensions.Annotated[
+        typing.Optional[typing.List[RemoteFieldApi]],
+        FieldMetadata(alias="EmployerBenefit"),
+        pydantic.Field(alias="EmployerBenefit"),
+    ] = None
+    company: typing_extensions.Annotated[
+        typing.Optional[typing.List[RemoteFieldApi]], FieldMetadata(alias="Company"), pydantic.Field(alias="Company")
+    ] = None
+    employee_payroll_run: typing_extensions.Annotated[
+        typing.Optional[typing.List[RemoteFieldApi]],
+        FieldMetadata(alias="EmployeePayrollRun"),
+        pydantic.Field(alias="EmployeePayrollRun"),
+    ] = None
+    employee: typing_extensions.Annotated[
+        typing.Optional[typing.List[RemoteFieldApi]], FieldMetadata(alias="Employee"), pydantic.Field(alias="Employee")
+    ] = None
+    employment: typing_extensions.Annotated[
+        typing.Optional[typing.List[RemoteFieldApi]],
+        FieldMetadata(alias="Employment"),
+        pydantic.Field(alias="Employment"),
+    ] = None
+    location: typing_extensions.Annotated[
+        typing.Optional[typing.List[RemoteFieldApi]], FieldMetadata(alias="Location"), pydantic.Field(alias="Location")
+    ] = None
+    payroll_run: typing_extensions.Annotated[
+        typing.Optional[typing.List[RemoteFieldApi]],
+        FieldMetadata(alias="PayrollRun"),
+        pydantic.Field(alias="PayrollRun"),
+    ] = None
+    team: typing_extensions.Annotated[
+        typing.Optional[typing.List[RemoteFieldApi]], FieldMetadata(alias="Team"), pydantic.Field(alias="Team")
+    ] = None
+    time_off: typing_extensions.Annotated[
+        typing.Optional[typing.List[RemoteFieldApi]], FieldMetadata(alias="TimeOff"), pydantic.Field(alias="TimeOff")
+    ] = None
+    time_off_balance: typing_extensions.Annotated[
+        typing.Optional[typing.List[RemoteFieldApi]],
+        FieldMetadata(alias="TimeOffBalance"),
+        pydantic.Field(alias="TimeOffBalance"),
+    ] = None
+    bank_info: typing_extensions.Annotated[
+        typing.Optional[typing.List[RemoteFieldApi]], FieldMetadata(alias="BankInfo"), pydantic.Field(alias="BankInfo")
+    ] = None
+    pay_group: typing_extensions.Annotated[
+        typing.Optional[typing.List[RemoteFieldApi]], FieldMetadata(alias="PayGroup"), pydantic.Field(alias="PayGroup")
+    ] = None
+    group: typing_extensions.Annotated[
+        typing.Optional[typing.List[RemoteFieldApi]], FieldMetadata(alias="Group"), pydantic.Field(alias="Group")
+    ] = None
+    dependent: typing_extensions.Annotated[
+        typing.Optional[typing.List[RemoteFieldApi]],
+        FieldMetadata(alias="Dependent"),
+        pydantic.Field(alias="Dependent"),
+    ] = None
+    timesheet_entry: typing_extensions.Annotated[
+        typing.Optional[typing.List[RemoteFieldApi]],
+        FieldMetadata(alias="TimesheetEntry"),
+        pydantic.Field(alias="TimesheetEntry"),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

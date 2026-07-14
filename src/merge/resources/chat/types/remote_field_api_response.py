@@ -3,16 +3,28 @@
 import typing
 
 import pydantic
+import typing_extensions
 from ....core.pydantic_utilities import IS_PYDANTIC_V2
+from ....core.serialization import FieldMetadata
 from ....core.unchecked_base_model import UncheckedBaseModel
 from .remote_field_api import RemoteFieldApi
 
 
 class RemoteFieldApiResponse(UncheckedBaseModel):
-    user: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="User", default=None)
-    group: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Group", default=None)
-    conversation: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Conversation", default=None)
-    member: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Member", default=None)
+    user: typing_extensions.Annotated[
+        typing.Optional[typing.List[RemoteFieldApi]], FieldMetadata(alias="User"), pydantic.Field(alias="User")
+    ] = None
+    group: typing_extensions.Annotated[
+        typing.Optional[typing.List[RemoteFieldApi]], FieldMetadata(alias="Group"), pydantic.Field(alias="Group")
+    ] = None
+    conversation: typing_extensions.Annotated[
+        typing.Optional[typing.List[RemoteFieldApi]],
+        FieldMetadata(alias="Conversation"),
+        pydantic.Field(alias="Conversation"),
+    ] = None
+    member: typing_extensions.Annotated[
+        typing.Optional[typing.List[RemoteFieldApi]], FieldMetadata(alias="Member"), pydantic.Field(alias="Member")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

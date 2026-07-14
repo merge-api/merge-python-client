@@ -71,37 +71,37 @@ _dynamic_imports: typing.Dict[str, str] = {
     "OpportunitiesRetrieveRequestExpandItem": ".opportunities",
     "TasksListRequestExpandItem": ".tasks",
     "TasksRetrieveRequestExpandItem": ".tasks",
-    "account_details": ".",
-    "account_token": ".",
-    "accounts": ".",
-    "association_types": ".",
-    "associations": ".",
-    "async_passthrough": ".",
-    "audit_trail": ".",
-    "available_actions": ".",
-    "contacts": ".",
-    "custom_object_classes": ".",
-    "custom_objects": ".",
-    "delete_account": ".",
-    "engagement_types": ".",
-    "engagements": ".",
-    "field_mapping": ".",
-    "force_resync": ".",
-    "generate_key": ".",
-    "issues": ".",
-    "leads": ".",
-    "link_token": ".",
-    "linked_accounts": ".",
-    "notes": ".",
-    "opportunities": ".",
-    "passthrough": ".",
-    "regenerate_key": ".",
-    "scopes": ".",
-    "stages": ".",
-    "sync_status": ".",
-    "tasks": ".",
-    "users": ".",
-    "webhook_receivers": ".",
+    "account_details": ".account_details",
+    "account_token": ".account_token",
+    "accounts": ".accounts",
+    "association_types": ".association_types",
+    "associations": ".associations",
+    "async_passthrough": ".async_passthrough",
+    "audit_trail": ".audit_trail",
+    "available_actions": ".available_actions",
+    "contacts": ".contacts",
+    "custom_object_classes": ".custom_object_classes",
+    "custom_objects": ".custom_objects",
+    "delete_account": ".delete_account",
+    "engagement_types": ".engagement_types",
+    "engagements": ".engagements",
+    "field_mapping": ".field_mapping",
+    "force_resync": ".force_resync",
+    "generate_key": ".generate_key",
+    "issues": ".issues",
+    "leads": ".leads",
+    "link_token": ".link_token",
+    "linked_accounts": ".linked_accounts",
+    "notes": ".notes",
+    "opportunities": ".opportunities",
+    "passthrough": ".passthrough",
+    "regenerate_key": ".regenerate_key",
+    "scopes": ".scopes",
+    "stages": ".stages",
+    "sync_status": ".sync_status",
+    "tasks": ".tasks",
+    "users": ".users",
+    "webhook_receivers": ".webhook_receivers",
 }
 
 
@@ -111,8 +111,10 @@ def __getattr__(attr_name: str) -> typing.Any:
         raise AttributeError(f"No {attr_name} found in _dynamic_imports for module name -> {__name__}")
     try:
         module = import_module(module_name, __package__)
-        result = getattr(module, attr_name)
-        return result
+        if module_name == f".{attr_name}":
+            return module
+        else:
+            return getattr(module, attr_name)
     except ImportError as e:
         raise ImportError(f"Failed to import {attr_name} from {module_name}: {e}") from e
     except AttributeError as e:

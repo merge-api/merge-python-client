@@ -86,8 +86,8 @@ class TimeOffRequest(UncheckedBaseModel):
     The day and time of the end of the time requested off.
     """
 
-    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
-    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    integration_params: typing.Optional[typing.Dict[str, typing.Any]] = None
+    linked_account_params: typing.Optional[typing.Dict[str, typing.Any]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
@@ -98,9 +98,5 @@ class TimeOffRequest(UncheckedBaseModel):
             smart_union = True
             extra = pydantic.Extra.allow
 
-
-from .employee import Employee  # noqa: E402, F401, I001
-from .employment import Employment  # noqa: E402, F401, I001
-from .team import Team  # noqa: E402, F401, I001
 
 update_forward_refs(TimeOffRequest)

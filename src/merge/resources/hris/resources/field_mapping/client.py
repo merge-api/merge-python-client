@@ -73,7 +73,7 @@ class FieldMappingClient:
         *,
         target_field_name: str,
         target_field_description: str,
-        remote_field_traversal_path: typing.Sequence[typing.Optional[typing.Any]],
+        remote_field_traversal_path: typing.Sequence[typing.Any],
         remote_method: str,
         remote_url_path: str,
         common_model_name: str,
@@ -92,7 +92,7 @@ class FieldMappingClient:
         target_field_description : str
             The description of the target field you want this remote field to map to.
 
-        remote_field_traversal_path : typing.Sequence[typing.Optional[typing.Any]]
+        remote_field_traversal_path : typing.Sequence[typing.Any]
             The field traversal path of the remote field listed when you hit the GET /remote-fields endpoint.
 
         remote_method : str
@@ -187,7 +187,7 @@ class FieldMappingClient:
         field_mapping_id: str,
         *,
         remote_data_iteration_count: typing.Optional[int] = None,
-        remote_field_traversal_path: typing.Optional[typing.Sequence[typing.Optional[typing.Any]]] = OMIT,
+        remote_field_traversal_path: typing.Optional[typing.Sequence[typing.Any]] = OMIT,
         remote_method: typing.Optional[str] = OMIT,
         remote_url_path: typing.Optional[str] = OMIT,
         jmes_path: typing.Optional[str] = OMIT,
@@ -203,7 +203,7 @@ class FieldMappingClient:
         remote_data_iteration_count : typing.Optional[int]
             Number of common model instances to iterate through when fetching remote data for field mappings. Defaults to 250 if not provided.
 
-        remote_field_traversal_path : typing.Optional[typing.Sequence[typing.Optional[typing.Any]]]
+        remote_field_traversal_path : typing.Optional[typing.Sequence[typing.Any]]
             The field traversal path of the remote field listed when you hit the GET /remote-fields endpoint.
 
         remote_method : typing.Optional[str]
@@ -388,7 +388,7 @@ class AsyncFieldMappingClient:
         *,
         target_field_name: str,
         target_field_description: str,
-        remote_field_traversal_path: typing.Sequence[typing.Optional[typing.Any]],
+        remote_field_traversal_path: typing.Sequence[typing.Any],
         remote_method: str,
         remote_url_path: str,
         common_model_name: str,
@@ -407,7 +407,7 @@ class AsyncFieldMappingClient:
         target_field_description : str
             The description of the target field you want this remote field to map to.
 
-        remote_field_traversal_path : typing.Sequence[typing.Optional[typing.Any]]
+        remote_field_traversal_path : typing.Sequence[typing.Any]
             The field traversal path of the remote field listed when you hit the GET /remote-fields endpoint.
 
         remote_method : str
@@ -518,7 +518,7 @@ class AsyncFieldMappingClient:
         field_mapping_id: str,
         *,
         remote_data_iteration_count: typing.Optional[int] = None,
-        remote_field_traversal_path: typing.Optional[typing.Sequence[typing.Optional[typing.Any]]] = OMIT,
+        remote_field_traversal_path: typing.Optional[typing.Sequence[typing.Any]] = OMIT,
         remote_method: typing.Optional[str] = OMIT,
         remote_url_path: typing.Optional[str] = OMIT,
         jmes_path: typing.Optional[str] = OMIT,
@@ -534,7 +534,7 @@ class AsyncFieldMappingClient:
         remote_data_iteration_count : typing.Optional[int]
             Number of common model instances to iterate through when fetching remote data for field mappings. Defaults to 250 if not provided.
 
-        remote_field_traversal_path : typing.Optional[typing.Sequence[typing.Optional[typing.Any]]]
+        remote_field_traversal_path : typing.Optional[typing.Sequence[typing.Any]]
             The field traversal path of the remote field listed when you hit the GET /remote-fields endpoint.
 
         remote_method : typing.Optional[str]

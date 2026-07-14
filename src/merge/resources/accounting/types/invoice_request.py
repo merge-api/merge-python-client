@@ -459,8 +459,8 @@ class InvoiceRequest(UncheckedBaseModel):
 
     line_items: typing.Optional[typing.List[InvoiceRequestLineItemsItem]] = None
     purchase_orders: typing.Optional[typing.List[typing.Optional[InvoiceRequestPurchaseOrdersItem]]] = None
-    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
-    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    integration_params: typing.Optional[typing.Dict[str, typing.Any]] = None
+    linked_account_params: typing.Optional[typing.Dict[str, typing.Any]] = None
     remote_fields: typing.Optional[typing.List[RemoteFieldRequest]] = None
 
     if IS_PYDANTIC_V2:

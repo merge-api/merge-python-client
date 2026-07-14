@@ -8,7 +8,7 @@ from ....core.unchecked_base_model import UncheckedBaseModel
 
 
 class RemoteFieldClassForCustomObjectClassFieldChoicesItem(UncheckedBaseModel):
-    value: typing.Optional[typing.Optional[typing.Any]] = None
+    value: typing.Optional[typing.Any] = None
     display_name: typing.Optional[str] = None
 
     if IS_PYDANTIC_V2:

@@ -35,8 +35,8 @@ class ScreeningQuestionAnswerRequest(UncheckedBaseModel):
     The candidate’s response to the screening question.
     """
 
-    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
-    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    integration_params: typing.Optional[typing.Dict[str, typing.Any]] = None
+    linked_account_params: typing.Optional[typing.Dict[str, typing.Any]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
@@ -47,8 +47,5 @@ class ScreeningQuestionAnswerRequest(UncheckedBaseModel):
             smart_union = True
             extra = pydantic.Extra.allow
 
-
-from .job import Job  # noqa: E402, F401, I001
-from .job_posting import JobPosting  # noqa: E402, F401, I001
 
 update_forward_refs(ScreeningQuestionAnswerRequest)

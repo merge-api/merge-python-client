@@ -3,23 +3,51 @@
 import typing
 
 import pydantic
+import typing_extensions
 from ....core.pydantic_utilities import IS_PYDANTIC_V2
+from ....core.serialization import FieldMetadata
 from ....core.unchecked_base_model import UncheckedBaseModel
 from .remote_field_api import RemoteFieldApi
 
 
 class RemoteFieldApiResponse(UncheckedBaseModel):
-    ticket: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Ticket", default=None)
-    comment: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Comment", default=None)
-    project: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Project", default=None)
-    collection: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Collection", default=None)
-    user: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="User", default=None)
-    role: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Role", default=None)
-    account: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Account", default=None)
-    team: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Team", default=None)
-    attachment: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Attachment", default=None)
-    tag: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Tag", default=None)
-    contact: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Contact", default=None)
+    ticket: typing_extensions.Annotated[
+        typing.Optional[typing.List[RemoteFieldApi]], FieldMetadata(alias="Ticket"), pydantic.Field(alias="Ticket")
+    ] = None
+    comment: typing_extensions.Annotated[
+        typing.Optional[typing.List[RemoteFieldApi]], FieldMetadata(alias="Comment"), pydantic.Field(alias="Comment")
+    ] = None
+    project: typing_extensions.Annotated[
+        typing.Optional[typing.List[RemoteFieldApi]], FieldMetadata(alias="Project"), pydantic.Field(alias="Project")
+    ] = None
+    collection: typing_extensions.Annotated[
+        typing.Optional[typing.List[RemoteFieldApi]],
+        FieldMetadata(alias="Collection"),
+        pydantic.Field(alias="Collection"),
+    ] = None
+    user: typing_extensions.Annotated[
+        typing.Optional[typing.List[RemoteFieldApi]], FieldMetadata(alias="User"), pydantic.Field(alias="User")
+    ] = None
+    role: typing_extensions.Annotated[
+        typing.Optional[typing.List[RemoteFieldApi]], FieldMetadata(alias="Role"), pydantic.Field(alias="Role")
+    ] = None
+    account: typing_extensions.Annotated[
+        typing.Optional[typing.List[RemoteFieldApi]], FieldMetadata(alias="Account"), pydantic.Field(alias="Account")
+    ] = None
+    team: typing_extensions.Annotated[
+        typing.Optional[typing.List[RemoteFieldApi]], FieldMetadata(alias="Team"), pydantic.Field(alias="Team")
+    ] = None
+    attachment: typing_extensions.Annotated[
+        typing.Optional[typing.List[RemoteFieldApi]],
+        FieldMetadata(alias="Attachment"),
+        pydantic.Field(alias="Attachment"),
+    ] = None
+    tag: typing_extensions.Annotated[
+        typing.Optional[typing.List[RemoteFieldApi]], FieldMetadata(alias="Tag"), pydantic.Field(alias="Tag")
+    ] = None
+    contact: typing_extensions.Annotated[
+        typing.Optional[typing.List[RemoteFieldApi]], FieldMetadata(alias="Contact"), pydantic.Field(alias="Contact")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

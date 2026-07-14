@@ -21,10 +21,10 @@ class RemoteResponse(UncheckedBaseModel):
     method: str
     path: str
     status: int
-    response: typing.Optional[typing.Any] = None
-    response_headers: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    response: typing.Any
+    response_headers: typing.Optional[typing.Dict[str, typing.Any]] = None
     response_type: typing.Optional[RemoteResponseResponseType] = None
-    headers: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    headers: typing.Optional[typing.Dict[str, typing.Any]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

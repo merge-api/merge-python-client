@@ -28,8 +28,17 @@ class TicketResponse(UncheckedBaseModel):
             extra = pydantic.Extra.allow
 
 
-from .attachment import Attachment  # noqa: E402, F401, I001
-from .collection import Collection  # noqa: E402, F401, I001
-from .ticket import Ticket  # noqa: E402, F401, I001
+from .attachment import Attachment  # noqa: E402, I001
+from .attachment_ticket import AttachmentTicket  # noqa: E402, I001
+from .ticket import Ticket  # noqa: E402, I001
+from .ticket_attachments_item import TicketAttachmentsItem  # noqa: E402, I001
+from .ticket_parent_ticket import TicketParentTicket  # noqa: E402, I001
 
-update_forward_refs(TicketResponse)
+update_forward_refs(
+    TicketResponse,
+    Attachment=Attachment,
+    AttachmentTicket=AttachmentTicket,
+    Ticket=Ticket,
+    TicketAttachmentsItem=TicketAttachmentsItem,
+    TicketParentTicket=TicketParentTicket,
+)

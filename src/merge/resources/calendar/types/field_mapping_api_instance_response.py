@@ -3,17 +3,37 @@
 import typing
 
 import pydantic
+import typing_extensions
 from ....core.pydantic_utilities import IS_PYDANTIC_V2
+from ....core.serialization import FieldMetadata
 from ....core.unchecked_base_model import UncheckedBaseModel
 from .field_mapping_api_instance import FieldMappingApiInstance
 
 
 class FieldMappingApiInstanceResponse(UncheckedBaseModel):
-    calendar: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(alias="Calendar", default=None)
-    user: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(alias="User", default=None)
-    group: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(alias="Group", default=None)
-    series: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(alias="Series", default=None)
-    event: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(alias="Event", default=None)
+    calendar: typing_extensions.Annotated[
+        typing.Optional[typing.List[FieldMappingApiInstance]],
+        FieldMetadata(alias="Calendar"),
+        pydantic.Field(alias="Calendar"),
+    ] = None
+    user: typing_extensions.Annotated[
+        typing.Optional[typing.List[FieldMappingApiInstance]], FieldMetadata(alias="User"), pydantic.Field(alias="User")
+    ] = None
+    group: typing_extensions.Annotated[
+        typing.Optional[typing.List[FieldMappingApiInstance]],
+        FieldMetadata(alias="Group"),
+        pydantic.Field(alias="Group"),
+    ] = None
+    series: typing_extensions.Annotated[
+        typing.Optional[typing.List[FieldMappingApiInstance]],
+        FieldMetadata(alias="Series"),
+        pydantic.Field(alias="Series"),
+    ] = None
+    event: typing_extensions.Annotated[
+        typing.Optional[typing.List[FieldMappingApiInstance]],
+        FieldMetadata(alias="Event"),
+        pydantic.Field(alias="Event"),
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -3,7 +3,9 @@
 import typing
 
 import pydantic
+import typing_extensions
 from ....core.pydantic_utilities import IS_PYDANTIC_V2
+from ....core.serialization import FieldMetadata
 from ....core.unchecked_base_model import UncheckedBaseModel
 from .remote_endpoint_info import RemoteEndpointInfo
 from .remote_field_api_advanced_metadata import RemoteFieldApiAdvancedMetadata
@@ -11,10 +13,12 @@ from .remote_field_api_coverage import RemoteFieldApiCoverage
 
 
 class RemoteFieldApi(UncheckedBaseModel):
-    schema_: typing.Dict[str, typing.Optional[typing.Any]] = pydantic.Field(alias="schema")
+    schema_: typing_extensions.Annotated[
+        typing.Dict[str, typing.Any], FieldMetadata(alias="schema"), pydantic.Field(alias="schema")
+    ]
     remote_key_name: str
     remote_endpoint_info: RemoteEndpointInfo
-    example_values: typing.Optional[typing.List[typing.Optional[typing.Any]]] = None
+    example_values: typing.Optional[typing.List[typing.Any]] = None
     advanced_metadata: typing.Optional[RemoteFieldApiAdvancedMetadata] = None
     coverage: typing.Optional[RemoteFieldApiCoverage] = None
 

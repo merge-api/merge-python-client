@@ -53,7 +53,7 @@ class Address(UncheckedBaseModel):
     The address's city.
     """
 
-    state: typing.Optional[typing.Optional[typing.Any]] = pydantic.Field(default=None)
+    state: typing.Optional[typing.Any] = pydantic.Field(default=None)
     """
     The address's state or region.
     """

@@ -28,10 +28,21 @@ class CandidateResponse(UncheckedBaseModel):
             extra = pydantic.Extra.allow
 
 
-from .application import Application  # noqa: E402, F401, I001
-from .candidate import Candidate  # noqa: E402, F401, I001
-from .job import Job  # noqa: E402, F401, I001
-from .job_posting import JobPosting  # noqa: E402, F401, I001
-from .offer import Offer  # noqa: E402, F401, I001
+from .application import Application  # noqa: E402, I001
+from .application_candidate import ApplicationCandidate  # noqa: E402, I001
+from .application_offers_item import ApplicationOffersItem  # noqa: E402, I001
+from .candidate import Candidate  # noqa: E402, I001
+from .candidate_applications_item import CandidateApplicationsItem  # noqa: E402, I001
+from .offer import Offer  # noqa: E402, I001
+from .offer_application import OfferApplication  # noqa: E402, I001
 
-update_forward_refs(CandidateResponse)
+update_forward_refs(
+    CandidateResponse,
+    Application=Application,
+    ApplicationCandidate=ApplicationCandidate,
+    ApplicationOffersItem=ApplicationOffersItem,
+    Candidate=Candidate,
+    CandidateApplicationsItem=CandidateApplicationsItem,
+    Offer=Offer,
+    OfferApplication=OfferApplication,
+)

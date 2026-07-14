@@ -25,7 +25,4 @@ class PaginatedConversationList(UncheckedBaseModel):
             extra = pydantic.Extra.allow
 
 
-from .group import Group  # noqa: E402, F401, I001
-from .user import User  # noqa: E402, F401, I001
-
 update_forward_refs(PaginatedConversationList)

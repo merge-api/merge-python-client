@@ -24,6 +24,7 @@ class PaginatedTeamList(UncheckedBaseModel):
             extra = pydantic.Extra.allow
 
 
-from .team import Team  # noqa: E402, F401, I001
+from .team import Team  # noqa: E402, I001
+from .team_parent_team import TeamParentTeam  # noqa: E402, I001
 
-update_forward_refs(PaginatedTeamList)
+update_forward_refs(PaginatedTeamList, Team=Team, TeamParentTeam=TeamParentTeam)

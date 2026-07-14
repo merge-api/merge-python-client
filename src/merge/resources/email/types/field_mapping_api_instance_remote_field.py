@@ -3,7 +3,9 @@
 import typing
 
 import pydantic
+import typing_extensions
 from ....core.pydantic_utilities import IS_PYDANTIC_V2
+from ....core.serialization import FieldMetadata
 from ....core.unchecked_base_model import UncheckedBaseModel
 from .field_mapping_api_instance_remote_field_remote_endpoint_info import (
     FieldMappingApiInstanceRemoteFieldRemoteEndpointInfo,
@@ -12,9 +14,9 @@ from .field_mapping_api_instance_remote_field_remote_endpoint_info import (
 
 class FieldMappingApiInstanceRemoteField(UncheckedBaseModel):
     remote_key_name: typing.Optional[str] = None
-    schema_: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = pydantic.Field(
-        alias="schema", default=None
-    )
+    schema_: typing_extensions.Annotated[
+        typing.Optional[typing.Dict[str, typing.Any]], FieldMetadata(alias="schema"), pydantic.Field(alias="schema")
+    ] = None
     remote_endpoint_info: FieldMappingApiInstanceRemoteFieldRemoteEndpointInfo
 
     if IS_PYDANTIC_V2:

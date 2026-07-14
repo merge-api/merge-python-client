@@ -24,6 +24,7 @@ class PaginatedGroupList(UncheckedBaseModel):
             extra = pydantic.Extra.allow
 
 
-from .group import Group  # noqa: E402, F401, I001
+from .group import Group  # noqa: E402, I001
+from .group_child_groups_item import GroupChildGroupsItem  # noqa: E402, I001
 
-update_forward_refs(PaginatedGroupList)
+update_forward_refs(PaginatedGroupList, Group=Group, GroupChildGroupsItem=GroupChildGroupsItem)
