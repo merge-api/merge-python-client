@@ -3,6 +3,3 @@
 import typing
 
 CompletedAccountInitialScreenEnum = typing.Literal["SELECTIVE_SYNC"]
-"""
-* `SELECTIVE_SYNC` - SELECTIVE_SYNC
-"""

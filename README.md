@@ -46,9 +46,9 @@ Instantiate and use the client with the following:
 from merge import Merge
 
 client = Merge(
-    api_key="<token>",
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
 )
-
 client.ats.account_token.regenerate_create()
 ```
 
@@ -77,7 +77,7 @@ client.hris. # APIs specific to the HRIS Category
 
 ## Async Client
 
-The SDK also exports an `async` client so that you can make non-blocking calls to our API. Note that if you are constructing an Async httpx client class to pass into this client, use `httpx.AsyncClient()` instead of `httpx.Client()` (e.g. for the `httpx_client` parameter of this client).
+The SDK also exports an `async` client so that you can make non-blocking calls to our API.
 
 ```python
 import asyncio
@@ -85,7 +85,8 @@ import asyncio
 from merge import AsyncMerge
 
 client = AsyncMerge(
-    api_key="<token>",
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
 )
 
 
@@ -105,7 +106,7 @@ will be thrown.
 from merge.core.api_error import ApiError
 
 try:
-    client.ats.account_token.regenerate_create()
+    client.ats.account_token.regenerate_create(...)
 except ApiError as e:
     print(e.status_code)
     print(e.body)
@@ -121,10 +122,11 @@ The `.with_raw_response` property returns a "raw" client that can be used to acc
 ```python
 from merge import Merge
 
-client = Merge(...)
-response = client.ats.account_token.with_raw_response.regenerate_create()
+client = Merge(
+    ...,
+)
+response = client.ats.account_token.with_raw_response.regenerate_create(...)
 print(response.headers)  # access the response headers
-print(response.status_code)  # access the response status code
 print(response.data)  # access the underlying object
 ```
 
@@ -143,7 +145,7 @@ A request is deemed retryable when any of the following HTTP status codes is ret
 Use the `max_retries` request option to configure this behavior.
 
 ```python
-client.ats.account_token.regenerate_create(request_options={
+client.ats.account_token.regenerate_create(..., request_options={
     "max_retries": 1
 })
 ```
@@ -153,12 +155,17 @@ client.ats.account_token.regenerate_create(request_options={
 The SDK defaults to a 60 second timeout. You can configure this with a timeout option at the client or request level.
 
 ```python
+
 from merge import Merge
 
-client = Merge(..., timeout=20.0)
+client = Merge(
+    ...,
+    timeout=20.0,
+)
+
 
 # Override timeout for a specific method
-client.ats.account_token.regenerate_create(request_options={
+client.ats.account_token.regenerate_create(..., request_options={
     "timeout_in_seconds": 1
 })
 ```
@@ -232,6 +239,7 @@ while response.next is not None:
         cursor=response.next, 
         created_after="2030-01-01")
 ```
+
 
 
 

@@ -29,4 +29,7 @@ class FileStorageFileResponse(UncheckedBaseModel):
             extra = pydantic.Extra.allow
 
 
+from .folder import Folder  # noqa: E402, F401, I001
+from .group import Group  # noqa: E402, F401, I001
+
 update_forward_refs(FileStorageFileResponse)

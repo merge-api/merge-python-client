@@ -7,14 +7,12 @@ from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.http_response import AsyncHttpResponse, HttpResponse
 from .....core.jsonable_encoder import jsonable_encoder
-from .....core.parse_error import ParsingError
 from .....core.request_options import RequestOptions
 from .....core.unchecked_base_model import construct_type
 from ...types.external_target_field_api_response import ExternalTargetFieldApiResponse
 from ...types.field_mapping_api_instance_response import FieldMappingApiInstanceResponse
 from ...types.field_mapping_instance_response import FieldMappingInstanceResponse
 from ...types.remote_field_api_response import RemoteFieldApiResponse
-from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -67,10 +65,6 @@ class RawFieldMappingClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def field_mappings_create(
@@ -78,7 +72,7 @@ class RawFieldMappingClient:
         *,
         target_field_name: str,
         target_field_description: str,
-        remote_field_traversal_path: typing.Sequence[typing.Any],
+        remote_field_traversal_path: typing.Sequence[typing.Optional[typing.Any]],
         remote_method: str,
         remote_url_path: str,
         common_model_name: str,
@@ -99,7 +93,7 @@ class RawFieldMappingClient:
         target_field_description : str
             The description of the target field you want this remote field to map to.
 
-        remote_field_traversal_path : typing.Sequence[typing.Any]
+        remote_field_traversal_path : typing.Sequence[typing.Optional[typing.Any]]
             The field traversal path of the remote field listed when you hit the GET /remote-fields endpoint.
 
         remote_method : str
@@ -167,10 +161,6 @@ class RawFieldMappingClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def field_mappings_destroy(
@@ -209,10 +199,6 @@ class RawFieldMappingClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def field_mappings_partial_update(
@@ -220,7 +206,7 @@ class RawFieldMappingClient:
         field_mapping_id: str,
         *,
         remote_data_iteration_count: typing.Optional[int] = None,
-        remote_field_traversal_path: typing.Optional[typing.Sequence[typing.Any]] = OMIT,
+        remote_field_traversal_path: typing.Optional[typing.Sequence[typing.Optional[typing.Any]]] = OMIT,
         remote_method: typing.Optional[str] = OMIT,
         remote_url_path: typing.Optional[str] = OMIT,
         jmes_path: typing.Optional[str] = OMIT,
@@ -237,7 +223,7 @@ class RawFieldMappingClient:
         remote_data_iteration_count : typing.Optional[int]
             Number of common model instances to iterate through when fetching remote data for field mappings. Defaults to 250 if not provided.
 
-        remote_field_traversal_path : typing.Optional[typing.Sequence[typing.Any]]
+        remote_field_traversal_path : typing.Optional[typing.Sequence[typing.Optional[typing.Any]]]
             The field traversal path of the remote field listed when you hit the GET /remote-fields endpoint.
 
         remote_method : typing.Optional[str]
@@ -292,10 +278,6 @@ class RawFieldMappingClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def remote_fields_retrieve(
@@ -346,10 +328,6 @@ class RawFieldMappingClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def target_fields_retrieve(
@@ -386,10 +364,6 @@ class RawFieldMappingClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
 
@@ -440,10 +414,6 @@ class AsyncRawFieldMappingClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def field_mappings_create(
@@ -451,7 +421,7 @@ class AsyncRawFieldMappingClient:
         *,
         target_field_name: str,
         target_field_description: str,
-        remote_field_traversal_path: typing.Sequence[typing.Any],
+        remote_field_traversal_path: typing.Sequence[typing.Optional[typing.Any]],
         remote_method: str,
         remote_url_path: str,
         common_model_name: str,
@@ -472,7 +442,7 @@ class AsyncRawFieldMappingClient:
         target_field_description : str
             The description of the target field you want this remote field to map to.
 
-        remote_field_traversal_path : typing.Sequence[typing.Any]
+        remote_field_traversal_path : typing.Sequence[typing.Optional[typing.Any]]
             The field traversal path of the remote field listed when you hit the GET /remote-fields endpoint.
 
         remote_method : str
@@ -540,10 +510,6 @@ class AsyncRawFieldMappingClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def field_mappings_destroy(
@@ -582,10 +548,6 @@ class AsyncRawFieldMappingClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def field_mappings_partial_update(
@@ -593,7 +555,7 @@ class AsyncRawFieldMappingClient:
         field_mapping_id: str,
         *,
         remote_data_iteration_count: typing.Optional[int] = None,
-        remote_field_traversal_path: typing.Optional[typing.Sequence[typing.Any]] = OMIT,
+        remote_field_traversal_path: typing.Optional[typing.Sequence[typing.Optional[typing.Any]]] = OMIT,
         remote_method: typing.Optional[str] = OMIT,
         remote_url_path: typing.Optional[str] = OMIT,
         jmes_path: typing.Optional[str] = OMIT,
@@ -610,7 +572,7 @@ class AsyncRawFieldMappingClient:
         remote_data_iteration_count : typing.Optional[int]
             Number of common model instances to iterate through when fetching remote data for field mappings. Defaults to 250 if not provided.
 
-        remote_field_traversal_path : typing.Optional[typing.Sequence[typing.Any]]
+        remote_field_traversal_path : typing.Optional[typing.Sequence[typing.Optional[typing.Any]]]
             The field traversal path of the remote field listed when you hit the GET /remote-fields endpoint.
 
         remote_method : typing.Optional[str]
@@ -665,10 +627,6 @@ class AsyncRawFieldMappingClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def remote_fields_retrieve(
@@ -719,10 +677,6 @@ class AsyncRawFieldMappingClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def target_fields_retrieve(
@@ -759,8 +713,4 @@ class AsyncRawFieldMappingClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)

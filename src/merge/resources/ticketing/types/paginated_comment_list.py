@@ -25,4 +25,8 @@ class PaginatedCommentList(UncheckedBaseModel):
             extra = pydantic.Extra.allow
 
 
+from .attachment import Attachment  # noqa: E402, F401, I001
+from .collection import Collection  # noqa: E402, F401, I001
+from .ticket import Ticket  # noqa: E402, F401, I001
+
 update_forward_refs(PaginatedCommentList)

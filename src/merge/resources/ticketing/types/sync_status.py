@@ -9,6 +9,7 @@ from ....core.unchecked_base_model import UncheckedBaseModel
 from .selective_sync_configurations_usage_enum import SelectiveSyncConfigurationsUsageEnum
 from .status_fd_5_enum import StatusFd5Enum
 from .sync_status_last_sync_result import SyncStatusLastSyncResult
+from .sync_status_sync_status_reason import SyncStatusSyncStatusReason
 
 
 class SyncStatus(UncheckedBaseModel):
@@ -27,7 +28,13 @@ class SyncStatus(UncheckedBaseModel):
     next_sync_start: typing.Optional[dt.datetime] = None
     last_sync_result: typing.Optional[SyncStatusLastSyncResult] = None
     last_sync_finished: typing.Optional[dt.datetime] = None
+    data_fresh_as_of: typing.Optional[dt.datetime] = None
     status: StatusFd5Enum
+    sync_status_reason: typing.Optional[SyncStatusSyncStatusReason] = pydantic.Field(default=None)
+    """
+    The reason a model with a `SYNCING` status is temporarily not progressing. `RATE_LIMITED` indicates the model is paused to respect the data provider's rate limits. `WAITING_ON_OTHER_MODELS` indicates the model is waiting for other models to finish syncing.
+    """
+
     is_initial_sync: bool
     selective_sync_configurations_usage: typing.Optional[SelectiveSyncConfigurationsUsageEnum] = None
 

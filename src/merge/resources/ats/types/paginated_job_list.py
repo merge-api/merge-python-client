@@ -24,11 +24,7 @@ class PaginatedJobList(UncheckedBaseModel):
             extra = pydantic.Extra.allow
 
 
-from .job import Job  # noqa: E402, I001
-from .job_job_postings_item import JobJobPostingsItem  # noqa: E402, I001
-from .job_posting import JobPosting  # noqa: E402, I001
-from .job_posting_job import JobPostingJob  # noqa: E402, I001
+from .job import Job  # noqa: E402, F401, I001
+from .job_posting import JobPosting  # noqa: E402, F401, I001
 
-update_forward_refs(
-    PaginatedJobList, Job=Job, JobJobPostingsItem=JobJobPostingsItem, JobPosting=JobPosting, JobPostingJob=JobPostingJob
-)
+update_forward_refs(PaginatedJobList)

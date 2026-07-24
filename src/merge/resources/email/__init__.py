@@ -103,7 +103,9 @@ if typing.TYPE_CHECKING:
         StatusFd5Enum,
         SyncStatus,
         SyncStatusLastSyncResult,
+        SyncStatusReasonEnum,
         SyncStatusStatus,
+        SyncStatusSyncStatusReason,
         User,
         UserFieldMappings,
         UserType,
@@ -266,7 +268,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "StatusFd5Enum": ".types",
     "SyncStatus": ".types",
     "SyncStatusLastSyncResult": ".types",
+    "SyncStatusReasonEnum": ".types",
     "SyncStatusStatus": ".types",
+    "SyncStatusSyncStatusReason": ".types",
     "User": ".types",
     "UserFieldMappings": ".types",
     "UserType": ".types",
@@ -308,10 +312,8 @@ def __getattr__(attr_name: str) -> typing.Any:
         raise AttributeError(f"No {attr_name} found in _dynamic_imports for module name -> {__name__}")
     try:
         module = import_module(module_name, __package__)
-        if module_name == f".{attr_name}":
-            return module
-        else:
-            return getattr(module, attr_name)
+        result = getattr(module, attr_name)
+        return result
     except ImportError as e:
         raise ImportError(f"Failed to import {attr_name} from {module_name}: {e}") from e
     except AttributeError as e:
@@ -435,7 +437,9 @@ __all__ = [
     "StatusFd5Enum",
     "SyncStatus",
     "SyncStatusLastSyncResult",
+    "SyncStatusReasonEnum",
     "SyncStatusStatus",
+    "SyncStatusSyncStatusReason",
     "User",
     "UserFieldMappings",
     "UserType",

@@ -6,7 +6,6 @@ from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.http_response import AsyncHttpResponse, HttpResponse
-from .....core.parse_error import ParsingError
 from .....core.request_options import RequestOptions
 from .....core.unchecked_base_model import construct_type
 from ...types.categories_enum import CategoriesEnum
@@ -17,7 +16,6 @@ from .types.end_user_details_request_completed_account_initial_screen import (
     EndUserDetailsRequestCompletedAccountInitialScreen,
 )
 from .types.end_user_details_request_language import EndUserDetailsRequestLanguage
-from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -44,7 +42,7 @@ class RawLinkTokenClient:
         ] = OMIT,
         language: typing.Optional[EndUserDetailsRequestLanguage] = OMIT,
         are_syncs_disabled: typing.Optional[bool] = OMIT,
-        integration_specific_config: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
+        integration_specific_config: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         completed_account_initial_screen: typing.Optional[EndUserDetailsRequestCompletedAccountInitialScreen] = OMIT,
         linked_destination_id: typing.Optional[str] = OMIT,
         credential_id: typing.Optional[str] = OMIT,
@@ -92,7 +90,7 @@ class RawLinkTokenClient:
         are_syncs_disabled : typing.Optional[bool]
             The boolean that indicates whether initial, periodic, and force syncs will be disabled.
 
-        integration_specific_config : typing.Optional[typing.Dict[str, typing.Any]]
+        integration_specific_config : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
             A JSON object containing integration-specific configuration options.
 
         completed_account_initial_screen : typing.Optional[EndUserDetailsRequestCompletedAccountInitialScreen]
@@ -156,10 +154,6 @@ class RawLinkTokenClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
 
@@ -184,7 +178,7 @@ class AsyncRawLinkTokenClient:
         ] = OMIT,
         language: typing.Optional[EndUserDetailsRequestLanguage] = OMIT,
         are_syncs_disabled: typing.Optional[bool] = OMIT,
-        integration_specific_config: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
+        integration_specific_config: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         completed_account_initial_screen: typing.Optional[EndUserDetailsRequestCompletedAccountInitialScreen] = OMIT,
         linked_destination_id: typing.Optional[str] = OMIT,
         credential_id: typing.Optional[str] = OMIT,
@@ -232,7 +226,7 @@ class AsyncRawLinkTokenClient:
         are_syncs_disabled : typing.Optional[bool]
             The boolean that indicates whether initial, periodic, and force syncs will be disabled.
 
-        integration_specific_config : typing.Optional[typing.Dict[str, typing.Any]]
+        integration_specific_config : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
             A JSON object containing integration-specific configuration options.
 
         completed_account_initial_screen : typing.Optional[EndUserDetailsRequestCompletedAccountInitialScreen]
@@ -296,8 +290,4 @@ class AsyncRawLinkTokenClient:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)

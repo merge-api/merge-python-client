@@ -99,7 +99,9 @@ if typing.TYPE_CHECKING:
     from .status_fd_5_enum import StatusFd5Enum
     from .sync_status import SyncStatus
     from .sync_status_last_sync_result import SyncStatusLastSyncResult
+    from .sync_status_reason_enum import SyncStatusReasonEnum
     from .sync_status_status import SyncStatusStatus
+    from .sync_status_sync_status_reason import SyncStatusSyncStatusReason
     from .type_enum import TypeEnum
     from .user import User
     from .user_field_mappings import UserFieldMappings
@@ -199,7 +201,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "StatusFd5Enum": ".status_fd_5_enum",
     "SyncStatus": ".sync_status",
     "SyncStatusLastSyncResult": ".sync_status_last_sync_result",
+    "SyncStatusReasonEnum": ".sync_status_reason_enum",
     "SyncStatusStatus": ".sync_status_status",
+    "SyncStatusSyncStatusReason": ".sync_status_sync_status_reason",
     "TypeEnum": ".type_enum",
     "User": ".user",
     "UserFieldMappings": ".user_field_mappings",
@@ -216,10 +220,8 @@ def __getattr__(attr_name: str) -> typing.Any:
         raise AttributeError(f"No {attr_name} found in _dynamic_imports for module name -> {__name__}")
     try:
         module = import_module(module_name, __package__)
-        if module_name == f".{attr_name}":
-            return module
-        else:
-            return getattr(module, attr_name)
+        result = getattr(module, attr_name)
+        return result
     except ImportError as e:
         raise ImportError(f"Failed to import {attr_name} from {module_name}: {e}") from e
     except AttributeError as e:
@@ -323,7 +325,9 @@ __all__ = [
     "StatusFd5Enum",
     "SyncStatus",
     "SyncStatusLastSyncResult",
+    "SyncStatusReasonEnum",
     "SyncStatusStatus",
+    "SyncStatusSyncStatusReason",
     "TypeEnum",
     "User",
     "UserFieldMappings",
