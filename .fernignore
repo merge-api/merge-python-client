@@ -26,6 +26,8 @@ tests/custom/test_error_response_handling.py
 tests/custom/test_query_encoder_edges.py
 tests/custom/test_enum_forward_compat_response.py
 tests/custom/test_enum_forward_compat_query.py
+tests/custom/test_parsing_error_unreachable.py
+tests/custom/test_pydantic_config_no_deprecation.py
 .fern/replay.lock
 .fern/replay.yml
 .gitattributes
