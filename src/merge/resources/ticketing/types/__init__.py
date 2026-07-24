@@ -152,6 +152,8 @@ if typing.TYPE_CHECKING:
     from .status_fd_5_enum import StatusFd5Enum
     from .sync_status import SyncStatus
     from .sync_status_last_sync_result import SyncStatusLastSyncResult
+    from .sync_status_reason_enum import SyncStatusReasonEnum
+    from .sync_status_sync_status_reason import SyncStatusSyncStatusReason
     from .tag import Tag
     from .team import Team
     from .ticket import Ticket
@@ -339,6 +341,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "StatusFd5Enum": ".status_fd_5_enum",
     "SyncStatus": ".sync_status",
     "SyncStatusLastSyncResult": ".sync_status_last_sync_result",
+    "SyncStatusReasonEnum": ".sync_status_reason_enum",
+    "SyncStatusSyncStatusReason": ".sync_status_sync_status_reason",
     "Tag": ".tag",
     "Team": ".team",
     "Ticket": ".ticket",
@@ -550,6 +554,8 @@ __all__ = [
     "StatusFd5Enum",
     "SyncStatus",
     "SyncStatusLastSyncResult",
+    "SyncStatusReasonEnum",
+    "SyncStatusSyncStatusReason",
     "Tag",
     "Team",
     "Ticket",
