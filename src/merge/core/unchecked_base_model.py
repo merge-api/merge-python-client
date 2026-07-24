@@ -440,12 +440,8 @@ def construct_type(
         except Exception:
             return object_
 
-    if inspect.isclass(base_type) and issubclass(base_type, enum.Enum):
-        try:
-            return base_type(object_)
-        except (ValueError, KeyError):
-            return object_
-
+    # MERGE CUSTOMIZATION: return raw enum values instead of coercing to enum
+    # members, to preserve forward-compatible behavior for customers.
     return object_
 
 

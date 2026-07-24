@@ -10,6 +10,9 @@ LICENSE.md
 src/merge/resources/accounting/types/currency_enum.py
 src/merge/core/query_encoder.py
 
+# Preserve raw-string enum forward-compat behavior (see construct_type).
+src/merge/core/unchecked_base_model.py
+
 tests/integration/test_filestorage.py
 tests/integration/test_knowledgebase.py
 tests/integration/test_email.py
