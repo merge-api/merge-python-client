@@ -23,6 +23,9 @@ if typing.TYPE_CHECKING:
     from .available_actions import AvailableActions
     from .categories_enum import CategoriesEnum
     from .category_enum import CategoryEnum
+    from .chat_sync_selection import ChatSyncSelection
+    from .chat_sync_selection_type import ChatSyncSelectionType
+    from .chat_sync_selection_type_enum import ChatSyncSelectionTypeEnum
     from .common_model_scope_api import CommonModelScopeApi
     from .common_model_scopes_body_request import CommonModelScopesBodyRequest
     from .completed_account_initial_screen_enum import CompletedAccountInitialScreenEnum
@@ -59,6 +62,8 @@ if typing.TYPE_CHECKING:
     from .issue import Issue
     from .issue_status import IssueStatus
     from .issue_status_enum import IssueStatusEnum
+    from .label_selection import LabelSelection
+    from .label_selection_list import LabelSelectionList
     from .language_enum import LanguageEnum
     from .last_sync_result_enum import LastSyncResultEnum
     from .link_token import LinkToken
@@ -73,8 +78,10 @@ if typing.TYPE_CHECKING:
     from .model_permission_deserializer_request import ModelPermissionDeserializerRequest
     from .multipart_form_field_request import MultipartFormFieldRequest
     from .multipart_form_field_request_encoding import MultipartFormFieldRequestEncoding
+    from .operator_enum import OperatorEnum
     from .paginated_account_details_and_actions_list import PaginatedAccountDetailsAndActionsList
     from .paginated_audit_log_event_list import PaginatedAuditLogEventList
+    from .paginated_chat_sync_selection_list import PaginatedChatSyncSelectionList
     from .paginated_conversation_list import PaginatedConversationList
     from .paginated_group_list import PaginatedGroupList
     from .paginated_issue_list import PaginatedIssueList
@@ -95,6 +102,9 @@ if typing.TYPE_CHECKING:
     from .request_format_enum import RequestFormatEnum
     from .response_type_enum import ResponseTypeEnum
     from .role_enum import RoleEnum
+    from .selective_sync_condition import SelectiveSyncCondition
+    from .selective_sync_condition_list import SelectiveSyncConditionList
+    from .selective_sync_condition_operator import SelectiveSyncConditionOperator
     from .selective_sync_configurations_usage_enum import SelectiveSyncConfigurationsUsageEnum
     from .status_fd_5_enum import StatusFd5Enum
     from .sync_status import SyncStatus
@@ -127,6 +137,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AvailableActions": ".available_actions",
     "CategoriesEnum": ".categories_enum",
     "CategoryEnum": ".category_enum",
+    "ChatSyncSelection": ".chat_sync_selection",
+    "ChatSyncSelectionType": ".chat_sync_selection_type",
+    "ChatSyncSelectionTypeEnum": ".chat_sync_selection_type_enum",
     "CommonModelScopeApi": ".common_model_scope_api",
     "CommonModelScopesBodyRequest": ".common_model_scopes_body_request",
     "CompletedAccountInitialScreenEnum": ".completed_account_initial_screen_enum",
@@ -161,6 +174,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Issue": ".issue",
     "IssueStatus": ".issue_status",
     "IssueStatusEnum": ".issue_status_enum",
+    "LabelSelection": ".label_selection",
+    "LabelSelectionList": ".label_selection_list",
     "LanguageEnum": ".language_enum",
     "LastSyncResultEnum": ".last_sync_result_enum",
     "LinkToken": ".link_token",
@@ -175,8 +190,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ModelPermissionDeserializerRequest": ".model_permission_deserializer_request",
     "MultipartFormFieldRequest": ".multipart_form_field_request",
     "MultipartFormFieldRequestEncoding": ".multipart_form_field_request_encoding",
+    "OperatorEnum": ".operator_enum",
     "PaginatedAccountDetailsAndActionsList": ".paginated_account_details_and_actions_list",
     "PaginatedAuditLogEventList": ".paginated_audit_log_event_list",
+    "PaginatedChatSyncSelectionList": ".paginated_chat_sync_selection_list",
     "PaginatedConversationList": ".paginated_conversation_list",
     "PaginatedGroupList": ".paginated_group_list",
     "PaginatedIssueList": ".paginated_issue_list",
@@ -197,6 +214,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RequestFormatEnum": ".request_format_enum",
     "ResponseTypeEnum": ".response_type_enum",
     "RoleEnum": ".role_enum",
+    "SelectiveSyncCondition": ".selective_sync_condition",
+    "SelectiveSyncConditionList": ".selective_sync_condition_list",
+    "SelectiveSyncConditionOperator": ".selective_sync_condition_operator",
     "SelectiveSyncConfigurationsUsageEnum": ".selective_sync_configurations_usage_enum",
     "StatusFd5Enum": ".status_fd_5_enum",
     "SyncStatus": ".sync_status",
@@ -253,6 +273,9 @@ __all__ = [
     "AvailableActions",
     "CategoriesEnum",
     "CategoryEnum",
+    "ChatSyncSelection",
+    "ChatSyncSelectionType",
+    "ChatSyncSelectionTypeEnum",
     "CommonModelScopeApi",
     "CommonModelScopesBodyRequest",
     "CompletedAccountInitialScreenEnum",
@@ -287,6 +310,8 @@ __all__ = [
     "Issue",
     "IssueStatus",
     "IssueStatusEnum",
+    "LabelSelection",
+    "LabelSelectionList",
     "LanguageEnum",
     "LastSyncResultEnum",
     "LinkToken",
@@ -301,8 +326,10 @@ __all__ = [
     "ModelPermissionDeserializerRequest",
     "MultipartFormFieldRequest",
     "MultipartFormFieldRequestEncoding",
+    "OperatorEnum",
     "PaginatedAccountDetailsAndActionsList",
     "PaginatedAuditLogEventList",
+    "PaginatedChatSyncSelectionList",
     "PaginatedConversationList",
     "PaginatedGroupList",
     "PaginatedIssueList",
@@ -323,6 +350,9 @@ __all__ = [
     "RequestFormatEnum",
     "ResponseTypeEnum",
     "RoleEnum",
+    "SelectiveSyncCondition",
+    "SelectiveSyncConditionList",
+    "SelectiveSyncConditionOperator",
     "SelectiveSyncConfigurationsUsageEnum",
     "StatusFd5Enum",
     "SyncStatus",

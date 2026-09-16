@@ -78,6 +78,9 @@ if typing.TYPE_CHECKING:
     from .issue import Issue
     from .issue_status import IssueStatus
     from .issue_status_enum import IssueStatusEnum
+    from .knowledge_base_sync_selection import KnowledgeBaseSyncSelection
+    from .knowledge_base_sync_selection_type import KnowledgeBaseSyncSelectionType
+    from .knowledge_base_sync_selection_type_enum import KnowledgeBaseSyncSelectionTypeEnum
     from .language_enum import LanguageEnum
     from .last_sync_result_enum import LastSyncResultEnum
     from .link_token import LinkToken
@@ -87,6 +90,7 @@ if typing.TYPE_CHECKING:
     from .model_permission_deserializer_request import ModelPermissionDeserializerRequest
     from .multipart_form_field_request import MultipartFormFieldRequest
     from .multipart_form_field_request_encoding import MultipartFormFieldRequestEncoding
+    from .operator_enum import OperatorEnum
     from .paginated_account_details_and_actions_list import PaginatedAccountDetailsAndActionsList
     from .paginated_article_list import PaginatedArticleList
     from .paginated_attachment_list import PaginatedAttachmentList
@@ -94,6 +98,7 @@ if typing.TYPE_CHECKING:
     from .paginated_container_list import PaginatedContainerList
     from .paginated_group_list import PaginatedGroupList
     from .paginated_issue_list import PaginatedIssueList
+    from .paginated_knowledge_base_sync_selection_list import PaginatedKnowledgeBaseSyncSelectionList
     from .paginated_sync_status_list import PaginatedSyncStatusList
     from .paginated_user_list import PaginatedUserList
     from .permission import Permission
@@ -116,6 +121,9 @@ if typing.TYPE_CHECKING:
     from .response_type_enum import ResponseTypeEnum
     from .role_enum import RoleEnum
     from .roles_enum import RolesEnum
+    from .selective_sync_condition import SelectiveSyncCondition
+    from .selective_sync_condition_list import SelectiveSyncConditionList
+    from .selective_sync_condition_operator import SelectiveSyncConditionOperator
     from .selective_sync_configurations_usage_enum import SelectiveSyncConfigurationsUsageEnum
     from .status_3_c_6_enum import Status3C6Enum
     from .status_fd_5_enum import StatusFd5Enum
@@ -201,6 +209,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Issue": ".issue",
     "IssueStatus": ".issue_status",
     "IssueStatusEnum": ".issue_status_enum",
+    "KnowledgeBaseSyncSelection": ".knowledge_base_sync_selection",
+    "KnowledgeBaseSyncSelectionType": ".knowledge_base_sync_selection_type",
+    "KnowledgeBaseSyncSelectionTypeEnum": ".knowledge_base_sync_selection_type_enum",
     "LanguageEnum": ".language_enum",
     "LastSyncResultEnum": ".last_sync_result_enum",
     "LinkToken": ".link_token",
@@ -210,6 +221,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ModelPermissionDeserializerRequest": ".model_permission_deserializer_request",
     "MultipartFormFieldRequest": ".multipart_form_field_request",
     "MultipartFormFieldRequestEncoding": ".multipart_form_field_request_encoding",
+    "OperatorEnum": ".operator_enum",
     "PaginatedAccountDetailsAndActionsList": ".paginated_account_details_and_actions_list",
     "PaginatedArticleList": ".paginated_article_list",
     "PaginatedAttachmentList": ".paginated_attachment_list",
@@ -217,6 +229,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PaginatedContainerList": ".paginated_container_list",
     "PaginatedGroupList": ".paginated_group_list",
     "PaginatedIssueList": ".paginated_issue_list",
+    "PaginatedKnowledgeBaseSyncSelectionList": ".paginated_knowledge_base_sync_selection_list",
     "PaginatedSyncStatusList": ".paginated_sync_status_list",
     "PaginatedUserList": ".paginated_user_list",
     "Permission": ".permission",
@@ -239,6 +252,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ResponseTypeEnum": ".response_type_enum",
     "RoleEnum": ".role_enum",
     "RolesEnum": ".roles_enum",
+    "SelectiveSyncCondition": ".selective_sync_condition",
+    "SelectiveSyncConditionList": ".selective_sync_condition_list",
+    "SelectiveSyncConditionOperator": ".selective_sync_condition_operator",
     "SelectiveSyncConfigurationsUsageEnum": ".selective_sync_configurations_usage_enum",
     "Status3C6Enum": ".status_3_c_6_enum",
     "StatusFd5Enum": ".status_fd_5_enum",
@@ -348,6 +364,9 @@ __all__ = [
     "Issue",
     "IssueStatus",
     "IssueStatusEnum",
+    "KnowledgeBaseSyncSelection",
+    "KnowledgeBaseSyncSelectionType",
+    "KnowledgeBaseSyncSelectionTypeEnum",
     "LanguageEnum",
     "LastSyncResultEnum",
     "LinkToken",
@@ -357,6 +376,7 @@ __all__ = [
     "ModelPermissionDeserializerRequest",
     "MultipartFormFieldRequest",
     "MultipartFormFieldRequestEncoding",
+    "OperatorEnum",
     "PaginatedAccountDetailsAndActionsList",
     "PaginatedArticleList",
     "PaginatedAttachmentList",
@@ -364,6 +384,7 @@ __all__ = [
     "PaginatedContainerList",
     "PaginatedGroupList",
     "PaginatedIssueList",
+    "PaginatedKnowledgeBaseSyncSelectionList",
     "PaginatedSyncStatusList",
     "PaginatedUserList",
     "Permission",
@@ -386,6 +407,9 @@ __all__ = [
     "ResponseTypeEnum",
     "RoleEnum",
     "RolesEnum",
+    "SelectiveSyncCondition",
+    "SelectiveSyncConditionList",
+    "SelectiveSyncConditionOperator",
     "SelectiveSyncConfigurationsUsageEnum",
     "Status3C6Enum",
     "StatusFd5Enum",

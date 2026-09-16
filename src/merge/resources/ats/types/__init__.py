@@ -140,6 +140,7 @@ if typing.TYPE_CHECKING:
     from .offer_status import OfferStatus
     from .offer_status_enum import OfferStatusEnum
     from .office import Office
+    from .operator_enum import OperatorEnum
     from .overall_recommendation_enum import OverallRecommendationEnum
     from .paginated_account_details_and_actions_list import PaginatedAccountDetailsAndActionsList
     from .paginated_activity_list import PaginatedActivityList
@@ -216,6 +217,9 @@ if typing.TYPE_CHECKING:
     from .screening_question_options_item import ScreeningQuestionOptionsItem
     from .screening_question_type import ScreeningQuestionType
     from .screening_question_type_enum import ScreeningQuestionTypeEnum
+    from .selective_sync_condition import SelectiveSyncCondition
+    from .selective_sync_condition_list import SelectiveSyncConditionList
+    from .selective_sync_condition_operator import SelectiveSyncConditionOperator
     from .selective_sync_configurations_usage_enum import SelectiveSyncConfigurationsUsageEnum
     from .status_fd_5_enum import StatusFd5Enum
     from .sync_status import SyncStatus
@@ -367,6 +371,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "OfferStatus": ".offer_status",
     "OfferStatusEnum": ".offer_status_enum",
     "Office": ".office",
+    "OperatorEnum": ".operator_enum",
     "OverallRecommendationEnum": ".overall_recommendation_enum",
     "PaginatedAccountDetailsAndActionsList": ".paginated_account_details_and_actions_list",
     "PaginatedActivityList": ".paginated_activity_list",
@@ -443,6 +448,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ScreeningQuestionOptionsItem": ".screening_question_options_item",
     "ScreeningQuestionType": ".screening_question_type",
     "ScreeningQuestionTypeEnum": ".screening_question_type_enum",
+    "SelectiveSyncCondition": ".selective_sync_condition",
+    "SelectiveSyncConditionList": ".selective_sync_condition_list",
+    "SelectiveSyncConditionOperator": ".selective_sync_condition_operator",
     "SelectiveSyncConfigurationsUsageEnum": ".selective_sync_configurations_usage_enum",
     "StatusFd5Enum": ".status_fd_5_enum",
     "SyncStatus": ".sync_status",
@@ -618,6 +626,7 @@ __all__ = [
     "OfferStatus",
     "OfferStatusEnum",
     "Office",
+    "OperatorEnum",
     "OverallRecommendationEnum",
     "PaginatedAccountDetailsAndActionsList",
     "PaginatedActivityList",
@@ -694,6 +703,9 @@ __all__ = [
     "ScreeningQuestionOptionsItem",
     "ScreeningQuestionType",
     "ScreeningQuestionTypeEnum",
+    "SelectiveSyncCondition",
+    "SelectiveSyncConditionList",
+    "SelectiveSyncConditionOperator",
     "SelectiveSyncConfigurationsUsageEnum",
     "StatusFd5Enum",
     "SyncStatus",

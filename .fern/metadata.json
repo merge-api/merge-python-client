@@ -12,5 +12,5 @@
       "use_pydantic_field_aliases": true
     }
   },
-  "sdkVersion": "4.1.0"
+  "sdkVersion": "4.2.0"
 }

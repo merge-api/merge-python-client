@@ -43,6 +43,7 @@ if typing.TYPE_CHECKING:
     from .resources.reject_reasons.client import AsyncRejectReasonsClient, RejectReasonsClient
     from .resources.scopes.client import AsyncScopesClient, ScopesClient
     from .resources.scorecards.client import AsyncScorecardsClient, ScorecardsClient
+    from .resources.selective_sync.client import AsyncSelectiveSyncClient, SelectiveSyncClient
     from .resources.sync_status.client import AsyncSyncStatusClient, SyncStatusClient
     from .resources.tags.client import AsyncTagsClient, TagsClient
     from .resources.users.client import AsyncUsersClient, UsersClient
@@ -83,6 +84,7 @@ class AtsClient:
         self._regenerate_key: typing.Optional[RegenerateKeyClient] = None
         self._reject_reasons: typing.Optional[RejectReasonsClient] = None
         self._scorecards: typing.Optional[ScorecardsClient] = None
+        self._selective_sync: typing.Optional[SelectiveSyncClient] = None
         self._sync_status: typing.Optional[SyncStatusClient] = None
         self._force_resync: typing.Optional[ForceResyncClient] = None
         self._tags: typing.Optional[TagsClient] = None
@@ -329,6 +331,14 @@ class AtsClient:
         return self._scorecards
 
     @property
+    def selective_sync(self):
+        if self._selective_sync is None:
+            from .resources.selective_sync.client import SelectiveSyncClient  # noqa: E402
+
+            self._selective_sync = SelectiveSyncClient(client_wrapper=self._client_wrapper)
+        return self._selective_sync
+
+    @property
     def sync_status(self):
         if self._sync_status is None:
             from .resources.sync_status.client import SyncStatusClient  # noqa: E402
@@ -401,6 +411,7 @@ class AsyncAtsClient:
         self._regenerate_key: typing.Optional[AsyncRegenerateKeyClient] = None
         self._reject_reasons: typing.Optional[AsyncRejectReasonsClient] = None
         self._scorecards: typing.Optional[AsyncScorecardsClient] = None
+        self._selective_sync: typing.Optional[AsyncSelectiveSyncClient] = None
         self._sync_status: typing.Optional[AsyncSyncStatusClient] = None
         self._force_resync: typing.Optional[AsyncForceResyncClient] = None
         self._tags: typing.Optional[AsyncTagsClient] = None
@@ -645,6 +656,14 @@ class AsyncAtsClient:
 
             self._scorecards = AsyncScorecardsClient(client_wrapper=self._client_wrapper)
         return self._scorecards
+
+    @property
+    def selective_sync(self):
+        if self._selective_sync is None:
+            from .resources.selective_sync.client import AsyncSelectiveSyncClient  # noqa: E402
+
+            self._selective_sync = AsyncSelectiveSyncClient(client_wrapper=self._client_wrapper)
+        return self._selective_sync
 
     @property
     def sync_status(self):

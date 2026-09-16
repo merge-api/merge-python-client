@@ -7740,6 +7740,70 @@ client.ats.scorecards.retrieve(
 </dl>
 </details>
 
+## Ats SelectiveSync
+<details><summary><code>client.ats.selective_sync.<a href="src/merge/ats/selective_sync/client.py">conditions_list</a>() -> SelectiveSyncConditionList</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `SelectiveSyncCondition` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+from merge.environment import MergeEnvironment
+
+client = Merge(
+    api_key="<token>",
+    environment=MergeEnvironment.PRODUCTION,
+)
+
+client.ats.selective_sync.conditions_list()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Ats SyncStatus
 <details><summary><code>client.ats.sync_status.<a href="src/merge/ats/sync_status/client.py">list</a>(...) -> PaginatedSyncStatusList</code></summary>
 <dl>
@@ -24507,6 +24571,70 @@ client.accounting.sales_orders.remote_field_classes_list(
 </dl>
 </details>
 
+## Accounting SelectiveSync
+<details><summary><code>client.accounting.selective_sync.<a href="src/merge/accounting/selective_sync/client.py">conditions_list</a>() -> SelectiveSyncConditionList</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `SelectiveSyncCondition` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+from merge.environment import MergeEnvironment
+
+client = Merge(
+    api_key="<token>",
+    environment=MergeEnvironment.PRODUCTION,
+)
+
+client.accounting.selective_sync.conditions_list()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Accounting SyncStatus
 <details><summary><code>client.accounting.sync_status.<a href="src/merge/accounting/sync_status/client.py">list</a>(...) -> PaginatedSyncStatusList</code></summary>
 <dl>
@@ -35188,6 +35316,70 @@ client.crm.regenerate_key.create(
 </dl>
 </details>
 
+## Crm SelectiveSync
+<details><summary><code>client.crm.selective_sync.<a href="src/merge/crm/selective_sync/client.py">conditions_list</a>() -> SelectiveSyncConditionList</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `SelectiveSyncCondition` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+from merge.environment import MergeEnvironment
+
+client = Merge(
+    api_key="<token>",
+    environment=MergeEnvironment.PRODUCTION,
+)
+
+client.crm.selective_sync.conditions_list()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Crm Stages
 <details><summary><code>client.crm.stages.<a href="src/merge/crm/stages/client.py">list</a>(...) -> PaginatedStageList</code></summary>
 <dl>
@@ -43409,6 +43601,70 @@ client.hris.regenerate_key.create(
 </dl>
 </details>
 
+## Hris SelectiveSync
+<details><summary><code>client.hris.selective_sync.<a href="src/merge/hris/selective_sync/client.py">conditions_list</a>() -> SelectiveSyncConditionList</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `SelectiveSyncCondition` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+from merge.environment import MergeEnvironment
+
+client = Merge(
+    api_key="<token>",
+    environment=MergeEnvironment.PRODUCTION,
+)
+
+client.hris.selective_sync.conditions_list()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Hris SyncStatus
 <details><summary><code>client.hris.sync_status.<a href="src/merge/hris/sync_status/client.py">list</a>(...) -> PaginatedSyncStatusList</code></summary>
 <dl>
@@ -50269,6 +50525,70 @@ client.ticketing.roles.retrieve(
 </dl>
 </details>
 
+## Ticketing SelectiveSync
+<details><summary><code>client.ticketing.selective_sync.<a href="src/merge/ticketing/selective_sync/client.py">conditions_list</a>() -> SelectiveSyncConditionList</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `SelectiveSyncCondition` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+from merge.environment import MergeEnvironment
+
+client = Merge(
+    api_key="<token>",
+    environment=MergeEnvironment.PRODUCTION,
+)
+
+client.ticketing.selective_sync.conditions_list()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Ticketing SyncStatus
 <details><summary><code>client.ticketing.sync_status.<a href="src/merge/ticketing/sync_status/client.py">list</a>(...) -> PaginatedSyncStatusList</code></summary>
 <dl>
@@ -56301,6 +56621,70 @@ client.calendar.regenerate_key.create(
 </dl>
 </details>
 
+## Calendar SelectiveSync
+<details><summary><code>client.calendar.selective_sync.<a href="src/merge/calendar/selective_sync/client.py">conditions_list</a>() -> SelectiveSyncConditionList</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `SelectiveSyncCondition` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+from merge.environment import MergeEnvironment
+
+client = Merge(
+    api_key="<token>",
+    environment=MergeEnvironment.PRODUCTION,
+)
+
+client.calendar.selective_sync.conditions_list()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Calendar Series
 <details><summary><code>client.calendar.series.<a href="src/merge/calendar/series/client.py">list</a>(...) -> PaginatedSeriesList</code></summary>
 <dl>
@@ -60590,6 +60974,215 @@ client.chat.regenerate_key.create(
 <dd>
 
 **name:** `str` — The name of the remote key
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Chat SelectiveSync
+<details><summary><code>client.chat.selective_sync.<a href="src/merge/chat/selective_sync/client.py">conditions_list</a>() -> SelectiveSyncConditionList</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `SelectiveSyncCondition` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+from merge.environment import MergeEnvironment
+
+client = Merge(
+    api_key="<token>",
+    environment=MergeEnvironment.PRODUCTION,
+)
+
+client.chat.selective_sync.conditions_list()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.chat.selective_sync.<a href="src/merge/chat/selective_sync/client.py">labels_list</a>() -> LabelSelectionList</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `LabelSelection` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+from merge.environment import MergeEnvironment
+
+client = Merge(
+    api_key="<token>",
+    environment=MergeEnvironment.PRODUCTION,
+)
+
+client.chat.selective_sync.labels_list()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.chat.selective_sync.<a href="src/merge/chat/selective_sync/client.py">selections_list</a>(...) -> PaginatedChatSyncSelectionList</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `ChatSyncSelection` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+from merge.environment import MergeEnvironment
+
+client = Merge(
+    api_key="<token>",
+    environment=MergeEnvironment.PRODUCTION,
+)
+
+client.chat.selective_sync.selections_list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+    page_size=1,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -64981,6 +65574,133 @@ client.email.regenerate_key.create(
     
 </dd>
 </dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Email SelectiveSync
+<details><summary><code>client.email.selective_sync.<a href="src/merge/email/selective_sync/client.py">conditions_list</a>() -> SelectiveSyncConditionList</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `SelectiveSyncCondition` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+from merge.environment import MergeEnvironment
+
+client = Merge(
+    api_key="<token>",
+    environment=MergeEnvironment.PRODUCTION,
+)
+
+client.email.selective_sync.conditions_list()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.email.selective_sync.<a href="src/merge/email/selective_sync/client.py">labels_list</a>() -> LabelSelectionList</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `LabelSelection` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+from merge.environment import MergeEnvironment
+
+client = Merge(
+    api_key="<token>",
+    environment=MergeEnvironment.PRODUCTION,
+)
+
+client.email.selective_sync.labels_list()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
 
 <dl>
 <dd>
@@ -69632,6 +70352,215 @@ client.filestorage.regenerate_key.create(
 </dl>
 </details>
 
+## Filestorage SelectiveSync
+<details><summary><code>client.filestorage.selective_sync.<a href="src/merge/filestorage/selective_sync/client.py">conditions_list</a>() -> SelectiveSyncConditionList</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `SelectiveSyncCondition` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+from merge.environment import MergeEnvironment
+
+client = Merge(
+    api_key="<token>",
+    environment=MergeEnvironment.PRODUCTION,
+)
+
+client.filestorage.selective_sync.conditions_list()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.filestorage.selective_sync.<a href="src/merge/filestorage/selective_sync/client.py">labels_list</a>() -> LabelSelectionList</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `LabelSelection` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+from merge.environment import MergeEnvironment
+
+client = Merge(
+    api_key="<token>",
+    environment=MergeEnvironment.PRODUCTION,
+)
+
+client.filestorage.selective_sync.labels_list()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.filestorage.selective_sync.<a href="src/merge/filestorage/selective_sync/client.py">selections_list</a>(...) -> PaginatedFileStorageSyncSelectionList</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `FileStorageSyncSelection` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+from merge.environment import MergeEnvironment
+
+client = Merge(
+    api_key="<token>",
+    environment=MergeEnvironment.PRODUCTION,
+)
+
+client.filestorage.selective_sync.selections_list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+    page_size=1,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Filestorage SyncStatus
 <details><summary><code>client.filestorage.sync_status.<a href="src/merge/filestorage/sync_status/client.py">list</a>(...) -> PaginatedSyncStatusList</code></summary>
 <dl>
@@ -73661,6 +74590,152 @@ client.knowledgebase.regenerate_key.create(
 <dd>
 
 **name:** `str` — The name of the remote key
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Knowledgebase SelectiveSync
+<details><summary><code>client.knowledgebase.selective_sync.<a href="src/merge/knowledgebase/selective_sync/client.py">conditions_list</a>() -> SelectiveSyncConditionList</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `SelectiveSyncCondition` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+from merge.environment import MergeEnvironment
+
+client = Merge(
+    api_key="<token>",
+    environment=MergeEnvironment.PRODUCTION,
+)
+
+client.knowledgebase.selective_sync.conditions_list()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.knowledgebase.selective_sync.<a href="src/merge/knowledgebase/selective_sync/client.py">selections_list</a>(...) -> PaginatedKnowledgeBaseSyncSelectionList</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `KnowledgeBaseSyncSelection` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+from merge.environment import MergeEnvironment
+
+client = Merge(
+    api_key="<token>",
+    environment=MergeEnvironment.PRODUCTION,
+)
+
+client.knowledgebase.selective_sync.selections_list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+    page_size=1,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>

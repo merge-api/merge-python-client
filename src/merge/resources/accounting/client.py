@@ -60,6 +60,7 @@ if typing.TYPE_CHECKING:
     from .resources.regenerate_key.client import AsyncRegenerateKeyClient, RegenerateKeyClient
     from .resources.sales_orders.client import AsyncSalesOrdersClient, SalesOrdersClient
     from .resources.scopes.client import AsyncScopesClient, ScopesClient
+    from .resources.selective_sync.client import AsyncSelectiveSyncClient, SelectiveSyncClient
     from .resources.sync_status.client import AsyncSyncStatusClient, SyncStatusClient
     from .resources.tax_rates.client import AsyncTaxRatesClient, TaxRatesClient
     from .resources.tracking_categories.client import AsyncTrackingCategoriesClient, TrackingCategoriesClient
@@ -116,6 +117,7 @@ class AccountingClient:
         self._purchase_orders: typing.Optional[PurchaseOrdersClient] = None
         self._regenerate_key: typing.Optional[RegenerateKeyClient] = None
         self._sales_orders: typing.Optional[SalesOrdersClient] = None
+        self._selective_sync: typing.Optional[SelectiveSyncClient] = None
         self._sync_status: typing.Optional[SyncStatusClient] = None
         self._force_resync: typing.Optional[ForceResyncClient] = None
         self._tax_rates: typing.Optional[TaxRatesClient] = None
@@ -476,6 +478,14 @@ class AccountingClient:
         return self._sales_orders
 
     @property
+    def selective_sync(self):
+        if self._selective_sync is None:
+            from .resources.selective_sync.client import SelectiveSyncClient  # noqa: E402
+
+            self._selective_sync = SelectiveSyncClient(client_wrapper=self._client_wrapper)
+        return self._selective_sync
+
+    @property
     def sync_status(self):
         if self._sync_status is None:
             from .resources.sync_status.client import SyncStatusClient  # noqa: E402
@@ -580,6 +590,7 @@ class AsyncAccountingClient:
         self._purchase_orders: typing.Optional[AsyncPurchaseOrdersClient] = None
         self._regenerate_key: typing.Optional[AsyncRegenerateKeyClient] = None
         self._sales_orders: typing.Optional[AsyncSalesOrdersClient] = None
+        self._selective_sync: typing.Optional[AsyncSelectiveSyncClient] = None
         self._sync_status: typing.Optional[AsyncSyncStatusClient] = None
         self._force_resync: typing.Optional[AsyncForceResyncClient] = None
         self._tax_rates: typing.Optional[AsyncTaxRatesClient] = None
@@ -940,6 +951,14 @@ class AsyncAccountingClient:
 
             self._sales_orders = AsyncSalesOrdersClient(client_wrapper=self._client_wrapper)
         return self._sales_orders
+
+    @property
+    def selective_sync(self):
+        if self._selective_sync is None:
+            from .resources.selective_sync.client import AsyncSelectiveSyncClient  # noqa: E402
+
+            self._selective_sync = AsyncSelectiveSyncClient(client_wrapper=self._client_wrapper)
+        return self._selective_sync
 
     @property
     def sync_status(self):

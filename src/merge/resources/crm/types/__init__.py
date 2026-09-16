@@ -146,6 +146,7 @@ if typing.TYPE_CHECKING:
     from .note_request_owner import NoteRequestOwner
     from .note_response import NoteResponse
     from .object_class_description_request import ObjectClassDescriptionRequest
+    from .operator_enum import OperatorEnum
     from .opportunity import Opportunity
     from .opportunity_account import OpportunityAccount
     from .opportunity_owner import OpportunityOwner
@@ -230,6 +231,9 @@ if typing.TYPE_CHECKING:
     from .request_format_enum import RequestFormatEnum
     from .response_type_enum import ResponseTypeEnum
     from .role_enum import RoleEnum
+    from .selective_sync_condition import SelectiveSyncCondition
+    from .selective_sync_condition_list import SelectiveSyncConditionList
+    from .selective_sync_condition_operator import SelectiveSyncConditionOperator
     from .selective_sync_configurations_usage_enum import SelectiveSyncConfigurationsUsageEnum
     from .stage import Stage
     from .status_fd_5_enum import StatusFd5Enum
@@ -393,6 +397,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "NoteRequestOwner": ".note_request_owner",
     "NoteResponse": ".note_response",
     "ObjectClassDescriptionRequest": ".object_class_description_request",
+    "OperatorEnum": ".operator_enum",
     "Opportunity": ".opportunity",
     "OpportunityAccount": ".opportunity_account",
     "OpportunityOwner": ".opportunity_owner",
@@ -475,6 +480,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RequestFormatEnum": ".request_format_enum",
     "ResponseTypeEnum": ".response_type_enum",
     "RoleEnum": ".role_enum",
+    "SelectiveSyncCondition": ".selective_sync_condition",
+    "SelectiveSyncConditionList": ".selective_sync_condition_list",
+    "SelectiveSyncConditionOperator": ".selective_sync_condition_operator",
     "SelectiveSyncConfigurationsUsageEnum": ".selective_sync_configurations_usage_enum",
     "Stage": ".stage",
     "StatusFd5Enum": ".status_fd_5_enum",
@@ -662,6 +670,7 @@ __all__ = [
     "NoteRequestOwner",
     "NoteResponse",
     "ObjectClassDescriptionRequest",
+    "OperatorEnum",
     "Opportunity",
     "OpportunityAccount",
     "OpportunityOwner",
@@ -744,6 +753,9 @@ __all__ = [
     "RequestFormatEnum",
     "ResponseTypeEnum",
     "RoleEnum",
+    "SelectiveSyncCondition",
+    "SelectiveSyncConditionList",
+    "SelectiveSyncConditionOperator",
     "SelectiveSyncConfigurationsUsageEnum",
     "Stage",
     "StatusFd5Enum",
