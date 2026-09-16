@@ -131,6 +131,7 @@ if typing.TYPE_CHECKING:
     from .model_permission_deserializer_request import ModelPermissionDeserializerRequest
     from .multipart_form_field_request import MultipartFormFieldRequest
     from .multipart_form_field_request_encoding import MultipartFormFieldRequestEncoding
+    from .operator_enum import OperatorEnum
     from .paginated_account_details_and_actions_list import PaginatedAccountDetailsAndActionsList
     from .paginated_audit_log_event_list import PaginatedAuditLogEventList
     from .paginated_bank_info_list import PaginatedBankInfoList
@@ -176,6 +177,9 @@ if typing.TYPE_CHECKING:
     from .role_enum import RoleEnum
     from .run_state_enum import RunStateEnum
     from .run_type_enum import RunTypeEnum
+    from .selective_sync_condition import SelectiveSyncCondition
+    from .selective_sync_condition_list import SelectiveSyncConditionList
+    from .selective_sync_condition_operator import SelectiveSyncConditionOperator
     from .selective_sync_configurations_usage_enum import SelectiveSyncConfigurationsUsageEnum
     from .status_fd_5_enum import StatusFd5Enum
     from .sync_status import SyncStatus
@@ -336,6 +340,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ModelPermissionDeserializerRequest": ".model_permission_deserializer_request",
     "MultipartFormFieldRequest": ".multipart_form_field_request",
     "MultipartFormFieldRequestEncoding": ".multipart_form_field_request_encoding",
+    "OperatorEnum": ".operator_enum",
     "PaginatedAccountDetailsAndActionsList": ".paginated_account_details_and_actions_list",
     "PaginatedAuditLogEventList": ".paginated_audit_log_event_list",
     "PaginatedBankInfoList": ".paginated_bank_info_list",
@@ -381,6 +386,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RoleEnum": ".role_enum",
     "RunStateEnum": ".run_state_enum",
     "RunTypeEnum": ".run_type_enum",
+    "SelectiveSyncCondition": ".selective_sync_condition",
+    "SelectiveSyncConditionList": ".selective_sync_condition_list",
+    "SelectiveSyncConditionOperator": ".selective_sync_condition_operator",
     "SelectiveSyncConfigurationsUsageEnum": ".selective_sync_configurations_usage_enum",
     "StatusFd5Enum": ".status_fd_5_enum",
     "SyncStatus": ".sync_status",
@@ -565,6 +573,7 @@ __all__ = [
     "ModelPermissionDeserializerRequest",
     "MultipartFormFieldRequest",
     "MultipartFormFieldRequestEncoding",
+    "OperatorEnum",
     "PaginatedAccountDetailsAndActionsList",
     "PaginatedAuditLogEventList",
     "PaginatedBankInfoList",
@@ -610,6 +619,9 @@ __all__ = [
     "RoleEnum",
     "RunStateEnum",
     "RunTypeEnum",
+    "SelectiveSyncCondition",
+    "SelectiveSyncConditionList",
+    "SelectiveSyncConditionOperator",
     "SelectiveSyncConfigurationsUsageEnum",
     "StatusFd5Enum",
     "SyncStatus",

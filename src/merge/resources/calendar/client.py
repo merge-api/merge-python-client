@@ -32,6 +32,7 @@ if typing.TYPE_CHECKING:
     from .resources.passthrough.client import PassthroughClient
     from .resources.regenerate_key.client import AsyncRegenerateKeyClient, RegenerateKeyClient
     from .resources.scopes.client import AsyncScopesClient, ScopesClient
+    from .resources.selective_sync.client import AsyncSelectiveSyncClient, SelectiveSyncClient
     from .resources.series.client import AsyncSeriesClient, SeriesClient
     from .resources.sync_status.client import AsyncSyncStatusClient, SyncStatusClient
     from .resources.users.client import AsyncUsersClient, UsersClient
@@ -61,6 +62,7 @@ class CalendarClient:
         self._linked_accounts: typing.Optional[LinkedAccountsClient] = None
         self._passthrough: typing.Optional[PassthroughClient] = None
         self._regenerate_key: typing.Optional[RegenerateKeyClient] = None
+        self._selective_sync: typing.Optional[SelectiveSyncClient] = None
         self._series: typing.Optional[SeriesClient] = None
         self._sync_status: typing.Optional[SyncStatusClient] = None
         self._force_resync: typing.Optional[ForceResyncClient] = None
@@ -219,6 +221,14 @@ class CalendarClient:
         return self._regenerate_key
 
     @property
+    def selective_sync(self):
+        if self._selective_sync is None:
+            from .resources.selective_sync.client import SelectiveSyncClient  # noqa: E402
+
+            self._selective_sync = SelectiveSyncClient(client_wrapper=self._client_wrapper)
+        return self._selective_sync
+
+    @property
     def series(self):
         if self._series is None:
             from .resources.series.client import SeriesClient  # noqa: E402
@@ -282,6 +292,7 @@ class AsyncCalendarClient:
             None
         )
         self._regenerate_key: typing.Optional[AsyncRegenerateKeyClient] = None
+        self._selective_sync: typing.Optional[AsyncSelectiveSyncClient] = None
         self._series: typing.Optional[AsyncSeriesClient] = None
         self._sync_status: typing.Optional[AsyncSyncStatusClient] = None
         self._force_resync: typing.Optional[AsyncForceResyncClient] = None
@@ -438,6 +449,14 @@ class AsyncCalendarClient:
 
             self._regenerate_key = AsyncRegenerateKeyClient(client_wrapper=self._client_wrapper)
         return self._regenerate_key
+
+    @property
+    def selective_sync(self):
+        if self._selective_sync is None:
+            from .resources.selective_sync.client import AsyncSelectiveSyncClient  # noqa: E402
+
+            self._selective_sync = AsyncSelectiveSyncClient(client_wrapper=self._client_wrapper)
+        return self._selective_sync
 
     @property
     def series(self):

@@ -40,6 +40,7 @@ if typing.TYPE_CHECKING:
     from .resources.passthrough.client import PassthroughClient
     from .resources.regenerate_key.client import AsyncRegenerateKeyClient, RegenerateKeyClient
     from .resources.scopes.client import AsyncScopesClient, ScopesClient
+    from .resources.selective_sync.client import AsyncSelectiveSyncClient, SelectiveSyncClient
     from .resources.stages.client import AsyncStagesClient, StagesClient
     from .resources.sync_status.client import AsyncSyncStatusClient, SyncStatusClient
     from .resources.tasks.client import AsyncTasksClient, TasksClient
@@ -78,6 +79,7 @@ class CrmClient:
         self._opportunities: typing.Optional[OpportunitiesClient] = None
         self._passthrough: typing.Optional[PassthroughClient] = None
         self._regenerate_key: typing.Optional[RegenerateKeyClient] = None
+        self._selective_sync: typing.Optional[SelectiveSyncClient] = None
         self._stages: typing.Optional[StagesClient] = None
         self._sync_status: typing.Optional[SyncStatusClient] = None
         self._force_resync: typing.Optional[ForceResyncClient] = None
@@ -301,6 +303,14 @@ class CrmClient:
         return self._regenerate_key
 
     @property
+    def selective_sync(self):
+        if self._selective_sync is None:
+            from .resources.selective_sync.client import SelectiveSyncClient  # noqa: E402
+
+            self._selective_sync = SelectiveSyncClient(client_wrapper=self._client_wrapper)
+        return self._selective_sync
+
+    @property
     def stages(self):
         if self._stages is None:
             from .resources.stages.client import StagesClient  # noqa: E402
@@ -378,6 +388,7 @@ class AsyncCrmClient:
         self._opportunities: typing.Optional[AsyncOpportunitiesClient] = None
         self._passthrough: typing.Optional[resources_crm_resources_passthrough_client_AsyncPassthroughClient] = None
         self._regenerate_key: typing.Optional[AsyncRegenerateKeyClient] = None
+        self._selective_sync: typing.Optional[AsyncSelectiveSyncClient] = None
         self._stages: typing.Optional[AsyncStagesClient] = None
         self._sync_status: typing.Optional[AsyncSyncStatusClient] = None
         self._force_resync: typing.Optional[AsyncForceResyncClient] = None
@@ -599,6 +610,14 @@ class AsyncCrmClient:
 
             self._regenerate_key = AsyncRegenerateKeyClient(client_wrapper=self._client_wrapper)
         return self._regenerate_key
+
+    @property
+    def selective_sync(self):
+        if self._selective_sync is None:
+            from .resources.selective_sync.client import AsyncSelectiveSyncClient  # noqa: E402
+
+            self._selective_sync = AsyncSelectiveSyncClient(client_wrapper=self._client_wrapper)
+        return self._selective_sync
 
     @property
     def stages(self):

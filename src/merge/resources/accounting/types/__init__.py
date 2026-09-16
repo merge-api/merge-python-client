@@ -409,6 +409,7 @@ if typing.TYPE_CHECKING:
     from .model_permission_deserializer_request import ModelPermissionDeserializerRequest
     from .multipart_form_field_request import MultipartFormFieldRequest
     from .multipart_form_field_request_encoding import MultipartFormFieldRequestEncoding
+    from .operator_enum import OperatorEnum
     from .paginated_account_details_and_actions_list import PaginatedAccountDetailsAndActionsList
     from .paginated_account_list import PaginatedAccountList
     from .paginated_accounting_attachment_list import PaginatedAccountingAttachmentList
@@ -580,6 +581,9 @@ if typing.TYPE_CHECKING:
     from .sales_order_status import SalesOrderStatus
     from .sales_order_status_enum import SalesOrderStatusEnum
     from .sales_order_tracking_categories_item import SalesOrderTrackingCategoriesItem
+    from .selective_sync_condition import SelectiveSyncCondition
+    from .selective_sync_condition_list import SelectiveSyncConditionList
+    from .selective_sync_condition_operator import SelectiveSyncConditionOperator
     from .selective_sync_configurations_usage_enum import SelectiveSyncConfigurationsUsageEnum
     from .status_7_d_1_enum import Status7D1Enum
     from .status_895_enum import Status895Enum
@@ -1040,6 +1044,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ModelPermissionDeserializerRequest": ".model_permission_deserializer_request",
     "MultipartFormFieldRequest": ".multipart_form_field_request",
     "MultipartFormFieldRequestEncoding": ".multipart_form_field_request_encoding",
+    "OperatorEnum": ".operator_enum",
     "PaginatedAccountDetailsAndActionsList": ".paginated_account_details_and_actions_list",
     "PaginatedAccountList": ".paginated_account_list",
     "PaginatedAccountingAttachmentList": ".paginated_accounting_attachment_list",
@@ -1211,6 +1216,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "SalesOrderStatus": ".sales_order_status",
     "SalesOrderStatusEnum": ".sales_order_status_enum",
     "SalesOrderTrackingCategoriesItem": ".sales_order_tracking_categories_item",
+    "SelectiveSyncCondition": ".selective_sync_condition",
+    "SelectiveSyncConditionList": ".selective_sync_condition_list",
+    "SelectiveSyncConditionOperator": ".selective_sync_condition_operator",
     "SelectiveSyncConfigurationsUsageEnum": ".selective_sync_configurations_usage_enum",
     "Status7D1Enum": ".status_7_d_1_enum",
     "Status895Enum": ".status_895_enum",
@@ -1693,6 +1701,7 @@ __all__ = [
     "ModelPermissionDeserializerRequest",
     "MultipartFormFieldRequest",
     "MultipartFormFieldRequestEncoding",
+    "OperatorEnum",
     "PaginatedAccountDetailsAndActionsList",
     "PaginatedAccountList",
     "PaginatedAccountingAttachmentList",
@@ -1864,6 +1873,9 @@ __all__ = [
     "SalesOrderStatus",
     "SalesOrderStatusEnum",
     "SalesOrderTrackingCategoriesItem",
+    "SelectiveSyncCondition",
+    "SelectiveSyncConditionList",
+    "SelectiveSyncConditionOperator",
     "SelectiveSyncConfigurationsUsageEnum",
     "Status7D1Enum",
     "Status895Enum",

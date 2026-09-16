@@ -58,6 +58,9 @@ if typing.TYPE_CHECKING:
     from .file_request_permissions_item import FileRequestPermissionsItem
     from .file_storage_file_response import FileStorageFileResponse
     from .file_storage_folder_response import FileStorageFolderResponse
+    from .file_storage_sync_selection import FileStorageSyncSelection
+    from .file_storage_sync_selection_type import FileStorageSyncSelectionType
+    from .file_storage_sync_selection_type_enum import FileStorageSyncSelectionTypeEnum
     from .folder import Folder
     from .folder_drive import FolderDrive
     from .folder_parent_folder import FolderParentFolder
@@ -76,6 +79,8 @@ if typing.TYPE_CHECKING:
     from .issue import Issue
     from .issue_status import IssueStatus
     from .issue_status_enum import IssueStatusEnum
+    from .label_selection import LabelSelection
+    from .label_selection_list import LabelSelectionList
     from .language_enum import LanguageEnum
     from .last_sync_result_enum import LastSyncResultEnum
     from .link_token import LinkToken
@@ -87,11 +92,13 @@ if typing.TYPE_CHECKING:
     from .model_permission_deserializer_request import ModelPermissionDeserializerRequest
     from .multipart_form_field_request import MultipartFormFieldRequest
     from .multipart_form_field_request_encoding import MultipartFormFieldRequestEncoding
+    from .operator_enum import OperatorEnum
     from .paginated_account_details_and_actions_list import PaginatedAccountDetailsAndActionsList
     from .paginated_audit_log_event_list import PaginatedAuditLogEventList
     from .paginated_download_request_meta_list import PaginatedDownloadRequestMetaList
     from .paginated_drive_list import PaginatedDriveList
     from .paginated_file_list import PaginatedFileList
+    from .paginated_file_storage_sync_selection_list import PaginatedFileStorageSyncSelectionList
     from .paginated_folder_list import PaginatedFolderList
     from .paginated_group_list import PaginatedGroupList
     from .paginated_issue_list import PaginatedIssueList
@@ -120,6 +127,9 @@ if typing.TYPE_CHECKING:
     from .response_type_enum import ResponseTypeEnum
     from .role_enum import RoleEnum
     from .roles_enum import RolesEnum
+    from .selective_sync_condition import SelectiveSyncCondition
+    from .selective_sync_condition_list import SelectiveSyncConditionList
+    from .selective_sync_condition_operator import SelectiveSyncConditionOperator
     from .selective_sync_configurations_usage_enum import SelectiveSyncConfigurationsUsageEnum
     from .status_fd_5_enum import StatusFd5Enum
     from .sync_status import SyncStatus
@@ -183,6 +193,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "FileRequestPermissionsItem": ".file_request_permissions_item",
     "FileStorageFileResponse": ".file_storage_file_response",
     "FileStorageFolderResponse": ".file_storage_folder_response",
+    "FileStorageSyncSelection": ".file_storage_sync_selection",
+    "FileStorageSyncSelectionType": ".file_storage_sync_selection_type",
+    "FileStorageSyncSelectionTypeEnum": ".file_storage_sync_selection_type_enum",
     "Folder": ".folder",
     "FolderDrive": ".folder_drive",
     "FolderParentFolder": ".folder_parent_folder",
@@ -201,6 +214,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Issue": ".issue",
     "IssueStatus": ".issue_status",
     "IssueStatusEnum": ".issue_status_enum",
+    "LabelSelection": ".label_selection",
+    "LabelSelectionList": ".label_selection_list",
     "LanguageEnum": ".language_enum",
     "LastSyncResultEnum": ".last_sync_result_enum",
     "LinkToken": ".link_token",
@@ -212,11 +227,13 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ModelPermissionDeserializerRequest": ".model_permission_deserializer_request",
     "MultipartFormFieldRequest": ".multipart_form_field_request",
     "MultipartFormFieldRequestEncoding": ".multipart_form_field_request_encoding",
+    "OperatorEnum": ".operator_enum",
     "PaginatedAccountDetailsAndActionsList": ".paginated_account_details_and_actions_list",
     "PaginatedAuditLogEventList": ".paginated_audit_log_event_list",
     "PaginatedDownloadRequestMetaList": ".paginated_download_request_meta_list",
     "PaginatedDriveList": ".paginated_drive_list",
     "PaginatedFileList": ".paginated_file_list",
+    "PaginatedFileStorageSyncSelectionList": ".paginated_file_storage_sync_selection_list",
     "PaginatedFolderList": ".paginated_folder_list",
     "PaginatedGroupList": ".paginated_group_list",
     "PaginatedIssueList": ".paginated_issue_list",
@@ -245,6 +262,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ResponseTypeEnum": ".response_type_enum",
     "RoleEnum": ".role_enum",
     "RolesEnum": ".roles_enum",
+    "SelectiveSyncCondition": ".selective_sync_condition",
+    "SelectiveSyncConditionList": ".selective_sync_condition_list",
+    "SelectiveSyncConditionOperator": ".selective_sync_condition_operator",
     "SelectiveSyncConfigurationsUsageEnum": ".selective_sync_configurations_usage_enum",
     "StatusFd5Enum": ".status_fd_5_enum",
     "SyncStatus": ".sync_status",
@@ -332,6 +352,9 @@ __all__ = [
     "FileRequestPermissionsItem",
     "FileStorageFileResponse",
     "FileStorageFolderResponse",
+    "FileStorageSyncSelection",
+    "FileStorageSyncSelectionType",
+    "FileStorageSyncSelectionTypeEnum",
     "Folder",
     "FolderDrive",
     "FolderParentFolder",
@@ -350,6 +373,8 @@ __all__ = [
     "Issue",
     "IssueStatus",
     "IssueStatusEnum",
+    "LabelSelection",
+    "LabelSelectionList",
     "LanguageEnum",
     "LastSyncResultEnum",
     "LinkToken",
@@ -361,11 +386,13 @@ __all__ = [
     "ModelPermissionDeserializerRequest",
     "MultipartFormFieldRequest",
     "MultipartFormFieldRequestEncoding",
+    "OperatorEnum",
     "PaginatedAccountDetailsAndActionsList",
     "PaginatedAuditLogEventList",
     "PaginatedDownloadRequestMetaList",
     "PaginatedDriveList",
     "PaginatedFileList",
+    "PaginatedFileStorageSyncSelectionList",
     "PaginatedFolderList",
     "PaginatedGroupList",
     "PaginatedIssueList",
@@ -394,6 +421,9 @@ __all__ = [
     "ResponseTypeEnum",
     "RoleEnum",
     "RolesEnum",
+    "SelectiveSyncCondition",
+    "SelectiveSyncConditionList",
+    "SelectiveSyncConditionOperator",
     "SelectiveSyncConfigurationsUsageEnum",
     "StatusFd5Enum",
     "SyncStatus",
