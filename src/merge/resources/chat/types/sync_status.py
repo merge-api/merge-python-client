@@ -29,6 +29,11 @@ class SyncStatus(UncheckedBaseModel):
     last_sync_result: typing.Optional[SyncStatusLastSyncResult] = None
     last_sync_finished: typing.Optional[dt.datetime] = None
     data_fresh_as_of: typing.Optional[dt.datetime] = None
+    historical_data_since: typing.Optional[dt.datetime] = pydantic.Field(default=None)
+    """
+    The earliest point this model has complete historical data for, based on each record's modified date in the third-party platform. Records modified before this time have not been fully synced. A model synced over its full history reaches back to 1900-01-01, unless there's a selective sync filter. Null until the first sync completes.
+    """
+
     status: SyncStatusStatus
     sync_status_reason: typing.Optional[SyncStatusSyncStatusReason] = pydantic.Field(default=None)
     """
